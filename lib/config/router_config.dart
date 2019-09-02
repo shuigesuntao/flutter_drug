@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_drug/ui/page/add_patient_page.dart';
+import 'package:flutter_drug/ui/page/prescription/prescription_sample_page.dart';
+import 'package:flutter_drug/ui/page/prescription/take_prescription_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
 import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
@@ -14,6 +17,9 @@ import 'package:flutter_drug/ui/widget/page_route_anim.dart';
 class RouteName {
   static const String splash = 'splash';
   static const String tab = '/';
+  static const String addPatient = 'addPatient';
+  static const String takePrescription = 'takePrescription';
+  static const String prescriptionSample = 'prescriptionSample';
   static const String test = 'test';
   static const String homeSecondFloor = 'homeSecondFloor';
   static const String login = 'login';
@@ -37,6 +43,12 @@ class Router {
         return NoAnimRouteBuilder(SplashPage());
       case RouteName.tab:
         return NoAnimRouteBuilder(TabNavigator());
+      case RouteName.addPatient:
+        return CupertinoPageRoute(builder: (_) => AddPatientPage());
+      case RouteName.takePrescription:
+        return CupertinoPageRoute(builder: (_) => TakePrescriptionPage());
+      case RouteName.prescriptionSample:
+        return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.test:
         return NoAnimRouteBuilder(TestPage());
 //      case RouteName.homeSecondFloor:

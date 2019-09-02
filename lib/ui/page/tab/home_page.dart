@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage>
                                           '添加患者',
                                           'ic_yqhz.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.addPatient),
                                         ),
                                         HomeItemWidget(
                                           '在线开方',
@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage>
                                           '拍方上传',
                                           'ic_pfsc.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.takePrescription),
                                         ),
                                         HomeItemWidget(
                                           '审方消息',
