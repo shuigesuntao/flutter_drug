@@ -36,6 +36,8 @@ dependencies:
   dio: ^2.1.13
   shared_preferences: ^0.5.2+2
   url_launcher: ^5.1.2
+  # WebView iOS添加键值对 o.flutter.embedded_views_preview = YES
+  webview_flutter: ^0.3.13
 dev_dependencies:
   flutter_test:
     sdk: flutter

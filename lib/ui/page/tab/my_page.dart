@@ -115,7 +115,7 @@ class UserListWidget extends StatelessWidget {
           ),
           MeCell('我的账户', 'ic_zhanghu.png', RouteName.myAccount),
           MeCell('资质认证', 'ic_zizhi.png', RouteName.myAccount),
-          MeCell('煎法管理', 'ic_jianfa.png', RouteName.myAccount),
+          MeCell('煎法管理', 'ic_jianfa.png', RouteName.decoct),
           MeCell('地址管理', 'ic_dizhi.png', RouteName.myAccount),
           MeCell('我的执业保障', 'ic_baozhang.png', RouteName.myAccount),
           MeCell('意见反馈', 'ic_fankui.png', RouteName.myAccount),

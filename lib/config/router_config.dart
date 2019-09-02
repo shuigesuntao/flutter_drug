@@ -4,6 +4,9 @@ import 'package:flutter_drug/ui/page/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
 import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
 import 'package:flutter_drug/ui/page/test.dart';
+import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
+import 'package:flutter_drug/ui/page/user/my_account_page.dart';
+import 'package:flutter_drug/ui/page/user/packet_rule_page.dart';
 import 'package:flutter_drug/ui/page/user/user_info_page.dart';
 import 'package:flutter_drug/ui/widget/page_route_anim.dart';
 
@@ -16,7 +19,9 @@ class RouteName {
   static const String login = 'login';
   static const String register = 'register';
   static const String myAccount = 'myAccount';
+  static const String packetRule = 'packetRule';
   static const String userInfo = 'userInfo';
+  static const String decoct = 'decoct';
   static const String articleDetail = 'articleDetail';
   static const String structureList = 'structureList';
   static const String favouriteList = 'favouriteList';
@@ -60,8 +65,12 @@ class Router {
 //        int index = list[1];
 //        return CupertinoPageRoute(
 //            builder: (_) => ArticleCategoryTabPage(tree, index));
-//      case RouteName.favouriteList:
-//        return CupertinoPageRoute(builder: (_) => FavouriteListPage());
+      case RouteName.packetRule:
+        return CupertinoPageRoute(builder: (_) => PacketRulePage(url: settings.arguments as String));
+      case RouteName.myAccount:
+        return CupertinoPageRoute(builder: (_) => MyAccountPage());
+      case RouteName.decoct:
+        return CupertinoPageRoute(builder: (_) => DecoctManagePage());
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
       case RouteName.userInfo:
