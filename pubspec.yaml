@@ -29,7 +29,7 @@ dependencies:
   provider: ^3.0.0+1
   # UI
   oktoast: ^2.1.7
-  pull_to_refresh: ^1.5.4
+  flutter_easyrefresh: ^2.0.4
   flutter_swiper: ^1.1.6
   cached_network_image: ^1.1.1
   # Data
@@ -39,6 +39,8 @@ dependencies:
   # WebView iOS添加键值对 o.flutter.embedded_views_preview = YES
   webview_flutter: ^0.3.13
   qr_flutter: ^3.0.1
+  azlistview: ^0.1.2
+  lpinyin: ^1.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

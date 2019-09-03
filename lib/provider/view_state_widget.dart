@@ -56,33 +56,30 @@ class ViewStateWidget extends StatelessWidget {
 class ViewStateEmptyWidget extends StatelessWidget {
   final String message;
   final Widget image;
-  final Widget buttonText;
-  final VoidCallback onPressed;
 
   const ViewStateEmptyWidget(
       {Key key,
       this.image,
-      this.message,
-      this.buttonText,
-      @required this.onPressed})
+      this.message})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewStateWidget(
-      onPressed: this.onPressed,
-      image: image ??
-          const Icon(
-            IconFonts.pageEmpty,
-            size: 100,
-            color: Colors.grey,
-          ),
-      message: message ?? '空空如也',
-      buttonText: buttonText ??
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          image ?? Image.asset(ImageHelper.wrapAssets('lb_null.png')),
           Text(
-            '刷新一下',
-            style: TextStyle(letterSpacing: 5),
+            message ?? '暂无数据!',
+            style: Theme.of(context)
+              .textTheme
+              .body1
+              .copyWith(color: Colors.grey),
           ),
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'config/router_config.dart';
 
@@ -11,19 +10,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      child:RefreshConfiguration(
-        hideFooterWhenNotFull: true,//列表数据不满一页,不触发加载更多
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primaryColor: Color(0xFF25bbaf),
-            scaffoldBackgroundColor: Color(0xFFF2F2F2),
-            primaryIconTheme: IconThemeData(color: Colors.white)
-          ),
-          onGenerateRoute: Router.generateRoute,
-          initialRoute: RouteName.splash,
-        )
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primaryColor: Color(0xFF25bbaf),
+          scaffoldBackgroundColor: Color(0xFFF2F2F2),
+          primaryIconTheme: IconThemeData(color: Colors.white)
+        ),
+        onGenerateRoute: Router.generateRoute,
+        initialRoute: RouteName.splash,
       )
     );
   }

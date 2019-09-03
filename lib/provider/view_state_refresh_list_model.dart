@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 
 import 'view_state_list_model.dart';
@@ -12,10 +12,9 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
   /// 分页条目数量
   static const int pageSize = 20;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  EasyRefreshController _refreshController = EasyRefreshController();
 
-  RefreshController get refreshController => _refreshController;
+  EasyRefreshController get refreshController => _refreshController;
 
   /// 当前页码
   int _currentPageNum = pageNumFirst;
@@ -27,16 +26,11 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
       var data = await loadData(pageNum: pageNumFirst);
       if (data.isEmpty) {
         setEmpty();
+        _finishRefresh();
       } else {
         list.clear();
         list.addAll(data);
-        refreshController.refreshCompleted();
-        if (data.length < pageSize) {
-          refreshController.loadNoData();
-        } else {
-          //防止上次上拉加载更多失败,需要重置状态
-          refreshController.loadComplete();
-        }
+        _finishRefresh();
         if (init) {
           //改变页面状态为非加载中
           setBusy(false);
@@ -57,20 +51,20 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
       var data = await loadData(pageNum: ++_currentPageNum);
       if (data.isEmpty) {
         _currentPageNum--;
-        refreshController.loadNoData();
+        refreshController.finishLoad(noMore: true);
       } else {
         list.addAll(data);
         if (data.length < pageSize) {
-          refreshController.loadNoData();
+          refreshController.finishLoad(noMore: true);
         } else {
-          refreshController.loadComplete();
+          refreshController.finishLoad(noMore: false);
         }
         notifyListeners();
       }
       return data;
     } catch (e, s) {
       _currentPageNum--;
-      refreshController.loadFailed();
+      refreshController.finishLoad(success:false);
       debugPrint('error--->\n' + e.toString());
       debugPrint('statck--->\n' + s.toString());
       return null;
@@ -84,5 +78,10 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
   void dispose() {
     _refreshController.dispose();
     super.dispose();
+  }
+
+  void _finishRefresh() {
+    refreshController.resetLoadState();
+    refreshController.finishRefresh();
   }
 }

@@ -135,37 +135,38 @@ class MeCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RawMaterialButton(
-      fillColor: Colors.white,
-      elevation: 0,
-      onPressed: () => Navigator.of(context).pushNamed(routeName),
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 60,
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: <Widget>[
-                  Image.asset(
-                    ImageHelper.wrapAssets(image),
-                    width: 20,
-                    height: 20,
-                  ),
-                  SizedBox(width: 20),
-                  Expanded(child: Text(title, style: TextStyle(fontSize: 18))),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey.shade400,
-                  ),
-                ],
+    return Material(
+      color: Colors.white,
+      child: InkWell(
+        onTap: () => Navigator.of(context).pushNamed(routeName),
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 60,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: <Widget>[
+                    Image.asset(
+                      ImageHelper.wrapAssets(image),
+                      width: 20,
+                      height: 20,
+                    ),
+                    SizedBox(width: 20),
+                    Expanded(child: Text(title, style: TextStyle(fontSize: 18))),
+                    Icon(
+                      Icons.chevron_right,
+                      color: Colors.grey.shade400,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Divider(
-              height: 1,
-              indent: 60,
-            ),
-          ],
+              Divider(
+                height: 1,
+                indent: 60,
+              ),
+            ],
+          ),
         ),
       ),
     );

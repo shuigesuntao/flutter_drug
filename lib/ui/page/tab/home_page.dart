@@ -6,9 +6,9 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/banner_image.dart';
 import 'package:flutter_drug/view_model/home_model.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -87,13 +87,10 @@ class _HomePageState extends State<HomePage>
                   if (homeModel.error) {
                     return ViewStateWidget(onPressed: homeModel.initData);
                   }
-                  return SmartRefresher(
+                  return EasyRefresh(
                     controller: homeModel.refreshController,
-                    header: ClassicHeader(),
-                    footer: ClassicFooter(),
                     onRefresh: homeModel.refresh,
-                    onLoading: homeModel.loadMore,
-                    enablePullUp: true,
+                    enableControlFinishRefresh: true,
                     child: Padding(
                       padding: EdgeInsets.all(15),
                       child: Column(

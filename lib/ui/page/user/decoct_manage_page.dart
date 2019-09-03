@@ -1,10 +1,11 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_drug/model/decoct_method.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
+import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/view_model/decoct_model.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:provider/provider.dart';
 
 class DecoctManagePage extends StatelessWidget{
   @override
@@ -40,28 +41,25 @@ class DecoctManagePage extends StatelessWidget{
           body: MediaQuery.removePadding(
             context: context,
             removeTop: false,
-            child: Builder(builder: (_) {
-              return SmartRefresher(
-                controller: decoctModel.refreshController,
-                header: ClassicHeader(),
-                footer: ClassicFooter(),
-                onRefresh: decoctModel.refresh,
-                onLoading: decoctModel.loadMore,
-                enablePullUp: true,
-                child: ListView.separated(
-
-                  itemCount: decoctModel.decoctMethods.length,
-                  itemBuilder: (context, index){
-                    return ListTile(
-                      title: Text(
-                        decoctModel.decoctMethods[index].name,
-                        style: TextStyle(fontSize: 16),
-                      )
-                    );
-                  },
-                ),
-              );
-            })),
+            child: EasyRefresh(
+              controller: decoctModel.refreshController,
+              onRefresh: decoctModel.refresh,
+              enableControlFinishRefresh: true,
+              emptyWidget: decoctModel.empty ? ViewStateEmptyWidget() : null,
+              child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+                itemCount: decoctModel.decoctMethods?.length??0,
+                itemBuilder: (context, index){
+                  return ListTile(
+                    title: Text(
+                      decoctModel.decoctMethods[index].name,
+                      style: TextStyle(fontSize: 16),
+                    )
+                  );
+                },
+              ),
+            )
+          ),
         );
       },
     );
