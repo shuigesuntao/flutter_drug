@@ -24,7 +24,6 @@ class _PacketRulePageState extends State<PacketRulePage>{
       appBar:AppBar(
         iconTheme: IconThemeData(color: Colors.black87),
         backgroundColor: Colors.white,
-        elevation: 0,
         title: Text('提现说明'),
       ),
       body: SafeArea(

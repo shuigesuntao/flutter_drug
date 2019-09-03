@@ -21,7 +21,6 @@ class DecoctManagePage extends StatelessWidget{
           appBar: AppBar(
             iconTheme: IconThemeData(color: Colors.black87),
             backgroundColor: Color(0xFFFAFAFA),
-            elevation: 0,
             title: Text('入煎方法'),
             actions: <Widget>[
               Padding(

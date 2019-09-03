@@ -21,7 +21,6 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
       appBar: AppBar(
         title: Text('患者咨询'),
         backgroundColor: Colors.white,
-        elevation: 0,
       ),
       body: Column(
         children: <Widget>[

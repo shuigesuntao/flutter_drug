@@ -11,7 +11,6 @@ class MyAccountPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black87),
         backgroundColor: Color(0xFFFAFAFA),
-        elevation: 0,
         title: Text('我的账户'),
         actions: <Widget>[
           Padding(

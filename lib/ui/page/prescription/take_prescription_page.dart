@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/ui/widget/dialog_image_picker.dart';
 
 class TakePrescriptionPage extends StatelessWidget {
   @override
@@ -9,7 +10,6 @@ class TakePrescriptionPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black87),
         backgroundColor: Colors.white,
-        elevation: 0,
         title: Text('拍方上传'),
       ),
       body: Column(
@@ -120,7 +120,15 @@ class TakePrescriptionPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     InkWell(
-                      onTap: () => print("拍照上传"),
+                      onTap: (){
+                        showModalBottomSheet(
+                          backgroundColor:Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return DialogImagePicker();
+                          }
+                        );
+                      },
                       child: Image.asset(
                         ImageHelper.wrapAssets('ic_clickphotos.png'),
                         width: 100,

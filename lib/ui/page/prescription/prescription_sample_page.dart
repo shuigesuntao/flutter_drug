@@ -9,7 +9,6 @@ class PrescriptionSamplePage extends StatelessWidget{
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black87),
         backgroundColor: Color(0xFFFAFAFA),
-        elevation: 0,
         title: Text('处方笺'),
       ),
       body: Container(

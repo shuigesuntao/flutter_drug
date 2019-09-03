@@ -9,7 +9,6 @@ class SettingPage extends StatelessWidget{
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black87),
         backgroundColor: Colors.white,
-        elevation: 0,
         title: Text('设置中心'),
       ),
       body: Column(

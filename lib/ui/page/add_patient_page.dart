@@ -10,7 +10,6 @@ class AddPatientPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black87),
         backgroundColor: Color(0xFFFAFAFA),
-        elevation: 0,
         title: Text('二维码名片'),
       ),
       body: Column(

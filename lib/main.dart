@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Color(0xFF25bbaf),
           scaffoldBackgroundColor: Color(0xFFF2F2F2),
-          primaryIconTheme: IconThemeData(color: Colors.white)
+          primaryIconTheme: IconThemeData(color: Colors.white),
+          appBarTheme: AppBarTheme(elevation: 0)
         ),
         onGenerateRoute: Router.generateRoute,
         initialRoute: RouteName.splash,

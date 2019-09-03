@@ -8,7 +8,6 @@ class UserInfoPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Color(0xFF33D0C8),
-        elevation: 0,
         title: Text(
           '我的名片',
           style: TextStyle(color: Colors.white),
