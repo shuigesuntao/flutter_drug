@@ -28,7 +28,7 @@ dependencies:
   # State
   provider: ^3.0.0+1
   # UI
-  oktoast: ^2.1.7
+  oktoast: ^2.2.0
   flutter_easyrefresh: ^2.0.4
   flutter_swiper: ^1.1.6
   cached_network_image: ^1.1.1
@@ -36,6 +36,7 @@ dependencies:
   dio: ^2.1.13
   shared_preferences: ^0.5.2+2
   url_launcher: ^5.1.2
+  path_provider: ^1.2.0
   # WebView iOS添加键值对 o.flutter.embedded_views_preview = YES
   webview_flutter: ^0.3.13
   qr_flutter: ^3.0.1

@@ -2,30 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 
 class MyAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black87),
-        backgroundColor: Color(0xFFFAFAFA),
-        title: Text('我的账户'),
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: InkWell(
-                onTap: () => Navigator.of(context).pushNamed(RouteName.packetRule,arguments:'https://app.zgzydb.com/web/packetRule/index.html'),
-                child: Center(
-                  child: Text(
-                    '提现规则',
-                    style: TextStyle(
-                        fontSize: 14, color: Theme.of(context).primaryColor),
-                  ),
-                ),
-              ))
-        ],
+      appBar: TitleBar.buildCommonAppBar(
+        context,
+        '我的账户',
+        actionText: '提现规则',
+        onActionPress: ()=>Navigator.of(context).pushNamed(RouteName.packetRule,arguments:'https://app.zgzydb.com/web/packetRule/index.html')
       ),
       body: Container(
         margin: EdgeInsets.all(15),

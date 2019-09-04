@@ -3,41 +3,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/decoct_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:provider/provider.dart';
 
 class DecoctManagePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return ProviderWidget<DecoctModel>(
-      model: DecoctModel(),
-      onModelReady: (decoctModel) {
-        decoctModel.initData();
-      },
-      builder: (context, decoctModel, child){
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            iconTheme: IconThemeData(color: Colors.black87),
-            backgroundColor: Color(0xFFFAFAFA),
-            title: Text('入煎方法'),
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: InkWell(
-                  onTap: () => print("点击了添加"),
-                  child: Center(
-                    child: Text(
-                      '添加',
-                      style: TextStyle(
-                        fontSize: 14, color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                ))
-            ],
-          ),
-          body: MediaQuery.removePadding(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: TitleBar.buildCommonAppBar(
+        context,
+        '入煎方法',
+        actionText: '添加',
+        onActionPress: ()=>print("点击了添加")
+      ),
+      body: ProviderWidget<DecoctModel>(
+        model: DecoctModel(),
+        onModelReady: (decoctModel) {
+          decoctModel.initData();
+        },
+        builder: (context, decoctModel, child){
+          return MediaQuery.removePadding(
             context: context,
             removeTop: false,
             child: EasyRefresh(
@@ -58,11 +45,10 @@ class DecoctManagePage extends StatelessWidget{
                 },
               ),
             )
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
-
   }
 
 }

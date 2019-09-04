@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class AddPatientPage extends StatelessWidget {
@@ -7,10 +8,9 @@ class AddPatientPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black87),
-        backgroundColor: Color(0xFFFAFAFA),
-        title: Text('二维码名片'),
+      appBar: TitleBar.buildCommonAppBar(
+        context,
+        '二维码名片',
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

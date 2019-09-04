@@ -4,6 +4,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_config.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/me_header.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -20,23 +21,13 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('我的'),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 15),
-              child: InkWell(
-                onTap: () => Navigator.of(context).pushNamed(RouteName.setting),
-                child: Center(
-                  child: Text(
-                    '设置',
-                    style: TextStyle(fontSize: 14),
-                  ),
-                ),
-              ))
-        ],
+      appBar: TitleBar.buildCommonAppBar(
+        context,
+        '我的',
+        isShowBack: false,
+        actionText: '设置',
+        actionTextColor:Colors.black54,
+        onActionPress: ()=>Navigator.of(context).pushNamed(RouteName.setting)
       ),
       body: Container(
         color: Colors.white,

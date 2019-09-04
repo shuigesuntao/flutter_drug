@@ -5,6 +5,7 @@ import 'package:flutter_drug/config/router_config.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/banner_image.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/home_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -36,49 +37,33 @@ class _HomePageState extends State<HomePage>
         },
         builder: (context, homeModel, child) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text('中医工作室'),
-              centerTitle: true,
-              backgroundColor: Colors.white,
-              actions: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 15),
-                    child: InkWell(
-                      onTap: (){
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return CupertinoAlertDialog(
-                              title: Text('400 052 0120'),
-                              actions: <Widget>[
-                                CupertinoDialogAction(
-                                  child: Text("取消"),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    print("取消");
-                                  },
-                                ),
-                                CupertinoDialogAction(
-                                  child: Text("呼叫"),
-                                  onPressed: () {
-                                    callPhone('400 052 0120');
-                                  },
-                                ),
-                              ],
-                            );
-                          });
-                      },
-                      child: Center(
-                        child: Text(
-                          '客服',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Theme.of(context).primaryColor),
-                        ),
+            appBar: TitleBar.buildCommonAppBar(
+              context,
+              '中医工作室',
+              actionText: '客服',
+              isShowBack: false,
+              onActionPress: ()=> showDialog(
+                context: context,
+                builder: (context) {
+                  return CupertinoAlertDialog(
+                    title: Text('400 052 0120'),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        child: Text("取消"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          print("取消");
+                        },
                       ),
-                    )
-                )
-              ],
+                      CupertinoDialogAction(
+                        child: Text("呼叫"),
+                        onPressed: () {
+                          callPhone('400 052 0120');
+                        },
+                      ),
+                    ],
+                  );
+                })
             ),
             body: MediaQuery.removePadding(
                 context: context,
@@ -122,14 +107,12 @@ class _HomePageState extends State<HomePage>
                                         HomeItemWidget(
                                           '拍方上传',
                                           'ic_pfsc.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.takePrescription),
+                                          onClick: () => nextPage(RouteName.takePrescription),
                                         ),
                                         HomeItemWidget(
                                           '审方消息',
                                           'ic_sfxx.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.test),
+                                          onClick: () => nextPage(RouteName.checkMessage),
                                         ),
                                       ],
                                     )),
@@ -149,13 +132,13 @@ class _HomePageState extends State<HomePage>
                                           '服务设置',
                                           'ic_szcz.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.serviceSetting),
                                         ),
                                         HomeItemWidget(
                                           '发布公告',
                                           'ic_fbgg.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.publishNotice),
                                         ),
                                         HomeItemWidget(
                                           '已开处方',

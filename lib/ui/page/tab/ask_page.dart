@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/model/conversation.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/conversation_model.dart';
 
 class AskPage extends StatefulWidget {
@@ -18,10 +19,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('患者咨询'),
-        backgroundColor: Colors.white,
-      ),
+      appBar: TitleBar.buildCommonAppBar(context, '患者咨询',isShowBack: false),
       body: Column(
         children: <Widget>[
           Divider(height: 1),

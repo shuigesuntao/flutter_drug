@@ -44,15 +44,17 @@ class AddressBookPage extends StatelessWidget {
                 ))
             ],
           ),
-          body: AzListView(
-            data: friendModel.friends,
-            itemBuilder: (context, model) => _buildFriendItem(model),
-            suspensionWidget: _buildSusWidget(friendModel.suspensionTag),
-            isUseRealIndex: true,
-            itemHeight: 60,
-            suspensionHeight: _suspensionHeight,
-            onSusTagChanged: (String tag) => friendModel.setSuspensionTag(tag),
-          ),
+          body:  friendModel.busy
+            ? Center(child: CircularProgressIndicator())
+            : AzListView(
+                data: friendModel.friends,
+                itemBuilder: (context, model) => _buildFriendItem(model),
+                suspensionWidget: _buildSusWidget(friendModel.suspensionTag),
+                isUseRealIndex: true,
+                itemHeight: 60,
+                suspensionHeight: _suspensionHeight,
+                onSusTagChanged: (String tag) => friendModel.suspensionTag = tag,
+              ),
         );
       },
     );

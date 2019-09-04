@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PacketRulePage extends StatefulWidget{
@@ -21,10 +22,9 @@ class _PacketRulePageState extends State<PacketRulePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(
-        iconTheme: IconThemeData(color: Colors.black87),
-        backgroundColor: Colors.white,
-        title: Text('提现说明'),
+      appBar: TitleBar.buildCommonAppBar(
+        context,
+        '提现说明',
       ),
       body: SafeArea(
         bottom: false,

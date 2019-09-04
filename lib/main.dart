@@ -3,7 +3,7 @@ import 'package:oktoast/oktoast.dart';
 
 import 'config/router_config.dart';
 
-void main() => runApp(MyApp());
+void main()=> runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

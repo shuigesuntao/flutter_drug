@@ -1,5 +1,4 @@
 import 'package:flutter_drug/model/decoct_method.dart';
-import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/provider/view_state_refresh_list_model.dart';
 
 class DecoctModel extends ViewStateRefreshListModel {

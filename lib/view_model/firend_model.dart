@@ -11,6 +11,11 @@ class FriendModel extends ViewStateListModel{
   List<Friend> get friends => _friends;
   String get suspensionTag => _suspensionTag;
 
+  set suspensionTag (String tag){
+    _suspensionTag = tag;
+    notifyListeners();
+  }
+
   @override
   Future<List> loadData() async{
     List<Friend> results = List();
@@ -39,13 +44,7 @@ class FriendModel extends ViewStateListModel{
     }
     //根据A-Z排序
     SuspensionUtil.sortListBySuspensionTag(list);
-    setSuspensionTag(list[0].tagIndex);
+    suspensionTag = list[0].tagIndex;
     return list;
-  }
-
-
-  setSuspensionTag(String tag){
-    _suspensionTag = tag;
-    notifyListeners();
   }
 }

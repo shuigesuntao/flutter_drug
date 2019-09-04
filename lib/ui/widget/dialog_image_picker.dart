@@ -1,34 +1,44 @@
-
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class DialogImagePicker extends StatelessWidget{
+class DialogImagePicker extends StatelessWidget {
+  final ValueChanged<File> onImageSelected;
+
+  DialogImagePicker({this.onImageSelected});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 170,
       margin: EdgeInsets.all(10),
-      child:Column(
+      child: Column(
         children: <Widget>[
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: Column(
               children: <Widget>[
                 InkWell(
-                  onTap: (){
-
-                  },
-                  child: Padding(padding: EdgeInsets.all(10),child: Text('从相册选择',style: TextStyle(fontSize: 18,color: Colors.blue[800]))),
+                  onTap: () => _selectImage(context, false),
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text('从相册选择',
+                          style: TextStyle(
+                              fontSize: 18, color: Colors.blue[800]))),
                 ),
-                Divider(height: 1,color: Colors.grey,),
+                Divider(
+                  height: 1,
+                  color: Colors.grey,
+                ),
                 InkWell(
-                  onTap: (){
-
-                  },
-                  child: Padding(padding: EdgeInsets.all(10),child: Text('拍照',style: TextStyle(fontSize: 18,color: Colors.blue[800]))),
+                  onTap: () => _selectImage(context, true),
+                  child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text('拍照',
+                          style: TextStyle(
+                              fontSize: 18, color: Colors.blue[800]))),
                 )
               ],
             ),
@@ -36,12 +46,16 @@ class DialogImagePicker extends StatelessWidget{
           SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: InkWell(
-              onTap: ()=> Navigator.pop(context),
-              child: Padding(padding: EdgeInsets.all(10),child: Text('取消',style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold))),
+              onTap: () => Navigator.pop(context),
+              child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text('取消',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.blue[800],
+                          fontWeight: FontWeight.bold))),
             ),
             width: double.infinity,
             alignment: Alignment.center,
@@ -51,4 +65,11 @@ class DialogImagePicker extends StatelessWidget{
     );
   }
 
+  void _selectImage(BuildContext context, bool isCamera) async {
+    Navigator.pop(context);
+    if (onImageSelected != null) {
+      onImageSelected( await ImagePicker.pickImage(
+        source: isCamera ? ImageSource.camera : ImageSource.gallery));
+    }
+  }
 }

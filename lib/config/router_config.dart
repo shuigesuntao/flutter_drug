@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
+import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/prescription_sample_page.dart';
 import 'package:flutter_drug/ui/page/prescription/take_prescription_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
@@ -10,30 +11,29 @@ import 'package:flutter_drug/ui/page/test.dart';
 import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
 import 'package:flutter_drug/ui/page/user/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/packet_rule_page.dart';
+import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
+import 'package:flutter_drug/ui/page/user/service_setting_page.dart';
 import 'package:flutter_drug/ui/page/user/user_info_page.dart';
 import 'package:flutter_drug/ui/widget/page_route_anim.dart';
 
 
 class RouteName {
-  static const String splash = 'splash';
-  static const String tab = '/';
-  static const String addPatient = 'addPatient';
-  static const String takePrescription = 'takePrescription';
-  static const String prescriptionSample = 'prescriptionSample';
-  static const String test = 'test';
-  static const String homeSecondFloor = 'homeSecondFloor';
+  static const String splash = 'splash';//闪屏页
+  static const String tab = '/';//首页
+  static const String test = 'test';//测试
+  static const String addPatient = 'addPatient';//添加患者
+  static const String takePrescription = 'takePrescription';//拍方上传
+  static const String checkMessage = 'checkMessage';//审方消息
+  static const String serviceSetting = 'serviceSetting';//服务设置
+  static const String publishNotice = 'publishNotice';//发布公告
+  static const String prescriptionSample = 'prescriptionSample';//处方示例
   static const String login = 'login';
   static const String register = 'register';
-  static const String myAccount = 'myAccount';
-  static const String packetRule = 'packetRule';
-  static const String userInfo = 'userInfo';
-  static const String decoct = 'decoct';
-  static const String articleDetail = 'articleDetail';
-  static const String structureList = 'structureList';
-  static const String favouriteList = 'favouriteList';
-  static const String setting = 'setting';
-  static const String coinRecordList = 'coinRecordList';
-  static const String coinRankingList = 'coinRankingList';
+  static const String myAccount = 'myAccount';//我的账户
+  static const String packetRule = 'packetRule';//提现规则
+  static const String userInfo = 'userInfo';//我的名片
+  static const String decoct = 'decoct';//煎法管理
+  static const String setting = 'setting';//设置
 }
 
 class Router {
@@ -47,10 +47,16 @@ class Router {
         return CupertinoPageRoute(builder: (_) => AddPatientPage());
       case RouteName.takePrescription:
         return CupertinoPageRoute(builder: (_) => TakePrescriptionPage());
+      case RouteName.checkMessage:
+        return CupertinoPageRoute(builder: (_) => CheckMessagePage());
+      case RouteName.serviceSetting:
+        return CupertinoPageRoute(builder: (_) => ServiceSettingPage());
+      case RouteName.publishNotice:
+        return CupertinoPageRoute(builder: (_) => PublishNoticePage());
       case RouteName.prescriptionSample:
         return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.test:
-        return NoAnimRouteBuilder(TestPage());
+        return CupertinoPageRoute(builder: (_) =>TestPage());
 //      case RouteName.homeSecondFloor:
 //        return SlideTopRouteBuilder(MyBlogPage());
 //      case RouteName.login:

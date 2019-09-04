@@ -1,15 +1,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 
 class SettingPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black87),
-        backgroundColor: Colors.white,
-        title: Text('设置中心'),
+      appBar: TitleBar.buildCommonAppBar(
+        context,
+        '设置中心',
       ),
       body: Column(
         children: <Widget>[
