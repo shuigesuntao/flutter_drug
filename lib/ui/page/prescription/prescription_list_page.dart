@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/model/prescription.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
+import 'package:flutter_drug/ui/widget/dialog_alert.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
@@ -42,14 +43,15 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
           child: ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {
-              return _buildPrescriptionItem(model.list[index]);
+              return _buildPrescriptionItem(model,index);
             }));
       },
     );
   }
 
 
-  Widget _buildPrescriptionItem(Prescription p){
+  Widget _buildPrescriptionItem(PrescriptionListModel model,int index){
+    Prescription p = model.list[index];
     return Container(
       margin: EdgeInsets.only(top: 10),
       color: Colors.white,
@@ -98,23 +100,12 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
                         onPressed: () => showDialog(
                           context: context,
                           builder: (context) {
-                            return CupertinoAlertDialog(
-                              title: Text('提示'),
-                              content: Text('您确定删除吗？'),
-                              actions: <Widget>[
-                                CupertinoDialogAction(
-                                  child: Text("取消"),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                CupertinoDialogAction(
-                                  child: Text("确定"),
-                                  onPressed: () {
-                                    print('删除');
-                                  },
-                                ),
-                              ],
+                            return DialogAlert(
+                              content: '您确定删除吗？',
+                              onPressed: (){
+                                model.remove(index);
+                                Navigator.pop(context);
+                              },
                             );
                           }),
                         color: Colors.white,

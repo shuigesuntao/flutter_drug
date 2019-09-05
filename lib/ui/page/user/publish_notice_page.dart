@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
+import 'package:flutter_drug/ui/widget/dialog_alert.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/publish_notice_model.dart';
 import 'package:oktoast/oktoast.dart';
@@ -160,23 +161,12 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
                     onPressed: () => showDialog(
                       context: context,
                       builder: (context) {
-                        return CupertinoAlertDialog(
-                          title: Text('提示'),
-                          content: Text('是否撤下当前公告？'),
-                          actions: <Widget>[
-                            CupertinoDialogAction(
-                              child: Text("取消"),
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            ),
-                            CupertinoDialogAction(
-                              child: Text("确定"),
-                              onPressed: () {
-                                print('撤下公告');
-                              },
-                            ),
-                          ],
+                        return DialogAlert(
+                          content: '是否撤下当前公告？',
+                          onPressed: () {
+                            print('撤下公告');
+                            Navigator.pop(context);
+                          },
                         );
                       }),
                     color: Colors.white,

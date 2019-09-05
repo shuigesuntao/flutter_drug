@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage>
                                           '处方模板',
                                           'ic_cfmb.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.prescriptionFormWork),
                                         ),
                                         HomeItemWidget(
                                           '服务设置',

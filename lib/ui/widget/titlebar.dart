@@ -9,7 +9,7 @@ class TitleBar {
       backgroundColor: Colors.white,
       centerTitle: true,
       title: Text(title),
-      leading: isShowBack ? _leading(context,onPressed) : null,
+      leading: isShowBack ? leading(context,onPressed) : null,
       actions: actionText == null ? null : <Widget>[
         Padding(
           padding: EdgeInsets.only(right: 15),
@@ -27,7 +27,7 @@ class TitleBar {
     );
   }
 
-  static _leading(BuildContext context, VoidCallback onPressed) {
+  static leading(BuildContext context, VoidCallback onPressed) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,

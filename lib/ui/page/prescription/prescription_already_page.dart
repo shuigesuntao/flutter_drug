@@ -13,7 +13,6 @@ class PrescriptionAlreadyPage extends StatefulWidget{
 class _PrescriptionAlreadyPageState extends State<PrescriptionAlreadyPage>{
   List<String> tabTitles = ["全部", "已付款", "已发货"];
   List<int> status = [0,2,3];
-  ValueNotifier<int> valueNotifier = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
