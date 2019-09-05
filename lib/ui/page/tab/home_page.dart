@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage>
                                           '已开处方',
                                           'ic_ykcf.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.prescriptionAlready),
                                         ),
                                       ],
                                     )),

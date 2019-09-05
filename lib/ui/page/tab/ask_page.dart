@@ -53,8 +53,8 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
             builder: (context, conversationModel, child) {
               return ListView.builder(
                 itemBuilder: (BuildContext context, int index) =>
-                  _buildConversationItem(conversationModel.conversations[index]),
-                itemCount: conversationModel.conversations?.length??0,
+                  _buildConversationItem(conversationModel.list[index]),
+                itemCount: conversationModel.list?.length??0,
               );
             }))
         ],

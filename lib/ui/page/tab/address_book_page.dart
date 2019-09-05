@@ -24,7 +24,7 @@ class AddressBookPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('全部(${friendModel.friends?.length ?? 0})'),
+                Text('全部(${friendModel.list?.length ?? 0})'),
                 Image.asset(ImageHelper.wrapAssets('ic_arrow_drop_down.png'),
                   width: 15, height: 15)
               ],
@@ -47,7 +47,7 @@ class AddressBookPage extends StatelessWidget {
           body:  friendModel.busy
             ? Center(child: CircularProgressIndicator())
             : AzListView(
-                data: friendModel.friends,
+                data: friendModel.list,
                 itemBuilder: (context, model) => _buildFriendItem(model),
                 suspensionWidget: _buildSusWidget(friendModel.suspensionTag),
                 isUseRealIndex: true,

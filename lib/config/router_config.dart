@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
+import 'package:flutter_drug/ui/page/prescription/prescription_already_page.dart';
 import 'package:flutter_drug/ui/page/prescription/prescription_sample_page.dart';
 import 'package:flutter_drug/ui/page/prescription/take_prescription_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
@@ -26,6 +27,7 @@ class RouteName {
   static const String checkMessage = 'checkMessage';//审方消息
   static const String serviceSetting = 'serviceSetting';//服务设置
   static const String publishNotice = 'publishNotice';//发布公告
+  static const String prescriptionAlready = 'prescriptionAlready';//已开处方
   static const String prescriptionSample = 'prescriptionSample';//处方示例
   static const String login = 'login';
   static const String register = 'register';
@@ -53,6 +55,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => ServiceSettingPage());
       case RouteName.publishNotice:
         return CupertinoPageRoute(builder: (_) => PublishNoticePage());
+      case RouteName.prescriptionAlready:
+        return CupertinoPageRoute(builder: (_) => PrescriptionAlreadyPage());
       case RouteName.prescriptionSample:
         return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.test:

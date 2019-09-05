@@ -20,7 +20,7 @@ class CheckMessagePage extends StatelessWidget {
               onModelReady: (model) {
                 model.initData();
               },
-              builder: (context, model, child) {
+              builder: (_,CheckMessageModel model, __) {
                 return EasyRefresh(
                   controller: model.refreshController,
                   onRefresh: model.refresh,
@@ -31,9 +31,9 @@ class CheckMessagePage extends StatelessWidget {
                   child: ListView.separated(
                     separatorBuilder: (BuildContext context, int index) =>
                       Divider(height: 1),
-                    itemCount: model.checkMessages?.length ?? 0,
+                    itemCount: model.list?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return _buildMessageItem(context,model.checkMessages[index]);
+                      return _buildMessageItem(context,model.list[index]);
                     },
                   ),
                 );

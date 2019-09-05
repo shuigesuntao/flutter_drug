@@ -34,11 +34,11 @@ class DecoctManagePage extends StatelessWidget{
               emptyWidget: decoctModel.empty ? ViewStateEmptyWidget() : null,
               child: ListView.separated(
                 separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
-                itemCount: decoctModel.decoctMethods?.length??0,
+                itemCount: decoctModel.list?.length??0,
                 itemBuilder: (context, index){
                   return ListTile(
                     title: Text(
-                      decoctModel.decoctMethods[index].name,
+                      decoctModel.list[index].name,
                       style: TextStyle(fontSize: 16),
                     )
                   );

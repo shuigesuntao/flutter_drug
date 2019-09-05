@@ -14,23 +14,12 @@ class ServiceSettingPage extends StatefulWidget {
 }
 
 class _ServiceSettingPageState extends State<ServiceSettingPage> {
-  var _afterAskController;
-  var _onlineAskController;
-  var _singlePriceController;
+  final _afterAskController = TextEditingController(text: ServiceSettingModel().afterAskPrice.toString());
+  final _onlineAskController =
+  TextEditingController(text: ServiceSettingModel().onlineAskPrice.toString());
+  final _singlePriceController =
+  TextEditingController(text: ServiceSettingModel().singleServicePrice.toString());
 
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((callback) {
-      var model = ServiceSettingModel();
-      _afterAskController = TextEditingController(text: model.afterAskPrice.toString());
-      _onlineAskController =
-        TextEditingController(text: model.onlineAskPrice.toString());
-      _singlePriceController =
-        TextEditingController(text: model.singleServicePrice.toString());
-    });
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

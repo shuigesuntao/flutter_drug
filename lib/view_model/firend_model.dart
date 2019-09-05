@@ -4,11 +4,9 @@ import 'package:flutter_drug/provider/view_state_list_model.dart';
 import 'package:lpinyin/lpinyin.dart';
 import 'package:azlistview/azlistview.dart';
 
-class FriendModel extends ViewStateListModel{
-  List<Friend> _friends;
+class FriendModel extends ViewStateListModel<Friend>{
   String _suspensionTag = "";
 
-  List<Friend> get friends => _friends;
   String get suspensionTag => _suspensionTag;
 
   set suspensionTag (String tag){
@@ -17,15 +15,14 @@ class FriendModel extends ViewStateListModel{
   }
 
   @override
-  Future<List> loadData() async{
-    List<Friend> results = List();
+  Future<List<Friend>> loadData() async{
     return await Future.delayed(Duration(seconds: 2), () {
+      List<Friend> results = List();
       results.add(Friend("","david","","",0,0,1));
       results.add(Friend("","eb9552162","","",0,1,0));
       results.add(Friend("陶喆","陶喆","","女",31,0,0));
       results.add(Friend("杨","杨过","","男",27,1,1));
       results = _sortedList(results);
-      _friends = results;
       return results;
     });
   }
