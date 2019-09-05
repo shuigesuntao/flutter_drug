@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_config.dart';
 import 'package:flutter_drug/ui/page/prescription/prescription_formwork_list_page.dart';
 import 'package:flutter_drug/ui/page/prescription/prescription_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
@@ -30,7 +31,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
         leading: TitleBar.leading(context,null),
         actions: <Widget>[
           InkWell(
-            onTap: ()=>print('搜索'),
+            onTap: ()=>Navigator.of(context).pushNamed(RouteName.prescriptionFormWorkSearch),
             child: Padding(
               padding:EdgeInsets.symmetric(horizontal: 8),
               child: Image.asset(ImageHelper.wrapAssets('ic_ss.png'),width: 20,height: 20),

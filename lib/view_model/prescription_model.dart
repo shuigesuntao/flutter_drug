@@ -66,7 +66,9 @@ class PrescriptionFormWorkListModel extends ViewStateRefreshListModel {
       results.add(PrescriptionFormWork(2,"生姜泻心汤",drugs));
       results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
       //经方模板
-      results = results.where((p) => p.status == status).toList();
+      if(status > 0){
+        results = results.where((p) => p.status == status).toList();
+      }
       if(pageNum > 0 && status == 1){
         results.clear();
       }

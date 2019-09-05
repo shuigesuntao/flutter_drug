@@ -30,7 +30,7 @@ class PrescriptionFormWorkListPage extends StatelessWidget {
             child: ListView.builder(
               itemCount: model.list.length,
               itemBuilder: (context, index) {
-                return _buildPrescriptionItem(model.list[index]);
+                return PrescriptionFormWorkItem(model.list[index]);
               }
             )
         );
@@ -38,11 +38,18 @@ class PrescriptionFormWorkListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPrescriptionItem(PrescriptionFormWork p) {
+}
+
+
+class PrescriptionFormWorkItem extends StatelessWidget {
+  final PrescriptionFormWork p;
+  PrescriptionFormWorkItem(this.p);
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(15,10,15,0),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(5)),
+        color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: Padding(
         padding: EdgeInsets.all(15),
         child: Column(
@@ -59,7 +66,7 @@ class PrescriptionFormWorkListPage extends StatelessWidget {
 
   String _getDrugsText(List<Drug> drugs){
     if(drugs.length > 6) {
-     return drugs.sublist(0,6).map((drug)=>'${drug.name}${drug.count}${drug.unit}').toList().join(' ') + '等${drugs.length}味药材';
+      return drugs.sublist(0,6).map((drug)=>'${drug.name}${drug.count}${drug.unit}').toList().join(' ') + '等${drugs.length}味药材';
     }else {
       return drugs.map((drug)=>'${drug.name}${drug.count}${drug.unit}').toList().join(' ');
     }
