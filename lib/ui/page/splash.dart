@@ -6,19 +6,20 @@ import 'package:flutter_drug/config/router_config.dart';
 
 
 
-///// 用于项目初始化之前显示的页面
-//class SplashImage extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Container(
-//      color: Colors.white,//背景色
-//      child: Image.asset(
-//        'assets/images/splash_bg.png',
-//        fit: BoxFit.fill,
-//      ),
-//    );
-//  }
-//}
+/// 用于项目初始化之前显示的页面
+class SplashImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,//背景色
+      width: double.infinity,
+      height: double.infinity,
+      child: Image.asset(
+        ImageHelper.wrapAssets('splash_bg.jpg'),
+      ),
+    );
+  }
+}
 
 
 class SplashPage extends StatefulWidget {

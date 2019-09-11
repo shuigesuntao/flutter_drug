@@ -14,7 +14,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.4.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -43,6 +43,8 @@ dependencies:
   azlistview: ^0.1.2
   lpinyin: ^1.0.7
   image_picker: ^0.6.1+4
+  localstorage: ^2.0.0
+  extended_text: ^0.6.6
 dev_dependencies:
   flutter_test:
     sdk: flutter

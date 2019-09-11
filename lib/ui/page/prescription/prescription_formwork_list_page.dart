@@ -6,37 +6,51 @@ import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
-class PrescriptionFormWorkListPage extends StatelessWidget {
+class PrescriptionFormWorkListPage extends StatefulWidget {
   final int status;
 
   PrescriptionFormWorkListPage(this.status);
 
+
+  @override
+  State<StatefulWidget> createState() => _PrescriptionFormWorkListPageState();
+
+}
+
+class _PrescriptionFormWorkListPageState extends State<PrescriptionFormWorkListPage> with AutomaticKeepAliveClientMixin{
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ProviderWidget<PrescriptionFormWorkListModel>(
-      model: PrescriptionFormWorkListModel(status),
+      model: PrescriptionFormWorkListModel(widget.status),
       onModelReady: (model) => model.initData(),
       builder: (context, model, child) {
         if (model.busy) {
           return Center(child: CircularProgressIndicator());
         }
         return EasyRefresh(
-            controller: model.refreshController,
-            onRefresh: model.refresh,
-            onLoad: model.loadMore,
-            enableControlFinishRefresh: true,
-            enableControlFinishLoad: true,
-            emptyWidget: model.empty ? ViewStateEmptyWidget() : null,
-            child: ListView.builder(
-              itemCount: model.list.length,
-              itemBuilder: (context, index) {
-                return PrescriptionFormWorkItem(model.list[index]);
-              }
-            )
+          controller: model.refreshController,
+          onRefresh: model.refresh,
+          onLoad: model.loadMore,
+          enableControlFinishRefresh: true,
+          enableControlFinishLoad: true,
+          emptyWidget: model.empty ? ViewStateEmptyWidget() : null,
+          child: ListView.builder(
+            itemCount: model.list.length,
+            itemBuilder: (context, index) {
+              return PrescriptionFormWorkItem(model.list[index]);
+            }
+          )
         );
       },
     );
   }
+
+
 
 }
 

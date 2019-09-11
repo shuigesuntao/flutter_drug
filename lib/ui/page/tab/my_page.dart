@@ -35,7 +35,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
           children: <Widget>[
             UserListWidget(),
             Container(
-                alignment: Alignment(1.0, 0.08),
+                alignment: Alignment(1.0, 0.14),
                 child: InkWell(
                   onTap: () {
                     showDialog(
@@ -63,10 +63,11 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
                   },
                   child: Image.asset(
                     ImageHelper.wrapAssets('contact_phone.png'),
-                    width: 100,
-                    height: 50,
+                    width: 120,
+                    height: 60,
                   ),
-                )),
+                )
+            ),
           ],
         ),
       ),
@@ -107,10 +108,10 @@ class UserListWidget extends StatelessWidget {
           MeCell('我的账户', 'ic_zhanghu.png', RouteName.myAccount),
           MeCell('资质认证', 'ic_zizhi.png', RouteName.myAccount),
           MeCell('煎法管理', 'ic_jianfa.png', RouteName.decoct),
-          MeCell('地址管理', 'ic_dizhi.png', RouteName.myAccount),
+          MeCell('常用医嘱', 'ic_yizhu.png', RouteName.myAccount),
+          MeCell('地址管理', 'ic_dizhi.png', RouteName.addressManage),
           MeCell('我的执业保障', 'ic_baozhang.png', RouteName.myAccount),
-          MeCell('意见反馈', 'ic_fankui.png', RouteName.myAccount),
-          MeCell('常用医嘱', 'ic_yizhu.png', RouteName.myAccount)
+          MeCell('意见反馈', 'ic_fankui.png', RouteName.myAccount)
         ],
       ),
     );

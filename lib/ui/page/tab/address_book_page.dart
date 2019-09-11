@@ -44,7 +44,7 @@ class AddressBookPage extends StatelessWidget {
                 ))
             ],
           ),
-          body:  friendModel.busy
+          body: friendModel.busy
             ? Center(child: CircularProgressIndicator())
             : AzListView(
                 data: friendModel.list,

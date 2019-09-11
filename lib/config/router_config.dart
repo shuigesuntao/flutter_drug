@@ -11,6 +11,7 @@ import 'package:flutter_drug/ui/page/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
 import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
 import 'package:flutter_drug/ui/page/test.dart';
+import 'package:flutter_drug/ui/page/user/address_manager_page.dart';
 import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
 import 'package:flutter_drug/ui/page/user/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/packet_rule_page.dart';
@@ -39,6 +40,7 @@ class RouteName {
   static const String packetRule = 'packetRule';//提现规则
   static const String userInfo = 'userInfo';//我的名片
   static const String decoct = 'decoct';//煎法管理
+  static const String addressManage = 'addressManage';//地址管理
   static const String setting = 'setting';//设置
 }
 
@@ -101,6 +103,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => MyAccountPage());
       case RouteName.decoct:
         return CupertinoPageRoute(builder: (_) => DecoctManagePage());
+      case RouteName.addressManage:
+        return CupertinoPageRoute(builder: (_) => AddressManagePage());
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
       case RouteName.userInfo:
