@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/provider_manager.dart';
 import 'package:flutter_drug/config/storage_manager.dart';
 import 'package:flutter_drug/config/ui_adapter_config.dart';
@@ -10,11 +11,13 @@ import 'ui/page/splash.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
-
+  InnerWidgetsFlutterBinding.ensureInitialized();
+  await StorageManager.init();
   /// 全局屏幕适配方案
-  InnerWidgetsFlutterBinding.ensureInitialized()
-    ..attachRootWidget(App(future: StorageManager.init()))
-    ..scheduleWarmUpFrame();
+  runApp(App());
+  // Android状态栏透明
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 }
 
 class App extends StatelessWidget {
@@ -38,7 +41,7 @@ class App extends StatelessWidget {
             providers: providers,
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
+              title: '药匣子',
               theme: ThemeData(
                 primaryColor: Color(0xFF25bbaf),
                 scaffoldBackgroundColor: Color(0xFFF2F2F2),

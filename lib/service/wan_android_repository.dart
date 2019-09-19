@@ -1,6 +1,6 @@
 
 
-import 'package:flutter_drug/config/net/http.dart';
+import 'package:flutter_drug/config/net/drug_api.dart';
 import 'package:flutter_drug/model/banner.dart';
 
 class WanAndroidRepository {
