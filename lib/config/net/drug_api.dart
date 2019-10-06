@@ -22,7 +22,7 @@ class ApiInterceptor extends InterceptorsWrapper {
   static const baseUrl = 'https://www.wanandroid.com/';
 
   @override
-  onRequest(RequestOptions options) {
+  onRequest(RequestOptions options) async {
     options.baseUrl = baseUrl;
     debugPrint('---api-request--->url--> ${options.baseUrl}${options.path}' +
         ' queryParameters: ${options.queryParameters}');

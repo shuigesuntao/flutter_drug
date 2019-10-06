@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:flutter_drug/config/resource_mananger.dart';
-import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/banner_image.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
-import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 
 
 class SplashPage extends StatefulWidget {

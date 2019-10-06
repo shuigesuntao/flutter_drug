@@ -6,7 +6,7 @@ import 'package:flutter_drug/config/ui_adapter_config.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
-import 'config/router_config.dart';
+import 'config/router_manager.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;

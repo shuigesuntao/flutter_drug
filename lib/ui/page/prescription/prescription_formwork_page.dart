@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
-import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/page/prescription/prescription_formwork_list_page.dart';
 import 'package:flutter_drug/ui/page/prescription/prescription_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';

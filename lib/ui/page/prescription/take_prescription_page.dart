@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
-import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_image_picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';

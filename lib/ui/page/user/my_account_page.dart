@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
-import 'package:flutter_drug/config/router_config.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 
 class MyAccountPage extends StatelessWidget {
