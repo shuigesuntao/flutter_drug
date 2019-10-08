@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
-import 'package:flutter_drug/ui/page/prescription/prescription_already_page.dart';
-import 'package:flutter_drug/ui/page/prescription/prescription_formwork_page.dart';
-import 'package:flutter_drug/ui/page/prescription/prescription_sample_page.dart';
-import 'package:flutter_drug/ui/page/prescription/take_prescription_page.dart';
-import 'package:flutter_drug/ui/page/search/prescription_form_work_search_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_formwork_tab_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_open_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_sample_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_take.dart';
+import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
+import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
 import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
@@ -26,6 +28,7 @@ class RouteName {
   static const String tab = '/';//首页
   static const String test = 'test';//测试
   static const String addPatient = 'addPatient';//添加患者
+  static const String openPrescription = 'openPrescription';//在线开方
   static const String takePrescription = 'takePrescription';//拍方上传
   static const String checkMessage = 'checkMessage';//审方消息
   static const String prescriptionFormWork = 'prescriptionFormWork';//处方模板
@@ -34,6 +37,7 @@ class RouteName {
   static const String prescriptionAlready = 'prescriptionAlready';//已开处方
   static const String prescriptionSample = 'prescriptionSample';//处方示例
   static const String prescriptionFormWorkSearch = 'prescriptionFormWorkSearch';//处方模板搜索
+  static const String personSearch = 'personSearch';//开方患者搜索
   static const String login = 'login';
   static const String register = 'register';
   static const String myAccount = 'myAccount';//我的账户
@@ -53,6 +57,8 @@ class Router {
         return NoAnimRouteBuilder(TabNavigator());
       case RouteName.addPatient:
         return CupertinoPageRoute(builder: (_) => AddPatientPage());
+      case RouteName.openPrescription:
+        return CupertinoPageRoute(builder: (_) => PrescriptionOpenPage());
       case RouteName.takePrescription:
         return CupertinoPageRoute(builder: (_) => TakePrescriptionPage());
       case RouteName.checkMessage:
@@ -69,6 +75,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.prescriptionFormWorkSearch:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkSearchPage());
+      case RouteName.personSearch:
+        return CupertinoPageRoute(builder: (_) => PrescriptionPersonSearchPage());
       case RouteName.test:
         return CupertinoPageRoute(builder: (_) => TestPage());
 //      case RouteName.homeSecondFloor:

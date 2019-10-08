@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
-import 'package:flutter_drug/ui/page/prescription/prescription_formwork_list_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_formwork_list_page.dart';
 import 'package:flutter_drug/ui/widget/search_bar.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -12,7 +12,7 @@ class PrescriptionFormWorkSearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: SearchBar(
-          hintText: "按处方名称检索",
+          hintText: "按处方名称搜索",
           onPressed: (text) {
             showToast("搜索内容：$text");
           },

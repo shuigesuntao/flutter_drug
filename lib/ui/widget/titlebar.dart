@@ -18,8 +18,7 @@ class TitleBar {
             child: Center(
               child: Text(
                 actionText,
-                style: TextStyle(
-                  fontSize: 14, color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
+                style: TextStyle(color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
               ),
             ),
           ))

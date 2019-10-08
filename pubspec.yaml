@@ -29,19 +29,25 @@ dependencies:
   provider: ^3.0.0+1
   # UI
   oktoast: ^2.2.0
+  # refresh
   flutter_easyrefresh: ^2.0.4
+  # banner
   flutter_swiper: ^1.1.6
   cached_network_image: ^1.1.1
   # Data
   dio: ^3.0.2
+  # 本地存储
   shared_preferences: ^0.5.2+2
   url_launcher: ^5.1.2
   path_provider: ^1.2.0
   # WebView iOS添加键值对 o.flutter.embedded_views_preview = YES
   webview_flutter: ^0.3.13
+  # 二维码
   qr_flutter: ^3.0.1
+  # 字母筛选
   azlistview: ^0.1.2
   lpinyin: ^1.0.7
+  # 图片选择
   image_picker: ^0.6.1+4
   localstorage: ^2.0.0
   extended_text: ^0.6.6

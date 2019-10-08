@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage>
                                           '在线开方',
                                           'ic_zxkf.png',
                                           onClick: () =>
-                                              nextPage(RouteName.test),
+                                              nextPage(RouteName.openPrescription),
                                         ),
                                         HomeItemWidget(
                                           '拍方上传',

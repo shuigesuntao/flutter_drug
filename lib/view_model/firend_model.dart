@@ -6,6 +6,9 @@ import 'package:azlistview/azlistview.dart';
 
 class FriendModel extends ViewStateListModel<Friend>{
   String _suspensionTag = "";
+  List<Friend> _filterList = [];
+
+  List<Friend> get filterList => _filterList;
 
   String get suspensionTag => _suspensionTag;
 
@@ -43,5 +46,14 @@ class FriendModel extends ViewStateListModel<Friend>{
     SuspensionUtil.sortListBySuspensionTag(list);
     suspensionTag = list[0].tagIndex;
     return list;
+  }
+
+
+  filterData(String query){
+    _filterList.clear();
+    if(query.isNotEmpty){
+      _filterList.addAll(list.where((friend) => friend.displayName.contains(query) || friend.name.contains(query)));
+    }
+    notifyListeners();
   }
 }

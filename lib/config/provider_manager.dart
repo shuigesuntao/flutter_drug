@@ -11,7 +11,7 @@ List<SingleChildCloneableWidget> providers = [
 /// 独立的model
 List<SingleChildCloneableWidget> independentServices = [
 //  Provider.value(value: Api())
-  ChangeNotifierProvider<UserModel>.value(value: UserModel())
+  ChangeNotifierProvider<UserModel>.value(value: UserModel()),
 ];
 
 /// 需要依赖的model

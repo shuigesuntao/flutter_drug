@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter_drug/ui/page/prescription/prescription_list_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 
 class PrescriptionAlreadyPage extends StatefulWidget{

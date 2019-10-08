@@ -23,6 +23,7 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
         model: TakePrescriptionModel(),
         builder: (context,takePrescriptionModel,child){
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
                 width: double.infinity,
@@ -145,18 +146,18 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
                             },
                             child: model.image == null ? Image.asset(
                               ImageHelper.wrapAssets('ic_clickphotos.png'),
-                              width: 100,
-                              height: 100,
+                              width: 120,
+                              height: 120,
                             ) : _buildImageItem(model),
                           );
                         }),
-                        SizedBox(width: 15),
+                        SizedBox(width: 20),
                         InkWell(
                           onTap: () => Navigator.of(context).pushNamed(RouteName.prescriptionSample),
                           child: Image.asset(
                             ImageHelper.wrapAssets('ic_sample.png'),
-                            width: 100,
-                            height: 100,
+                            width: 120,
+                            height: 120,
                           ),
                         ),
                       ],
@@ -172,39 +173,39 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
                     RichText(
                       text: TextSpan(
                         text: '*',
-                        style: TextStyle(color: Colors.black87),
+                        style: TextStyle(color: Colors.grey[700]),
                         children: <TextSpan>[
                           TextSpan(
                             text: '毒麻药材',
-                            style: TextStyle(color: Color(0xFFBF2B3E),fontSize: 13)),
+                            style: TextStyle(color: Color(0xFFBF2B3E))),
                           TextSpan(
-                            text: '用量必须符合药典规范',
-                            style: TextStyle(color: Colors.black87,fontSize: 13),
+                            text: '用量必须符合药典规范；',
+                            style: TextStyle(color: Colors.grey[700]),
                           )
                         ]),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
-                      child: Text('*上传照片请保证清晰可见，如手写处方请保证字迹清晰；',style: TextStyle(fontSize: 13),),
+                      child: Text('*上传照片请保证清晰可见，如手写处方请保证字迹清晰；',style: TextStyle(color: Colors.grey[700]),),
                     ),
                     RichText(
                       text: TextSpan(
                         text: '*',
-                        style: TextStyle(color: Colors.black87),
+                        style: TextStyle(color: Colors.grey[700]),
                         children: <TextSpan>[
                           TextSpan(
                             text: '1次',
-                            style: TextStyle(color: Color(0xFFBF2B3E),fontSize: 13)),
+                            style: TextStyle(color: Color(0xFFBF2B3E))),
                           TextSpan(
                             text: '只可上传',
-                            style: TextStyle(color: Colors.black87,fontSize: 13),
+                            style: TextStyle(color: Colors.grey[700]),
                           ),
                           TextSpan(
                             text: '1张',
-                            style: TextStyle(color: Color(0xFFBF2B3E),fontSize: 13)),
+                            style: TextStyle(color: Color(0xFFBF2B3E))),
                           TextSpan(
                             text: '处方。',
-                            style: TextStyle(color: Colors.black87,fontSize: 13),
+                            style: TextStyle(color: Colors.grey[700]),
                           ),
                         ]),
                     ),

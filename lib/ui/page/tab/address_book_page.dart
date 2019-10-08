@@ -7,7 +7,6 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 
 class AddressBookPage extends StatelessWidget {
-
   final int _suspensionHeight = 30;
 
   @override
@@ -15,7 +14,7 @@ class AddressBookPage extends StatelessWidget {
     return ProviderWidget<FriendModel>(
       model: FriendModel(),
       onModelReady: (friendModel) => friendModel.initData(),
-      builder: (context,friendModel,child){
+      builder: (context, friendModel, child) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -26,35 +25,37 @@ class AddressBookPage extends StatelessWidget {
               children: <Widget>[
                 Text('全部(${friendModel.list?.length ?? 0})'),
                 Image.asset(ImageHelper.wrapAssets('ic_arrow_drop_down.png'),
-                  width: 15, height: 15)
+                    width: 15, height: 15)
               ],
             ),
             actions: <Widget>[
               Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: InkWell(
-                  onTap: () => print('点击了搜索'),
-                  child: Center(
-                    child: Text(
-                      '搜索',
-                      style: TextStyle(
-                        fontSize: 14, color: Theme.of(context).primaryColor),
+                  padding: EdgeInsets.only(right: 15),
+                  child: InkWell(
+                    onTap: () => print('点击了搜索'),
+                    child: Center(
+                      child: Text(
+                        '搜索',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor),
+                      ),
                     ),
-                  ),
-                ))
+                  ))
             ],
           ),
           body: friendModel.busy
-            ? Center(child: CircularProgressIndicator())
-            : AzListView(
-                data: friendModel.list,
-                itemBuilder: (context, model) => _buildFriendItem(model),
-                suspensionWidget: _buildSusWidget(friendModel.suspensionTag),
-                isUseRealIndex: true,
-                itemHeight: 60,
-                suspensionHeight: _suspensionHeight,
-                onSusTagChanged: (String tag) => friendModel.suspensionTag = tag,
-              ),
+              ? Center(child: CircularProgressIndicator())
+              : AzListView(
+                  data: friendModel.list,
+                  itemBuilder: (context, model) => _buildFriendItem(model),
+                  suspensionWidget: _buildSusWidget(friendModel.suspensionTag),
+                  isUseRealIndex: true,
+                  itemHeight: 60,
+                  suspensionHeight: _suspensionHeight,
+                  onSusTagChanged: (String tag) =>
+                      friendModel.suspensionTag = tag,
+                ),
         );
       },
     );
@@ -82,7 +83,7 @@ class AddressBookPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         Offstage(
-          offstage: friend.isShowSuspension != true,
+          offstage: !friend.isShowSuspension,
           child: _buildSusWidget(susTag),
         ),
         Container(
@@ -121,14 +122,15 @@ class AddressBookPage extends StatelessWidget {
                           Offstage(
                             offstage:
                                 friend.name == null || friend.name.isEmpty,
-                            child: Text('（${friend.name}）',style: TextStyle(color: Colors.grey)),
+                            child: Text('（${friend.name}）',
+                                style: TextStyle(color: Colors.grey)),
                           )
                         ],
                       ),
                       SizedBox(height: 5),
                       Text(
                         "${_getGender(friend.gender)}${friend.age}岁 | 问诊${friend.askCount}次 | 购药${friend.buyDrugCount}次",
-                        style: TextStyle(color: Colors.grey,fontSize: 13),
+                        style: TextStyle(color: Colors.grey, fontSize: 13),
                       )
                     ],
                   ),
