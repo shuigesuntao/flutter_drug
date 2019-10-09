@@ -2,18 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
+import 'package:flutter_drug/ui/widget/dialog_drug_category.dart';
 import 'package:flutter_drug/ui/widget/dialog_image_picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/take_prescription_model.dart';
 
-class TakePrescriptionPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return  _TakePrescriptionPageState();
-  }
-}
-
-class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
+class TakePrescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,8 +83,7 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
                   ],
                 ),
                 SizedBox(height: 15),
-                DrugStoreItem(
-                  image: 'tangji.png', drugStoreName: '药匣子优选-汤剂(代煎)')
+                DrugStoreItem(image:'tangji.png', drugStoreName:'药匣子优选-汤剂(代煎)')
               ],
             ),
           ),
@@ -128,29 +121,29 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
                     ProviderWidget<TakePrescriptionModel>(
                       model: TakePrescriptionModel(),
                       builder: (context,model,child){
-                      return InkWell(
-                        onTap: (){
-                          showModalBottomSheet(
-                            backgroundColor:Colors.transparent,
-                            context: context,
-                            builder: (context) {
-                              return DialogImagePicker(
-                                onImageSelected: (file) {
-                                  model.image = file;
-                                },
-                              );
-                            }
-                          );
-                        },
-                        child: model.image == null ? Image.asset(
-                          ImageHelper.wrapAssets('ic_clickphotos.png'),
-                          width: 120,
-                          height: 120,
-                        ) : _buildImageItem(model),
-                      );
-                    }),
+                        return GestureDetector(
+                          onTap: (){
+                            showModalBottomSheet(
+                              backgroundColor:Colors.transparent,
+                              context: context,
+                              builder: (context) {
+                                return DialogImagePicker(
+                                  onImageSelected: (file) {
+                                    model.image = file;
+                                  },
+                                );
+                              }
+                            );
+                          },
+                          child: model.image == null ? Image.asset(
+                            ImageHelper.wrapAssets('ic_clickphotos.png'),
+                            width: 120,
+                            height: 120,
+                          ) : _buildImageItem(model),
+                        );
+                      }),
                     SizedBox(width: 20),
-                    InkWell(
+                    GestureDetector(
                       onTap: () => Navigator.of(context).pushNamed(RouteName.prescriptionSample),
                       child: Image.asset(
                         ImageHelper.wrapAssets('ic_sample.png'),
@@ -258,7 +251,8 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
   }
 }
 
-class DrugStoreItem extends StatelessWidget {
+class DrugStoreItem extends StatelessWidget{
+
   final String image;
   final String drugStoreName;
 
@@ -266,34 +260,44 @@ class DrugStoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Row(
       children: <Widget>[
         Image.asset(ImageHelper.wrapAssets(image), width: 50, height: 50),
         Expanded(
-            child: Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: Text(
-            drugStoreName,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-        )),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              drugStoreName,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+          )),
         SizedBox(
           width: 60,
           height: 30,
           child: OutlineButton(
-            onPressed: () => print("点击了更换"),
+            onPressed: (){
+              showBottomSheet(
+                backgroundColor:Colors.transparent,
+                context: context,
+                builder: (context) => DialogDrugCategory()
+              );
+            },
             color: Colors.white,
             child: Text(
               '更换',
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
             borderSide:
-                BorderSide(color: Theme.of(context).primaryColor, width: 1),
+            BorderSide(color: Theme.of(context).primaryColor, width: 1),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(3))),
+              borderRadius: BorderRadius.all(Radius.circular(3))),
           ),
         ),
       ],
     );
   }
+
 }
+
+
