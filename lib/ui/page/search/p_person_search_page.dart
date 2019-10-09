@@ -6,29 +6,34 @@ import 'package:flutter_drug/ui/widget/search_bar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:provider/provider.dart';
 
-class PrescriptionPersonSearchPage extends StatelessWidget {
+class PrescriptionPersonSearchPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _PrescriptionPersonSearchPageState();
+
+}
+
+class _PrescriptionPersonSearchPageState extends State<PrescriptionPersonSearchPage>{
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (_,FriendModel model,__){
-      return Scaffold(
-        appBar: SearchBar(
-          hintText: "请输入患者姓名或电话号码搜索",
-          onPressed: (text) {
+    FriendModel model = Provider.of<FriendModel>(context);
+    return Scaffold(
+      appBar: SearchBar(
+        hintText: "请输入患者姓名或电话号码搜索",
+        onPressed: (text) {
+          model.filterData(text);
+        },
+        onChanged: (String text) {
+          if (text.isEmpty){
             model.filterData(text);
-          },
-          listener: (String text)=>{
-            if (text.isEmpty){
-              model.filterData(text)
-            }
-          },
-        ),
-        body: ListView.builder(
-          itemCount: model.filterList.length,
-          itemBuilder: (context, index) {
-            return _buildPersonItem(model.filterList[index]);
-          }));
-    });
+          }
+        },
+      ),
+      body: ListView.builder(
+        itemCount: model.filterList.length,
+        itemBuilder: (context, index) {
+          return _buildPersonItem(model.filterList[index]);
+        })
+    );
   }
 
   Widget _buildPersonItem(Friend friend){

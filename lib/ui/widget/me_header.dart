@@ -25,14 +25,14 @@ class UserInfoHeader extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: margin,
-          height: 120,
+          height: 130,
           child: Image.asset(ImageHelper.wrapAssets(headerBg),
             fit: BoxFit.fill,
             width: double.infinity,
             height: double.infinity),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.fromLTRB(40,0,30,0),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

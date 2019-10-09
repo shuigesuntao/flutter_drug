@@ -6,6 +6,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/banner_image.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:flutter_drug/view_model/home_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -23,13 +24,21 @@ class _HomePageState extends State<HomePage>
   bool get wantKeepAlive => true;
 
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((callback) {
+      Provider.of<FriendModel>(context).initData();
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
-    var size = MediaQuery.of(context).size;
+//    var size = MediaQuery.of(context).size;
 
-    /// iPhoneX 头部适配
-    var top = MediaQuery.of(context).padding.top;
-    var bannerHeight = size.width * 9 / 16 - top;
+//    /// iPhoneX 头部适配
+//    var top = MediaQuery.of(context).padding.top;
+//    var bannerHeight = size.width * 9 / 16 - top;
     return ProviderWidget<HomeModel>(
         model: HomeModel(),
         onModelReady: (homeModel) {
@@ -51,7 +60,7 @@ class _HomePageState extends State<HomePage>
                       CupertinoDialogAction(
                         child: Text("取消"),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.maybePop(context);
                           print("取消");
                         },
                       ),
@@ -86,6 +95,7 @@ class _HomePageState extends State<HomePage>
                             margin: EdgeInsets.only(top: 15),
                             child: Column(
                               children: <Widget>[
+                                SizedBox(height: 15),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
                                     child: Row(
@@ -148,6 +158,7 @@ class _HomePageState extends State<HomePage>
                                         ),
                                       ],
                                     )),
+                                SizedBox(height: 15),
                               ],
                             ),
                           ),
@@ -184,7 +195,7 @@ class BannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-        aspectRatio: 3 / 1,
+        aspectRatio: 5 / 2,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,

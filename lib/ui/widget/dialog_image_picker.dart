@@ -48,7 +48,7 @@ class DialogImagePicker extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.maybePop(context),
               child: Padding(
                   padding: EdgeInsets.all(10),
                   child: Text('取消',
@@ -66,7 +66,7 @@ class DialogImagePicker extends StatelessWidget {
   }
 
   void _selectImage(BuildContext context, bool isCamera) async {
-    Navigator.pop(context);
+    Navigator.maybePop(context);
     if (onImageSelected != null) {
       onImageSelected( await ImagePicker.pickImage(
         source: isCamera ? ImageSource.camera : ImageSource.gallery));

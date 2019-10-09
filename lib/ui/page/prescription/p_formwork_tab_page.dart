@@ -64,7 +64,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
             }
             return Column(
               children: <Widget>[
-                Divider(height: 1,color: Colors.grey),
+                Divider(height: 1,color: Colors.grey[200]),
                 Container(
                   width: double.infinity,
                   color: Colors.white,

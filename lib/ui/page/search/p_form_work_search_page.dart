@@ -17,7 +17,7 @@ class PrescriptionFormWorkSearchPage extends StatelessWidget {
             showToast("搜索内容：$text");
           },
         ),
-        body: ProviderWidget(
+        body: ProviderWidget<PrescriptionFormWorkListModel>(
           model: PrescriptionFormWorkListModel(0),
           builder: (_,model,__){
             return EasyRefresh(

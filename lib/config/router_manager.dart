@@ -6,7 +6,7 @@ import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_tab_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_open_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_sample_page.dart';
-import 'package:flutter_drug/ui/page/prescription/p_take.dart';
+import 'package:flutter_drug/ui/page/prescription/p_take_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
@@ -37,7 +37,7 @@ class RouteName {
   static const String prescriptionAlready = 'prescriptionAlready';//已开处方
   static const String prescriptionSample = 'prescriptionSample';//处方示例
   static const String prescriptionFormWorkSearch = 'prescriptionFormWorkSearch';//处方模板搜索
-  static const String personSearch = 'personSearch';//开方患者搜索
+  static const String prescriptionPersonSearch = 'prescriptionPersonSearch';//开方患者搜索
   static const String login = 'login';
   static const String register = 'register';
   static const String myAccount = 'myAccount';//我的账户
@@ -75,7 +75,7 @@ class Router {
         return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.prescriptionFormWorkSearch:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkSearchPage());
-      case RouteName.personSearch:
+      case RouteName.prescriptionPersonSearch:
         return CupertinoPageRoute(builder: (_) => PrescriptionPersonSearchPage());
       case RouteName.test:
         return CupertinoPageRoute(builder: (_) => TestPage());

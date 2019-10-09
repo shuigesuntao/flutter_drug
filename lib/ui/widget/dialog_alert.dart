@@ -19,7 +19,7 @@ class DialogAlert extends StatelessWidget {
         CupertinoDialogAction(
           child: Text(cancelText),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.maybePop(context);
           },
         ),
         CupertinoDialogAction(

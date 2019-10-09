@@ -15,12 +15,12 @@ class CheckMessagePage extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Divider(height: 1),
-            Expanded(child: ProviderWidget(
+            Expanded(child: ProviderWidget<CheckMessageModel>(
               model: CheckMessageModel(),
               onModelReady: (model) {
                 model.initData();
               },
-              builder: (_,CheckMessageModel model, __) {
+              builder: (context, model, child) {
                 return EasyRefresh(
                   controller: model.refreshController,
                   onRefresh: model.refresh,

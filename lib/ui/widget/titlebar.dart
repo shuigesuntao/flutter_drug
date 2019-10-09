@@ -18,7 +18,7 @@ class TitleBar {
             child: Center(
               child: Text(
                 actionText,
-                style: TextStyle(color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
+                style: TextStyle(fontSize:16,color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
               ),
             ),
           ))
@@ -44,7 +44,7 @@ class TitleBar {
             ),
             onPressed: () {
               if (onPressed == null) {
-                Navigator.of(context).pop();
+                Navigator.maybePop(context);
               } else {
                 onPressed();
               }

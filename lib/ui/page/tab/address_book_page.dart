@@ -3,62 +3,68 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/model/friend.dart';
-import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
+import 'package:provider/provider.dart';
 
-class AddressBookPage extends StatelessWidget {
+class AddressBookPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _AddressBookPageState();
+
+}
+
+class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAliveClientMixin{
   final int _suspensionHeight = 30;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
-    return ProviderWidget<FriendModel>(
-      model: FriendModel(),
-      onModelReady: (friendModel) => friendModel.initData(),
-      builder: (context, friendModel, child) {
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            title: Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text('全部(${friendModel.list?.length ?? 0})'),
-                Image.asset(ImageHelper.wrapAssets('ic_arrow_drop_down.png'),
-                    width: 15, height: 15)
-              ],
-            ),
-            actions: <Widget>[
-              Padding(
-                  padding: EdgeInsets.only(right: 15),
-                  child: InkWell(
-                    onTap: () => print('点击了搜索'),
-                    child: Center(
-                      child: Text(
-                        '搜索',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                  ))
+    super.build(context);
+    return Consumer<FriendModel>(builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text('全部(${model.list?.length ?? 0})'),
+              Image.asset(ImageHelper.wrapAssets('ic_arrow_drop_down.png'),
+                width: 15, height: 15)
             ],
           ),
-          body: friendModel.busy
-              ? Center(child: CircularProgressIndicator())
-              : AzListView(
-                  data: friendModel.list,
-                  itemBuilder: (context, model) => _buildFriendItem(model),
-                  suspensionWidget: _buildSusWidget(friendModel.suspensionTag),
-                  isUseRealIndex: true,
-                  itemHeight: 60,
-                  suspensionHeight: _suspensionHeight,
-                  onSusTagChanged: (String tag) =>
-                      friendModel.suspensionTag = tag,
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 15),
+              child: InkWell(
+                onTap: () => print('点击了搜索'),
+                child: Center(
+                  child: Text(
+                    '搜索',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Theme.of(context).primaryColor),
+                  ),
                 ),
-        );
-      },
-    );
+              ))
+          ],
+        ),
+        body: model.busy
+          ? Center(child: CircularProgressIndicator())
+          : AzListView(
+          data: model.list,
+          itemBuilder: (context, model) => _buildFriendItem(model),
+          suspensionWidget: _buildSusWidget(model.suspensionTag),
+          isUseRealIndex: true,
+          itemHeight: 60,
+          suspensionHeight: _suspensionHeight,
+          onSusTagChanged: (String tag) =>
+          model.suspensionTag = tag,
+        ),
+      );
+    });
   }
 
   Widget _buildSusWidget(String susTag) {
@@ -87,25 +93,25 @@ class AddressBookPage extends StatelessWidget {
           child: _buildSusWidget(susTag),
         ),
         Container(
-            color: Colors.white,
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: <Widget>[
-                ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: friend.headerUrl,
-                    errorWidget: (context, url, error) => friend.gender == "女"
-                        ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-                            width: 50, height: 50)
-                        : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-                            width: 50, height: 50),
-                    fit: BoxFit.fill,
-                    width: 50,
-                    height: 50,
-                  ),
+          color: Colors.white,
+          padding: EdgeInsets.all(10),
+          child: Row(
+            children: <Widget>[
+              ClipOval(
+                child: CachedNetworkImage(
+                  imageUrl: friend.headerUrl,
+                  errorWidget: (context, url, error) => friend.gender == "女"
+                    ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
+                    width: 50, height: 50)
+                    : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
+                    width: 50, height: 50),
+                  fit: BoxFit.fill,
+                  width: 50,
+                  height: 50,
                 ),
-                Expanded(
-                    child: Padding(
+              ),
+              Expanded(
+                child: Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,9 +127,9 @@ class AddressBookPage extends StatelessWidget {
                           ),
                           Offstage(
                             offstage:
-                                friend.name == null || friend.name.isEmpty,
+                            friend.name == null || friend.name.isEmpty,
                             child: Text('（${friend.name}）',
-                                style: TextStyle(color: Colors.grey)),
+                              style: TextStyle(color: Colors.grey)),
                           )
                         ],
                       ),
@@ -135,8 +141,8 @@ class AddressBookPage extends StatelessWidget {
                     ],
                   ),
                 ))
-              ],
-            )),
+            ],
+          )),
         Divider(height: 1)
       ],
     );

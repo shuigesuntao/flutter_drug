@@ -35,8 +35,8 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
           children: <Widget>[
             UserListWidget(),
             Container(
-                alignment: Alignment(1.0, 0.14),
-                child: InkWell(
+                alignment: Alignment(1.0, 0.18),
+                child: GestureDetector(
                   onTap: () {
                     showDialog(
                         context: context,
@@ -47,7 +47,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
                               CupertinoDialogAction(
                                 child: Text("取消"),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.maybePop(context);
                                   print("取消");
                                 },
                               ),
@@ -63,7 +63,8 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
                   },
                   child: Image.asset(
                     ImageHelper.wrapAssets('contact_phone.png'),
-                    width: 120,
+                    fit: BoxFit.fill,
+                    width: 80,
                     height: 60,
                   ),
                 )
@@ -148,12 +149,13 @@ class MeCell extends StatelessWidget {
                     Expanded(child: Text(title, style: TextStyle(fontSize: 18))),
                     Icon(
                       Icons.chevron_right,
-                      color: Colors.grey.shade400,
+                      color: Colors.grey[300],
                     ),
                   ],
                 ),
               ),
               Divider(
+                color: Colors.grey[200],
                 height: 1,
                 indent: 60,
               ),

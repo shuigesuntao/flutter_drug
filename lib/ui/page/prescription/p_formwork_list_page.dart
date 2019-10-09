@@ -71,7 +71,7 @@ class PrescriptionFormWorkItem extends StatelessWidget {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text(p.name,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                Text(p.name,style: TextStyle(fontSize: 18)),
                 Expanded(
                   child:SizedBox()
                 ),
@@ -82,7 +82,7 @@ class PrescriptionFormWorkItem extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5))
+            Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700]))
           ],
         ),
       )

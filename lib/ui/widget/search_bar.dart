@@ -13,14 +13,14 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget{
     this.hintText: "",
     this.onPressed,
     this.isCancel = true,
-    this.listener
+    this.onChanged
   }): super(key: key);
 
   final Color backgroundColor;
   final String hintText;
   final Function(String) onPressed;
   final bool isCancel;
-  final Function(String) listener;
+  final Function(String) onChanged;
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -36,16 +36,6 @@ class _SearchBarState extends State<SearchBar> {
 
   Color getColor(){
     return overlayStyle == SystemUiOverlayStyle.light ? Colors.white : Colors.black87;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if(widget.listener != null){
-      _controller.addListener((){
-        widget.listener(_controller.text);
-      });
-    }
   }
 
   @override
@@ -72,7 +62,6 @@ class _SearchBarState extends State<SearchBar> {
                       borderRadius: BorderRadius.circular(4.0),
                     ),
                     child: TextField(
-                      autofocus: true,
                       controller: _controller,
                       maxLines: 1,
                       textInputAction: TextInputAction.search,
@@ -88,6 +77,11 @@ class _SearchBarState extends State<SearchBar> {
                       ),
                       onSubmitted: (text){
                         widget.onPressed(text);
+                      },
+                      onChanged: (text){
+                        if(widget.onChanged!= null){
+                          widget.onChanged(text);
+                        }
                       },
                     ),
                   ),

@@ -3,8 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/friend.dart';
-import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
@@ -12,7 +12,6 @@ import 'package:provider/provider.dart';
 
 class PrescriptionOpenPage extends StatelessWidget {
   final int _suspensionHeight = 30;
-  FriendModel _friendModel = FriendModel();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class PrescriptionOpenPage extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(15,10,15,10),
               color: Colors.white,
               child: GestureDetector(
-                onTap: ()=> Navigator.of(context).push(CupertinoPageRoute(builder: (_) => ChangeNotifierProvider.value(value: _friendModel,child: PrescriptionPersonSearchPage()))),
+                onTap: ()=> Navigator.of(context).pushNamed(RouteName.prescriptionPersonSearch),
                 child: Container(
                   height: 40.0,
                   decoration: BoxDecoration(
@@ -59,7 +58,7 @@ class PrescriptionOpenPage extends StatelessWidget {
                       children: <Widget>[
                         Image.asset(ImageHelper.wrapAssets('phone_kf.png'),
                           width: 45, height: 45),
-                        SizedBox(width: 15),
+                        SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -80,7 +79,7 @@ class PrescriptionOpenPage extends StatelessWidget {
                       children: <Widget>[
                         Image.asset(ImageHelper.wrapAssets('wx_kf.png'),
                           width: 45, height: 45),
-                        SizedBox(width: 15),
+                        SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -95,26 +94,20 @@ class PrescriptionOpenPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ProviderWidget<FriendModel>(
-              model: _friendModel,
-              onModelReady: (friendModel) => friendModel.initData(),
-              builder: (context, friendModel, child) {
-                return friendModel.busy
-                  ? Center(child: CircularProgressIndicator())
-                  : AzListView(
-                  data: friendModel.list,
+              child: Consumer(builder: (context, FriendModel model, child) {
+                return  AzListView(
+                  data: model.list,
                   itemBuilder: (context, model) =>
                     _buildFriendItem(model),
                   suspensionWidget:
-                  _buildSusWidget(friendModel.suspensionTag),
+                  _buildSusWidget(model.suspensionTag),
                   isUseRealIndex: true,
                   itemHeight: 60,
                   suspensionHeight: _suspensionHeight,
                   onSusTagChanged: (String tag) =>
-                  friendModel.suspensionTag = tag,
+                  model.suspensionTag = tag,
                 );
-              },
-            )
+              },)
             )
           ],
         ));

@@ -104,7 +104,7 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
                               content: '您确定删除吗？',
                               onPressed: (){
                                 model.remove(index);
-                                Navigator.pop(context);
+                                Navigator.maybePop(context);
                               },
                             );
                           }),

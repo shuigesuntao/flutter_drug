@@ -1,3 +1,4 @@
+import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ List<SingleChildCloneableWidget> providers = [
 List<SingleChildCloneableWidget> independentServices = [
 //  Provider.value(value: Api())
   ChangeNotifierProvider<UserModel>.value(value: UserModel()),
+  ChangeNotifierProvider<FriendModel>.value(value: FriendModel()),
 ];
 
 /// 需要依赖的model
