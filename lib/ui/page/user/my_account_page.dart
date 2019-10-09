@@ -9,12 +9,11 @@ class MyAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: TitleBar.buildCommonAppBar(
-        context,
-        '我的账户',
-        actionText: '提现规则',
-        onActionPress: ()=>Navigator.of(context).pushNamed(RouteName.packetRule,arguments:'https://app.zgzydb.com/web/packetRule/index.html')
-      ),
+      appBar: TitleBar.buildCommonAppBar(context, '我的账户',
+          actionText: '提现规则',
+          onActionPress: () => Navigator.of(context).pushNamed(
+              RouteName.packetRule,
+              arguments: 'https://app.zgzydb.com/web/packetRule/index.html')),
       body: Container(
         margin: EdgeInsets.all(15),
         child: Column(
@@ -179,9 +178,10 @@ class MyAccountPage extends StatelessWidget {
                       '查看账单',
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
-                    borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 1),
+                    borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor, width: 1),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
                   ),
                 ),
               ],

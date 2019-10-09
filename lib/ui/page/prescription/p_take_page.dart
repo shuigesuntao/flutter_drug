@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
@@ -5,7 +6,9 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_drug_category.dart';
 import 'package:flutter_drug/ui/widget/dialog_image_picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:flutter_drug/view_model/take_prescription_model.dart';
+import 'package:provider/provider.dart';
 
 class TakePrescriptionPage extends StatelessWidget {
   @override
@@ -57,7 +60,7 @@ class TakePrescriptionPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(20),
             margin: EdgeInsets.all(15),
             child: Column(
               children: <Widget>[
@@ -83,15 +86,20 @@ class TakePrescriptionPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 15),
-                DrugStoreItem(image:'tangji.png', drugStoreName:'药匣子优选-汤剂(代煎)')
+                ProviderWidget<CategoryModel>(
+                  model: CategoryModel(),
+                  onModelReady: (model) => model.initData(),
+                  builder: (context,model,child) =>
+                    model.busy? SizedBox():DrugStoreItem(),
+                )
               ],
             ),
           ),
           Container(
             decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            padding: EdgeInsets.all(15),
-            margin: EdgeInsets.all(15),
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.fromLTRB(15,0,15,15),
             child: Column(
               children: <Widget>[
                 Row(
@@ -253,22 +261,22 @@ class TakePrescriptionPage extends StatelessWidget {
 
 class DrugStoreItem extends StatelessWidget{
 
-  final String image;
-  final String drugStoreName;
-
-  DrugStoreItem({this.image, this.drugStoreName});
-
   @override
   Widget build(BuildContext context) {
-
-    return Row(
+    return Consumer<CategoryModel>(builder: (context,model,child) => Row(
       children: <Widget>[
-        Image.asset(ImageHelper.wrapAssets(image), width: 50, height: 50),
+        CachedNetworkImage(
+          imageUrl: model.list[model.selectedCategory].imageUrl,
+          errorWidget: (context, url, error) => Image.asset(ImageHelper.wrapAssets('tangji.png'), width: 50, height: 50),
+          fit: BoxFit.fill,
+          width: 50,
+          height: 50,
+        ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 10),
             child: Text(
-              drugStoreName,
+              '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           )),
@@ -280,7 +288,7 @@ class DrugStoreItem extends StatelessWidget{
               showBottomSheet(
                 backgroundColor:Colors.transparent,
                 context: context,
-                builder: (context) => DialogDrugCategory()
+                builder: (context) => ChangeNotifierProvider<CategoryModel>.value(value: model,child: DialogDrugCategory())
               );
             },
             color: Colors.white,
@@ -295,7 +303,7 @@ class DrugStoreItem extends StatelessWidget{
           ),
         ),
       ],
-    );
+    ));
   }
 
 }

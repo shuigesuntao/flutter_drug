@@ -2,9 +2,10 @@
 class Category{
   int id;
   String name;
+  String imageUrl;
   List<DrugStore> child;
 
-  Category(this.id,this.name,this.child);
+  Category(this.id,this.name,this.imageUrl,this.child);
 }
 
 class DrugStore{

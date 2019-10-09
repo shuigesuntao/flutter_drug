@@ -1,4 +1,3 @@
-import 'package:extended_text/extended_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/model/address.dart';
@@ -121,21 +120,28 @@ class AddressManagePage extends StatelessWidget {
                     Text(address.phone, style: TextStyle(color: Colors.grey))
                   ]),
                   SizedBox(height: 3),
-                  address.isDefault == 1
-                      ? ExtendedText.rich(
-                    TextSpan(
-                      children: [
-                          BackgroundTextSpan(
-                              text: '  默认  ',
-                              background: Paint()..color = Color(0xFFDDFAF8),
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor)),
-                          TextSpan(
-                              text: ' ${address.area}--${address.address}',
-                              style: TextStyle(color: Colors.black87))
-                        ]
-                    ),
-                  ) : Text('${address.area}--${address.address}')
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Offstage(
+                        offstage: address.isDefault != 1,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            color: Color(0xFFDDFAF8),
+                            child: Text('默认',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: 12)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text('${address.area}--${address.address}'),
+                      )
+                    ],
+                  )
                 ],
               ),
             )),
@@ -145,11 +151,11 @@ class AddressManagePage extends StatelessWidget {
               height: 25,
             ),
             GestureDetector(
-              onTap: ()=>print('编辑'),
+              onTap: () => print('编辑'),
               child: Padding(
                 padding: EdgeInsets.all(15),
                 child: Text('编辑',
-                  style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    style: TextStyle(color: Colors.grey, fontSize: 12)),
               ),
             )
           ],

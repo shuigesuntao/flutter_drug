@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/model/category.dart';
-import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
+import 'package:provider/provider.dart';
 
 class DialogDrugCategory extends StatelessWidget {
   @override
@@ -16,58 +16,53 @@ class DialogDrugCategory extends StatelessWidget {
         Container(
           color: Colors.white,
           height: 680,
-          child: Column(
+          child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
             children: <Widget>[
               Container(
                 child: Row(
                   children: <Widget>[
                     Expanded(child: Text('选择药房及处方剂型')),
                     GestureDetector(
-                        child: Text('确定',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor)),
-                        onTap: () {
-                          print('确定');
-                          Navigator.maybePop(context);
-                        })
+                      child: Text('确定',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).primaryColor)),
+                      onTap: () {
+                        model.selectedCategory = model.currentCategory;
+                        model.selectedDrugStore = model.currentDrugStore;
+                        Navigator.maybePop(context);
+                      })
                   ],
                 ),
                 color: Colors.grey[200],
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.fromLTRB(20,15,20,15),
               ),
               Expanded(
-                  child: ProviderWidget<CategoryModel>(
-                model: CategoryModel(),
-                onModelReady: (model) => model.initData(),
-                builder: (context, model, child) {
-                  return model.busy
-                      ? Center(child: CircularProgressIndicator())
-                      : Row(
-                          children: <Widget>[
-                            new Container(
-                                color: Colors.grey[200],
-                                width: 120,
-                                child: ListView.builder(
-                                    itemCount: model.list.length,
-                                    itemBuilder: (context, index) =>
-                                        _buildCategoryItem(model, index))),
-                            new Expanded(
-                                child: Container(
-                              color: Colors.white,
-                              padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                              child: ListView.builder(
-                                  itemCount: model
-                                      .list[model.currentCategory].child.length,
-                                  itemBuilder: (context, index) =>
-                                      _buildDrugStoreItem(
-                                          context, model, index)),
-                            ))
-                          ],
-                        );
-                },
-              ))
+                child: Row(
+                  children: <Widget>[
+                    new Container(
+                      color: Colors.grey[200],
+                      width: 100,
+                      child: ListView.builder(
+                        itemCount: model.list.length,
+                        itemBuilder: (context, index) =>
+                          _buildCategoryItem(model, index))),
+                    new Expanded(
+                      child: Container(
+                        color: Colors.white,
+                        padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                        child: ListView.builder(
+                          itemCount: model
+                            .list[model.currentCategory].child.length,
+                          itemBuilder: (context, index) =>
+                            _buildDrugStoreItem(
+                              context, model, index)),
+                      ))
+                  ],
+                )
+              )
             ],
-          ),
+          ))
         )
       ],
     );
@@ -94,7 +89,6 @@ class DialogDrugCategory extends StatelessWidget {
     return GestureDetector(
         onTap: () {
           model.currentDrugStore = i;
-          print("点击了" + data.name);
         },
         child: Container(
           margin: EdgeInsets.symmetric(vertical: 5),

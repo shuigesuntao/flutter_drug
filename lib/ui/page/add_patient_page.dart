@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/ui/widget/dialog_share.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -70,7 +72,13 @@ class AddPatientPage extends StatelessWidget {
                       width: double.infinity,
                       child: FlatButton(
                         padding: EdgeInsets.all(10),
-                        onPressed: () => print("点击了分享"),
+                        onPressed: (){
+                          showModalBottomSheet(
+                            backgroundColor:Colors.transparent,
+                            context: context,
+                            builder: (context) => ShareDialog()
+                          );
+                        },
                         color: Theme
                             .of(context)
                             .primaryColor,

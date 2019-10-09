@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/ui/widget/dialog_share.dart';
 import 'package:flutter_drug/ui/widget/me_header.dart';
 
 class UserInfoPage extends StatelessWidget {
@@ -16,7 +17,13 @@ class UserInfoPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: 15),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                  backgroundColor:Colors.transparent,
+                  context: context,
+                  builder: (context) => ShareDialog()
+                );
+              },
               child: Center(
                 child: Text(
                   '分享',

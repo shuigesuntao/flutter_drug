@@ -37,8 +37,7 @@ class CheckMessagePage extends StatelessWidget {
                     },
                   ),
                 );
-              })
-            )
+              }))
           ],
         ));
   }

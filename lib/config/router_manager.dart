@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_drug/model/doctor_advice.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
@@ -15,7 +16,10 @@ import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
 import 'package:flutter_drug/ui/page/test.dart';
 import 'package:flutter_drug/ui/page/user/address_manager_page.dart';
 import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
+import 'package:flutter_drug/ui/page/user/doctor_advice_page.dart';
+import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/user/my_account_page.dart';
+import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
 import 'package:flutter_drug/ui/page/user/packet_rule_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
 import 'package:flutter_drug/ui/page/user/service_setting_page.dart';
@@ -44,7 +48,10 @@ class RouteName {
   static const String packetRule = 'packetRule';//提现规则
   static const String userInfo = 'userInfo';//我的名片
   static const String decoct = 'decoct';//煎法管理
+  static const String doctorAdvice = 'doctorAdvice';//常用医嘱
+  static const String editDoctorAdvice = 'editDoctorAdvice';//编辑医嘱
   static const String addressManage = 'addressManage';//地址管理
+  static const String myOccupation = 'myOccupation';//我的职业保障
   static const String setting = 'setting';//设置
 }
 
@@ -111,8 +118,14 @@ class Router {
         return CupertinoPageRoute(builder: (_) => MyAccountPage());
       case RouteName.decoct:
         return CupertinoPageRoute(builder: (_) => DecoctManagePage());
+      case RouteName.doctorAdvice:
+        return CupertinoPageRoute(builder: (_) => DoctorAdvicePage());
+      case RouteName.editDoctorAdvice:
+        return CupertinoPageRoute(builder: (_) => EditDoctorAdvicePage(advice: settings.arguments as DoctorAdvice));
       case RouteName.addressManage:
         return CupertinoPageRoute(builder: (_) => AddressManagePage());
+      case RouteName.myOccupation:
+        return CupertinoPageRoute(builder: (_) => MyOccupationPage());
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
       case RouteName.userInfo:
