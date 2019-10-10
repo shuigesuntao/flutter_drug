@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/model/doctor_advice.dart';
+import 'package:flutter_drug/ui/page/about_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
@@ -17,6 +19,7 @@ import 'package:flutter_drug/ui/page/test.dart';
 import 'package:flutter_drug/ui/page/user/address_manager_page.dart';
 import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
 import 'package:flutter_drug/ui/page/user/doctor_advice_page.dart';
+import 'package:flutter_drug/ui/page/user/edit_address_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/user/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
@@ -51,8 +54,10 @@ class RouteName {
   static const String doctorAdvice = 'doctorAdvice';//常用医嘱
   static const String editDoctorAdvice = 'editDoctorAdvice';//编辑医嘱
   static const String addressManage = 'addressManage';//地址管理
+  static const String editAddress = 'editAddress';//编辑地址
   static const String myOccupation = 'myOccupation';//我的职业保障
   static const String setting = 'setting';//设置
+  static const String about = 'about';//关于
 }
 
 class Router {
@@ -124,10 +129,14 @@ class Router {
         return CupertinoPageRoute(builder: (_) => EditDoctorAdvicePage(advice: settings.arguments as DoctorAdvice));
       case RouteName.addressManage:
         return CupertinoPageRoute(builder: (_) => AddressManagePage());
+      case RouteName.editAddress:
+        return CupertinoPageRoute(builder: (_) => EditAddressPage(address: settings.arguments as Address));
       case RouteName.myOccupation:
         return CupertinoPageRoute(builder: (_) => MyOccupationPage());
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
+      case RouteName.about:
+        return CupertinoPageRoute(builder: (_) => AboutPage());
       case RouteName.userInfo:
         return CupertinoPageRoute(builder: (_) => UserInfoPage());
 //      case RouteName.coinRankingList:

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/address_model.dart';
+import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddressManagePage extends StatelessWidget {
@@ -14,7 +16,11 @@ class AddressManagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context, '地址管理',
-          actionText: '添加新地址', onActionPress: () => print("点击了添加新地址")),
+          actionText: '添加新地址', onActionPress: ()=>
+          Navigator.of(context).pushNamed(
+            RouteName.editAddress,
+            arguments: null)
+        ),
       body: ProviderWidget<AddressModel>(
         model: AddressModel(),
         onModelReady: (model) {
@@ -65,12 +71,21 @@ class AddressManagePage extends StatelessWidget {
                                 width: 1,
                                 height: 18,
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 25),
-                                child: Image.asset(
+                              GestureDetector(
+                                onTap: (){
+                                  if(_controller.text.isEmpty){
+                                    showToast('请输入搜索内容');
+                                  }else{
+                                    print("搜索${_controller.text}");
+                                  }
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 25),
+                                  child: Image.asset(
                                     ImageHelper.wrapAssets('ic_ss.png'),
                                     width: 20,
                                     height: 20),
+                                ),
                               )
                             ],
                           ),
@@ -123,14 +138,13 @@ class AddressManagePage extends StatelessWidget {
                   ]),
                   SizedBox(height: 3),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Offstage(
                         offstage: address.isDefault != 1,
                         child: Padding(
                           padding: EdgeInsets.only(right: 5),
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            padding: EdgeInsets.fromLTRB(5, 0, 5, 1),
                             color: Color(0xFFDDFAF8),
                             child: Text('默认',
                                 style: TextStyle(
@@ -148,12 +162,14 @@ class AddressManagePage extends StatelessWidget {
               ),
             )),
             Container(
-              color: Colors.grey,
+              color: Colors.grey[300],
               width: 1,
               height: 25,
             ),
             GestureDetector(
-              onTap: () => print('编辑'),
+              onTap: () => Navigator.of(context).pushNamed(
+                RouteName.editAddress,
+                arguments: address),
               child: Padding(
                 padding: EdgeInsets.all(15),
                 child: Text('编辑',

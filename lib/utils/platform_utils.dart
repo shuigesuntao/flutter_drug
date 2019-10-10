@@ -20,6 +20,11 @@ class PlatformUtils {
     return packageInfo.version;
   }
 
+  static Future<String> getAppName() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    return packageInfo.appName;
+  }
+
   static Future getDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {

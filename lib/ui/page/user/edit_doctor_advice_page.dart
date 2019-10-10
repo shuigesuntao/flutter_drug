@@ -31,8 +31,7 @@ class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-      TitleBar.buildCommonAppBar(context, widget.advice == null ? '新建医嘱' : '修改医嘱'),
+      appBar: TitleBar.buildCommonAppBar(context, widget.advice == null ? '新建医嘱' : '修改医嘱'),
       resizeToAvoidBottomPadding: false,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),

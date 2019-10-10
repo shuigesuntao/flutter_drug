@@ -44,6 +44,7 @@ class TitleBar {
             ),
             onPressed: () {
               if (onPressed == null) {
+                FocusScope.of(context).requestFocus(FocusNode());
                 Navigator.maybePop(context);
               } else {
                 onPressed();

@@ -13,17 +13,12 @@ class LawHelpPage extends StatelessWidget {
       model: LawNewsModel(),
       onModelReady: (model) => model.initData(),
       builder: (context, model, child) {
-        if (model.busy) {
-          return Center(child: CircularProgressIndicator());
-        } else if (model.error) {
-          return ViewStateWidget(onPressed: model.initData);
-        }
         return SmartRefresher(
             controller: model.refreshController,
             onRefresh: model.refresh,
             onLoading: model.loadMore,
             enablePullUp: !model.empty,
-            child: model.empty ? ViewStateEmptyWidget() :  CustomScrollView(
+            child:  CustomScrollView(
               slivers: <Widget>[
                 // 如果不是Sliver家族的Widget，需要使用SliverToBoxAdapter做层包裹
                 SliverToBoxAdapter(
@@ -155,8 +150,11 @@ class LawHelpPage extends StatelessWidget {
                 ),
                 model.busy
                   ? SliverToBoxAdapter(child: Container(height:400,alignment:Alignment.center,child: CircularProgressIndicator()))
-                  : SliverList(
-                  delegate: SliverChildBuilderDelegate((context,index) => _buildLawNewsItem(context,model.list[index]), childCount:model.list.length),
+                  : model.error
+                    ? ViewStateWidget(onPressed: model.initData)
+                    : model.empty
+                      ? ViewStateEmptyWidget()
+                      : SliverList(delegate: SliverChildBuilderDelegate((context,index) => _buildLawNewsItem(context,model.list[index]), childCount:model.list.length),
                 ),
               ],
             ),

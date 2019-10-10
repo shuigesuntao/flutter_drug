@@ -17,7 +17,23 @@ class SettingPage extends StatelessWidget{
           _buildItem(context,'修改登录密码',RouteName.test),
           _buildItem(context,'修改绑定手机',RouteName.test),
           SizedBox(height: 5),
-          _buildItem(context,'关于药匣子',RouteName.test),
+          _buildItem(context,'关于药匣子',RouteName.about),
+          SizedBox(height: 50),
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: FlatButton(
+              onPressed: ()=> print('退出登录'),
+              padding: EdgeInsets.all(12),
+              color: Colors.white,
+              child: Text(
+                '退出登录',
+                style: TextStyle(fontSize: 18),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5))),
+            ),
+          )
         ],
       ),
     );

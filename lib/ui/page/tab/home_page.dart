@@ -66,112 +66,105 @@ class _HomePageState extends State<HomePage>
                       ),
                       CupertinoDialogAction(
                         child: Text("呼叫"),
-                        onPressed: () {
-                          callPhone('400 052 0120');
-                        },
+                        onPressed: () => callPhone('400 052 0120'),
                       ),
                     ],
                   );
                 })
             ),
-            body: MediaQuery.removePadding(
-                context: context,
-                removeTop: false,
-                child: Builder(builder: (_) {
-                  if (homeModel.error) {
-                    return ViewStateWidget(onPressed: homeModel.initData);
-                  }
-                  return SmartRefresher(
-                    controller: homeModel.refreshController,
-                    onRefresh: homeModel.refresh,
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
+            body: homeModel.error?ViewStateWidget(onPressed: homeModel.initData): SmartRefresher(
+              controller: homeModel.refreshController,
+              onRefresh: homeModel.refresh,
+              //防止软键盘超出
+              child:SingleChildScrollView(
+                child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  children: <Widget>[
+                    BannerWidget(),
+                    Container(
+                      color: Colors.white,
+                      margin: EdgeInsets.only(top: 15),
                       child: Column(
                         children: <Widget>[
-                          BannerWidget(),
-                          Container(
-                            color: Colors.white,
-                            margin: EdgeInsets.only(top: 15),
-                            child: Column(
+                          SizedBox(height: 15),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                SizedBox(height: 15),
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        HomeItemWidget(
-                                          '添加患者',
-                                          'ic_yqhz.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.addPatient),
-                                        ),
-                                        HomeItemWidget(
-                                          '在线开方',
-                                          'ic_zxkf.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.openPrescription),
-                                        ),
-                                        HomeItemWidget(
-                                          '拍方上传',
-                                          'ic_pfsc.png',
-                                          onClick: () => nextPage(RouteName.takePrescription),
-                                        ),
-                                        HomeItemWidget(
-                                          '审方消息',
-                                          'ic_sfxx.png',
-                                          onClick: () => nextPage(RouteName.checkMessage),
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        HomeItemWidget(
-                                          '处方模板',
-                                          'ic_cfmb.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.prescriptionFormWork),
-                                        ),
-                                        HomeItemWidget(
-                                          '服务设置',
-                                          'ic_szcz.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.serviceSetting),
-                                        ),
-                                        HomeItemWidget(
-                                          '发布公告',
-                                          'ic_fbgg.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.publishNotice),
-                                        ),
-                                        HomeItemWidget(
-                                          '已开处方',
-                                          'ic_ykcf.png',
-                                          onClick: () =>
-                                              nextPage(RouteName.prescriptionAlready),
-                                        ),
-                                      ],
-                                    )),
-                                SizedBox(height: 15),
+                                HomeItemWidget(
+                                  '添加患者',
+                                  'ic_yqhz.png',
+                                  onClick: () =>
+                                    nextPage(RouteName.addPatient),
+                                ),
+                                HomeItemWidget(
+                                  '在线开方',
+                                  'ic_zxkf.png',
+                                  onClick: () =>
+                                    nextPage(RouteName.openPrescription),
+                                ),
+                                HomeItemWidget(
+                                  '拍方上传',
+                                  'ic_pfsc.png',
+                                  onClick: () => nextPage(RouteName.takePrescription),
+                                ),
+                                HomeItemWidget(
+                                  '审方消息',
+                                  'ic_sfxx.png',
+                                  onClick: () => nextPage(RouteName.checkMessage),
+                                ),
                               ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 15),
-                            child: Image.asset(
-                              ImageHelper.wrapAssets('yqys.png'),
-                            ),
-                          )
+                            )),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                HomeItemWidget(
+                                  '处方模板',
+                                  'ic_cfmb.png',
+                                  onClick: () =>
+                                    nextPage(RouteName.prescriptionFormWork),
+                                ),
+                                HomeItemWidget(
+                                  '服务设置',
+                                  'ic_szcz.png',
+                                  onClick: () =>
+                                    nextPage(RouteName.serviceSetting),
+                                ),
+                                HomeItemWidget(
+                                  '发布公告',
+                                  'ic_fbgg.png',
+                                  onClick: () =>
+                                    nextPage(RouteName.publishNotice),
+                                ),
+                                HomeItemWidget(
+                                  '已开处方',
+                                  'ic_ykcf.png',
+                                  onClick: () =>
+                                    nextPage(RouteName.prescriptionAlready),
+                                ),
+                              ],
+                            )),
+                          SizedBox(height: 15),
                         ],
                       ),
                     ),
-                  );
-                })),
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: Image.asset(
+                        ImageHelper.wrapAssets('yqys.png'),
+                      ),
+                    )
+                  ],
+                ),
+              )
+              ),
+            ),
           );
         });
   }
