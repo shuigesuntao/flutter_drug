@@ -5,7 +5,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/check_message_model.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class CheckMessagePage extends StatelessWidget {
   @override
@@ -21,14 +21,17 @@ class CheckMessagePage extends StatelessWidget {
                 model.initData();
               },
               builder: (context, model, child) {
-                return EasyRefresh(
+                if (model.busy) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (model.error) {
+                  return ViewStateWidget(onPressed: model.initData);
+                }
+                return SmartRefresher(
                   controller: model.refreshController,
                   onRefresh: model.refresh,
-                  enableControlFinishRefresh: true,
-                  firstRefresh: true,
-                  firstRefreshWidget: Center(child: CircularProgressIndicator()),
-                  emptyWidget: model.empty ? ViewStateEmptyWidget() : null,
-                  child: ListView.separated(
+                  onLoading: model.loadMore,
+                  enablePullUp: !model.empty,
+                  child: model.empty ? ViewStateEmptyWidget() : ListView.separated(
                     separatorBuilder: (BuildContext context, int index) =>
                       Divider(height: 1),
                     itemCount: model.list?.length ?? 0,

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 
 import 'view_state_list_model.dart';
@@ -12,9 +12,9 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
   /// 分页条目数量
   static const int pageSize = 20;
 
-  EasyRefreshController _refreshController = EasyRefreshController();
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
 
-  EasyRefreshController get refreshController => _refreshController;
+  RefreshController get refreshController => _refreshController;
 
   /// 当前页码
   int _currentPageNum = pageNumFirst;
@@ -26,11 +26,19 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
       var data = await loadData(pageNum: pageNumFirst);
       if (data.isEmpty) {
         setEmpty();
-        _finishRefresh();
+        refreshController.refreshCompleted();
+        refreshController.loadNoData();
       } else {
+        onCompleted(data);
         list.clear();
         list.addAll(data);
-        _finishRefresh();
+        refreshController.refreshCompleted();
+        if (data.length < pageSize) {
+          refreshController.loadNoData();
+        } else {
+          //防止上次上拉加载更多失败,需要重置状态
+          refreshController.loadComplete();
+        }
         if (init) {
           //改变页面状态为非加载中
           setBusy(false);
@@ -51,20 +59,21 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
       var data = await loadData(pageNum: ++_currentPageNum);
       if (data.isEmpty) {
         _currentPageNum--;
-        refreshController.finishLoad(noMore: true);
+        refreshController.loadNoData();
       } else {
+        onCompleted(data);
         list.addAll(data);
         if (data.length < pageSize) {
-          refreshController.finishLoad(noMore: true);
+          refreshController.loadNoData();
         } else {
-          refreshController.finishLoad(noMore: false);
+          refreshController.loadComplete();
         }
         notifyListeners();
       }
       return data;
     } catch (e, s) {
       _currentPageNum--;
-      refreshController.finishLoad(success:false);
+      refreshController.loadFailed();
       debugPrint('error--->\n' + e.toString());
       debugPrint('statck--->\n' + s.toString());
       return null;
@@ -78,10 +87,5 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
   void dispose() {
     _refreshController.dispose();
     super.dispose();
-  }
-
-  void _finishRefresh() {
-    refreshController.resetLoadState();
-    refreshController.finishRefresh();
   }
 }

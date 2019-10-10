@@ -4,8 +4,8 @@ import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_list_page.dart';
 import 'package:flutter_drug/ui/widget/search_bar.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PrescriptionFormWorkSearchPage extends StatelessWidget {
   @override
@@ -19,15 +19,18 @@ class PrescriptionFormWorkSearchPage extends StatelessWidget {
         ),
         body: ProviderWidget<PrescriptionFormWorkListModel>(
           model: PrescriptionFormWorkListModel(0),
-          builder: (_,model,__){
-            return EasyRefresh(
+          builder: (context,model,child){
+            if (model.busy) {
+              return Center(child: CircularProgressIndicator());
+            } else if (model.error) {
+              return ViewStateWidget(onPressed: model.initData);
+            }
+            return SmartRefresher(
               controller: model.refreshController,
               onRefresh: model.refresh,
-              onLoad: model.loadMore,
-              enableControlFinishRefresh: true,
-              enableControlFinishLoad: true,
-              emptyWidget: model.empty ? ViewStateEmptyWidget() : null,
-              child: ListView.builder(
+              onLoading: model.loadMore,
+              enablePullUp: !model.empty,
+              child: model.empty ? ViewStateEmptyWidget() :ListView.builder(
                 itemCount: model.list.length,
                 itemBuilder: (context, index) {
                   return PrescriptionFormWorkItem(model.list[index]);

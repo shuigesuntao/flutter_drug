@@ -30,7 +30,9 @@ dependencies:
   # UI
   oktoast: ^2.2.0
   # refresh
-  flutter_easyrefresh: ^2.0.4
+  pull_to_refresh: ^1.5.6
+  # gif
+  flutter_gifimage: ^1.0.0
   # banner
   flutter_swiper: ^1.1.6
   cached_network_image: ^1.1.1

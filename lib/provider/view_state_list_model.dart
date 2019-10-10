@@ -35,4 +35,6 @@ abstract class ViewStateListModel<T> extends ViewStateModel {
 
   // 加载数据
   Future<List<T>> loadData();
+
+  onCompleted(List<T> data) {}
 }

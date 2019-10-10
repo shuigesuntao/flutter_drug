@@ -5,7 +5,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/address_model.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddressManagePage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -17,19 +17,21 @@ class AddressManagePage extends StatelessWidget {
           actionText: '添加新地址', onActionPress: () => print("点击了添加新地址")),
       body: ProviderWidget<AddressModel>(
         model: AddressModel(),
-        onModelReady: (addressModel) {
-          addressModel.initData();
+        onModelReady: (model) {
+          model.initData();
         },
-        builder: (context, addressModel, child) {
-          return addressModel.busy
-              ? Center(child: CircularProgressIndicator())
-              : EasyRefresh(
-                  controller: addressModel.refreshController,
-                  onRefresh: addressModel.refresh,
-                  enableControlFinishRefresh: true,
-                  emptyWidget:
-                      addressModel.empty ? ViewStateEmptyWidget() : null,
-                  child: Column(
+        builder: (context, model, child) {
+          if (model.busy) {
+            return Center(child: CircularProgressIndicator());
+          } else if (model.error) {
+            return ViewStateWidget(onPressed: model.initData);
+          }
+          return SmartRefresher(
+                  controller: model.refreshController,
+                  onRefresh: model.refresh,
+                  onLoading: model.loadMore,
+                  enablePullUp: !model.empty,
+                  child: model.empty ? ViewStateEmptyWidget() :Column(
                     children: <Widget>[
                       Padding(
                         padding: EdgeInsets.all(15),
@@ -76,10 +78,10 @@ class AddressManagePage extends StatelessWidget {
                       ),
                       ListView.builder(
                         shrinkWrap: true,
-                        itemCount: addressModel.list?.length ?? 0,
+                        itemCount: model.list?.length ?? 0,
                         itemBuilder: (context, index) {
                           return _buildAddressItem(
-                              context, addressModel.list[index]);
+                              context, model.list[index]);
                         },
                       ),
                     ],

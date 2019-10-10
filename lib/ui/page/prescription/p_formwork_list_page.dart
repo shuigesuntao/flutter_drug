@@ -4,7 +4,7 @@ import 'package:flutter_drug/model/prescription_formwork.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PrescriptionFormWorkListPage extends StatefulWidget {
   final int status;
@@ -31,15 +31,15 @@ class _PrescriptionFormWorkListPageState extends State<PrescriptionFormWorkListP
       builder: (context, model, child) {
         if (model.busy) {
           return Center(child: CircularProgressIndicator());
+        } else if (model.error) {
+          return ViewStateWidget(onPressed: model.initData);
         }
-        return EasyRefresh(
+        return SmartRefresher(
           controller: model.refreshController,
           onRefresh: model.refresh,
-          onLoad: model.loadMore,
-          enableControlFinishRefresh: true,
-          enableControlFinishLoad: true,
-          emptyWidget: model.empty ? ViewStateEmptyWidget() : null,
-          child: ListView.builder(
+          onLoading: model.loadMore,
+          enablePullUp: !model.empty,
+          child:model.empty ? ViewStateEmptyWidget() : ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {
               return PrescriptionFormWorkItem(model.list[index]);

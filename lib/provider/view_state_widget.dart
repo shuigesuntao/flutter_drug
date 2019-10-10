@@ -65,20 +65,20 @@ class ViewStateEmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          image ?? Image.asset(ImageHelper.wrapAssets('lb_null.png')),
-          Text(
-            message ?? '暂无数据!',
-            style: Theme.of(context)
-              .textTheme
-              .body1
-              .copyWith(color: Colors.grey),
-          ),
-        ],
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            image ?? Image.asset(ImageHelper.wrapAssets('lb_null.png')),
+            Text(
+              message ?? '暂无数据!',
+              style: TextStyle(fontSize: 16,color: Colors.grey),
+            ),
+          ],
+        ),
       ),
     );
   }
