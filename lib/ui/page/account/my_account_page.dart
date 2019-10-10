@@ -12,7 +12,7 @@ class MyAccountPage extends StatelessWidget {
       appBar: TitleBar.buildCommonAppBar(context, '我的账户',
           actionText: '提现规则',
           onActionPress: () => Navigator.of(context).pushNamed(
-              RouteName.packetRule,
+              RouteName.cashRule,
               arguments: 'https://app.zgzydb.com/web/packetRule/index.html')),
       body: Container(
         margin: EdgeInsets.all(15),
@@ -157,8 +157,8 @@ class MyAccountPage extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: FlatButton(
-                    padding: EdgeInsets.all(10),
-                    onPressed: () => print("点击了微信提现"),
+                    padding: EdgeInsets.all(12),
+                    onPressed: () => Navigator.of(context).pushNamed(RouteName.weChatCash),
                     color: Theme.of(context).primaryColor,
                     child: Text(
                       '微信提现',
@@ -172,7 +172,7 @@ class MyAccountPage extends StatelessWidget {
                   width: double.infinity,
                   child: OutlineButton(
                     padding: EdgeInsets.all(10),
-                    onPressed: () => print("点击了查看账单"),
+                    onPressed: () => Navigator.of(context).pushNamed(RouteName.showAccount),
                     color: Colors.white,
                     child: Text(
                       '查看账单',

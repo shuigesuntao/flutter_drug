@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class PacketRulePage extends StatefulWidget{
+class CashRulePage extends StatefulWidget{
   final String url;
-  PacketRulePage({this.url});
+  CashRulePage({this.url});
   @override
-  State<StatefulWidget> createState() => _PacketRulePageState();
+  State<StatefulWidget> createState() => _CashRulePageState();
 
 }
 
-class _PacketRulePageState extends State<PacketRulePage>{
+class _CashRulePageState extends State<CashRulePage>{
   WebViewController _webViewController;
   Completer<bool> _finishedCompleter = Completer();
   ValueNotifier canGoBack = ValueNotifier(false);

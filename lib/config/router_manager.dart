@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/model/doctor_advice.dart';
 import 'package:flutter_drug/ui/page/about_page.dart';
+import 'package:flutter_drug/ui/page/account/bind_wechat_page.dart';
+import 'package:flutter_drug/ui/page/account/show_account_page.dart';
+import 'package:flutter_drug/ui/page/account/wechat_cash_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
@@ -21,9 +24,9 @@ import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
 import 'package:flutter_drug/ui/page/user/doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_address_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
-import 'package:flutter_drug/ui/page/user/my_account_page.dart';
+import 'package:flutter_drug/ui/page/account/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
-import 'package:flutter_drug/ui/page/user/packet_rule_page.dart';
+import 'package:flutter_drug/ui/page/account/cash_rule_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
 import 'package:flutter_drug/ui/page/user/service_setting_page.dart';
 import 'package:flutter_drug/ui/page/user/user_info_page.dart';
@@ -48,7 +51,10 @@ class RouteName {
   static const String login = 'login';
   static const String register = 'register';
   static const String myAccount = 'myAccount';//我的账户
-  static const String packetRule = 'packetRule';//提现规则
+  static const String cashRule = 'cashRule';//提现规则
+  static const String weChatCash = 'weChatCash';//微信提现
+  static const String bindWeChat = 'bindWeChat';//绑定微信
+  static const String showAccount = 'showAccount';//查看账单
   static const String userInfo = 'userInfo';//我的名片
   static const String decoct = 'decoct';//煎法管理
   static const String doctorAdvice = 'doctorAdvice';//常用医嘱
@@ -117,10 +123,16 @@ class Router {
 //        int index = list[1];
 //        return CupertinoPageRoute(
 //            builder: (_) => ArticleCategoryTabPage(tree, index));
-      case RouteName.packetRule:
-        return CupertinoPageRoute(builder: (_) => PacketRulePage(url: settings.arguments as String));
+      case RouteName.cashRule:
+        return CupertinoPageRoute(builder: (_) => CashRulePage(url: settings.arguments as String));
       case RouteName.myAccount:
         return CupertinoPageRoute(builder: (_) => MyAccountPage());
+      case RouteName.weChatCash:
+        return CupertinoPageRoute(builder: (_) => WeChatCashPage());
+      case RouteName.bindWeChat:
+        return CupertinoPageRoute(builder: (_) => BindWeChatPage());
+      case RouteName.showAccount:
+        return CupertinoPageRoute(builder: (_) => ShowAccountPage());
       case RouteName.decoct:
         return CupertinoPageRoute(builder: (_) => DecoctManagePage());
       case RouteName.doctorAdvice:

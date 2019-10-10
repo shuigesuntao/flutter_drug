@@ -169,7 +169,8 @@ class EditAddressPageState extends State<EditAddressPage> {
                   keyboardType: isNumber ? TextInputType.number : null,
                   style: TextStyle(fontSize: 14),
                   textAlign: TextAlign.start,
-                ))
+                )
+                )
               ],
             ),
           ),
