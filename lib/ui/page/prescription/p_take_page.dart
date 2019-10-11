@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
@@ -131,8 +132,7 @@ class TakePrescriptionPage extends StatelessWidget {
                       builder: (context,model,child){
                         return GestureDetector(
                           onTap: (){
-                            showModalBottomSheet(
-                              backgroundColor:Colors.transparent,
+                            showCupertinoModalPopup(
                               context: context,
                               builder: (context) {
                                 return DialogImagePicker(
@@ -238,24 +238,24 @@ class TakePrescriptionPage extends StatelessWidget {
   }
 
   Widget _buildImageItem(TakePrescriptionModel model) {
-    return Stack(
-      children: <Widget>[
-        Image.file(
-          model.image,
-          width: 100,
-          height: 100,
-          fit: BoxFit.fill,
-        ),
-        Positioned(
-          top: 0,
-          right: 0,
-          child:InkWell(
-            onTap: ()=> model.image = null,
-            child: Image.asset(ImageHelper.wrapAssets('ic_delete.png'),width: 20,height: 20),
+      return Stack(
+        children: <Widget>[
+          Image.file(
+            model.image,
+            width: 120,
+            height: 120,
+            fit: BoxFit.fill,
+          ),
+          Positioned(
+            top: 0,
+            right: 0,
+            child:InkWell(
+              onTap: ()=> model.image = null,
+              child: Image.asset(ImageHelper.wrapAssets('ic_delete.png'),width: 20,height: 20),
+            )
           )
-        )
-      ],
-    );
+        ],
+      );
   }
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/ui/widget/dialog_share.dart';
 import 'package:flutter_drug/ui/widget/me_header.dart';
+import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:provider/provider.dart';
 
 class UserInfoPage extends StatelessWidget {
   @override
@@ -35,15 +37,16 @@ class UserInfoPage extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          UserInfoHeader(
-            headerBg: 'bg_mingpian.png',
-            imageUrl:
-            'http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg',
-            name: '许洪亮',
-            type: '内科',
-            job: '职业医师',
-            hasRightIcon: false,
-          ),
+          Consumer<UserModel>(builder: (context,model,chile){
+            return UserInfoHeader(
+              headerBg: 'bg_mingpian.png',
+              imageUrl: model.user.icon,
+              name: model.user.name,
+              type: '内科',
+              job: model.user.level,
+              hasRightIcon: false,
+            );
+          }),
           Container(
             margin: EdgeInsets.all(15),
             child: Column(

@@ -1,13 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/ui/widget/dialog_share.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class AddPatientPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    UserModel userModel = Provider.of<UserModel>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: TitleBar.buildCommonAppBar(
@@ -22,7 +24,7 @@ class AddPatientPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 20),
             child: ClipOval(
               child: CachedNetworkImage(
-                imageUrl: 'http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg',
+                imageUrl: userModel.user.icon,
                 fit: BoxFit.fill,
                 width: 70,
                 height: 70,
@@ -30,11 +32,11 @@ class AddPatientPage extends StatelessWidget {
             ),
           ),
           Text(
-            '许洪亮',
+            userModel.user.name,
             style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
           ),
           Text(
-            '执业医师',
+            userModel.user.level,
             style: TextStyle(fontSize: 14,color: Colors.grey),
           ),
           SizedBox(height: 30),
@@ -49,7 +51,7 @@ class AddPatientPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: QrImage(
-              data: "1234567890",
+              data: userModel.user.id.toString(),
               version: QrVersions.auto,
               size: 150.0,
             ),

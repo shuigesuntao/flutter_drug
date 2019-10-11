@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:flutter_drug/config/resource_mananger.dart';
@@ -111,10 +112,16 @@ class _HomePageState extends State<HomePage>
                                   'ic_pfsc.png',
                                   onClick: () => nextPage(RouteName.takePrescription),
                                 ),
-                                HomeItemWidget(
-                                  '审方消息',
-                                  'ic_sfxx.png',
-                                  onClick: () => nextPage(RouteName.checkMessage),
+                                Badge(
+                                  padding: EdgeInsets.all(7),
+                                  elevation: 0,
+                                  badgeContent: Text('1',style: TextStyle(color: Colors.white),),
+                                  position: BadgePosition.topRight(top: -6, right: 1),
+                                  child: HomeItemWidget(
+                                    '审方消息',
+                                    'ic_sfxx.png',
+                                    onClick: () => nextPage(RouteName.checkMessage),
+                                  ),
                                 ),
                               ],
                             )),

@@ -6,6 +6,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/me_header.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MyPage extends StatefulWidget {
@@ -21,14 +22,12 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(
-        context,
-        '我的',
-        isShowBack: false,
-        actionText: '设置',
-        actionTextColor:Colors.black54,
-        onActionPress: ()=>Navigator.of(context).pushNamed(RouteName.setting)
-      ),
+      appBar: TitleBar.buildCommonAppBar(context, '我的',
+          isShowBack: false,
+          actionText: '设置',
+          actionTextColor: Colors.black54,
+          onActionPress: () =>
+              Navigator.of(context).pushNamed(RouteName.setting)),
       body: Container(
         color: Colors.white,
         child: Stack(
@@ -67,8 +66,7 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
                     width: 80,
                     height: 60,
                   ),
-                )
-            ),
+                )),
           ],
         ),
       ),
@@ -91,28 +89,25 @@ class UserListWidget extends StatelessWidget {
     return ListTileTheme(
       child: ListView(
         children: <Widget>[
-          ProviderWidget<UserModel>(
-              model: UserModel(),
+          Consumer<UserModel>(
               builder: (context, model, child) => InkWell(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(RouteName.userInfo),
-                  child: UserInfoHeader(
-                      headerBg: 'bg_account.png',
-                      imageUrl: 'http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg',
-                      name: '许洪亮',
-                      type: '内科',
-                      job: '职业医师',
-                      margin: EdgeInsets.fromLTRB(10, 10, 10, 0)
-                  )
-              )
-          ),
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(RouteName.userInfo),
+                    child: UserInfoHeader(
+                        headerBg: 'bg_account.png',
+                        imageUrl: model.user.icon,
+                        name: model.user.name,
+                        type: '内科',
+                        job: model.user.level,
+                        margin: EdgeInsets.fromLTRB(10, 10, 10, 0)),
+                  )),
           MeCell('我的账户', 'ic_zhanghu.png', RouteName.myAccount),
-          MeCell('资质认证', 'ic_zizhi.png', RouteName.myAccount),
+          MeCell('资质认证', 'ic_zizhi.png', RouteName.auth),
           MeCell('煎法管理', 'ic_jianfa.png', RouteName.decoct),
           MeCell('常用医嘱', 'ic_yizhu.png', RouteName.doctorAdvice),
           MeCell('地址管理', 'ic_dizhi.png', RouteName.addressManage),
           MeCell('我的执业保障', 'ic_baozhang.png', RouteName.myOccupation),
-          MeCell('意见反馈', 'ic_fankui.png', RouteName.myAccount)
+          MeCell('意见反馈', 'ic_fankui.png', RouteName.suggestion)
         ],
       ),
     );
@@ -146,7 +141,8 @@ class MeCell extends StatelessWidget {
                       height: 20,
                     ),
                     SizedBox(width: 20),
-                    Expanded(child: Text(title, style: TextStyle(fontSize: 18))),
+                    Expanded(
+                        child: Text(title, style: TextStyle(fontSize: 18))),
                     Icon(
                       Icons.chevron_right,
                       color: Colors.grey[300],

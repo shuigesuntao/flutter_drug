@@ -4,6 +4,7 @@ import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/model/doctor_advice.dart';
 import 'package:flutter_drug/ui/page/about_page.dart';
 import 'package:flutter_drug/ui/page/account/bind_wechat_page.dart';
+import 'package:flutter_drug/ui/page/account/month_bill_page.dart';
 import 'package:flutter_drug/ui/page/account/show_account_page.dart';
 import 'package:flutter_drug/ui/page/account/wechat_cash_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
@@ -17,14 +18,17 @@ import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
+import 'package:flutter_drug/ui/page/suggestion_page.dart';
 import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
 import 'package:flutter_drug/ui/page/test.dart';
 import 'package:flutter_drug/ui/page/user/address_manager_page.dart';
+import 'package:flutter_drug/ui/page/user/auth_page.dart';
 import 'package:flutter_drug/ui/page/user/decoct_manage_page.dart';
 import 'package:flutter_drug/ui/page/user/doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_address_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/account/my_account_page.dart';
+import 'package:flutter_drug/ui/page/user/example_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
 import 'package:flutter_drug/ui/page/account/cash_rule_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
@@ -55,13 +59,17 @@ class RouteName {
   static const String weChatCash = 'weChatCash';//微信提现
   static const String bindWeChat = 'bindWeChat';//绑定微信
   static const String showAccount = 'showAccount';//查看账单
+  static const String monthBill = 'monthBill';//查看账单
   static const String userInfo = 'userInfo';//我的名片
+  static const String auth = 'auth';//资质认证
+  static const String example = 'example';//认证示例
   static const String decoct = 'decoct';//煎法管理
   static const String doctorAdvice = 'doctorAdvice';//常用医嘱
   static const String editDoctorAdvice = 'editDoctorAdvice';//编辑医嘱
   static const String addressManage = 'addressManage';//地址管理
   static const String editAddress = 'editAddress';//编辑地址
   static const String myOccupation = 'myOccupation';//我的职业保障
+  static const String suggestion = 'suggestion';//意见反馈
   static const String setting = 'setting';//设置
   static const String about = 'about';//关于
 }
@@ -133,6 +141,12 @@ class Router {
         return CupertinoPageRoute(builder: (_) => BindWeChatPage());
       case RouteName.showAccount:
         return CupertinoPageRoute(builder: (_) => ShowAccountPage());
+      case RouteName.monthBill:
+        return CupertinoPageRoute(builder: (_) => MonthBillPage());
+      case RouteName.auth:
+        return CupertinoPageRoute(builder: (_) => AuthPage());
+      case RouteName.example:
+        return CupertinoPageRoute(builder: (_) => ExamplePage());
       case RouteName.decoct:
         return CupertinoPageRoute(builder: (_) => DecoctManagePage());
       case RouteName.doctorAdvice:
@@ -145,6 +159,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => EditAddressPage(address: settings.arguments as Address));
       case RouteName.myOccupation:
         return CupertinoPageRoute(builder: (_) => MyOccupationPage());
+      case RouteName.suggestion:
+        return CupertinoPageRoute(builder: (_) => SuggestionPage());
       case RouteName.setting:
         return CupertinoPageRoute(builder: (_) => SettingPage());
       case RouteName.about:

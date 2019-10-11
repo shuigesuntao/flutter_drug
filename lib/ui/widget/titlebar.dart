@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/net/api.dart' as prefix0;
 import 'package:flutter_drug/config/resource_mananger.dart';
 
 class TitleBar {
