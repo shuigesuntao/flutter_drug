@@ -7,21 +7,33 @@ import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
+import 'package:flutter_drug/ui/widget/dialog_input.dart';
 import 'package:flutter_drug/ui/widget/user_title_bar.dart';
 import 'package:flutter_drug/view_model/diagnosis_record_model.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class FriendInfoPage extends StatelessWidget {
+class FriendInfoPage extends StatefulWidget {
   final Friend friend;
 
   FriendInfoPage({this.friend});
 
-  final List<String> groups = ['全部', '新建分组'];
+  @override
+  State<StatefulWidget> createState() => FriendInfoPageState();
 
+}
+
+class FriendInfoPageState extends State<FriendInfoPage>{
+  String _displayName;
+  final List<String> groups = ['全部', '新建分组'];
+  @override
+  void initState() {
+    super.initState();
+    _displayName = widget.friend.displayName;
+  }
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: UserTitleBar('患者档案',actionText: '分组',onActionPressed: (){
         showModalBottomSheet(
           backgroundColor: Colors.white,
@@ -52,7 +64,7 @@ class FriendInfoPage extends StatelessWidget {
                       SliverToBoxAdapter(
                         child: Column(
                           children: <Widget>[
-                            _buildFriendInfoHeader(),
+                            _buildFriendInfoHeader(context),
                             Container(
                               color: Colors.white,
                               padding: EdgeInsets.fromLTRB(15,15,0,15),
@@ -174,7 +186,7 @@ class FriendInfoPage extends StatelessWidget {
                     child: FlatButton(
                       onPressed: ()=> Navigator.of(context).pushNamed(
                         RouteName.openPrescription,
-                        arguments: friend
+                        arguments: widget.friend
                       ),
                       color: Theme.of(context).primaryColor,
                       child: Text(
@@ -207,69 +219,83 @@ class FriendInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFriendInfoHeader() {
+  Widget _buildFriendInfoHeader(BuildContext context) {
     return Container(
-        height: 120,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage(ImageHelper.wrapAssets('bg_mingpian.png')))),
-        child: Row(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 2),
-                shape: BoxShape.circle,
-              ),
-              child: CachedNetworkImage(
-                imageUrl: friend.headerUrl,
-                errorWidget: (context, url, error) => friend.gender == "女"
-                    ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-                        width: 55, height: 55)
-                    : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-                        width: 55, height: 55),
-                fit: BoxFit.fill,
-                width: 55,
-                height: 55,
-              ),
+      height: 120,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: AssetImage(ImageHelper.wrapAssets('bg_mingpian.png')))),
+      child: Row(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.white, width: 2),
+              shape: BoxShape.circle,
             ),
-            SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        friend.displayName,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18),
-                      ),
-                      SizedBox(width: 10),
-                      GestureDetector(
-                        onTap: () => print('点击了编辑'),
-                        child: Image.asset(ImageHelper.wrapAssets('ic_edit.png'), width: 20, height: 20),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6),
-                    child: Text('真实姓名 ${friend.name}',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                  Text(
-                    "${_getGender(friend.gender)}${friend.age}岁 | ${friend.phone}",
-                    style: TextStyle(color: Colors.white),
-                  )
-                ],
+            child: CachedNetworkImage(
+              imageUrl: widget.friend.headerUrl,
+              errorWidget: (context, url, error) => widget.friend.gender == "女"
+                ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
+                width: 55, height: 55)
+                : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
+                width: 55, height: 55),
+              fit: BoxFit.fill,
+              width: 55,
+              height: 55,
+            ),
+          ),
+          SizedBox(width: 15),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(
+                      _displayName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                    ),
+                    SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: (){
+                        showDialog<Null>(
+                          context: context, //BuildContext对象
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return InputDialog(
+                              data:_displayName,
+                              onConfirm:(text){
+                                setState(() {
+                                  _displayName = text;
+                                });
+                              }
+                            );
+                          });
+                      },
+                      child: Image.asset(ImageHelper.wrapAssets('ic_edit.png'), width: 20, height: 20),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 6),
+                  child: Text('真实姓名 ${widget.friend.name}',
+                    style: TextStyle(color: Colors.white)),
+                ),
+                Text(
+                  "${_getGender(widget.friend.gender)}${widget.friend.age}岁 | ${widget.friend.phone}",
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
             )
-            )
-          ],
-        )
+          )
+        ],
+      )
     );
   }
 
@@ -280,7 +306,6 @@ class FriendInfoPage extends StatelessWidget {
     }
     return genderStr;
   }
-
 
   Widget _buildDiagnosisRecordItem(BuildContext context ,Diagnosis diagnosis,int no) {
     return Container(
