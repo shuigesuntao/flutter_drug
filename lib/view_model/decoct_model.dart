@@ -5,7 +5,7 @@ class DecoctModel extends ViewStateRefreshListModel<DecoctMethod> {
   @override
   Future<List<DecoctMethod>> loadData({int pageNum}) async{
 
-    return await Future.delayed(Duration(seconds: 2), () {
+    return await Future.delayed(Duration(seconds:1), () {
       List<DecoctMethod> results = List();
       results.add(DecoctMethod(1, "合药冲服"));
       results.add(DecoctMethod(2, "生汁兑入"));
@@ -20,4 +20,14 @@ class DecoctModel extends ViewStateRefreshListModel<DecoctMethod> {
     });
   }
 
+
+  add(String name){
+    list.insert(0,DecoctMethod(100,name));
+    notifyListeners();
+  }
+
+  remove(int index){
+    list.removeAt(index);
+    notifyListeners();
+  }
 }

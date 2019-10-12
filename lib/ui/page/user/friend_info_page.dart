@@ -264,7 +264,7 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                     SizedBox(width: 10),
                     GestureDetector(
                       onTap: (){
-                        showDialog<Null>(
+                        showDialog(
                           context: context, //BuildContext对象
                           barrierDismissible: false,
                           builder: (BuildContext context) {

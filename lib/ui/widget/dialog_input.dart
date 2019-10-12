@@ -39,7 +39,6 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
   }
   @override
   Widget build(BuildContext context) {
-
     return Material(
       type: MaterialType.transparency,
       child: Stack(
