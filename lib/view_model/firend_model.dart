@@ -21,10 +21,10 @@ class FriendModel extends ViewStateListModel<Friend>{
   Future<List<Friend>> loadData() async{
     return await Future.delayed(Duration(seconds: 2), () {
       List<Friend> results = List();
-      results.add(Friend("","david","","",0,0,1));
-      results.add(Friend("","eb9552162","","",0,1,0));
-      results.add(Friend("陶喆","陶喆","","女",31,0,0));
-      results.add(Friend("杨","杨过","","男",27,1,1));
+      results.add(Friend("","david","","",0,'15234563456',0,1));
+      results.add(Friend("","eb9552162","","",0,'15234563457',1,0));
+      results.add(Friend("陶喆","陶喆","","女",31,'15334563458',0,0));
+      results.add(Friend("杨","杨过","","男",27,'15934563459',1,1));
       results = _sortedList(results);
       return results;
     });

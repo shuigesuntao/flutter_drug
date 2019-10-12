@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/model/doctor_advice.dart';
+import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/ui/page/about_page.dart';
 import 'package:flutter_drug/ui/page/account/bind_wechat_page.dart';
 import 'package:flutter_drug/ui/page/account/month_bill_page.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_tab_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_choose_person_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_open_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_sample_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_take_page.dart';
@@ -29,6 +31,7 @@ import 'package:flutter_drug/ui/page/user/edit_address_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/account/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/example_page.dart';
+import 'package:flutter_drug/ui/page/user/friend_info_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
 import 'package:flutter_drug/ui/page/account/cash_rule_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
@@ -42,6 +45,8 @@ class RouteName {
   static const String tab = '/';//首页
   static const String test = 'test';//测试
   static const String addPatient = 'addPatient';//添加患者
+  static const String choosePerson = 'choosePerson';//选择开方患者
+  static const String friendInfo = 'friendInfo';//患者信息
   static const String openPrescription = 'openPrescription';//在线开方
   static const String takePrescription = 'takePrescription';//拍方上传
   static const String checkMessage = 'checkMessage';//审方消息
@@ -83,8 +88,12 @@ class Router {
         return NoAnimRouteBuilder(TabNavigator());
       case RouteName.addPatient:
         return CupertinoPageRoute(builder: (_) => AddPatientPage());
+      case RouteName.choosePerson:
+        return CupertinoPageRoute(builder: (_) => PrescriptionChoosePersonPage());
+      case RouteName.friendInfo:
+        return CupertinoPageRoute(builder: (_) => FriendInfoPage(friend: settings.arguments as Friend));
       case RouteName.openPrescription:
-        return CupertinoPageRoute(builder: (_) => PrescriptionOpenPage());
+        return CupertinoPageRoute(builder: (_) => PrescriptionOpenPage(friend: settings.arguments as Friend));
       case RouteName.takePrescription:
         return CupertinoPageRoute(builder: (_) => TakePrescriptionPage());
       case RouteName.checkMessage:
@@ -102,7 +111,7 @@ class Router {
       case RouteName.prescriptionFormWorkSearch:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkSearchPage());
       case RouteName.prescriptionPersonSearch:
-        return CupertinoPageRoute(builder: (_) => PrescriptionPersonSearchPage());
+        return CupertinoPageRoute(builder: (_) => PrescriptionPersonSearchPage(type: settings.arguments as int));
       case RouteName.test:
         return CupertinoPageRoute(builder: (_) => TestPage());
 //      case RouteName.homeSecondFloor:

@@ -34,6 +34,7 @@ class App extends StatelessWidget {
             idleText:'上拉可以加载更多',
             canLoadingText:'松开立即加载更多',
             loadingText:'正在加载更多的数据...',
+            loadStyle: LoadStyle.ShowWhenLoading,
           ),
           hideFooterWhenNotFull: true, //列表数据不满一页,不触发加载更多
           child: MaterialApp(

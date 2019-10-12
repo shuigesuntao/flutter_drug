@@ -48,7 +48,7 @@ class InsurancePage extends StatelessWidget {
           child: Container(
               alignment: Alignment.center,
               color: Color(0xFFF2F2F2),
-              padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+              padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: SizedBox(
                 width: 300,
                 child: FlatButton(

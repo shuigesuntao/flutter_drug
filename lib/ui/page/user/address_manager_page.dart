@@ -138,13 +138,14 @@ class AddressManagePage extends StatelessWidget {
                   ]),
                   SizedBox(height: 3),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Offstage(
                         offstage: address.isDefault != 1,
                         child: Padding(
-                          padding: EdgeInsets.only(right: 5),
+                          padding: EdgeInsets.fromLTRB(0,1,5,0),
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(5, 0, 5, 1),
+                            padding: EdgeInsets.symmetric(horizontal: 5),
                             color: Color(0xFFDDFAF8),
                             child: Text('默认',
                                 style: TextStyle(

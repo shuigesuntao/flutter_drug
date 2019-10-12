@@ -24,6 +24,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: TitleBar.buildCommonAppBar(context, '服务设置'),
       body: GestureDetector(
         //点击空白关闭键盘

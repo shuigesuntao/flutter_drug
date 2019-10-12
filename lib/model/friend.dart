@@ -11,6 +11,7 @@ class Friend extends ISuspensionBean{
   int buyDrugCount;
   String tagIndex;
   String namePinyin;
+  String phone;
 
   Friend(
     this.name,
@@ -18,10 +19,11 @@ class Friend extends ISuspensionBean{
     this.headerUrl,
     this.gender,
     this.age,
+    this.phone,
     this.askCount,
     this.buyDrugCount, {
     this.tagIndex,
-    this.namePinyin,}
+    this.namePinyin}
   );
 
   @override
@@ -34,7 +36,8 @@ class Friend extends ISuspensionBean{
       gender = json['gender'] == null ? "" : json['gender'],
       age = json['age'] == null ? "" : json['age'],
       askCount = json['askCount'] == null ? "" : json['askCount'],
-      buyDrugCount = json['buyDrugCount'] == null ? "" : json['buyDrugCount'];
+      buyDrugCount = json['buyDrugCount'] == null ? "" : json['buyDrugCount'],
+      phone = json['phone'] == null ? "" : json['phone'];
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -46,6 +49,7 @@ class Friend extends ISuspensionBean{
     'askCount': askCount,
     'buyDrugCount': buyDrugCount,
     'namePinyin': namePinyin,
+    'phone': phone,
     'isShowSuspension': isShowSuspension
   };
 

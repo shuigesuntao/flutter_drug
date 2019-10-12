@@ -114,7 +114,7 @@ class WeChatCashPageState extends State<WeChatCashPage>{
                 child: Container(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    margin: EdgeInsets.fromLTRB(20,10,20,10),
                     width: double.infinity,
                     child: FlatButton(
                       padding: EdgeInsets.all(10),

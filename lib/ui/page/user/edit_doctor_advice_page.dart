@@ -81,7 +81,8 @@ class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: SafeArea(
                     bottom: true,

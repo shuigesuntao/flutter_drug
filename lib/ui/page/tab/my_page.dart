@@ -93,13 +93,21 @@ class UserListWidget extends StatelessWidget {
               builder: (context, model, child) => InkWell(
                     onTap: () =>
                         Navigator.of(context).pushNamed(RouteName.userInfo),
-                    child: UserInfoHeader(
-                        headerBg: 'bg_account.png',
-                        imageUrl: model.user.icon,
-                        name: model.user.name,
-                        type: '内科',
-                        job: model.user.level,
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 0)),
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(15,10,15,10),
+                      height: 120,
+                      padding: EdgeInsets.fromLTRB(30, 20, 20, 30),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage(
+                                  ImageHelper.wrapAssets('bg_account.png')))),
+                      child: UserInfoHeader(
+                          imageUrl: model.user.icon,
+                          name: model.user.name,
+                          type: '内科',
+                          job: model.user.level),
+                    ),
                   )),
           MeCell('我的账户', 'ic_zhanghu.png', RouteName.myAccount),
           MeCell('资质认证', 'ic_zizhi.png', RouteName.auth),
