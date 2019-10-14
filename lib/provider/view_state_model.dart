@@ -41,9 +41,14 @@ class ViewStateModel with ChangeNotifier {
 
   bool get unAuthorized => viewState == ViewState.unAuthorized;
 
-  void setBusy(bool value) {
+  void setIdle() {
     _errorMessage = null;
-    viewState = value ? ViewState.busy : ViewState.idle;
+    viewState = ViewState.idle;
+  }
+
+  void setBusy() {
+    _errorMessage = null;
+    viewState =ViewState.busy;
   }
 
   void setEmpty() {
@@ -51,8 +56,24 @@ class ViewStateModel with ChangeNotifier {
     viewState = ViewState.empty;
   }
 
-  void setError(String message) {
-    _errorMessage = message;
+  /// [e]分类Error和Exception两种
+  void setError(e, {String message, StackTrace stackTrace}) {
+    if (e is String) {
+      _errorMessage = e;
+    } else {
+      debugPrint('''
+<-----↓↓↓↓↓↓↓↓↓↓-----error-----↓↓↓↓↓↓↓↓↓↓----->
+$e
+<-----↑↑↑↑↑↑↑↑↑↑-----error-----↑↑↑↑↑↑↑↑↑↑----->
+    ''');
+
+      debugPrint('''
+<-----↓↓↓↓↓↓↓↓↓↓-----trace-----↓↓↓↓↓↓↓↓↓↓----->
+$stackTrace
+<-----↑↑↑↑↑↑↑↑↑↑-----trace-----↑↑↑↑↑↑↑↑↑↑----->
+    ''');
+      _errorMessage = message ?? (e is Error ? e.toString() : e.message);
+    }
     viewState = ViewState.error;
   }
 
@@ -89,9 +110,7 @@ class ViewStateModel with ChangeNotifier {
     if (e is DioError && e.error is UnAuthorizedException) {
       setUnAuthorized();
     } else {
-      debugPrint('error--->\n' + e.toString());
-      debugPrint('statck--->\n' + s.toString());
-      setError(e is Error ? e.toString() : e.message);
+      setError(e, stackTrace: s);
     }
   }
 }

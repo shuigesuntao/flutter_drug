@@ -76,7 +76,6 @@ class AddPatientPage extends StatelessWidget {
                         padding: EdgeInsets.all(10),
                         onPressed: (){
                           showModalBottomSheet(
-                            backgroundColor:Colors.transparent,
                             context: context,
                             builder: (context) => ShareDialog()
                           );

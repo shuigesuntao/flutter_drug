@@ -44,11 +44,14 @@ class UserTitleBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
             Expanded(child: Center(child: Text(title,style: TextStyle(color: Colors.white,fontSize: 18)))),
-            Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Text(
-                actionText,
-                style: TextStyle(fontSize: 15, color: Colors.white),
+            GestureDetector(
+              onTap: onActionPressed,
+              child: Padding(
+                padding: EdgeInsets.only(right: 20),
+                child: Text(
+                  actionText,
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
               ),
             )
           ],

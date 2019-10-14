@@ -23,28 +23,23 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
   Future<List<T>> refresh({bool init = false}) async {
     try {
       _currentPageNum = pageNumFirst;
+      list.clear();
       var data = await loadData(pageNum: pageNumFirst);
       if (data.isEmpty) {
+        refreshController.refreshCompleted(resetFooterState: true);
         setEmpty();
-        refreshController.refreshCompleted();
-        refreshController.loadNoData();
       } else {
         onCompleted(data);
-        list.clear();
         list.addAll(data);
         refreshController.refreshCompleted();
+        // 小于分页的数量,禁止上拉加载更多
         if (data.length < pageSize) {
           refreshController.loadNoData();
         } else {
           //防止上次上拉加载更多失败,需要重置状态
           refreshController.loadComplete();
         }
-        if (init) {
-          //改变页面状态为非加载中
-          setBusy(false);
-        } else {
-          notifyListeners();
-        }
+        setIdle();
       }
       return data;
     } catch (e, s) {

@@ -26,26 +26,38 @@ class _CashRulePageState extends State<CashRulePage>{
         context,
         '提现说明',
       ),
-      body: SafeArea(
-        bottom: false,
-        child: WebView(
-          initialUrl: widget.url,
-          // 加载js
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController controller) {
-            _webViewController = controller;
-            _webViewController.currentUrl().then((url) {
-              debugPrint('返回当前$url');
-            });
-          },
-          onPageFinished: (String value) async {
-            debugPrint('加载完成: $value');
-            if (!_finishedCompleter.isCompleted) {
-              _finishedCompleter.complete(true);
-            }
-            refreshNavigator();
-          },
-        ),
+      body: FutureBuilder<bool>(
+        future: _finishedCompleter.future,
+        initialData: false,
+        builder: (context, snapshot) => Stack(
+          children: <Widget>[
+            SafeArea(
+              bottom: false,
+              child: WebView(
+                initialUrl: widget.url,
+                // 加载js
+                javascriptMode: JavascriptMode.unrestricted,
+                onWebViewCreated: (WebViewController controller) {
+                  _webViewController = controller;
+                  _webViewController.currentUrl().then((url) {
+                    debugPrint('返回当前$url');
+                  });
+                },
+                onPageFinished: (String value) async {
+                  debugPrint('加载完成: $value');
+                  if (!_finishedCompleter.isCompleted) {
+                    _finishedCompleter.complete(true);
+                  }
+                  refreshNavigator();
+                },
+              )
+            ),
+            Offstage(
+              offstage: snapshot.data,
+              child: Center(child: CircularProgressIndicator()),
+            )
+          ],
+        )
       ),
     );
   }

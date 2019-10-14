@@ -4,9 +4,11 @@ import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_add_dococt.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/decoct_model.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DecoctManagePage extends StatelessWidget {
+  final SlidableController _controller = SlidableController();
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<DecoctModel>(
@@ -42,15 +44,28 @@ class DecoctManagePage extends StatelessWidget {
       child: model.empty
         ? ViewStateEmptyWidget()
         : ListView.separated(
-        separatorBuilder: (BuildContext context, int index) =>
-          Divider(height: 1),
-        itemCount: model.list?.length ?? 0,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              model.list[index].name,
-              style: TextStyle(fontSize: 16),
-            ));
+          separatorBuilder: (context,index) => Divider(height: 1),
+          itemCount: model.list?.length ?? 0,
+          itemBuilder: (context, index) {
+            return Slidable(
+              controller: _controller,
+              actionPane: SlidableDrawerActionPane(),
+              secondaryActions: <Widget>[
+                SlideAction(
+                  child: Text('删除',style: TextStyle(color: Colors.white)),
+                  color: Colors.redAccent,
+                  onTap: () => model.remove(index),
+                )
+              ],
+              child: ListTile(
+                onTap: (){
+                  _controller.activeState?.close();
+                },
+                title: Text(
+                  model.list[index].name,
+                  style: TextStyle(fontSize: 16),
+                )),
+            );
         },
       ),
     );
