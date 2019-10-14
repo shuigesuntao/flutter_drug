@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/router_manager.dart';
+import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/ui/page/tab/address_book_page.dart';
 import 'package:flutter_drug/ui/widget/search_bar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:provider/provider.dart';
 
 class PrescriptionPersonSearchPage extends StatefulWidget {
+  final Function(Friend) onItemClick;
   final int type;
-  PrescriptionPersonSearchPage({this.type});
+  PrescriptionPersonSearchPage({this.type,this.onItemClick});
   @override
   State<StatefulWidget> createState() => _PrescriptionPersonSearchPageState();
 }
@@ -16,7 +18,7 @@ class _PrescriptionPersonSearchPageState extends State<PrescriptionPersonSearchP
   @override
   Widget build(BuildContext context) {
     FriendModel model = Provider.of<FriendModel>(context);
-    return Scaffold(
+    return WillPopScope(child: Scaffold(
       appBar: SearchBar(
         hintText: "请输入患者姓名或电话号码搜索",
         onPressed: (text) {
@@ -30,30 +32,40 @@ class _PrescriptionPersonSearchPageState extends State<PrescriptionPersonSearchP
       ),
       body: ListView.builder(
         itemCount: model.filterList.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (_, index) {
           return FriendItemWidget(
             friend:model.filterList[index],
-            onItemClick:(model){
-              switch(widget.type){
+            onItemClick:(friend){
+              if(widget.onItemClick == null){
+                switch(widget.type){
                 //患者信息
-                case 1:
-                  Navigator.of(context).pushNamed(
-                    RouteName.friendInfo,
-                    arguments: model
-                  );
-                  break;
+                  case 1:
+                    Navigator.of(context).pushNamed(
+                      RouteName.friendInfo,
+                      arguments: friend
+                    );
+                    break;
                 //在线开方
-                case 2:
-                  Navigator.of(context).pushNamed(
-                    RouteName.openPrescription,
-                    arguments: model
-                  );
-                  break;
+                  case 2:
+                    Navigator.of(context).pushNamed(
+                      RouteName.openPrescription,
+                      arguments: friend
+                    );
+                    break;
+                }
+              }else{
+                model.filterData('');
+                widget.onItemClick(friend);
+                Navigator.pop(context,'pop');
               }
+
             },
             isShowIndex:false);
         }
       )
-    );
+    ),onWillPop: (){
+      model.filterData('');
+      return Future.value(true);
+    },);
   }
 }

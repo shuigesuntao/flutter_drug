@@ -9,7 +9,8 @@ class DialogAlert extends StatelessWidget {
   final String cancelText;
   final String confirmText;
   final VoidCallback onPressed;
-  DialogAlert({this.title = '提示',this.content,this.cancelText = '取消',this.confirmText='确定',this.onPressed});
+  final VoidCallback onCancelPressed;
+  DialogAlert({this.title = '提示',this.content,this.cancelText = '取消',this.confirmText='确定',this.onPressed,this.onCancelPressed});
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
@@ -19,6 +20,9 @@ class DialogAlert extends StatelessWidget {
         CupertinoDialogAction(
           child: Text(cancelText),
           onPressed: () {
+            if(onCancelPressed!= null){
+              onCancelPressed();
+            }
             Navigator.maybePop(context);
           },
         ),

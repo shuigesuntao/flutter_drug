@@ -115,7 +115,7 @@ class EditAddressPageState extends State<EditAddressPage> {
                                 : null)),
                           Icon(
                             Icons.chevron_right,
-                            color: Colors.grey,
+                            color: Colors.grey[400],
                           ),
                         ],
                       ),

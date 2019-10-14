@@ -88,7 +88,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                 children: <Widget>[
                   Text(
                     conversation.name,
-                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18),
                   ),
                   Text(
                     conversation.message,

@@ -8,6 +8,8 @@ import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:provider/provider.dart';
 
+import 'p_open_page.dart';
+
 class PrescriptionChoosePersonPage extends StatelessWidget {
 
   @override
@@ -46,47 +48,57 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(10,20,10,10),
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                    padding: EdgeInsets.fromLTRB(15,20,15,20),
-                    child: Row(
-                      children: <Widget>[
-                        Image.asset(ImageHelper.wrapAssets('phone_kf.png'),
-                          width: 45, height: 45),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:false))),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                        padding: EdgeInsets.fromLTRB(15,20,15,20),
+                        child: Row(
                           children: <Widget>[
-                            Text('手机号开方', style: TextStyle(fontSize: 18)),
-                            Text('填写患者手机号',style: TextStyle(color: Colors.grey[800]))
+                            Image.asset(ImageHelper.wrapAssets('phone_kf.png'),
+                              width: 45, height: 45),
+                            SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text('手机号开方', style: TextStyle(fontSize: 18)),
+                                Text('填写患者手机号',style: TextStyle(color: Colors.grey[800]))
+                              ],
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                  )),
+                        ),
+                      ),
+                    )
+                  ),
                   SizedBox(width: 10),
-                  Expanded(child:Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                    padding: EdgeInsets.fromLTRB(15,20,15,20),
-                    child: Row(
-                      children: <Widget>[
-                        Image.asset(ImageHelper.wrapAssets('wx_kf.png'),
-                          width: 45, height: 45),
-                        SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  Expanded(
+                    child:GestureDetector(
+                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:true))),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                        padding: EdgeInsets.fromLTRB(15,20,15,20),
+                        child: Row(
                           children: <Widget>[
-                            Text('微信开方', style: TextStyle(fontSize: 18)),
-                            Text('发送到患者微信',style: TextStyle(color: Colors.grey[800]))
+                            Image.asset(ImageHelper.wrapAssets('wx_kf.png'),
+                              width: 45, height: 45),
+                            SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text('微信开方', style: TextStyle(fontSize: 18)),
+                                Text('发送到患者微信',style: TextStyle(color: Colors.grey[800]))
+                              ],
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                  )),
+                        ),
+                      ),
+                    )
+                  ),
                 ],
               ),
             ),

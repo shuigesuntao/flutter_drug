@@ -300,7 +300,7 @@ class AuthPageState extends State<AuthPage> {
           children: <Widget>[
             Text('姓名', style: TextStyle(fontSize: 16)),
             Expanded(
-                child: TextField(
+              child: TextField(
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(0),
                   border: InputBorder.none,
@@ -318,7 +318,8 @@ class AuthPageState extends State<AuthPage> {
                   _name = text;
                 });
               },
-            ))
+            )
+            )
           ],
         ));
   }
@@ -347,7 +348,7 @@ class AuthPageState extends State<AuthPage> {
                   style: TextStyle(color: Colors.grey)),
               Icon(
                 Icons.chevron_right,
-                color: Colors.grey,
+                color: Colors.grey[400],
               ),
             ],
           )),

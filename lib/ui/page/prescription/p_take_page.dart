@@ -260,7 +260,9 @@ class TakePrescriptionPage extends StatelessWidget {
 }
 
 class DrugStoreItem extends StatelessWidget{
-
+  final double price;
+  final bool showPrice;
+  DrugStoreItem({this.price = 0,this.showPrice=false});
   @override
   Widget build(BuildContext context) {
     return Consumer<CategoryModel>(builder: (context,model,child) => Row(
@@ -275,31 +277,37 @@ class DrugStoreItem extends StatelessWidget{
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(left: 10),
-            child: Text(
-              '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                Offstage(
+                  offstage: !showPrice,
+                  child: Padding(padding: EdgeInsets.only(top: 3),child: Text('每剂：${price==0?'--':'￥$price'}',style: TextStyle(fontSize: 13,color: Colors.grey),),),
+                )
+              ],
+            )
           )),
-        SizedBox(
-          width: 60,
-          height: 30,
-          child: OutlineButton(
-            onPressed: (){
-              showBottomSheet(
-                backgroundColor:Colors.transparent,
-                context: context,
-                builder: (context) => ChangeNotifierProvider<CategoryModel>.value(value: model,child: DialogDrugCategory())
-              );
-            },
-            color: Colors.white,
-            child: Text(
+        GestureDetector(
+          child:  Container(
+            width: 55,
+            height: 25,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(3)),
+              border: Border.all(color: Theme.of(context).primaryColor, width: 1)
+            ),
+            child: Center(child: Text(
               '更换',
               style: TextStyle(color: Theme.of(context).primaryColor),
-            ),
-            borderSide:
-            BorderSide(color: Theme.of(context).primaryColor, width: 1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(3))),
+            ),)
+          ),
+          onTap: ()=>showBottomSheet(
+            backgroundColor:Colors.transparent,
+            context: context,
+            builder: (context) => ChangeNotifierProvider<CategoryModel>.value(value: model,child: DialogDrugCategory())
           ),
         ),
       ],

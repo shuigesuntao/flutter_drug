@@ -1,13 +1,19 @@
 import 'package:azlistview/azlistview.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/friend.dart';
+import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:provider/provider.dart';
 
+
 class AddressBookPage extends StatefulWidget {
+  final Function(Friend) onItemClick;
+  AddressBookPage({this.onItemClick});
   @override
   State<StatefulWidget> createState() => _AddressBookPageState();
 
@@ -25,6 +31,7 @@ class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAli
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
+          leading: widget.onItemClick == null?null:TitleBar.leading(context, ()=>Navigator.maybePop(context)),
           title: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,7 +45,18 @@ class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAli
             Padding(
               padding: EdgeInsets.only(right: 15),
               child: InkWell(
-                onTap: () => Navigator.of(context).pushNamed(RouteName.prescriptionPersonSearch,arguments: 1),
+                onTap: (){
+                  if(widget.onItemClick == null){
+                    Navigator.of(context).pushNamed(RouteName.prescriptionPersonSearch,arguments: 1);
+                  }else{
+                    Navigator.push(context,CupertinoPageRoute(builder: (context)=> PrescriptionPersonSearchPage(onItemClick:widget.onItemClick))).then((data){
+                      if(data == 'pop'){
+                        Navigator.maybePop(context);
+                      }
+                    });
+                  }
+
+                },
                 child: Center(
                   child: Text(
                     '搜索',
@@ -56,7 +74,14 @@ class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAli
               data: model.list,
               itemBuilder: (context, model) => FriendItemWidget(
                 friend:model,
-                onItemClick:(model)=>Navigator.of(context).pushNamed(RouteName.friendInfo,arguments: model),
+                onItemClick:(model){
+                  if(widget.onItemClick == null){
+                    Navigator.of(context).pushNamed(RouteName.friendInfo,arguments: model);
+                  }else{
+                    widget.onItemClick(model);
+                    Navigator.maybePop(context);
+                  }
+                },
                 isShowIndex:model.isShowSuspension
               ),
               suspensionWidget: SusWidget(tag:model.suspensionTag),

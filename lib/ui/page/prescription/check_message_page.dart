@@ -74,7 +74,7 @@ class CheckMessagePage extends StatelessWidget {
                   )),
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.grey.shade400,
+                  color: Colors.grey[400],
                 ),
               ],
             ),

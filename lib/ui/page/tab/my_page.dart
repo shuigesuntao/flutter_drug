@@ -153,7 +153,7 @@ class MeCell extends StatelessWidget {
                         child: Text(title, style: TextStyle(fontSize: 18))),
                     Icon(
                       Icons.chevron_right,
-                      color: Colors.grey[300],
+                      color: Colors.grey[400],
                     ),
                   ],
                 ),

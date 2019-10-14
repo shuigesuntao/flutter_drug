@@ -125,7 +125,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
                 Consumer<PublishNoticeModel>(builder: (_,model,__) => Text(model.validity)),
                 Icon(
                   Icons.chevron_right,
-                  color: Colors.grey.shade400,
+                  color: Colors.grey[400],
                 ),
               ],
             ),
