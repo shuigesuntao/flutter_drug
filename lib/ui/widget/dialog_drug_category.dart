@@ -15,7 +15,7 @@ class DialogDrugCategory extends StatelessWidget {
         ),
         Container(
           color: Colors.white,
-          height: 680,
+          height: 550,
           child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
             children: <Widget>[
               Container(

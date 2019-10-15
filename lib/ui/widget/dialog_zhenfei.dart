@@ -89,10 +89,7 @@ class _ZhenFeiDialogState extends State<ZhenFeiDialog>{
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
-        GestureDetector(
-          onTap: () => Navigator.maybePop(context),
-          child: Container(color: Colors.black54, height: double.infinity),
-        ),
+        Container(color: Colors.black54, height: double.infinity),
         Container(
           color: Colors.white,
           height: 230,
@@ -197,18 +194,18 @@ class _ZhenFeiDialogState extends State<ZhenFeiDialog>{
                               inputFormatters: [
                                 WhitelistingTextInputFormatter.digitsOnly
                               ],
-                              textAlign: TextAlign.center,
                               controller: _controller,
+                              textAlign: TextAlign.center,
                               style: TextStyle(color: Colors.grey,fontSize: 14),
-                              textInputAction: TextInputAction.done,
                               onChanged: (text) {
-                                if (text.startsWith('0')) {
-                                  _controller.text = text.substring(1);
-                                } else if (int.parse(text) > 5000) {
+                                if (int.parse(text) > 5000) {
                                   showToast('诊费提示：最高可设置5000元');
-                                  _controller.text = '5000';
-                                } else {
-                                  _controller.text = text;
+                                  _controller.value = TextEditingValue(text: '5000',
+                                    // 保持光标在最后
+                                    selection: TextSelection.fromPosition(TextPosition(
+                                      affinity: TextAffinity.downstream,
+                                      offset:4
+                                    )));
                                 }
                               },
                               decoration: InputDecoration(
