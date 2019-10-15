@@ -104,11 +104,11 @@ class DialogDrugCategory extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(data.name, style: TextStyle(fontSize: 16)),
+              Text(data.name, style: TextStyle(fontWeight: FontWeight.w500)),
               SizedBox(height: 5),
-              Text(data.label, style: TextStyle(color: Colors.grey)),
+              Text(data.label, style: TextStyle(color: Colors.grey,fontSize: 13)),
               SizedBox(height: 5),
-              Text(data.desc, style: TextStyle(color: Colors.grey))
+              Text(data.desc, style: TextStyle(color: Colors.grey,fontSize: 13))
             ],
           ),
         ));

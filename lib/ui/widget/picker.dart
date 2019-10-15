@@ -29,7 +29,7 @@ class Picker {
 
   final List<int> columnFlex;
 
-  final Widget title;
+  final String title;
   final String cancelText;
   final String confirmText;
 
@@ -209,17 +209,18 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
             height: 40,
             child: FlatButton(
               child: Text('取消', style: TextStyle(
-                color: Colors.grey[700], fontSize: 18.0)),
+                color: Colors.grey[700])),
               onPressed: () => Navigator.maybePop(context)
             ),
           ),
+          Text(picker.title),
           Container(
             height: 40,
             child: FlatButton(
               child: Text('确定', style: TextStyle(
                 color: Theme
                   .of(context)
-                  .primaryColor, fontSize: 18.0)),
+                  .primaryColor)),
               onPressed: () => picker.doConfirm(context)
             ),
           ),

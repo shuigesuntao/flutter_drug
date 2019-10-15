@@ -11,9 +11,8 @@ import 'config/router_manager.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
-  InnerWidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
-  /// 全局屏幕适配方案
   runApp(App());
   // Android状态栏透明
   SystemChrome.setSystemUIOverlayStyle(

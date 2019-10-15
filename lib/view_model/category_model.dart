@@ -76,8 +76,8 @@ class CategoryModel extends ViewStateListModel<Category>{
         DrugStore(3, "药匣子京选", "1kg内780元，每超出1千克加收80元", "")
       ]));
       results.add(Category(9,"膏方","",[
-        DrugStore(4, "康仁堂", "10付起做，30付内300元，每超出30付加收300元", "依剂量约2天左右完成(蜂蜜、木糖醇)"),
-        DrugStore(5, "华润三九", "300/料，10付起做", "依剂量约3天左右完成(蜂蜜、木糖醇)"),
+        DrugStore(4, "康仁堂", "10付起做，30付内300元，每超出30付加收300元", "依剂量约2天左右完成（蜂蜜、木糖醇）"),
+        DrugStore(5, "华润三九", "300/料，10付起做", "依剂量约3天左右完成（蜂蜜、木糖醇）"),
       ]));
       return results;
     });

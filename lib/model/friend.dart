@@ -52,6 +52,4 @@ class Friend extends ISuspensionBean{
     'phone': phone,
     'isShowSuspension': isShowSuspension
   };
-
-
 }

@@ -286,7 +286,7 @@ class DrugStoreItem extends StatelessWidget{
                 ),
                 Offstage(
                   offstage: !showPrice,
-                  child: Padding(padding: EdgeInsets.only(top: 3),child: Text('每剂：${price==0?'--':'￥$price'}',style: TextStyle(fontSize: 13,color: Colors.grey),),),
+                  child: Padding(padding: EdgeInsets.only(top: 3),child: Text('每剂：${price==0?'- -':'￥$price'}',style: TextStyle(fontSize: 13,color: Colors.grey),),),
                 )
               ],
             )

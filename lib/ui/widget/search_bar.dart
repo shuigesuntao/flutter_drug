@@ -66,14 +66,14 @@ class _SearchBarState extends State<SearchBar> {
                       maxLines: 1,
                       textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.only(top: 10, left: -15, right: 10, bottom: 10),
+                        contentPadding: EdgeInsets.fromLTRB(-15,10,10,9),
                         border: InputBorder.none,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(15,5,15,5),
                           child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 18,height: 18),
                         ),
                         hintText: widget.hintText,
-                        hintStyle:TextStyle(fontSize: 16,color: Color(0xFFcccccc))
+                        hintStyle:TextStyle(fontSize: 16,color: Colors.grey[350])
                       ),
                       onSubmitted: (text){
                         widget.onPressed(text);

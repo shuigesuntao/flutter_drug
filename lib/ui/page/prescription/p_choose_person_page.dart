@@ -30,22 +30,23 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                   height: 40.0,
                   decoration: BoxDecoration(
                     color: Color(0xFFF6F6F6),
-                    borderRadius: BorderRadius.circular(4.0),
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(15,5,15,5),
+                        padding: const EdgeInsets.fromLTRB(12,5,10,3),
                         child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 18,height: 18),
                       ),
-                      Text('请输入姓名或手机号查找患者',style: TextStyle(color: Colors.grey,fontSize: 16),)
+                      Text('请输入姓名或手机号查找患者',style: TextStyle(color: Colors.grey[400],fontSize: 16))
                     ],
                   )
                 ),
               )
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10,20,10,10),
+              padding: EdgeInsets.fromLTRB(10,15,10,0),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -55,8 +56,10 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
-                        padding: EdgeInsets.fromLTRB(15,20,15,20),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Image.asset(ImageHelper.wrapAssets('phone_kf.png'),
                               width: 45, height: 45),
@@ -64,8 +67,8 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('手机号开方', style: TextStyle(fontSize: 18)),
-                                Text('填写患者手机号',style: TextStyle(color: Colors.grey[800]))
+                                Text('手机号开方', style: TextStyle(fontSize: 17)),
+                                Text('填写患者手机号',style: TextStyle(fontSize:13,color: Colors.grey[800]))
                               ],
                             )
                           ],
@@ -81,8 +84,10 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
-                        padding: EdgeInsets.fromLTRB(15,20,15,20),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(vertical: 20),
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Image.asset(ImageHelper.wrapAssets('wx_kf.png'),
                               width: 45, height: 45),
@@ -90,8 +95,8 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('微信开方', style: TextStyle(fontSize: 18)),
-                                Text('发送到患者微信',style: TextStyle(color: Colors.grey[800]))
+                                Text('微信开方', style: TextStyle(fontSize: 17)),
+                                Text('发送到患者微信',style: TextStyle(fontSize:13,color: Colors.grey[800]))
                               ],
                             )
                           ],
