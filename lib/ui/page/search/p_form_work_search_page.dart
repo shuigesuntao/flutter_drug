@@ -12,7 +12,7 @@ class PrescriptionFormWorkSearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: SearchBar(
-          hintText: "按处方名称搜索",
+          hintText: "按处方名检索",
           onPressed: (text) {
             showToast("搜索内容：$text");
           },

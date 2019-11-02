@@ -10,11 +10,13 @@ import 'package:flutter_drug/ui/page/account/show_account_page.dart';
 import 'package:flutter_drug/ui/page/account/wechat_cash_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
+import 'package:flutter_drug/ui/page/prescription/edit_drug_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_tab_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_choose_person_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_open_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_sample_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_single_drug_detail_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_take_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_yizhu_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
@@ -50,6 +52,7 @@ class RouteName {
   static const String friendInfo = 'friendInfo';//患者信息
   static const String openPrescription = 'openPrescription';//在线开方
   static const String prescriptionYiZhu = 'prescriptionYiZhu';//开方医嘱
+  static const String singleDrugPriceDetail = 'singleDrugPriceDetail';//单剂药品详情
   static const String takePrescription = 'takePrescription';//拍方上传
   static const String checkMessage = 'checkMessage';//审方消息
   static const String prescriptionFormWork = 'prescriptionFormWork';//处方模板
@@ -98,12 +101,14 @@ class Router {
         return CupertinoPageRoute(builder: (_) => PrescriptionOpenPage(friend: settings.arguments as Friend));
       case RouteName.prescriptionYiZhu:
         return CupertinoPageRoute(builder: (_) => PrescriptionYiZhuPage(text: settings.arguments as String));
+      case RouteName.singleDrugPriceDetail:
+        return CupertinoPageRoute(builder: (_) => SingeDrugDetailPage(drugs: settings.arguments as List));
       case RouteName.takePrescription:
         return CupertinoPageRoute(builder: (_) => TakePrescriptionPage());
       case RouteName.checkMessage:
         return CupertinoPageRoute(builder: (_) => CheckMessagePage());
       case RouteName.prescriptionFormWork:
-        return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkPage());
+        return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkPage(hasHistory: settings.arguments as bool));
       case RouteName.serviceSetting:
         return CupertinoPageRoute(builder: (_) => ServiceSettingPage());
       case RouteName.publishNotice:

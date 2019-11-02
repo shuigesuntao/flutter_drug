@@ -4,6 +4,10 @@ import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:provider/provider.dart';
 
 class DialogDrugCategory extends StatelessWidget {
+  final double price;
+
+  DialogDrugCategory({this.price});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -104,7 +108,15 @@ class DialogDrugCategory extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(data.name, style: TextStyle(fontWeight: FontWeight.w500)),
+              Row(
+                children: <Widget>[
+                  Expanded(child: Text(data.name, style: TextStyle(fontWeight: FontWeight.w500))),
+                  Offstage(
+                    offstage: price==0,
+                    child: Text('【每剂￥$price】'),
+                  )
+                ],
+              ),
               SizedBox(height: 5),
               Text(data.label, style: TextStyle(color: Colors.grey,fontSize: 13)),
               SizedBox(height: 5),

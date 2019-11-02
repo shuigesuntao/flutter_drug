@@ -5,9 +5,9 @@ import 'package:flutter_drug/config/net/api.dart' as prefix0;
 import 'package:flutter_drug/config/resource_mananger.dart';
 
 class TitleBar {
-  static AppBar buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,String actionText,VoidCallback onActionPress,isShowBack = true,Color actionTextColor}) {
+  static AppBar buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,String actionText,VoidCallback onActionPress,isShowBack = true,Color actionTextColor,Color backgroundColor = Colors.white}) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       centerTitle: true,
       title: Text(title),
       leading: isShowBack ? leading(context,onPressed) : null,

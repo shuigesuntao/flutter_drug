@@ -10,6 +10,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/page/tab/address_book_page.dart';
 import 'package:flutter_drug/ui/widget/diaglog_open_p_tip.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
+import 'package:flutter_drug/ui/widget/drug_store_item.dart';
 import 'package:flutter_drug/ui/widget/dialog_yizhu_select.dart';
 import 'package:flutter_drug/ui/widget/dialog_zhenfei.dart';
 import 'package:flutter_drug/ui/widget/picker.dart';
@@ -17,8 +18,9 @@ import 'package:flutter_drug/ui/widget/dialog_gaofangfuliao_select.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 
-import 'p_take_page.dart';
+import 'edit_drug_page.dart';
 
 class PrescriptionOpenPage extends StatefulWidget {
   final Friend friend;
@@ -33,7 +35,6 @@ class PrescriptionOpenPage extends StatefulWidget {
 class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   int showChecked = 0;
   int wayChecked = 0;
-  double singlePrice = 0;
   double category = 1;
   String _gender = '';
   String _countOfBag = '200';
@@ -489,10 +490,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: model.busy
                   ? SizedBox.shrink()
-                  : DrugStoreItem(
-                  price: singlePrice,
-                  showPrice: true,
-                )),
+                  : DrugStoreItem(drugs: _drugs)
+              ),
               Divider(height: 1, color: Colors.grey[300]),
               SizedBox(height: 15),
               Row(
@@ -521,23 +520,15 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                         ),
                       )),
                     onTap: () {
-                      setState(() {
-                        _drugs = [
-                          Drug('党参', 12),
-                          Drug('麸炒白术', 9),
-                          Drug('茯苓', 9),
-                          Drug('炙甘草', 5),
-                          Drug('陈皮', 3),
-                          Drug('法半夏', 3),
-                          Drug('生姜', 3),
-                          Drug('大枣', 1, unit: '枚(约10克)',unitCount: 10),
-                          Drug('当归', 9),
-                          Drug('白芍', 9)
-                        ];
-                        setState(() {
-                          _drugPrice = _drugs.fold(
-                            0, (pre, e) => (pre + e.price * e.count));
-                        });
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(builder: (context)=>ChangeNotifierProvider<CategoryModel>.value(value: model,child: EditDrugPage(drugs: _drugs)))
+                      ).then((data){
+                        if(data != null){
+                          setState(() {
+                            _drugs = data;
+                          });
+                        }
                       });
                     }
                   ),

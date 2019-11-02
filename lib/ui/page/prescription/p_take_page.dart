@@ -1,15 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
-import 'package:flutter_drug/ui/widget/dialog_drug_category.dart';
+import 'package:flutter_drug/ui/widget/drug_store_item.dart';
 import 'package:flutter_drug/ui/widget/dialog_image_picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:flutter_drug/view_model/take_prescription_model.dart';
-import 'package:provider/provider.dart';
 
 class TakePrescriptionPage extends StatelessWidget {
   @override
@@ -259,61 +257,6 @@ class TakePrescriptionPage extends StatelessWidget {
   }
 }
 
-class DrugStoreItem extends StatelessWidget{
-  final double price;
-  final bool showPrice;
-  DrugStoreItem({this.price = 0,this.showPrice=false});
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<CategoryModel>(builder: (context,model,child) => Row(
-      children: <Widget>[
-        CachedNetworkImage(
-          imageUrl: model.list[model.selectedCategory].imageUrl,
-          errorWidget: (context, url, error) => Image.asset(ImageHelper.wrapAssets('tangji.png'), width: 50, height: 50),
-          fit: BoxFit.fill,
-          width: 50,
-          height: 50,
-        ),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(left: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Offstage(
-                  offstage: !showPrice,
-                  child: Padding(padding: EdgeInsets.only(top: 3),child: Text('每剂：${price==0?'- -':'￥$price'}',style: TextStyle(fontSize: 13,color: Colors.grey),),),
-                )
-              ],
-            )
-          )),
-        GestureDetector(
-          child:  Container(
-            width: 55,
-            height: 25,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(3)),
-              border: Border.all(color: Theme.of(context).primaryColor, width: 1)
-            ),
-            child: Center(child: Text(
-              '更换',
-              style: TextStyle(color: Theme.of(context).primaryColor),
-            ),)
-          ),
-          onTap: ()=>showBottomSheet(
-            backgroundColor:Colors.transparent,
-            context: context,
-            builder: (context) => ChangeNotifierProvider<CategoryModel>.value(value: model,child: DialogDrugCategory())
-          ),
-        ),
-      ],
-    ));
-  }
 
-}
 
 

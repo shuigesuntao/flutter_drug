@@ -7,6 +7,11 @@ import 'package:flutter_drug/ui/page/prescription/p_formwork_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 
 class PrescriptionFormWorkPage extends StatefulWidget{
+
+  final bool hasHistory;
+
+  PrescriptionFormWorkPage({this.hasHistory = false});
+
   @override
   State<StatefulWidget> createState() => _PrescriptionFormWorkPageState();
 
@@ -14,11 +19,20 @@ class PrescriptionFormWorkPage extends StatefulWidget{
 
 class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
 
-  List<String> tabTitles = ["常用处方", "经方模板"];
+  List<String> tabTitles = ['常用处方', '经方模板'];
   List<int> status = [1,2];
   TabController tabController;
   int _index = 0;
 
+
+  @override
+  void initState() {
+    if(widget.hasHistory){
+      tabTitles.insert(0, '历史处方');
+      status.insert(0,3);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +51,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
             ),
           ),
           Offstage(
-            offstage: _index != 0,
+            offstage: _index != 0 || widget.hasHistory,
             child: InkWell(
               onTap: ()=>print('添加'),
               child: Padding(
@@ -79,7 +93,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
                   ),
                 ),
                 Expanded(child: TabBarView(
-                  children: List.generate(tabTitles.length, (index) => PrescriptionFormWorkListPage(status[index])),
+                  children: List.generate(tabTitles.length, (index) => PrescriptionFormWorkListPage(status[index],hasHistory: widget.hasHistory)),
                 ))
               ],
             );

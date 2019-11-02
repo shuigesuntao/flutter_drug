@@ -8,8 +8,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PrescriptionFormWorkListPage extends StatefulWidget {
   final int status;
+  final bool hasHistory;
 
-  PrescriptionFormWorkListPage(this.status);
+  PrescriptionFormWorkListPage(this.status,{this.hasHistory = false});
 
 
   @override
@@ -42,7 +43,7 @@ class _PrescriptionFormWorkListPageState extends State<PrescriptionFormWorkListP
           child:model.empty ? ViewStateEmptyWidget() : ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {
-              return PrescriptionFormWorkItem(model.list[index]);
+              return PrescriptionFormWorkItem(model.list[index],hasHistory:widget.hasHistory);
             }
           )
         );
@@ -57,35 +58,45 @@ class _PrescriptionFormWorkListPageState extends State<PrescriptionFormWorkListP
 
 class PrescriptionFormWorkItem extends StatelessWidget {
   final PrescriptionFormWork p;
-  PrescriptionFormWorkItem(this.p);
+  final bool hasHistory;
+  PrescriptionFormWorkItem(this.p,{this.hasHistory});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.fromLTRB(15,10,15,0),
-      decoration: BoxDecoration(
-        color: Colors.white, borderRadius: BorderRadius.circular(5)),
-      child: Padding(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Text(p.name,style: TextStyle(fontSize: 18)),
-                Expanded(
-                  child:SizedBox()
-                ),
-                Offstage(
-                  offstage: p.status == 1,
-                  child: Text('经典方',style: TextStyle(color: Colors.grey),),
-                )
-              ],
-            ),
-            SizedBox(height: 10),
-            Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700]))
-          ],
-        ),
-      )
+    return GestureDetector(
+      onTap: (){
+        if(hasHistory){
+          Navigator.pop(context,p.drugs);
+        }else{
+
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.fromLTRB(15,10,15,0),
+        decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(5)),
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text(p.name,style: TextStyle(fontSize: 18)),
+                  Expanded(
+                    child:SizedBox()
+                  ),
+                  Offstage(
+                    offstage: p.status == 1,
+                    child: Text('经典方',style: TextStyle(color: Colors.grey),),
+                  )
+                ],
+              ),
+              SizedBox(height: 10),
+              Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700]))
+            ],
+          ),
+        )
+      ),
     );
   }
 
