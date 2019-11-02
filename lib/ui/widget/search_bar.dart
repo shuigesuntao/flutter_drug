@@ -26,7 +26,7 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget{
   _SearchBarState createState() => _SearchBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(60.0);
+  Size get preferredSize => Size.fromHeight(56);
 }
 
 class _SearchBarState extends State<SearchBar> {
@@ -56,7 +56,7 @@ class _SearchBarState extends State<SearchBar> {
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    height: 40.0,
+                    height: 32,
                     decoration: BoxDecoration(
                       color: Color(0xFFF6F6F6),
                       borderRadius: BorderRadius.circular(4.0),
@@ -66,14 +66,14 @@ class _SearchBarState extends State<SearchBar> {
                       maxLines: 1,
                       textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(-15,10,10,9),
+                        contentPadding: EdgeInsets.fromLTRB(-20,5,10,5),
                         border: InputBorder.none,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(15,5,15,5),
-                          child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 18,height: 18),
+                          child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 14,height: 14),
                         ),
                         hintText: widget.hintText,
-                        hintStyle:TextStyle(fontSize: 16,color: Colors.grey[350])
+                        hintStyle:TextStyle(fontSize: 14,color: Colors.grey[350])
                       ),
                       onSubmitted: (text){
                         widget.onPressed(text);
@@ -94,7 +94,7 @@ class _SearchBarState extends State<SearchBar> {
                     Navigator.maybePop(context);
                   },
                   child: Center(
-                    child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: 16)),
+                    child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: 15)),
                   ),
                 )
                 ):Container()

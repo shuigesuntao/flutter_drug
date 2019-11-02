@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 
-class MultiNormalSelectChip extends StatefulWidget {
+class DialogGaoFangFuLiaoSelect extends StatefulWidget {
   /// 标签的list
   final List<String> dataList;
 
   /// 标签的list
   final List<String> selectList;
 
-  final String title;
   final double height;
-  final bool isSingle;
 
   ///确定回调事件
   final Function(String) onConfirm;
 
-  MultiNormalSelectChip(this.dataList,{this.title='',this.isSingle=false,this.selectList,this.height, this.onConfirm});
+  DialogGaoFangFuLiaoSelect(this.dataList,{this.selectList,this.height, this.onConfirm});
 
   @override
-  _MultiNormalSelectChipState createState() => _MultiNormalSelectChipState(selectList);
+  _DialogGaoFangFuLiaoSelectState createState() => _DialogGaoFangFuLiaoSelectState(selectList);
 }
 
-class _MultiNormalSelectChipState extends State<MultiNormalSelectChip> {
+class _DialogGaoFangFuLiaoSelectState extends State<DialogGaoFangFuLiaoSelect> {
   List<String> selectList;
 
-  _MultiNormalSelectChipState(this.selectList);
+  _DialogGaoFangFuLiaoSelectState(this.selectList);
 
   List<Widget> _buildChoiceList() {
     List<Widget> choices = List();
@@ -33,14 +31,8 @@ class _MultiNormalSelectChipState extends State<MultiNormalSelectChip> {
       choices.add(
         GestureDetector(
           onTap: () => setState(() {
-            if(selectList.contains(item) && !widget.isSingle){
-              selectList.remove(item);
-            }else{
-              if(widget.isSingle){
-                selectList.clear();
-              }
-              selectList.add(item);
-            }
+            selectList.clear();
+            selectList.add(item);
           }),
           child: Container(
             alignment: Alignment.center,
@@ -81,7 +73,7 @@ class _MultiNormalSelectChipState extends State<MultiNormalSelectChip> {
                     onPressed: () => Navigator.maybePop(context)
                   ),
                 ),
-                Text(widget.title),
+                Text('膏方辅料选择'),
                 Container(
                   height: 40,
                   child: FlatButton(

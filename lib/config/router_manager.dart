@@ -16,6 +16,7 @@ import 'package:flutter_drug/ui/page/prescription/p_choose_person_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_open_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_sample_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_take_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_yizhu_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
@@ -48,6 +49,7 @@ class RouteName {
   static const String choosePerson = 'choosePerson';//选择开方患者
   static const String friendInfo = 'friendInfo';//患者信息
   static const String openPrescription = 'openPrescription';//在线开方
+  static const String prescriptionYiZhu = 'prescriptionYiZhu';//开方医嘱
   static const String takePrescription = 'takePrescription';//拍方上传
   static const String checkMessage = 'checkMessage';//审方消息
   static const String prescriptionFormWork = 'prescriptionFormWork';//处方模板
@@ -94,6 +96,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => FriendInfoPage(friend: settings.arguments as Friend));
       case RouteName.openPrescription:
         return CupertinoPageRoute(builder: (_) => PrescriptionOpenPage(friend: settings.arguments as Friend));
+      case RouteName.prescriptionYiZhu:
+        return CupertinoPageRoute(builder: (_) => PrescriptionYiZhuPage(text: settings.arguments as String));
       case RouteName.takePrescription:
         return CupertinoPageRoute(builder: (_) => TakePrescriptionPage());
       case RouteName.checkMessage:

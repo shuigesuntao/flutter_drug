@@ -27,19 +27,19 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
               child: GestureDetector(
                 onTap: ()=> Navigator.of(context).pushNamed(RouteName.prescriptionPersonSearch,arguments: 2),
                 child: Container(
-                  height: 40.0,
+                  height: 32,
                   decoration: BoxDecoration(
                     color: Color(0xFFF6F6F6),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(12,5,10,3),
-                        child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 18,height: 18),
+                        padding: const EdgeInsets.fromLTRB(12,5,10,5),
+                        child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 14,height: 14),
                       ),
-                      Text('请输入姓名或手机号查找患者',style: TextStyle(color: Colors.grey[400],fontSize: 16))
+                      Text('请输入姓名或手机号查找患者',style: TextStyle(color: Colors.grey[400]))
                     ],
                   )
                 ),
@@ -62,13 +62,14 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Image.asset(ImageHelper.wrapAssets('phone_kf.png'),
-                              width: 45, height: 45),
+                              width: 42, height: 42),
                             SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('手机号开方', style: TextStyle(fontSize: 17)),
-                                Text('填写患者手机号',style: TextStyle(fontSize:13,color: Colors.grey[800]))
+                                Text('手机号开方', style: TextStyle(fontSize: 16)),
+                                SizedBox(height: 3),
+                                Text('填写患者手机号',style: TextStyle(fontSize:12,color: Colors.grey[800]))
                               ],
                             )
                           ],
@@ -76,7 +77,7 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                       ),
                     )
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 5),
                   Expanded(
                     child:GestureDetector(
                       onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:true))),
@@ -90,13 +91,14 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Image.asset(ImageHelper.wrapAssets('wx_kf.png'),
-                              width: 45, height: 45),
+                              width: 42, height: 42),
                             SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('微信开方', style: TextStyle(fontSize: 17)),
-                                Text('发送到患者微信',style: TextStyle(fontSize:13,color: Colors.grey[800]))
+                                Text('微信开方', style: TextStyle(fontSize: 16)),
+                                SizedBox(height: 3),
+                                Text('发送到患者微信',style: TextStyle(fontSize:12,color: Colors.grey[800]))
                               ],
                             )
                           ],

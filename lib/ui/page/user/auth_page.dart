@@ -378,7 +378,7 @@ class AuthPageState extends State<AuthPage> {
                       ))),
         Positioned(
             top: 0,
-            right: 10,
+            right: 0,
             child: Offstage(
                 offstage: file == null,
                 child: InkWell(

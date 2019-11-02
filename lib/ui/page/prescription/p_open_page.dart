@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/page/tab/address_book_page.dart';
 import 'package:flutter_drug/ui/widget/diaglog_open_p_tip.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
+import 'package:flutter_drug/ui/widget/dialog_yizhu_select.dart';
 import 'package:flutter_drug/ui/widget/dialog_zhenfei.dart';
 import 'package:flutter_drug/ui/widget/picker.dart';
-import 'package:flutter_drug/ui/widget/select_chip.dart';
+import 'package:flutter_drug/ui/widget/dialog_gaofangfuliao_select.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:oktoast/oktoast.dart';
@@ -37,6 +39,9 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   String _countOfBag = '200';
   Friend _friend;
   String _gaoAssist = '';
+  String _yizhuTime = '';
+  String _yizhuJiKou = '';
+  String _yizhuBuChong = '';
   List<Drug> _drugs = [];
   bool isShowPriceDetail = false;
   bool isDefaultPercent = true;
@@ -121,7 +126,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                 _buildKaifangWidget(),
                 SizedBox(height: 15),
                 // 医嘱
-                _buildYizhuWidget(),
+                _buildYizhuWidget(context),
                 SizedBox(height: 15),
                 // 复诊随访时间
                 GestureDetector(
@@ -989,12 +994,10 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) =>
-                    MultiNormalSelectChip(
+                    DialogGaoFangFuLiaoSelect(
                       ['蜂蜜', '木糖醇'],
-                      title: '膏方辅料选择',
                       selectList: [_gaoAssist],
                       height: 150,
-                      isSingle: true,
                       onConfirm: (data) {
                         setState(() {
                           _gaoAssist = data;
@@ -1023,7 +1026,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
 
 
   /// 医嘱
-  Widget _buildYizhuWidget() {
+  Widget _buildYizhuWidget(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -1071,32 +1074,75 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           ),
           Divider(height: 1, color: Colors.grey[300]),
           //用药医嘱
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              children: <Widget>[
-                Expanded(child: Text('用药医嘱')),
-                Text('选填', style: TextStyle(color: Colors.grey)),
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-              ],
+          GestureDetector(
+            onTap: ()=> showBottomSheet(
+              backgroundColor:Colors.transparent,
+              context: context,
+              builder: (context) =>
+                DialogYiZhuSelect(
+                  ['饭前半小时服','饭后半小时服','空腹服','睡前服','晨起服'],
+                  ['备孕禁用','怀孕禁用','经期停用','感冒停用','忌西药通用','辛辣','油腻','生冷','烟酒','发物','荤腥','酸涩','刺激性食物','光敏性食物','难消化食物'],
+                  selectTimeList: _yizhuTime.split(',').where((item)=>item.isNotEmpty).toList(),
+                  selectJiKouList: _yizhuJiKou.split(',').where((item)=>item.isNotEmpty).toList(),
+                  onConfirm: (time,jiKou) {
+                    setState(() {
+                      _yizhuTime = time;
+                      _yizhuJiKou = jiKou;
+                    });
+                  })
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: <Widget>[
+                  Text('用药医嘱'),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 20),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        _yizhuTime.isEmpty && _yizhuJiKou.isEmpty
+                          ?'选填'
+                          :_yizhuTime.isEmpty
+                            ?_yizhuJiKou
+                            :_yizhuJiKou.isEmpty
+                              ?_yizhuTime
+                              :_yizhuTime + ',' + _yizhuJiKou,
+                        maxLines:1,
+                        overflow: TextOverflow.ellipsis ,
+                        style: TextStyle(color: _yizhuTime.isEmpty && _yizhuJiKou.isEmpty ? Colors.grey : null)),
+                    )
+                  ),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey[400],
+                  ),
+                ],
+              ),
             ),
           ),
           Divider(height: 1, color: Colors.grey[300]),
           //补充医嘱
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
-            child: Row(
-              children: <Widget>[
-                Expanded(child: Text('补充医嘱')),
-                Text('选填', style: TextStyle(color: Colors.grey)),
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
-                ),
-              ],
+          GestureDetector(
+            onTap: ()=> Navigator.of(context).pushNamed(RouteName.prescriptionYiZhu,arguments: _yizhuBuChong).then((result){
+              if(result != null){
+                setState(() {
+                  _yizhuBuChong = result;
+                });
+              }
+            }),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Row(
+                children: <Widget>[
+                  Expanded(child: Text('补充医嘱')),
+                  Text(_yizhuBuChong.isEmpty?'选填':_yizhuBuChong, style: TextStyle(color: _yizhuBuChong.isEmpty?Colors.grey:null)),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Colors.grey[400],
+                  ),
+                ],
+              ),
             ),
           ),
           Divider(height: 1, color: Colors.grey[300]),

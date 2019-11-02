@@ -40,13 +40,15 @@ class MyOccupationPageState extends State<MyOccupationPage> {
               ),
             ],
           ),
+          centerTitle: true,
           title: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               _buildButton(0, '执业保险'),
               _buildButton(1, '法律援助')
             ],
-          )),
+          ),
+      ),
       body: PageView.builder(
         itemBuilder: (ctx, index) => pages[index],
         itemCount: pages.length,
@@ -85,10 +87,10 @@ class MyOccupationPageState extends State<MyOccupationPage> {
           child: Text(
             text,
             style: TextStyle(
-                fontSize: 16,
-                color: _selectedIndex == index
-                    ? Colors.white
-                    : Theme.of(context).primaryColor),
+              fontSize: 14,
+              color: _selectedIndex == index
+                  ? Colors.white
+                  : Theme.of(context).primaryColor),
           )),
     );
   }

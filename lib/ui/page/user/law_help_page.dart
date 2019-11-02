@@ -30,13 +30,14 @@ class LawHelpPage extends StatelessWidget {
                         height: 160,
                         fit: BoxFit.fill,
                       ),
-                      SizedBox(
+                      Container(
+                        color: Colors.white,
                         height: 161,
                         child: Row(
                           children: <Widget>[
                             Expanded(
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(15, 20, 15, 0),
+                                padding: EdgeInsets.fromLTRB(12, 20, 12, 0),
                                 color: Colors.white,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +49,7 @@ class LawHelpPage extends StatelessWidget {
                                     SizedBox(height: 10),
                                     Text('排忧解惑 提供纠纷解决方案',
                                       style: TextStyle(
-                                        color: Colors.grey, fontSize: 13)),
+                                        color: Colors.grey, fontSize: 12)),
                                     SizedBox(height: 20),
                                     Container(
                                       alignment: Alignment.center,
@@ -64,63 +65,53 @@ class LawHelpPage extends StatelessWidget {
                             Expanded(
                               child: Column(
                                 children: <Widget>[
-                                  Container(
-                                    height: 80,
-                                    color: Colors.white,
-                                    padding: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text('电话咨询',
-                                                style: TextStyle(fontSize: 16)),
-                                              SizedBox(height: 5),
-                                              Text('即使响应 沟通高效',
-                                                style: TextStyle(
-                                                  color: Colors.grey, fontSize: 13))
-                                            ],
-                                          )),
-                                        SizedBox(width: 20),
-                                        Image.asset(
-                                          ImageHelper.wrapAssets('n29phone.png'),
-                                          width: 35,
-                                          height: 35)
-                                      ],
-                                    ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text('电话咨询', style: TextStyle(fontSize: 16)),
+                                                SizedBox(height: 5),
+                                                Text('即使响应 沟通高效', style: TextStyle(color: Colors.grey, fontSize: 13))
+                                              ],
+                                            )),
+                                          Image.asset(
+                                            ImageHelper.wrapAssets('n29phone.png'),
+                                            width: 32,
+                                            height: 32)
+                                        ],
+                                      ),
+                                    )
                                   ),
                                   Divider(height: 1, color: Colors.grey[300]),
-                                  Container(
-                                    height: 80,
-                                    color: Colors.white,
-                                    padding: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: Text('律师咨询',
-                                                  style: TextStyle(fontSize: 16)),
-                                              ),
-                                              SizedBox(height: 5),
-                                              Text('最大优化你的权利',
-                                                style: TextStyle(
-                                                  color: Colors.grey, fontSize: 13))
-                                            ],
-                                          )),
-                                        SizedBox(width: 20),
-                                        Image.asset(
-                                          ImageHelper.wrapAssets(
-                                            'n29findlaywer.png'),
-                                          width: 35,
-                                          height: 35)
-                                      ],
-                                    ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 10),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text('律师咨询', style: TextStyle(fontSize: 16)),
+                                                SizedBox(height: 5),
+                                                Text('最大优化你的权利', style: TextStyle(color: Colors.grey, fontSize: 13))
+                                              ],
+                                            )),
+                                          Image.asset(
+                                            ImageHelper.wrapAssets(
+                                              'n29findlaywer.png'),
+                                            width: 32,
+                                            height: 32)
+                                        ]),
+                                    )
                                   )
                                 ],
                               ),
@@ -164,20 +155,25 @@ class LawHelpPage extends StatelessWidget {
   }
 
   Widget _buildLawNewsItem(BuildContext context, LawNews news) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(news.title, style: TextStyle(fontSize: 16)),
-          SizedBox(height: 10),
-          Text(news.content,
-              style: TextStyle(color: Colors.grey),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(news.title, style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text(news.content,
+                style: TextStyle(color: Colors.grey),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis),
+            ],
+          ),
+        ),
+        Divider(height: 1,color: Colors.grey[100],)
+      ],
     );
   }
 }

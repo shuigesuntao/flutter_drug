@@ -276,7 +276,7 @@ class DrugStoreItem extends StatelessWidget{
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: 5),
+            padding: EdgeInsets.only(left: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
