@@ -5,12 +5,12 @@ import 'package:flutter_drug/model/banner.dart';
 
 class WanAndroidRepository {
   // 轮播
-  static Future fetchBanners() async {
-    var response = await http.get('banner/json');
-    return response.data
-        .map<Banner>((item) => Banner.fromJsonMap(item))
-        .toList();
-  }
+//  static Future fetchBanners() async {
+//    var response = await http.get('banner/json');
+//    return response.data
+//        .map<Banner>((item) => Banner.fromJsonMap(item))
+//        .toList();
+//  }
 
 //  // 置顶文章
 //  static Future fetchTopArticles() async {

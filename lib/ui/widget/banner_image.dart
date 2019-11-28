@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 
 class BannerImage extends StatelessWidget {
-  final String url;
+  final String image;
   final BoxFit fit;
 
-  BannerImage(this.url, {this.fit: BoxFit.fill});
+  BannerImage(this.image, {this.fit: BoxFit.fill});
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-        imageUrl: ImageHelper.wrapUrl(url),
+        imageUrl: image,
         placeholder: (context, url) =>
             Center(child: CupertinoActivityIndicator()),
         errorWidget: (context, url, error) => Icon(Icons.error),

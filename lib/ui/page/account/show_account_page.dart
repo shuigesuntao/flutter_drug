@@ -4,6 +4,7 @@ import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/bill.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
+import 'package:flutter_drug/ui/widget/dialog_progress.dart';
 import 'package:flutter_drug/ui/widget/picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/bill_model.dart';
@@ -33,7 +34,7 @@ class ShowAccountPage extends StatelessWidget {
                         ),
                         SizedBox(width: 5),
                         Image.asset(
-                            ImageHelper.wrapAssets('ic_arrow_drop_down.png'),
+                            ImageHelper.wrapAssets('icon_qiehuan.png'),
                             width: 12,
                             height: 12)
                       ],
@@ -59,7 +60,7 @@ class ShowAccountPage extends StatelessWidget {
                 ),
               ),
               Expanded(child: model.busy
-                ? Center(child: CircularProgressIndicator())
+                ? Center(child: ProgressDialog())
                 : model.error
                 ? ViewStateWidget(onPressed: model.initData)
                 : SmartRefresher(
@@ -129,6 +130,7 @@ class ShowAccountPage extends StatelessWidget {
             color: Colors.grey[300],
           ))
         ],
+        title: '',
         itemExtent: 40,
         selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
         columnPadding: const EdgeInsets.all(15),

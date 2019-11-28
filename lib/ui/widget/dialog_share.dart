@@ -6,7 +6,7 @@ class ShareDialog extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(15),
       color: Colors.white,
       child: Column(
         children: <Widget>[
@@ -16,22 +16,15 @@ class ShareDialog extends StatelessWidget{
             children: <Widget>[
               Expanded(child: Column(
                 children: <Widget>[
-                  Image.asset(ImageHelper.wrapAssets('umeng_socialize_qq.png'),width: 50,height: 50),
-                  SizedBox(height: 10),
-                  Text('QQ',style: TextStyle(fontSize: 16))
-                ],
-              )),
-              Expanded(child: Column(
-                children: <Widget>[
-                  Image.asset(ImageHelper.wrapAssets('umeng_socialize_wechat.png'),width: 50,height: 50),
-                  SizedBox(height: 10),
+                  Image.asset(ImageHelper.wrapAssets('umeng_socialize_wechat.png'),width: 60,height: 60),
+                  SizedBox(height: 5),
                   Text('微信',style: TextStyle(fontSize: 16))
                 ],
               )),
               Expanded(child: Column(
                 children: <Widget>[
-                  Image.asset(ImageHelper.wrapAssets('umeng_socialize_wxcircle.png'),width: 50,height: 50),
-                  SizedBox(height: 10),
+                  Image.asset(ImageHelper.wrapAssets('umeng_socialize_wxcircle.png'),width: 60,height: 60),
+                  SizedBox(height: 5),
                   Text('朋友圈',style: TextStyle(fontSize: 16))
                 ],
               ),)

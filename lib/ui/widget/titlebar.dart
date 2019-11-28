@@ -9,7 +9,7 @@ class TitleBar {
     return AppBar(
       backgroundColor: backgroundColor,
       centerTitle: true,
-      title: Text(title),
+      title: Text(title,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
       leading: isShowBack ? leading(context,onPressed) : null,
       actions: actionText == null ? null : <Widget>[
         Padding(
@@ -19,7 +19,7 @@ class TitleBar {
             child: Center(
               child: Text(
                 actionText,
-                style: TextStyle(fontSize:16,color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
+                style: TextStyle(fontSize:15,color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
               ),
             ),
           ))

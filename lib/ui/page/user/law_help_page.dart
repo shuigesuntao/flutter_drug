@@ -27,7 +27,7 @@ class LawHelpPage extends StatelessWidget {
                       Image.asset(
                         ImageHelper.wrapAssets('n29banner.png'),
                         width: double.infinity,
-                        height: 160,
+                        height: 140,
                         fit: BoxFit.fill,
                       ),
                       Container(
@@ -158,7 +158,7 @@ class LawHelpPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+          padding: EdgeInsets.fromLTRB(20, 25, 20, 25),
           color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

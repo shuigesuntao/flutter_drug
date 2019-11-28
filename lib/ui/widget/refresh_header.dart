@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart' hide RefreshIndicator, RefreshIndicatorState;
 import 'package:flutter_drug/config/resource_mananger.dart';
-import 'package:flutter_gifimage/flutter_gifimage.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class RefreshHeader extends RefreshIndicator{
@@ -10,18 +9,10 @@ class RefreshHeader extends RefreshIndicator{
 }
 
 class _RefreshHeaderState extends RefreshIndicatorState<RefreshHeader> with SingleTickerProviderStateMixin{
-  GifController _gifController;
   String _tip = '下拉刷新';
 
   @override
-  void initState() {
-    _gifController = GifController(vsync: this);
-    super.initState();
-  }
-
-  @override
   void onModeChange(RefreshStatus mode) {
-    _gifController.repeat(min: 0, max: 9, period: Duration(milliseconds: 1000));
     if(mode == RefreshStatus.idle){
       setState(() {
         _tip = '下拉刷新';
@@ -41,44 +32,14 @@ class _RefreshHeaderState extends RefreshIndicatorState<RefreshHeader> with Sing
   }
 
   @override
-  Future<void> endRefresh() {
-    _gifController.value = 9;
-    return _gifController.animateTo(9, duration: Duration(milliseconds: 1000));
-  }
-
-  @override
-  void resetValue() {
-    _gifController.value = 0;
-    super.resetValue();
-  }
-
-
-  @override
   Widget buildContent(BuildContext context, RefreshStatus mode) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment:MainAxisAlignment.center,
+    return Column(
       children: <Widget>[
-        GifImage(
-          image: AssetImage(ImageHelper.wrapAssets('lodigngif.gif')),
-          controller: _gifController,
-          height: 70,
-        ),
-        Column(
-          children: <Widget>[
-            Text('小匣子 大国医',style: TextStyle(color: Theme.of(context).primaryColor)),
-            Text(_tip,style: TextStyle(fontSize: 12,color: Colors.grey)),
-            SizedBox(height: 10)
-          ],
-        )
+        Image.asset(ImageHelper.wrapAssets('lodigngif.gif'),width: 30,height: 30),
+        SizedBox(height: 10),
+        Text(_tip,style: TextStyle(fontSize: 12,color: Colors.grey)),
+        SizedBox(height: 5),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    _gifController.dispose();
-    super.dispose();
   }
 }

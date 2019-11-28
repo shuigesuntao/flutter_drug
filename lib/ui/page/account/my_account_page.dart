@@ -8,12 +8,14 @@ class MyAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: TitleBar.buildCommonAppBar(context, '我的账户',
-          actionText: '提现规则',
-          onActionPress: () => Navigator.of(context).pushNamed(
-              RouteName.cashRule,
-              arguments: 'https://app.zgzydb.com/web/packetRule/index.html')),
+      appBar: TitleBar.buildCommonAppBar(context, '我的账户', actionText: '提现规则',
+        onActionPress: () {
+          Map map = Map();
+          map['title'] = '提现规则';
+          map['url'] = 'https://app.zgzydb.com/web/packetRule/index.html';
+          map['share'] = false;
+          Navigator.of(context).pushNamed(RouteName.webView, arguments: map);
+        }),
       body: Container(
         margin: EdgeInsets.all(15),
         child: Column(
@@ -24,33 +26,26 @@ class MyAccountPage extends StatelessWidget {
               width: double.infinity,
               height: 150,
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage(ImageHelper.wrapAssets('bg_yue.png')))),
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(ImageHelper.wrapAssets('bg_yue.png')))),
               child: Stack(
                 children: <Widget>[
                   Text(
-                    '账户余额',
+                    '账户余额（元）',
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                   Center(
-                    child: RichText(
-                      text: TextSpan(
-                          text: '￥',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: '3.01',
-                                style: TextStyle(
-                                    fontSize: 24, color: Colors.white))
-                          ]),
+                    child: Text(
+                      '￥3.01',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   )
                 ],
               ),
             ),
             Container(
-              color: Color(0xFFF8F8F8),
+              color: Colors.white,
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: Row(
@@ -60,31 +55,30 @@ class MyAccountPage extends StatelessWidget {
                         children: <Widget>[
                           RichText(
                             text: TextSpan(
-                                text: '￥',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '0',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.black))
-                                ]),
+                              text: '￥',
+                              style: TextStyle(
+                                fontSize: 12, color: Colors.black),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '0',
+                                  style: TextStyle(
+                                    fontSize: 16, color: Colors.black))
+                              ]),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
                             '上月收入',
-                            style: TextStyle(
-                                color: Color(0xFF777777), fontSize: 12),
+                            style: TextStyle(fontSize: 12),
                           )
                         ],
                       ),
                       flex: 1,
                     ),
                     Container(
-                      color: Color(0xFFD8D8D8),
-                      width: 2,
+                      color: Colors.grey[200],
+                      width: 1,
                       height: 20,
                     ),
                     Expanded(
@@ -92,31 +86,30 @@ class MyAccountPage extends StatelessWidget {
                         children: <Widget>[
                           RichText(
                             text: TextSpan(
-                                text: '￥',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '0',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.black))
-                                ]),
+                              text: '￥',
+                              style: TextStyle(
+                                fontSize: 12, color: Colors.black),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '0',
+                                  style: TextStyle(
+                                    fontSize: 16, color: Colors.black))
+                              ]),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
                             '本月收入',
-                            style: TextStyle(
-                                color: Color(0xFF777777), fontSize: 12),
+                            style: TextStyle(fontSize: 12),
                           )
                         ],
                       ),
                       flex: 1,
                     ),
                     Container(
-                      color: Color(0xFFD8D8D8),
-                      width: 2,
+                      color: Colors.grey[200],
+                      width: 1,
                       height: 20,
                     ),
                     Expanded(
@@ -124,23 +117,22 @@ class MyAccountPage extends StatelessWidget {
                         children: <Widget>[
                           RichText(
                             text: TextSpan(
-                                text: '￥',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: '0',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.black))
-                                ]),
+                              text: '￥',
+                              style: TextStyle(
+                                fontSize: 12, color: Colors.black),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '0',
+                                  style: TextStyle(
+                                    fontSize: 16, color: Colors.black))
+                              ]),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           Text(
                             '上月支出',
-                            style: TextStyle(
-                                color: Color(0xFF777777), fontSize: 12),
+                            style: TextStyle(fontSize: 12),
                           )
                         ],
                       ),
@@ -151,41 +143,50 @@ class MyAccountPage extends StatelessWidget {
               ),
             ),
             Expanded(
+              child: SafeArea(
+                bottom: true,
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                SizedBox(
-                  width: double.infinity,
-                  child: FlatButton(
-                    padding: EdgeInsets.all(12),
-                    onPressed: () => Navigator.of(context).pushNamed(RouteName.weChatCash),
-                    color: Theme.of(context).primaryColor,
-                    child: Text(
-                      '微信提现',
-                      style: TextStyle(color: Colors.white),
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () =>
+                        Navigator.of(context).pushNamed(RouteName.weChatCash),
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Theme
+                            .of(context)
+                            .primaryColor,
+                          borderRadius: BorderRadius.circular(5)
+                        ),
+                        child: Text(
+                          '微信提现',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlineButton(
-                    padding: EdgeInsets.all(10),
-                    onPressed: () => Navigator.of(context).pushNamed(RouteName.showAccount),
-                    color: Colors.white,
-                    child: Text(
-                      '查看账单',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                    borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor, width: 1),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                  ),
-                ),
-              ],
-            ))
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pushNamed(RouteName.showAccount),
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Theme.of(context).primaryColor, width: 1)
+                        ),
+                        child: Text(
+                          '查看账单',
+                          style: TextStyle(color:Theme.of(context).primaryColor),
+                        )
+                      ),
+                    )
+                  ],
+                )))
           ],
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/provider_manager.dart';
 import 'package:flutter_drug/config/storage_manager.dart';
-import 'package:flutter_drug/config/ui_adapter_config.dart';
 import 'package:flutter_drug/ui/widget/refresh_header.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
@@ -40,10 +39,10 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: '药匣子',
           theme: ThemeData(
-            primaryColor: Color(0xFF25bbaf),
-            scaffoldBackgroundColor: Color(0xFFF2F2F2),
+            primaryColor: Color(0xffd80c18),
+            scaffoldBackgroundColor: Color(0xfff8f8f8),
             primaryIconTheme: IconThemeData(color: Colors.white),
-            appBarTheme: AppBarTheme(elevation: 0)
+            appBarTheme: AppBarTheme(elevation: 0,brightness:Brightness.light)
           ),
           onGenerateRoute: Router.generateRoute,
           initialRoute: RouteName.splash,

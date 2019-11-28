@@ -20,6 +20,10 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
   int _currentPageNum = pageNumFirst;
 
   /// 下拉刷新
+  ///
+  /// [init] 是否是第一次加载
+  /// true:  Error时,需要跳转页面
+  /// false: Error时,不需要跳转页面,直接给出提示
   Future<List<T>> refresh({bool init = false}) async {
     try {
       _currentPageNum = pageNumFirst;

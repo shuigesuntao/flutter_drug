@@ -209,7 +209,7 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
             height: 40,
             child: FlatButton(
               child: Text('取消', style: TextStyle(
-                color: Colors.grey[700])),
+                fontSize:16, color: Colors.grey)),
               onPressed: () => Navigator.maybePop(context)
             ),
           ),
@@ -217,10 +217,7 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
           Container(
             height: 40,
             child: FlatButton(
-              child: Text('确定', style: TextStyle(
-                color: Theme
-                  .of(context)
-                  .primaryColor)),
+              child: Text('确定', style: TextStyle(fontSize:16,color: Theme.of(context).primaryColor)),
               onPressed: () => picker.doConfirm(context)
             ),
           ),

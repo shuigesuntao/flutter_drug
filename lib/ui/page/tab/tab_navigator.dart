@@ -45,41 +45,28 @@ class _TabNavigatorState extends State<TabNavigator> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        fixedColor: Theme.of(context).primaryColor,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(ImageHelper.wrapAssets('ic_home.png')), size: 25),
-            title: Text(
-              '工作室',
-              style: TextStyle(fontSize: 12)
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(ImageHelper.wrapAssets('ic_talk.png')), size: 25),
-            title: Text(
-              '资询',
-              style: TextStyle(fontSize: 12)
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(ImageHelper.wrapAssets('ic_address_book.png')), size: 25),
-            title: Text(
-              '通讯录',
-              style: TextStyle(fontSize: 12)
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage(ImageHelper.wrapAssets('ic_me.png')), size: 25),
-            title: Text(
-              '我的',
-              style: TextStyle(fontSize: 12)
-            ),
-          ),
+          _buildBottomNavigationBarItem('工作室','icon_home_disselect.png','icon_home_select.png'),
+          _buildBottomNavigationBarItem('资询','icon_talk_disselect.png','icon_talk_select.png'),
+          _buildBottomNavigationBarItem('通讯录','icon_family_disselect.png','icon_family_select.png'),
+          _buildBottomNavigationBarItem('我的','icon_me_disselect.png','icon_me_select.png'),
         ],
         currentIndex: _selectedIndex,
         onTap: (index) {
           _pageController.jumpToPage(index);
         },
+      ),
+    );
+  }
+
+
+  BottomNavigationBarItem _buildBottomNavigationBarItem(String text,String icon,String activeIcon){
+    return BottomNavigationBarItem(
+      icon: Image.asset(ImageHelper.wrapAssets(icon),width: 24,height: 24),
+      activeIcon: Image.asset(ImageHelper.wrapAssets(activeIcon),width: 24,height: 24),
+      title: Text(
+        text,
+        style: TextStyle(fontSize: 12)
       ),
     );
   }

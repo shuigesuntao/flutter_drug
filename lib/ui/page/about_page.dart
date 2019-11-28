@@ -13,14 +13,13 @@ class AboutPage extends StatefulWidget{
 
 class AboutPageState extends State<AboutPage>{
   String _version;
-  String _appName;
 
   @override
   void initState() {
     super.initState();
-    getAppName();
     getAppVersion();
   }
+
   @override
   Widget build(BuildContext context) {
     final String phone = '400-520-120';
@@ -96,10 +95,6 @@ class AboutPageState extends State<AboutPage>{
     }
   }
 
-  getAppName() async{
-    _appName = await PlatformUtils.getAppName();
-
-  }
   getAppVersion() async{
     _version = await PlatformUtils.getAppVersion();
   }

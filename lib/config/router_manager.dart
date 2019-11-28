@@ -36,10 +36,10 @@ import 'package:flutter_drug/ui/page/account/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/example_page.dart';
 import 'package:flutter_drug/ui/page/user/friend_info_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
-import 'package:flutter_drug/ui/page/account/cash_rule_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
 import 'package:flutter_drug/ui/page/user/service_setting_page.dart';
 import 'package:flutter_drug/ui/page/user/user_info_page.dart';
+import 'package:flutter_drug/ui/page/web_view_page.dart';
 import 'package:flutter_drug/ui/widget/page_route_anim.dart';
 
 
@@ -65,7 +65,7 @@ class RouteName {
   static const String login = 'login';
   static const String register = 'register';
   static const String myAccount = 'myAccount';//我的账户
-  static const String cashRule = 'cashRule';//提现规则
+  static const String webView = 'webView';//提现规则
   static const String weChatCash = 'weChatCash';//微信提现
   static const String bindWeChat = 'bindWeChat';//绑定微信
   static const String showAccount = 'showAccount';//查看账单
@@ -149,8 +149,8 @@ class Router {
 //        int index = list[1];
 //        return CupertinoPageRoute(
 //            builder: (_) => ArticleCategoryTabPage(tree, index));
-      case RouteName.cashRule:
-        return CupertinoPageRoute(builder: (_) => CashRulePage(url: settings.arguments as String));
+      case RouteName.webView:
+        return CupertinoPageRoute(builder: (_) => WebViewPage(map: settings.arguments as Map));
       case RouteName.myAccount:
         return CupertinoPageRoute(builder: (_) => MyAccountPage());
       case RouteName.weChatCash:
