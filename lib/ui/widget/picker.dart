@@ -213,7 +213,7 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
               onPressed: () => Navigator.maybePop(context)
             ),
           ),
-          Text(picker.title),
+          Text(picker.title??''),
           Container(
             height: 40,
             child: FlatButton(

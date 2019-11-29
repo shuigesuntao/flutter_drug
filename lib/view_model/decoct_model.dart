@@ -2,9 +2,17 @@ import 'package:flutter_drug/model/decoct_method.dart';
 import 'package:flutter_drug/provider/view_state_refresh_list_model.dart';
 
 class DecoctModel extends ViewStateRefreshListModel<DecoctMethod> {
+  bool _isDelete = false;
+
+  bool get isDelete => _isDelete;
+
+
+  DecoctModel(){
+    _isDelete = false;
+  }
+
   @override
   Future<List<DecoctMethod>> loadData({int pageNum}) async{
-
     return await Future.delayed(Duration(seconds:1), () {
       List<DecoctMethod> results = List();
       results.add(DecoctMethod(1, "合药冲服"));
@@ -20,6 +28,10 @@ class DecoctModel extends ViewStateRefreshListModel<DecoctMethod> {
     });
   }
 
+  changeDeleteMode(){
+    _isDelete = !isDelete;
+    notifyListeners();
+  }
 
   add(String name){
     list.insert(0,DecoctMethod(100,name));

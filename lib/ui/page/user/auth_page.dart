@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,157 +50,174 @@ class AuthPageState extends State<AuthPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              SizedBox(height: 5),
               _buildHeaderItem(),
-              Divider(height: 1, color: Colors.grey),
+              Divider(height: 0.5, color: Colors.grey[400]),
               _buildNameItem(),
-              Divider(height: 1, color: Colors.grey),
+              Divider(height: 0.5, color: Colors.grey[400]),
               _buildLevelItem(),
-              Padding(
-                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Text('上传执业证照片', style: TextStyle(fontSize: 16))),
-                    GestureDetector(
-                      onTap: () =>
-                        Navigator.of(context).pushNamed(RouteName.example),
-                      child: Text('查看示例',
-                        style: TextStyle(color: Colors.red[900], fontSize: 16)),
-                    )
-                  ],
-                ),
-              ),
+              SizedBox(height: 10),
               Container(
-                padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
                 color: Colors.white,
-                child: Row(
+                child: Column(
                   children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          _firstCard == null
-                            ? showImageDialog((file) {
-                            setState(() {
-                              _firstCard = file;
-                            });
-                          })
-                            : Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) =>
-                                HeroPhotoViewWrapper(
-                                  imageProvider: FileImage(_firstCard),
-                                  tag: 'first',
-                                ),
-                            ));
-                        },
-                        child: _buildImageItem(
-                          _firstCard, 'zyzs_01.png', 'first', () {
-                          setState(() {
-                            _firstCard = null;
-                          });
-                        }))),
-                    SizedBox(width: 15),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          _secondCard == null
-                            ? showImageDialog((file) {
-                            setState(() {
-                              _secondCard = file;
-                            });
-                          })
-                            : Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) {
-                                return HeroPhotoViewWrapper(
-                                  imageProvider:
-                                  FileImage(_secondCard),
-                                  tag: 'second',
-                                );
-                              }));
-                        },
-                        child: _buildImageItem(
-                          _secondCard, 'zyzs_02.png', 'second', () {
-                          setState(() {
-                            _secondCard = null;
-                          });
-                        }))),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text('上传医师执业证书证照片', style: TextStyle(fontSize: 15))),
+                          GestureDetector(
+                            onTap: () =>
+                              Navigator.of(context).pushNamed(RouteName.example),
+                            child: Text('查看示例',
+                              style: TextStyle(color: Colors.red[900], fontSize: 15)),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      color: Colors.grey[350],
+                      height: 0.5,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Row(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              _firstCard == null
+                                ? showImageDialog((file) {
+                                setState(() {
+                                  _firstCard = file;
+                                });
+                              })
+                                : Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) =>
+                                    HeroPhotoViewWrapper(
+                                      imageProvider: FileImage(_firstCard),
+                                      tag: 'first',
+                                    ),
+                                ));
+                            },
+                            child: _buildImageItem(
+                              _firstCard, 'zyzs_01.png', 'first', () {
+                              setState(() {
+                                _firstCard = null;
+                              });
+                            })),
+                          SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: () {
+                              _secondCard == null
+                                ? showImageDialog((file) {
+                                setState(() {
+                                  _secondCard = file;
+                                });
+                              })
+                                : Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) {
+                                    return HeroPhotoViewWrapper(
+                                      imageProvider:
+                                      FileImage(_secondCard),
+                                      tag: 'second',
+                                    );
+                                  }));
+                            },
+                            child: _buildImageItem(
+                              _secondCard, 'zyzs_02.png', 'second', () {
+                              setState(() {
+                                _secondCard = null;
+                              });
+                            }))
+                        ],
+                      ),
+                    ),
                   ],
-                ),
+                )
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                child: Row(
-                  children: <Widget>[
-                    Text('上传其他证件照片', style: TextStyle(fontSize: 16)),
-                    Text('（选填）', style: TextStyle(color: Colors.grey)),
-                  ],
-                ),
-              ),
+              SizedBox(height: 10),
               Container(
-                padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
                 color: Colors.white,
-                child: Row(
+                child: Column(
                   children: <Widget>[
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          _zgzsCard == null
-                            ? showImageDialog((file) {
-                            setState(() {
-                              _zgzsCard = file;
-                            });
-                          })
-                            : Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) =>
-                                HeroPhotoViewWrapper(
-                                  imageProvider: FileImage(_zgzsCard),
-                                  tag: 'zgzs',
-                                ),
-                            ));
-                        },
-                        child: _buildImageItem(_zgzsCard, 'zgzs.png', 'zgzs',
-                            () {
-                            setState(() {
-                              _zgzsCard = null;
-                            });
-                          }))),
-                    SizedBox(width: 15),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          _qtzjCard == null
-                            ? showImageDialog((file) {
-                            setState(() {
-                              _qtzjCard = file;
-                            });
-                          })
-                            : Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              fullscreenDialog: true,
-                              builder: (context) {
-                                return HeroPhotoViewWrapper(
-                                  imageProvider: FileImage(_qtzjCard),
-                                  tag: 'qtzj',
-                                );
-                              }));
-                        },
-                        child: _buildImageItem(_qtzjCard, 'qtzj.png', 'qtzj',
-                            () {
-                            setState(() {
-                              _qtzjCard = null;
-                            });
-                          }))),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      width: double.infinity,
+                      child: Text('上传其他证件照片（选填）'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 15),
+                      color: Colors.grey[350],
+                      height: 0.5,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(15),
+                      child:  Row(
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              _zgzsCard == null
+                                ? showImageDialog((file) {
+                                setState(() {
+                                  _zgzsCard = file;
+                                });
+                              })
+                                : Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) =>
+                                    HeroPhotoViewWrapper(
+                                      imageProvider: FileImage(_zgzsCard),
+                                      tag: 'zgzs',
+                                    ),
+                                ));
+                            },
+                            child: _buildImageItem(_zgzsCard, 'zgzs.png', 'zgzs',
+                                () {
+                                setState(() {
+                                  _zgzsCard = null;
+                                });
+                              })),
+                          SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: () {
+                              _qtzjCard == null
+                                ? showImageDialog((file) {
+                                setState(() {
+                                  _qtzjCard = file;
+                                });
+                              })
+                                : Navigator.push(
+                                context,
+                                CupertinoPageRoute(
+                                  fullscreenDialog: true,
+                                  builder: (context) {
+                                    return HeroPhotoViewWrapper(
+                                      imageProvider: FileImage(_qtzjCard),
+                                      tag: 'qtzj',
+                                    );
+                                  }));
+                            },
+                            child: _buildImageItem(_qtzjCard, 'qtzj.png', 'qtzj',
+                                () {
+                                setState(() {
+                                  _qtzjCard = null;
+                                });
+                              }))
+                        ],
+                      ),
+                    ),
                   ],
-                ),
+                )
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -219,29 +235,30 @@ class AuthPageState extends State<AuthPage> {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
+              SafeArea(child: GestureDetector(
+                onTap: (){
+                  userModel.user.name = _name;
+                  userModel.user.level = _level;
+                  userModel.saveUser(userModel.user);
+                  Navigator.maybePop(context);
+                },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.symmetric(horizontal: 15),
                   width: double.infinity,
-                  child: FlatButton(
-                    padding: EdgeInsets.all(12),
-                    onPressed: () {
-                      userModel.user.name = _name;
-                      userModel.user.level = _level;
-                      userModel.saveUser(userModel.user);
-                      Navigator.maybePop(context);
-                    },
-                    color: Theme.of(context).primaryColor,
-                    child: Text(
-                      '修改资质',
-                      style: TextStyle(color: Colors.white,fontSize: 16),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Theme
+                      .of(context)
+                      .primaryColor,
+                    borderRadius: BorderRadius.circular(5)
                   ),
-                )
-              )
+                  child: Text(
+                    '修改资质',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ),
+              ),bottom: true),
             ],
           ),
         ),
@@ -260,11 +277,11 @@ class AuthPageState extends State<AuthPage> {
       },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
-        height: 60,
+        height: 55,
         color: Colors.white,
         child: Row(
           children: <Widget>[
-            Expanded(child: Text('头像', style: TextStyle(fontSize: 16))),
+            Expanded(child: Text('头像', style: TextStyle(fontSize: 15))),
             ClipOval(
               child: _header == null
                   ? CachedNetworkImage(
@@ -285,6 +302,8 @@ class AuthPageState extends State<AuthPage> {
                       fit: BoxFit.fill,
                     ),
             ),
+            SizedBox(width: 10),
+            Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 8,height: 16)
           ],
         ),
       ),
@@ -295,10 +314,10 @@ class AuthPageState extends State<AuthPage> {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         color: Colors.white,
-        height: 50,
+        height: 45,
         child: Row(
           children: <Widget>[
-            Text('姓名', style: TextStyle(fontSize: 16)),
+            Text('姓名', style: TextStyle(fontSize: 15)),
             Expanded(
               child: TextField(
               decoration: InputDecoration(
@@ -311,7 +330,7 @@ class AuthPageState extends State<AuthPage> {
               controller: _controller,
               maxLines: 1,
               textInputAction: TextInputAction.done,
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontSize: 14,color: Colors.grey[600]),
               textAlign: TextAlign.end,
               onSubmitted: (text) {
                 setState(() {
@@ -337,19 +356,17 @@ class AuthPageState extends State<AuthPage> {
               )),
       child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
-          height: 50,
+          height: 45,
           color: Colors.white,
           child: Row(
             children: <Widget>[
               Expanded(
-                child: Text('职称', style: TextStyle(fontSize: 16)),
+                child: Text('职称', style: TextStyle(fontSize: 15)),
               ),
               Text(_level.isEmpty ? '请选择' : _level,
-                  style: TextStyle(color: Colors.grey)),
-              Icon(
-                Icons.chevron_right,
-                color: Colors.grey[400],
-              ),
+                  style: TextStyle(color: Colors.grey[600])),
+              SizedBox(width: 10),
+              Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 8,height: 16)
             ],
           )),
     );
@@ -366,14 +383,14 @@ class AuthPageState extends State<AuthPage> {
                 child: file == null
                     ? Image.asset(
                         ImageHelper.wrapAssets(defaultImage),
-                        width: 170,
-                        height: 95,
+                        width: 90,
+                        height: 90,
                         fit: BoxFit.fill,
                       )
                     : Image.file(
                         file,
-                        width: 170,
-                        height: 95,
+                        width: 90,
+                        height: 90,
                         fit: BoxFit.fill,
                       ))),
         Positioned(

@@ -7,7 +7,6 @@ class ExamplePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context, '示例说明'),
-      backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.all(15),
         child: Column(

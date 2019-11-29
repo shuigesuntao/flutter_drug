@@ -9,99 +9,89 @@ import 'package:flutter_drug/view_model/address_model.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class AddressManagePage extends StatelessWidget {
-  final TextEditingController _controller = TextEditingController();
+class AddressManagePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _AddressManagePageState();
+
+}
+
+class _AddressManagePageState extends State<AddressManagePage>{
+
+  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context, '地址管理',
-          actionText: '添加新地址', onActionPress: ()=>
-          Navigator.of(context).pushNamed(
-            RouteName.editAddress,
-            arguments: null)
-        ),
+        actionText: '添加新地址',
+        onActionPress: () => Navigator.of(context)
+          .pushNamed(RouteName.editAddress, arguments: null)),
       body: ProviderWidget<AddressModel>(
         model: AddressModel(),
         onModelReady: (model) {
           model.initData();
         },
         builder: (context, model, child) {
-          if (model.busy) {
-            return Center(child: CircularProgressIndicator());
-          } else if (model.error) {
-            return ViewStateWidget(onPressed: model.initData);
-          }
           return SmartRefresher(
-                  controller: model.refreshController,
-                  onRefresh: model.refresh,
-                  onLoading: model.loadMore,
-                  enablePullUp: !model.empty,
-                  child: model.empty ? ViewStateEmptyWidget() :Column(
+            controller: model.refreshController,
+            onRefresh: model.refresh,
+            onLoading: model.loadMore,
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Column(
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(15),
+                      Container(
+                        height: 40,
+                        color: Colors.white,
                         child: Container(
+                          margin: EdgeInsets.fromLTRB(15,5,15,5),
                           decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5)),
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: TextField(
-                                  controller: _controller,
-                                  maxLines: 1,
-                                  textInputAction: TextInputAction.search,
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      border: InputBorder.none,
-                                      hintText: '请输入姓名或手机查询',
-                                      hintStyle: TextStyle(
-                                          fontSize: 16,
-                                          color: Color(0xFFcccccc))),
-                                  onSubmitted: (text) {
-                                    print("搜索$text");
-                                  },
-                                ),
+                            color: Color(0xffeeeeed),
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                          child: TextField(
+                            controller: _controller,
+                            maxLines: 1,
+                            textInputAction: TextInputAction.search,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.fromLTRB(-20, 5, 10, 5),
+                              border: InputBorder.none,
+                              icon: Padding(
+                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                child: Image.asset(
+                                  ImageHelper.wrapAssets('edit_search.png'),
+                                  width: 14,
+                                  height: 14),
                               ),
-                              Container(
-                                color: Colors.grey,
-                                width: 1,
-                                height: 18,
-                              ),
-                              GestureDetector(
-                                onTap: (){
-                                  if(_controller.text.isEmpty){
-                                    showToast('请输入搜索内容');
-                                  }else{
-                                    print("搜索${_controller.text}");
-                                  }
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 25),
-                                  child: Image.asset(
-                                    ImageHelper.wrapAssets('ic_ss.png'),
-                                    width: 20,
-                                    height: 20),
-                                ),
-                              )
-                            ],
+                              hintText: '请输入姓名或手机号查询',
+                              hintStyle: TextStyle(
+                                fontSize: 14, color: Colors.grey[350])),
+                            onSubmitted: (text) {
+                              if (text.isEmpty) {
+                                showToast('请输入搜索内容');
+                              } else {
+                                print("搜索$text");
+                              }
+                            },
                           ),
                         ),
                       ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: model.list?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          return _buildAddressItem(
-                              context, model.list[index]);
-                        },
-                      ),
+                      SizedBox(height: 10),
                     ],
                   ),
-                );
+                ),
+                model.busy
+                ? SliverToBoxAdapter(child: Container(height:400,alignment:Alignment.center,child: CircularProgressIndicator()))
+                  : model.error
+                ? ViewStateWidget(onPressed: model.initData)
+                  : model.empty
+                ? ViewStateEmptyWidget()
+                  : SliverList(delegate: SliverChildBuilderDelegate((context,index) => _buildAddressItem(context, model.list[index]),childCount: model.list.length)
+                )
+              ]
+            )
+          );
         },
       ),
     );
@@ -109,75 +99,77 @@ class AddressManagePage extends StatelessWidget {
 
   Widget _buildAddressItem(BuildContext context, Address address) {
     return Container(
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(15),
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
-                child: Center(
-                  child: Text(address.name.substring(0, 1),
-                      style: TextStyle(fontSize: 18, color: Colors.white)),
-                ),
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(15),
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration:
+              BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
+              child: Center(
+                child: Text(address.name.substring(0, 1),
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
               ),
             ),
-            Expanded(
-                child: Padding(
+          ),
+          Expanded(
+            child: Padding(
               padding: EdgeInsets.fromLTRB(0, 15, 10, 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(children: <Widget>[
-                    Text(address.name, style: TextStyle(fontSize: 18)),
-                    SizedBox(width: 10),
-                    Text(address.phone, style: TextStyle(color: Colors.grey))
-                  ]),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Text(address.name, style: TextStyle(fontSize: 16)),
+                      SizedBox(width: 10),
+                      Text(address.phone,
+                        style: TextStyle(color: Colors.grey, fontSize: 13))
+                    ]),
                   SizedBox(height: 3),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Offstage(
                         offstage: address.isDefault != 1,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0,1,5,0),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                            color: Color(0xFFDDFAF8),
-                            child: Text('默认',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
-                                    fontSize: 12)),
+                        child: Container(
+                          margin: EdgeInsets.only(right: 5),
+                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: Color(0xffda384a),
+                            borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            '默认',
+                            style: TextStyle(color: Colors.white, fontSize: 12),
                           ),
                         ),
                       ),
                       Expanded(
-                        child: Text('${address.area}--${address.address}'),
-                      )
+                        child: Text('${address.area}--${address.address}',
+                          style: TextStyle(fontSize: 13)))
                     ],
                   )
                 ],
               ),
             )),
-            Container(
-              color: Colors.grey[300],
-              width: 1,
-              height: 25,
+          Container(
+            color: Colors.grey[300],
+            width: 1,
+            height: 25,
+          ),
+          GestureDetector(
+            onTap: () => Navigator.of(context)
+              .pushNamed(RouteName.editAddress, arguments: address),
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: Text('编辑',
+                style: TextStyle(color: Colors.grey, fontSize: 12)),
             ),
-            GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed(
-                RouteName.editAddress,
-                arguments: address),
-              child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Text('编辑',
-                    style: TextStyle(color: Colors.grey, fontSize: 12)),
-              ),
-            )
-          ],
-        ));
+          )
+        ],
+      ));
   }
 }

@@ -111,13 +111,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.0.3"
-  flutter_slidable:
-    dependency: "direct main"
-    description:
-      name: flutter_slidable
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.5.4"
   flutter_swiper:
     dependency: "direct main"
     description:
@@ -241,7 +234,7 @@ packages:
       name: pull_to_refresh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.5.6"
+    version: "1.5.7"
   qr:
     dependency: transitive
     description:

@@ -1,6 +1,6 @@
 
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class DialogAlert extends StatelessWidget {
 
@@ -14,11 +14,11 @@ class DialogAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: Text(title),
+      title: title.isEmpty ? null : Text(title),
       content: Text(content),
       actions: <Widget>[
         CupertinoDialogAction(
-          child: Text(cancelText),
+          child: Text(cancelText,style: TextStyle(color: Colors.grey)),
           onPressed: () {
             if(onCancelPressed!= null){
               onCancelPressed();
@@ -27,7 +27,7 @@ class DialogAlert extends StatelessWidget {
           },
         ),
         CupertinoDialogAction(
-          child: Text(confirmText),
+          child: Text(confirmText,style: TextStyle(color: Theme.of(context).primaryColor)),
           onPressed: onPressed,
         ),
       ],

@@ -43,43 +43,43 @@ class EditAddressPageState extends State<EditAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(
-        context, widget.address == null ? '新建收货地址' : '修改收货地址',
-        actionText: '保存', onPressed: ()=>
-        showDialog(
-          context: context,
-          builder: (context) {
-            return CupertinoAlertDialog(
-              title: Text('提示'),
-              content: Text('地址尚未保存是否确认退出'),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: Text("确认"),
-                  onPressed: () {
-                    Navigator.maybePop(context);
-                    Navigator.maybePop(context);
-                  },
-                ),
-                CupertinoDialogAction(
-                  child: Text("取消"),
-                  onPressed: () => Navigator.maybePop(context)),
-              ],
-            );
-          })
-        ,onActionPress: () {
-        widget.address?.isDefault = _isDefault;
-        if(_area.isEmpty){
-          showToast("请输入地区");
-          return;
-        }
-        widget.address?.area = _area;
-        Navigator.maybePop(context);
-      }),
-      resizeToAvoidBottomPadding: false,
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Column(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        appBar: TitleBar.buildCommonAppBar(
+          context, widget.address == null ? '添加地址' : '编辑收货地址',
+          actionText: '保存', onPressed: ()=>
+          showDialog(
+            context: context,
+            builder: (context) {
+              return CupertinoAlertDialog(
+                title: Text('提示'),
+                content: Text('地址尚未保存是否确认退出'),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text("确认"),
+                    onPressed: () {
+                      Navigator.maybePop(context);
+                      Navigator.maybePop(context);
+                    },
+                  ),
+                  CupertinoDialogAction(
+                    child: Text("取消"),
+                    onPressed: () => Navigator.maybePop(context)),
+                ],
+              );
+            })
+          ,onActionPress: () {
+          widget.address?.isDefault = _isDefault;
+          if(_area.isEmpty){
+            showToast("请输入地区");
+            return;
+          }
+          widget.address?.area = _area;
+          Navigator.maybePop(context);
+        }),
+        resizeToAvoidBottomPadding: false,
+        body: Column(
           children: <Widget>[
             _buildItem(_nameController, '收货人', '请填写收货人姓名'),
             _buildItem(_phoneController, '手机号码', '请填写收货人手机号码',
@@ -147,7 +147,8 @@ class EditAddressPageState extends State<EditAddressPage> {
               ),
             )
           ],
-        )),
+        )
+      ),
     );
   }
 

@@ -13,11 +13,13 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget{
     this.hintText: "",
     this.onPressed,
     this.isCancel = true,
-    this.onChanged
+    this.onChanged,
+    this.height = 56.0
   }): super(key: key);
 
   final Color backgroundColor;
   final String hintText;
+  final double height;
   final Function(String) onPressed;
   final bool isCancel;
   final Function(String) onChanged;
@@ -26,13 +28,14 @@ class SearchBar extends StatefulWidget implements PreferredSizeWidget{
   _SearchBarState createState() => _SearchBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(56);
+  Size get preferredSize => Size.fromHeight(height);
 }
 
 class _SearchBarState extends State<SearchBar> {
 
   SystemUiOverlayStyle overlayStyle = SystemUiOverlayStyle.light;
   TextEditingController _controller = TextEditingController();
+
 
   Color getColor(){
     return overlayStyle == SystemUiOverlayStyle.light ? Colors.white : Colors.black87;
@@ -89,14 +92,14 @@ class _SearchBarState extends State<SearchBar> {
                 widget.isCancel?Padding(
                   padding: EdgeInsets.only(left: 15),
                   child:  GestureDetector(
-                  onTap: (){
-                    FocusScope.of(context).unfocus();
-                    Navigator.maybePop(context);
-                  },
-                  child: Center(
-                    child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: 15)),
-                  ),
-                )
+                    onTap: (){
+                      FocusScope.of(context).unfocus();
+                      Navigator.maybePop(context);
+                    },
+                    child: Center(
+                      child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: 15)),
+                    ),
+                  )
                 ):Container()
               ],
             )

@@ -40,7 +40,7 @@ class App extends StatelessWidget {
           title: '药匣子',
           theme: ThemeData(
             primaryColor: Color(0xffd80c18),
-            scaffoldBackgroundColor: Color(0xfff8f8f8),
+            scaffoldBackgroundColor: Color(0xffeeeeed),
             primaryIconTheme: IconThemeData(color: Colors.white),
             appBarTheme: AppBarTheme(elevation: 0,brightness:Brightness.light)
           ),

@@ -23,15 +23,23 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     return Scaffold(
       body: WillPopScope(
         onWillPop: () => Future.value(false),
-        child: Container(
-          color: Colors.white,//背景色
-          width: double.infinity,
-          height: double.infinity,
-          child: Image.asset(
-            ImageHelper.wrapAssets('splash_bg.jpg'),
-            fit: BoxFit.fill,
-          ),
-        ),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: Image.asset(
+                ImageHelper.wrapAssets('spl_bg.jpg'),
+                fit: BoxFit.fill,
+              ),
+            ),
+            Center(
+              child: Image.asset(
+                ImageHelper.wrapAssets('splash_bg.jpg'),
+              ),
+            )
+          ],
+        )
       ),
     );
   }

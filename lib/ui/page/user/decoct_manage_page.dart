@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_add_dococt.dart';
+import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/decoct_model.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DecoctManagePage extends StatelessWidget {
-  final SlidableController _controller = SlidableController();
   @override
   Widget build(BuildContext context) {
     return ProviderWidget<DecoctModel>(
@@ -16,19 +16,42 @@ class DecoctManagePage extends StatelessWidget {
         onModelReady: (model) => model.initData(),
         builder: (context, model, child) {
           return Scaffold(
-            backgroundColor: Colors.white,
-            appBar: TitleBar.buildCommonAppBar(context, '入煎方法',
-                actionText: '添加',
-                onActionPress: () => showDialog(
-                    context: context, //BuildContext对象
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return DecoctAddDialog(onConfirm: (text) {
-                        model.add(text);
-                      });
-                    })),
-            body: _buildBody(model)
-          );
+              appBar: TitleBar.buildCommonAppBar(context, '入煎方法管理',
+                  actionText: model.isDelete ? '完成' : '删除',
+                  onActionPress: () => model.changeDeleteMode()),
+              body: Column(
+                children: <Widget>[
+                  Expanded(child: _buildBody(model)),
+                  Offstage(
+                      offstage: model.isDelete,
+                      child: SafeArea(
+                        child: GestureDetector(
+                          onTap: () => showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return DecoctAddDialog(onConfirm: (text) {
+                                  model.add(text);
+                                });
+                              }),
+                          child: Container(
+                              margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                              width: double.infinity,
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(
+                                '新增入煎方法',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        bottom: true,
+                      ))
+                ],
+              ));
         });
   }
 
@@ -42,32 +65,49 @@ class DecoctManagePage extends StatelessWidget {
       controller: model.refreshController,
       onRefresh: model.refresh,
       child: model.empty
-        ? ViewStateEmptyWidget()
-        : ListView.separated(
-          separatorBuilder: (context,index) => Divider(height: 1),
-          itemCount: model.list?.length ?? 0,
-          itemBuilder: (context, index) {
-            return Slidable(
-              controller: _controller,
-              actionPane: SlidableDrawerActionPane(),
-              secondaryActions: <Widget>[
-                SlideAction(
-                  child: Text('删除',style: TextStyle(color: Colors.white)),
-                  color: Colors.redAccent,
-                  onTap: () => model.remove(index),
-                )
-              ],
-              child: ListTile(
-                onTap: (){
-                  _controller.activeState?.close();
-                },
-                title: Text(
-                  model.list[index].name,
-                  style: TextStyle(fontSize: 16),
-                )),
-            );
-        },
-      ),
+          ? ViewStateEmptyWidget()
+          : ListView.builder(
+              itemCount: model.list?.length ?? 0,
+              itemBuilder: (context, index) {
+                return Padding(
+                    padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                    child: Row(
+                      children: <Widget>[
+                        Offstage(
+                          offstage: !model.isDelete,
+                          child: GestureDetector(
+                            onTap: () => showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CustomDialogAlert(
+                                    content: '是否删除该入煎方法',
+                                    onPressed: () {
+                                      model.remove(index);
+                                      Navigator.maybePop(context);
+                                    },
+                                  );
+                                }),
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 10),
+                                child: Image.asset(
+                                    ImageHelper.wrapAssets(
+                                        'icon_delete_cicle.png'),
+                                    width: 20,
+                                    height: 20)),
+                          ),
+                        ),
+                        Expanded(
+                            child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white),
+                          child: Text(model.list[index].name),
+                        ))
+                      ],
+                    ));
+              },
+            ),
     );
   }
 }
