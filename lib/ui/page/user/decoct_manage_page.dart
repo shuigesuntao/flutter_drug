@@ -98,7 +98,7 @@ class DecoctManagePage extends StatelessWidget {
                         ),
                         Expanded(
                             child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.fromLTRB(10,12,10,12),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.white),
