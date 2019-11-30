@@ -57,19 +57,19 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
                         alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(vertical: 15),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Image.asset(ImageHelper.wrapAssets('phone_kf.png'),
+                            Image.asset(ImageHelper.wrapAssets('icon_shouji.png'),
                               width: 42, height: 42),
                             SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('手机号开方', style: TextStyle(fontSize: 16)),
+                                Text('手机号开方', style: TextStyle(fontSize: 15)),
                                 SizedBox(height: 3),
-                                Text('填写患者手机号',style: TextStyle(fontSize:12,color: Colors.grey[800]))
+                                Text('填写患者手机号',style: TextStyle(fontSize:12,color: Colors.grey[700]))
                               ],
                             )
                           ],
@@ -86,7 +86,7 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
                         alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 20),
+                        padding: EdgeInsets.symmetric(vertical: 15),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
@@ -96,9 +96,9 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text('微信开方', style: TextStyle(fontSize: 16)),
+                                Text('微信开方', style: TextStyle(fontSize: 15)),
                                 SizedBox(height: 3),
-                                Text('发送到患者微信',style: TextStyle(fontSize:12,color: Colors.grey[800]))
+                                Text('发送到患者微信',style: TextStyle(fontSize:12,color: Colors.grey[700]))
                               ],
                             )
                           ],
@@ -121,6 +121,15 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                     ),
                     isShowIndex:model.isShowSuspension
                   ),
+                  indexBarBuilder:(BuildContext context, List<String> tags, IndexBarTouchCallback onTouch){
+                    return IndexBar(
+                      textStyle:TextStyle(fontSize: 12),
+                      touchDownTextStyle:TextStyle(fontSize: 12,color: Colors.grey),
+                      touchDownColor: Colors.transparent,
+                      data: tags,
+                      onTouch: onTouch,
+                    );
+                  } ,
                   suspensionWidget: SusWidget(tag:model.suspensionTag),
                   isUseRealIndex: true,
                   itemHeight: 60,

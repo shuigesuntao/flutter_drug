@@ -5,25 +5,28 @@ import 'package:flutter_drug/config/net/api.dart' as prefix0;
 import 'package:flutter_drug/config/resource_mananger.dart';
 
 class TitleBar {
-  static AppBar buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,String actionText,VoidCallback onActionPress,isShowBack = true,Color actionTextColor,Color backgroundColor = Colors.white}) {
-    return AppBar(
-      backgroundColor: backgroundColor,
-      centerTitle: true,
-      title: Text(title,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
-      leading: isShowBack ? leading(context,onPressed) : null,
-      actions: actionText == null ? null : <Widget>[
-        Padding(
-          padding: EdgeInsets.only(right: 15),
-          child: InkWell(
-            onTap: onActionPress,
-            child: Center(
-              child: Text(
-                actionText,
-                style: TextStyle(fontSize:15,color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
+  static PreferredSize buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,String actionText,VoidCallback onActionPress,isShowBack = true,Color actionTextColor,Color backgroundColor = Colors.white}) {
+    return PreferredSize(
+      child: AppBar(
+        backgroundColor: backgroundColor,
+        centerTitle: true,
+        title: Text(title,style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
+        leading: isShowBack ? leading(context,onPressed) : null,
+        actions: actionText == null ? null : <Widget>[
+          Padding(
+            padding: EdgeInsets.only(right: 15),
+            child: InkWell(
+              onTap: onActionPress,
+              child: Center(
+                child: Text(
+                  actionText,
+                  style: TextStyle(fontSize:15,color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
+                ),
               ),
-            ),
-          ))
-      ],
+            ))
+        ],
+      ),
+      preferredSize:Size.fromHeight(50)
     );
   }
 

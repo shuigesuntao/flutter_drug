@@ -50,7 +50,8 @@ class _HomePageState extends State<HomePage>
         },
         builder: (context, homeModel, child) {
           return Scaffold(
-            appBar: TitleBar.buildCommonAppBar(context, '工作室', isShowBack: false),
+            appBar:
+                TitleBar.buildCommonAppBar(context, '工作室', isShowBack: false),
             body: homeModel.error
                 ? ViewStateWidget(onPressed: homeModel.initData)
                 : SmartRefresher(
@@ -67,15 +68,15 @@ class _HomePageState extends State<HomePage>
                             child: Consumer<UserModel>(
                                 builder: (context, model, child) {
                               return UserInfoHeader(
-                                  imageUrl: model.user?.icon,
-                                  name: '${model.user?.name}的个人工作室',
-                                  type: model.user?.type,
-                                  job: model.user?.level,
-                                  hasRightIcon: false,
-                                  isLogin: model.hasUser,
-                                  onButtonClick: (){
-                                    if(model.hasUser){
-                                      showDialog(
+                                imageUrl: model.user?.icon,
+                                name: '${model.user?.name}的个人工作室',
+                                type: model.user?.type,
+                                job: model.user?.level,
+                                hasRightIcon: false,
+                                isLogin: model.hasUser,
+                                onButtonClick: () {
+                                  if (model.hasUser) {
+                                    showDialog(
                                         context: context,
                                         builder: (context) {
                                           return CupertinoAlertDialog(
@@ -90,15 +91,21 @@ class _HomePageState extends State<HomePage>
                                               ),
                                               CupertinoDialogAction(
                                                 child: Text("呼叫"),
-                                                onPressed: () => callPhone('400 052 0120'),
+                                                onPressed: () =>
+                                                    callPhone('400 052 0120'),
                                               ),
                                             ],
                                           );
                                         });
-                                    }else{
-                                      model.saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","许洪亮","内科","主任医师"));
-                                    }
-                                  },
+                                  } else {
+                                    model.saveUser(User(
+                                        1,
+                                        "http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg",
+                                        "许洪亮",
+                                        "内科",
+                                        "主任医师"));
+                                  }
+                                },
                               );
                             })),
                         Container(
@@ -284,7 +291,7 @@ class _HomePageState extends State<HomePage>
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 160,
+        width: 150,
         decoration: BoxDecoration(
             color: backgroundColor, borderRadius: BorderRadius.circular(5)),
         padding: EdgeInsets.all(10),
@@ -295,10 +302,10 @@ class _HomePageState extends State<HomePage>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(title),
-                SizedBox(height: 3),
+                SizedBox(height: 1),
                 Text(subTitle,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.grey[400], fontSize: 11))
+                    style: TextStyle(color: Colors.grey[400], fontSize: 10.5))
               ],
             )),
             Image.asset(ImageHelper.wrapAssets(icon), width: 25, height: 25)
@@ -320,10 +327,16 @@ class _HomePageState extends State<HomePage>
               return CupertinoActivityIndicator();
             } else {
               return Swiper(
-                loop: model.list.length != 1,
-                autoplay: model.list.length != 1,
+                loop: model.list.length > 1,
+                autoplay: model.list.length > 1,
                 autoplayDelay: 3000,
                 itemCount: model.list.length,
+                pagination: model.list.length > 1
+                    ? SwiperPagination(
+                        margin: EdgeInsets.only(bottom: 2),
+                        builder: DotSwiperPaginationBuilder(
+                            activeColor: Colors.white, color:Colors.grey[350],size: 6, activeSize: 6))
+                    : null,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                       onTap: () => _goToWebPage(context,
@@ -352,7 +365,7 @@ class HomeItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(6),
             child: Image.asset(
               ImageHelper.wrapAssets(url),
               width: 28,

@@ -9,10 +9,11 @@ class Category{
 }
 
 class DrugStore{
-  int id;
+  int id; //1 特供 2 上乘 3 中乘
   String name;
   String label;
   String desc;
+  String detailUrl;
 
-  DrugStore(this.id,this.name,this.label,this.desc);
+  DrugStore(this.id,this.name,this.label,this.desc,this.detailUrl);
 }

@@ -65,6 +65,17 @@ class PrescriptionFormWorkListModel extends ViewStateRefreshListModel {
       results.add(PrescriptionFormWork(2,"柿蒂散",drugs));
       results.add(PrescriptionFormWork(2,"生姜泻心汤",drugs));
       results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
+      results.add(PrescriptionFormWork(2,"归芍六君子汤",drugs));
       //经方模板
       if(status > 0){
         results = results.where((p) => p.status == status).toList();

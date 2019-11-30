@@ -39,7 +39,7 @@ class _PrescriptionFormWorkListPageState extends State<PrescriptionFormWorkListP
           controller: model.refreshController,
           onRefresh: model.refresh,
           onLoading: model.loadMore,
-          enablePullUp: !model.empty,
+          enablePullUp: true,
           child:model.empty ? ViewStateEmptyWidget() : ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {

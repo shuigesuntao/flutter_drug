@@ -11,7 +11,7 @@ class PrescriptionAlreadyPage extends StatefulWidget{
 }
 
 class _PrescriptionAlreadyPageState extends State<PrescriptionAlreadyPage>{
-  List<String> tabTitles = ["全部", "已付款", "已发货"];
+  List<String> tabTitles = ["全部","未付款","已付款", "已发货"];
   List<int> status = [0,2,3];
   @override
   Widget build(BuildContext context) {

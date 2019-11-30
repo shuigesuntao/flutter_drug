@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/ui/widget/dialog_progress.dart';
 import 'package:flutter_drug/ui/widget/dialog_share.dart';
@@ -37,13 +36,13 @@ class _WebViewPageState extends State<WebViewPage>{
           _webViewController.currentUrl().then((url) {
                   debugPrint('返回当前$url');
           });
-//          showDialog(context: context,builder:(context){
-//            return ProgressDialog();
-//          });
+          showDialog(context: context,builder:(context){
+            return ProgressDialog();
+          });
         },
         onPageFinished: (String value) async {
           debugPrint('加载完成: $value');
-//          Navigator.pop(context);
+          Navigator.pop(context);
           refreshNavigator();
         },
       )

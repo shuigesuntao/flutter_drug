@@ -400,7 +400,7 @@ class AuthPageState extends State<AuthPage> {
                 offstage: file == null,
                 child: InkWell(
                   onTap: onTap,
-                  child: Image.asset(ImageHelper.wrapAssets('ic_delete.png'),
+                  child: Image.asset(ImageHelper.wrapAssets('icon_delete.png'),
                       width: 20, height: 20),
                 ))),
       ],

@@ -13,9 +13,9 @@ class BannerImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
         imageUrl: image,
-        placeholder: (context, url) =>
-            Center(child: CupertinoActivityIndicator()),
-        errorWidget: (context, url, error) => Icon(Icons.error),
-        fit: fit);
+        placeholder: (context, url) => Image.asset(ImageHelper.wrapAssets('banner_erro.png')),
+        errorWidget: (context, url, error) => Image.asset(ImageHelper.wrapAssets('banner_erro.png')),
+        fit: fit
+    );
   }
 }

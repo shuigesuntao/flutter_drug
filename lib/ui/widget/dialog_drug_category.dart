@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/category.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +31,6 @@ class DialogDrugCategory extends StatelessWidget {
                     GestureDetector(
                       child: Text('确定',
                         style: TextStyle(
-                          fontSize: 16,
                           color: Theme.of(context).primaryColor)),
                       onTap: () {
                         model.selectedCategory = model.currentCategory;
@@ -100,27 +101,56 @@ class DialogDrugCategory extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                  width: 1,
-                  color: model.currentDrugStore == i
-                      ? Theme.of(context).primaryColor
-                      : Colors.transparent)),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Expanded(child: Text(data.name, style: TextStyle(fontWeight: FontWeight.w500))),
-                  Offstage(
-                    offstage: price==0,
-                    child: Text('【每剂￥$price】'),
+                  Expanded(child: Row(
+                    children: <Widget>[
+                      Text(data.name, style: TextStyle(fontWeight: FontWeight.w500)),
+                      Offstage(
+                        offstage: data.id !=1 && data.id !=2 && data.id != 3,
+                        child: Container(
+                          margin: EdgeInsets.only(left:2,bottom: 10),
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(left:2,bottom:2),
+                          width: 52,
+                          height: 18,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(ImageHelper.wrapAssets('pzyc.png'))
+                            )
+                          ),
+                          child: Text(data.id ==1 ?'特供药材':data.id == 2 ? '上乘药材' :data.id == 3 ? '中乘药材':'',style: TextStyle(fontSize: 10,color: Colors.white)),
+                        ),
+                      )
+                    ],
+                  )),
+                  GestureDetector(
+                    onTap: (){
+                      Map map = Map();
+                      map['title'] = '品牌介绍';
+                      map['url'] = data.detailUrl;
+                      map['share'] = false;
+                      Navigator.of(context).pushNamed(RouteName.webView, arguments: map);
+                    },
+                    child: Text('查看详情',style: TextStyle(fontSize: 11,color: Color(0xff798fb7))),
                   )
                 ],
               ),
               SizedBox(height: 5),
               Text(data.label, style: TextStyle(color: Colors.grey,fontSize: 13)),
               SizedBox(height: 5),
-              Text(data.desc, style: TextStyle(color: Colors.grey,fontSize: 13))
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(data.desc, style: TextStyle(color: Colors.grey,fontSize: 13)),
+                  Image.asset(ImageHelper.wrapAssets(model.currentDrugStore == i?'icon_xz.png':'icon_wxz.png'),width: 18,height: 18)
+                ],
+              )
+
             ],
           ),
         ));

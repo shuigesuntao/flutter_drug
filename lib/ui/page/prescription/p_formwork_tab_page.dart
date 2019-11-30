@@ -40,14 +40,14 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Text('处方模板'),
+        title: Text('处方模板',style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
         leading: TitleBar.leading(context,null),
         actions: <Widget>[
           InkWell(
             onTap: ()=>Navigator.of(context).pushNamed(RouteName.prescriptionFormWorkSearch),
             child: Padding(
               padding:EdgeInsets.symmetric(horizontal: 8),
-              child: Image.asset(ImageHelper.wrapAssets('ic_ss.png'),width: 20,height: 20),
+              child: Image.asset(ImageHelper.wrapAssets('icon_ss.png'),width: 20,height: 20),
             ),
           ),
           Offstage(
@@ -56,7 +56,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
               onTap: ()=>print('添加'),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Image.asset(ImageHelper.wrapAssets('ic_xj.png'),width: 20,height: 20),
+                child: Image.asset(ImageHelper.wrapAssets('icon_xj.png'),width: 20,height: 20),
               ),
             ),
           ),

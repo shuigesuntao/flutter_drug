@@ -13,13 +13,16 @@ import 'package:provider/provider.dart';
 
 class AddressBookPage extends StatefulWidget {
   final Function(Friend) onItemClick;
+
   AddressBookPage({this.onItemClick});
+
   @override
   State<StatefulWidget> createState() => _AddressBookPageState();
 
 }
 
-class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAliveClientMixin{
+class _AddressBookPageState extends State<AddressBookPage>
+  with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -31,7 +34,8 @@ class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAli
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
-          leading: widget.onItemClick == null?null:TitleBar.leading(context, ()=>Navigator.maybePop(context)),
+          leading: widget.onItemClick == null ? null : TitleBar.leading(
+            context, () => Navigator.maybePop(context)),
           title: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,24 +49,28 @@ class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAli
             Padding(
               padding: EdgeInsets.only(right: 15),
               child: InkWell(
-                onTap: (){
-                  if(widget.onItemClick == null){
-                    Navigator.of(context).pushNamed(RouteName.prescriptionPersonSearch,arguments: 1);
-                  }else{
-                    Navigator.push(context,CupertinoPageRoute(builder: (context)=> PrescriptionPersonSearchPage(onItemClick:widget.onItemClick))).then((data){
-                      if(data == 'pop'){
+                onTap: () {
+                  if (widget.onItemClick == null) {
+                    Navigator.of(context).pushNamed(
+                      RouteName.prescriptionPersonSearch, arguments: 1);
+                  } else {
+                    Navigator.push(context, CupertinoPageRoute(builder: (
+                      context) => PrescriptionPersonSearchPage(
+                      onItemClick: widget.onItemClick))).then((data) {
+                      if (data == 'pop') {
                         Navigator.maybePop(context);
                       }
                     });
                   }
-
                 },
                 child: Center(
                   child: Text(
                     '搜索',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Theme.of(context).primaryColor),
+                      color: Theme
+                        .of(context)
+                        .primaryColor),
                   ),
                 ),
               ))
@@ -71,46 +79,51 @@ class _AddressBookPageState extends State<AddressBookPage> with AutomaticKeepAli
         body: model.busy
           ? Center(child: CircularProgressIndicator())
           : AzListView(
-              data: model.list,
-              itemBuilder: (context, model) => FriendItemWidget(
-                friend:model,
-                onItemClick:(model){
-                  if(widget.onItemClick == null){
-                    Navigator.of(context).pushNamed(RouteName.friendInfo,arguments: model);
-                  }else{
-                    widget.onItemClick(model);
-                    Navigator.maybePop(context);
-                  }
-                },
-                isShowIndex:model.isShowSuspension
-              ),
-              suspensionWidget: SusWidget(tag:model.suspensionTag),
-              isUseRealIndex: true,
-              itemHeight: 60,
-              suspensionHeight: 30,
-              onSusTagChanged: (String tag) => model.suspensionTag = tag,
-          ),
+          data: model.list,
+          itemBuilder: (context, model) =>
+            FriendItemWidget(
+              friend: model,
+              onItemClick: (model) {
+                if (widget.onItemClick == null) {
+                  Navigator.of(context).pushNamed(
+                    RouteName.friendInfo, arguments: model);
+                } else {
+                  widget.onItemClick(model);
+                  Navigator.maybePop(context);
+                }
+              },
+              isShowIndex: model.isShowSuspension
+            ),
+          suspensionWidget: SusWidget(tag: model.suspensionTag),
+          isUseRealIndex: true,
+          itemHeight: 60,
+          suspensionHeight: 30,
+          onSusTagChanged: (String tag) => model.suspensionTag = tag,
+        ),
       );
     });
   }
 }
 
 
-class FriendItemWidget extends StatelessWidget{
+class FriendItemWidget extends StatelessWidget {
   final Friend friend;
   final Function(Friend) onItemClick;
   final bool isShowIndex;
-  FriendItemWidget({@required this.friend,this.onItemClick,this.isShowIndex = true});
+
+  FriendItemWidget(
+    {@required this.friend, this.onItemClick, this.isShowIndex = true});
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Offstage(
           offstage: !isShowIndex,
-          child: SusWidget(tag:friend.getSuspensionTag()),
+          child: SusWidget(tag: friend.getSuspensionTag()),
         ),
         GestureDetector(
-          onTap: ()=>onItemClick(friend),
+          onTap: () => onItemClick(friend),
           child: Container(
             color: Colors.white,
             padding: EdgeInsets.all(10),
@@ -119,14 +132,15 @@ class FriendItemWidget extends StatelessWidget{
                 ClipOval(
                   child: CachedNetworkImage(
                     imageUrl: friend.headerUrl,
-                    errorWidget: (context, url, error) => friend.gender == "女"
+                    errorWidget: (context, url, error) =>
+                    friend.gender == '女'
                       ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-                      width: 50, height: 50)
+                      width: 40, height: 40)
                       : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-                      width: 50, height: 50),
+                      width: 40, height: 40),
                     fit: BoxFit.fill,
-                    width: 50,
-                    height: 50,
+                    width: 40,
+                    height: 40,
                   ),
                 ),
                 Expanded(
@@ -153,9 +167,39 @@ class FriendItemWidget extends StatelessWidget{
                           ],
                         ),
                         SizedBox(height: 5),
-                        Text(
-                          "${_getGender(friend.gender)}${friend.age}岁 | 问诊${friend.askCount}次 | 购药${friend.buyDrugCount}次",
-                          style: TextStyle(color: Colors.grey, fontSize: 13),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Color(0xff999999), width: 0.5),
+                                borderRadius: BorderRadius.circular(5)),
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Row(
+                                children: <Widget>[
+                                  Padding(padding: EdgeInsets.only(right: 5),
+                                    child: Offstage(
+                                      offstage: friend.gender == null ||
+                                        friend.gender.isEmpty,
+                                      child: Image.asset(ImageHelper.wrapAssets(
+                                        friend.gender == '女'
+                                          ? 'icon_girl.png'
+                                          : 'icon_boy.png'), width: 12,
+                                        height: 12),
+                                    )),
+                                  Text('${friend.age}岁', style: TextStyle(
+                                    color: Colors.grey, fontSize: 12))
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              '问诊${friend.askCount}次 | 购药${friend.buyDrugCount}次',
+                              style: TextStyle(
+                                color: Colors.grey, fontSize: 12),
+                            )
+                          ],
                         )
                       ],
                     ),
@@ -167,32 +211,25 @@ class FriendItemWidget extends StatelessWidget{
       ],
     );
   }
-
-  _getGender(String gender) {
-    String genderStr = "";
-    if (gender != null && gender.isNotEmpty) {
-      genderStr = "$gender | ";
-    }
-    return genderStr;
-  }
 }
 
-class SusWidget extends StatelessWidget{
+class SusWidget extends StatelessWidget {
   final String tag;
+
   SusWidget({@required this.tag});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 30,
       padding: const EdgeInsets.only(left: 15),
-      color: Color(0xfff3f4f5),
+      color: Theme.of(context).scaffoldBackgroundColor,
       alignment: Alignment.centerLeft,
       child: Text(
         tag,
         softWrap: false,
         style: TextStyle(
-          fontSize: 14.0,
-          color: Color(0xff999999),
+          color: Colors.black87,
         ),
       ),
     );

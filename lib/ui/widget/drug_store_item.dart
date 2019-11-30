@@ -23,11 +23,11 @@ class DrugStoreItem extends StatelessWidget {
                   imageUrl: model.list[model.selectedCategory].imageUrl,
                   errorWidget: (context, url, error) => Image.asset(
                       ImageHelper.wrapAssets('tangji.png'),
-                      width: 50,
-                      height: 50),
+                      width: 45,
+                      height: 45),
                   fit: BoxFit.fill,
-                  width: 50,
-                  height: 50,
+                  width: 45,
+                  height: 45,
                 ),
                 Expanded(
                     child: Padding(
@@ -38,7 +38,7 @@ class DrugStoreItem extends StatelessWidget {
                             Text(
                               '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
+                                  fontWeight: FontWeight.w600),
                             ),
                             Offstage(
                               offstage: drugs == null,
@@ -64,17 +64,17 @@ class DrugStoreItem extends StatelessWidget {
                         ))),
                 GestureDetector(
                   child: Container(
-                      width: 55,
-                      height: 25,
+                      width: 70,
+                      height: 23,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(3)),
                           border: Border.all(
                               color: Theme.of(context).primaryColor, width: 1)),
                       child: Center(
                         child: Text(
-                          '更换',
+                          '更换剂型',
                           style:
-                              TextStyle(color: Theme.of(context).primaryColor),
+                              TextStyle(color: Theme.of(context).primaryColor,fontSize: 13),
                         ),
                       )),
                   onTap: () => showBottomSheet(
