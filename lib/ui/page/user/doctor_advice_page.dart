@@ -157,10 +157,7 @@ class DoctorAdvicePage extends StatelessWidget {
                           builder: (context) {
                             return CustomDialogAlert(
                               content: '是否删除该医嘱内容',
-                              onPressed: () {
-                                model.remove(index);
-                                Navigator.maybePop(context);
-                              },
+                              onPressed: () => model.remove(index)
                             );
                           }),
                       child: Row(

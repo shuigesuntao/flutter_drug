@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
-import 'package:flutter_drug/ui/widget/dialog_add_dococt.dart';
 import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
+import 'package:flutter_drug/ui/widget/dialog_custom_input.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/decoct_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -30,7 +30,7 @@ class DecoctManagePage extends StatelessWidget {
                               context: context,
                               barrierDismissible: false,
                               builder: (BuildContext context) {
-                                return DecoctAddDialog(onConfirm: (text) {
+                                return CustomInputDialog(title:'自定义入煎方法',hint:'请输入入煎方法',label:'煎法名称',onPressed: (text) {
                                   model.add(text);
                                 });
                               }),
@@ -81,10 +81,7 @@ class DecoctManagePage extends StatelessWidget {
                                 builder: (context) {
                                   return CustomDialogAlert(
                                     content: '是否删除该入煎方法',
-                                    onPressed: () {
-                                      model.remove(index);
-                                      Navigator.maybePop(context);
-                                    },
+                                    onPressed: () => model.remove(index)
                                   );
                                 }),
                             child: Padding(

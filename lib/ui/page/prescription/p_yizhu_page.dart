@@ -41,10 +41,11 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
                     '补充医嘱',
                     style: TextStyle(fontSize: 16),
                   )),
-                Text('常用医嘱', style: TextStyle(color: Colors.red)),
+                Text('常用医嘱', style: TextStyle(color:Theme.of(context).primaryColor)),
                 Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
+                  CupertinoIcons.right_chevron,
+                  color: Colors.grey[600],
+                  size: 20,
                 ),
               ],
             ),
@@ -100,7 +101,7 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
                 child: SafeArea(child: SizedBox(
                   width: double.infinity,
                   child: FlatButton(
-                    padding: EdgeInsets.all(12),
+                    padding: EdgeInsets.all(10),
                     onPressed: (){
                       if(_controller.text.isEmpty){
                         showToast('请输入医嘱');
@@ -114,7 +115,7 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
                       style: TextStyle(color: Colors.white),
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.all(Radius.circular(5))),
                   ),
                 ),bottom: true),
               ),

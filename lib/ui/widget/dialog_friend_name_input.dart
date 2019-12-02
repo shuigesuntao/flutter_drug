@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class InputDialog extends Dialog {
+class FriendNameInputDialog extends Dialog {
   final String data;
   final Function(String) onConfirm;
 
-  InputDialog({@required this.data, this.onConfirm});
+  FriendNameInputDialog({@required this.data, this.onConfirm});
 
 
 
@@ -49,15 +49,15 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
             child: Container(
               height: 200,
               width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10)
-              ),
+              margin: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(30),
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                    ),
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -67,17 +67,18 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
-                            contentPadding: EdgeInsets.all(8),
+                            contentPadding: EdgeInsets.all(5),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide.none),
+                              borderSide: BorderSide(color: Colors.grey, width: 1)),
                             hintText: '请输入备注名称',
                             hintStyle: TextStyle(fontSize: 14, color: Color(0xFFcccccc),)
                           ),
                           style: TextStyle(fontSize: 14),
                         ),
                         SizedBox(height: 10),
-                        Text('患者姓名不能为空!', style: TextStyle(color: Colors.red))
+                        Text('患者姓名不能为空!', style: TextStyle(color:Theme.of(context).primaryColor)),
+                        SizedBox(height: 10)
                       ],
                     ),
                   ),
@@ -87,21 +88,27 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
                         child: GestureDetector(
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.all(12),
-                            color: Colors.grey[300],
-                            child: Text('跳过')
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10))
+                            ),
+                            child: Text('跳过',style: TextStyle(color:Colors.grey[700],fontSize: 16))
                           ),
                           onTap: () => Navigator.maybePop(context))),
                       Expanded(
                         child: GestureDetector(
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.all(12),
-                            color: Theme
-                              .of(context)
-                              .primaryColor,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: Theme
+                                .of(context)
+                                .primaryColor,
+                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))
+                            ),
                             child: Text('确定', style: TextStyle(color: Colors
-                              .white)),
+                              .white,fontSize: 16)),
                           ),
                           onTap: (){
                             widget.onConfirm(_controller.text);

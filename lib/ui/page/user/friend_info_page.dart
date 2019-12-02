@@ -7,8 +7,8 @@ import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
-import 'package:flutter_drug/ui/widget/dialog_input.dart';
-import 'package:flutter_drug/ui/widget/user_title_bar.dart';
+import 'package:flutter_drug/ui/widget/dialog_friend_name_input.dart';
+import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/diagnosis_record_model.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -25,7 +25,7 @@ class FriendInfoPage extends StatefulWidget {
 
 class FriendInfoPageState extends State<FriendInfoPage>{
   String _displayName;
-  final List<String> groups = ['全部', '新建分组'];
+  final List<String> groups = ['全部', '+新建分组'];
   @override
   void initState() {
     super.initState();
@@ -34,22 +34,21 @@ class FriendInfoPageState extends State<FriendInfoPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UserTitleBar('患者档案',actionText: '分组',onActionPressed: (){
+      appBar: TitleBar.buildCommonAppBar(context,'患者档案',titleColor:Colors.white,backColor:Colors.white,backgroundColor:Color(0xffe56068),
+        actionText: '分组',actionTextColor:Colors.white,onActionPress: (){
         showModalBottomSheet(
           backgroundColor: Colors.white,
           context: context,
           builder: (context) {
-            return ListView.separated(
+            return ListView.builder(
               shrinkWrap: true,
-              itemBuilder: (context, index) => _buildGroupItem(groups[index]),
-              separatorBuilder: (BuildContext context, int index) => Divider(height: 1,color: Colors.grey,),
+              itemBuilder: (context, index) => _buildGroupItem(groups[index],index == groups.length-1),
               itemCount: groups.length);
           });
       },),
       body: Column(
         children: <Widget>[
           Expanded(child: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
             child: ProviderWidget<DiagnosisRecordModel>(
               model: DiagnosisRecordModel(),
               onModelReady: (model)=>model.initData(),
@@ -58,35 +57,52 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                   controller: model.refreshController,
                   onRefresh: model.refresh,
                   onLoading: model.loadMore,
-                  enablePullUp: !model.empty ,
+                  enablePullUp: true ,
                   child: CustomScrollView(
                     slivers: <Widget>[
                       SliverToBoxAdapter(
                         child: Column(
                           children: <Widget>[
-                            _buildFriendInfoHeader(context),
-                            Container(
-                              color: Colors.white,
-                              padding: EdgeInsets.fromLTRB(15,15,0,15),
-                              child: Column(
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Text('既往病史'),
-                                      SizedBox(width: 15),
-                                      Text('脑梗塞,',style: TextStyle(fontSize: 13))
-                                    ],
+                            Stack(
+                              alignment: AlignmentDirectional.bottomCenter,
+                              children: <Widget>[
+                                Column(
+                                  children: <Widget>[
+                                    _buildFriendInfoHeader(context),
+                                    Container(
+                                      color: Colors.white,
+                                      height: 80,
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
+                                  decoration: BoxDecoration(
+                                    color:  Colors.white,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(color: Colors.grey[300],width: 0.5)
                                   ),
-                                  Padding(padding: EdgeInsets.symmetric(vertical: 15),child: Divider(height: 1,color: Colors.grey)),
-                                  Row(
+                                  child: Column(
                                     children: <Widget>[
-                                      Text('过敏病史'),
-                                      SizedBox(width: 15),
-                                      Text('中药,',style: TextStyle(fontSize: 13))
+                                      Padding(padding: EdgeInsets.all(10),child: Row(
+                                        children: <Widget>[
+                                          Text('既往病史'),
+                                          SizedBox(width: 15),
+                                          Text('脑梗塞,',style: TextStyle(fontSize: 13))
+                                        ],
+                                      )),
+                                      Divider(height: 0.5,color: Colors.grey[300]),
+                                      Padding(padding: EdgeInsets.all(10),child: Row(
+                                        children: <Widget>[
+                                          Text('过敏病史'),
+                                          SizedBox(width: 15),
+                                          Text('患者暂未填写',style: TextStyle(fontSize: 13,color: Colors.grey))
+                                        ],
+                                      ),)
                                     ],
                                   )
-                                ],
-                              )
+                                ),
+                              ],
                             ),
                             SizedBox(height: 10),
                             Container(
@@ -97,10 +113,10 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                                     padding: EdgeInsets.all(15),
                                     child: Row(
                                       children: <Widget>[
-                                        Expanded(child: Text('完善病历')),
+                                        Expanded(child: Text('完善病历',style: TextStyle(fontWeight: FontWeight.bold))),
                                         GestureDetector(
                                           onTap: () =>  showToast('提醒成功!'),
-                                          child: Text('提醒患者完善病历',style: TextStyle(color: Colors.red[900])),
+                                          child: Text('提醒患者完善病历',style: TextStyle(color: Color(0xffeaaf4c))),
                                         )
                                       ],
                                     ),
@@ -140,17 +156,17 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                               alignment: Alignment.centerLeft,
                               color: Colors.white,
                               padding: EdgeInsets.all(15),
-                              child: Text('病历档案'),
-                            )
+                              child: Text('病历档案',style: TextStyle(fontWeight: FontWeight.bold)),
+                            ),
                           ],
                         ),
                       ),
                       model.busy
-                        ? SliverToBoxAdapter(child: Container(height:400,alignment:Alignment.center,child: CircularProgressIndicator()))
+                        ? SliverToBoxAdapter(child:Container(height:200,child: Center(child:CircularProgressIndicator())))
                         : model.error
-                        ? ViewStateWidget(onPressed: model.initData)
+                        ? SliverToBoxAdapter(child:ViewStateWidget(onPressed: model.initData))
                         : model.empty
-                        ? ViewStateEmptyWidget()
+                        ? SliverToBoxAdapter(child:Container(height:200,child: Center(child: Text('暂无病历档案'))))
                         : SliverList(delegate:
                       SliverChildBuilderDelegate(
                           (context,index) => _buildDiagnosisRecordItem(context,model.list[index],model.list.length - index)
@@ -178,7 +194,7 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                         style: TextStyle(color: Colors.white),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                        borderRadius:BorderRadius.circular(5)),
                     ),
                   )),
                   SizedBox(width: 10),
@@ -194,7 +210,7 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                         style: TextStyle(color: Colors.white),
                       ),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                        borderRadius: BorderRadius.circular(5)),
                     ),
                   ))
                 ],
@@ -207,14 +223,17 @@ class FriendInfoPageState extends State<FriendInfoPage>{
     );
   }
 
-  Widget _buildGroupItem(String group) {
+  Widget _buildGroupItem(String group,bool color) {
     return GestureDetector(
       onTap: () => print(group),
       child: Container(
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(15),
         color: Colors.white,
-        child: Text(group, style: TextStyle(fontSize: 16)),
+        child: Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.all(12),child: Text(group,style: TextStyle(color:color? Theme.of(context).primaryColor:null,fontSize: 15))),
+            Divider(height: 0.5,color: Colors.grey[300]),
+          ],
+        )
       ),
     );
   }
@@ -223,10 +242,7 @@ class FriendInfoPageState extends State<FriendInfoPage>{
     return Container(
       height: 120,
       padding: EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: AssetImage(ImageHelper.wrapAssets('bg_mingpian.png')))),
+      color: Color(0xffe56068),
       child: Row(
         children: <Widget>[
           Container(
@@ -258,17 +274,16 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                       _displayName,
                       style: TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
                         fontSize: 18),
                     ),
                     SizedBox(width: 10),
                     GestureDetector(
                       onTap: (){
                         showDialog(
-                          context: context, //BuildContext对象
+                          context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
-                            return InputDialog(
+                            return FriendNameInputDialog(
                               data:_displayName,
                               onConfirm:(text){
                                 setState(() {
@@ -278,7 +293,7 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                             );
                           });
                       },
-                      child: Image.asset(ImageHelper.wrapAssets('ic_edit.png'), width: 20, height: 20),
+                      child: Image.asset(ImageHelper.wrapAssets('ic_edit.png'), width: 18, height: 18),
                     )
                   ],
                 ),
@@ -309,76 +324,80 @@ class FriendInfoPageState extends State<FriendInfoPage>{
 
   Widget _buildDiagnosisRecordItem(BuildContext context ,Diagnosis diagnosis,int no) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10),
+      padding: EdgeInsets.fromLTRB(15,5,15,5),
       color: Colors.white,
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  width: 18,
-                  height: 18,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 1
-                    )
-                  ),
-                  child: Text(no.toString(),style: TextStyle(color: Theme.of(context).primaryColor)),
-                ),
-                SizedBox(width: 10),
-                Expanded(child: Text('诊断记录')),
-                Text(diagnosis.time,style: TextStyle(color: Colors.grey))
-              ],
-            )
-          ),
-          Divider(color: Colors.grey,height: 1),
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text('【诊断】'),
-                    SizedBox(width: 5),
-                    Expanded(child: Text(diagnosis.diagnosis),)
-                  ],
-                ),
-                SizedBox(height: 5),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('【治疗】'),
-                    SizedBox(width: 5),
-                    Expanded(child: Text(_getDrugsText(diagnosis.drugs),maxLines: 2))
-                  ],
-                )
-              ],
-            )
-          ),
-          Divider(color: Colors.grey,height: 1),
-          GestureDetector(
-            onTap: () => print('查看详情'),
-            child: Padding(
-              padding: EdgeInsets.all(15),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey[300],width: 0.5),
+          borderRadius: BorderRadius.circular(5)
+        ),
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Color(0xfff9f9f9),
+              padding: EdgeInsets.all(10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text('查看详情',style: TextStyle(fontSize: 15,color: Colors.grey)),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey[300],
+                  Container(
+                    alignment: Alignment.center,
+                    width: 18,
+                    height: 18,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 1
+                      )
+                    ),
+                    child: Text(no.toString(),style: TextStyle(color: Theme.of(context).primaryColor)),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(child: Text('诊断记录')),
+                  Text(diagnosis.time,style: TextStyle(color: Colors.grey,fontSize: 12))
+                ],
+              )
+            ),
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text('【诊断】',style: TextStyle(fontSize: 13)),
+                      SizedBox(width: 5),
+                      Expanded(child: Text(diagnosis.diagnosis,style: TextStyle(fontSize: 13)))
+                    ],
+                  ),
+                  SizedBox(height: 5),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('【治疗】',style: TextStyle(fontSize: 13),),
+                      SizedBox(width: 5),
+                      Expanded(child: Text(_getDrugsText(diagnosis.drugs),style: TextStyle(fontSize: 13),maxLines: 2))
+                    ],
                   ),
                 ],
               )
             ),
-          )
-        ],
+            Container(color: Colors.grey[300],height: 0.5,margin: EdgeInsets.symmetric(horizontal: 15)),
+            GestureDetector(
+              onTap: () => print('查看详情'),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('查看详情',style: TextStyle(color: Colors.grey[600],fontSize: 13)),
+                    SizedBox(width: 5),
+                    Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 6,height: 12)
+                  ],
+                )
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

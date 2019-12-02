@@ -39,7 +39,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
           }),
           child: Container(
             alignment: Alignment.center,
-            child: Text(item, style: TextStyle(color: isChecked?Colors.white:Colors.grey,fontSize: 13)),
+            child: Text(item, style: TextStyle(color: isChecked?Colors.white:Colors.grey[700],fontSize: 13)),
             decoration: BoxDecoration(
               border: isChecked
                 ? null
@@ -110,7 +110,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
               ),
               Padding(
                 padding: EdgeInsets.all(20),
-                child: Text('*用药时间',style: TextStyle(fontSize: 16,color: Colors.red)),
+                child: Text('*用药时间',style: TextStyle(color: Theme.of(context).primaryColor)),
               ),
               Container(
                 height: 85,
@@ -131,7 +131,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
               ),
               Padding(
                 padding: EdgeInsets.all(20),
-                child: Text('*用药忌口',style: TextStyle(fontSize: 16,color: Colors.red)),
+                child: Text('*用药忌口',style: TextStyle(color: Theme.of(context).primaryColor)),
               ),
               Expanded(
                 child: GridView.count(
@@ -151,7 +151,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text('*注：如有特殊用药时间和方法，请在补充医嘱内填写',style: TextStyle(fontSize: 12,color: Colors.red)),
+                child: Text('*注：如有特殊用药时间和方法，请在补充医嘱内填写',style: TextStyle(fontSize: 11,color: Colors.red)),
               ),
               SizedBox(height: 30)
             ],

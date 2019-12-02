@@ -81,13 +81,13 @@ class PrescriptionFormWorkItem extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  Text(p.name,style: TextStyle(fontSize: 18)),
+                  Text(p.name,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 16)),
                   Expanded(
                     child:SizedBox()
                   ),
                   Offstage(
                     offstage: p.status == 1,
-                    child: Text('经典方',style: TextStyle(color: Colors.grey),),
+                    child: Text('经典方',style: TextStyle(color: Colors.grey,fontSize: 13)),
                   )
                 ],
               ),

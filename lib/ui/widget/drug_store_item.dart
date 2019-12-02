@@ -38,6 +38,7 @@ class DrugStoreItem extends StatelessWidget {
                             Text(
                               '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
                               style: TextStyle(
+                                fontSize: 15,
                                   fontWeight: FontWeight.w600),
                             ),
                             Offstage(

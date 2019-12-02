@@ -16,7 +16,7 @@ class TakePrescriptionPage extends StatefulWidget {
 }
 
 class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
-  int wayChecked = 0;
+  int wayChecked = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
         children: <Widget>[
           Container(
             width: double.infinity,
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: EdgeInsets.symmetric(vertical: 10),
             color: Color(0xffe56068),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -258,7 +258,7 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
           alignment: Alignment.center,
           child: Text(text,
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 12,
               color: wayChecked == index ? Colors.white : Colors.grey[400])),
           decoration: BoxDecoration(
             border: wayChecked == index

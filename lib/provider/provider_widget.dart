@@ -39,7 +39,7 @@ class _ProviderWidgetState<T extends ChangeNotifier>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<T>(
-      builder: (context) => model,
+      create: (context) => model,
       child: Consumer<T>(
         builder: widget.builder,
         child: widget.child,
@@ -91,10 +91,10 @@ class _ProviderWidgetState2<A extends ChangeNotifier, B extends ChangeNotifier>
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<A>(
-            builder: (context) => model1,
+            create: (context) => model1,
           ),
           ChangeNotifierProvider<B>(
-            builder: (context) => model2,
+            create: (context) => model2,
           )
         ],
         child: Consumer2<A, B>(

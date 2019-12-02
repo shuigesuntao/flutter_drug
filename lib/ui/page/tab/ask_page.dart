@@ -19,34 +19,71 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(context, '患者咨询',isShowBack: false),
+      appBar: TitleBar.buildCommonAppBar(context, '咨询',isShowBack: false),
       body: Column(
         children: <Widget>[
-          Divider(height: 1),
-          Container(
+          Padding(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
             child: Row(
               children: <Widget>[
                 Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[Text('0',style: TextStyle(fontSize: 16,color: Colors.black),), Padding(padding: EdgeInsets.only(top: 5),child: Text('待随访'),)],
+                  child: GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(10,5,10,5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('待随访',style: TextStyle(fontSize: 16)),
+                              Text('共 0 人',style: TextStyle(color: Colors.grey)),
+                            ]
+                          ),
+                          Image.asset(ImageHelper.wrapAssets('icon_daisuifagn.png'),width: 30,height: 30)
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                Container(width: 1, height: 25, color: Colors.grey),
+                SizedBox(width: 10),
                 Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[Text('0',style: TextStyle(fontSize: 16,color: Colors.black)),Padding(padding: EdgeInsets.only(top: 5),child: Text('待复诊'),)],
+                  child:  GestureDetector(
+                    onTap: (){
+
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(10,5,10,5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text('待复诊',style: TextStyle(fontSize: 16)),
+                              Text('共 0 人',style: TextStyle(color: Colors.grey)),
+                            ]
+                          ),
+                          Image.asset(ImageHelper.wrapAssets('icon_daifuzhen.png'),width: 30,height: 30)
+                        ],
+                      ),
+                    ),
                   ),
                 )
               ],
             )
           ),
-          SizedBox(height: 10,),
           Expanded(child: ProviderWidget<ConversationModel>(
             model: ConversationModel(),
             onModelReady: (conversationModel) => conversationModel.initData(),
@@ -74,12 +111,12 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                   imageUrl: conversation.headerUrl,
                   errorWidget: (context, url, error) => conversation.gender == "男"
                     ? Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-                    width: 50, height: 50)
+                    width: 45, height: 45)
                     : Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-                    width: 50, height: 50),
+                    width: 45, height: 45),
                   fit: BoxFit.fill,
-                  width: 50,
-                  height: 50,
+                  width: 45,
+                  height: 45,
                 ),
               ),
               Expanded(child: Padding(padding: EdgeInsets.only(left: 10),child: Column(
@@ -88,7 +125,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                 children: <Widget>[
                   Text(
                     conversation.name,
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 16),
                   ),
                   Text(
                     conversation.message,

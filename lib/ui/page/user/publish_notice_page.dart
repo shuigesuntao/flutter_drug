@@ -45,7 +45,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
                       children: <Widget>[
                         _buildNoticeInput(),
                         _buildSwitch(),
-                        Image.asset(ImageHelper.wrapAssets('yzline.png')), //虚线
+                        Image.asset(ImageHelper.wrapAssets('xuxian.png')), //虚线
                         _buildValidity()
                       ],
                     ),
@@ -73,7 +73,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
             fillColor: Color(0xFFF7F7F7),
             contentPadding: EdgeInsets.all(5),
             filled: true,
-            hintText: "您的患者可在微信公众号【药匣子在线】查看您发布的公告内容。",
+            hintText: "请填写公告内容，公告将在您的名片顶部显示。",
             hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
             enabledBorder: null,
             disabledBorder: null),
@@ -91,13 +91,13 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
         child: Row(
           children: <Widget>[
             Expanded(
-              child: Text('同时发送公众号消息'),
+              child: Text('同时发送公众号消息',style: TextStyle(fontSize: 15)),
             ),
             Text(model.isPublishWeChat ? '是' : '否',
-              style: TextStyle(
-                color: model.isPublishWeChat
-                  ? Theme.of(context).primaryColor
-                  : Colors.black87)),
+                style: TextStyle(
+                    color: model.isPublishWeChat
+                        ? Theme.of(context).primaryColor
+                        : Colors.black87)),
             CupertinoSwitch(
               activeColor: Theme.of(context).primaryColor,
               value: model.isPublishWeChat,
@@ -119,15 +119,27 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Expanded(child: Text('公告有效期')),
-                Consumer<PublishNoticeModel>(builder: (_,model,__) => Text(model.validity)),
-                Icon(
-                  Icons.chevron_right,
-                  color: Colors.grey[400],
+            Consumer<PublishNoticeModel>(
+              builder: (_, model, __) => GestureDetector(
+                onTap: () => showCupertinoModalPopup(
+                    context: context,
+                    builder: (context) => CupertinoActionSheet(
+                          message: Text('请选择'),
+                          cancelButton: CupertinoActionSheetAction(
+                              onPressed: () => Navigator.maybePop(context),
+                              child: Text('取消')),
+                          actions: _buildDateActions(model),
+                        )),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(child: Text('公告有效期',style: TextStyle(fontSize: 15))),
+                    Text(model.validity),
+                    SizedBox(width: 10),
+                    Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
+                        width: 7, height: 14)
+                  ],
                 ),
-              ],
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),
@@ -142,42 +154,59 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
     );
   }
 
+  List<Widget> _buildDateActions(PublishNoticeModel model) {
+    final List<String> levels = [
+      '永久',
+      '7天',
+      '30天',
+      '90天',
+    ];
+    return levels
+        .map((date) => CupertinoActionSheetAction(
+            onPressed: () {
+              model.validity = date;
+              Navigator.maybePop(context);
+            },
+            child: Text(date)))
+        .toList();
+  }
+
   Widget _buildNotice() {
     return Container(
       color: Colors.white,
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(15),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text('当前公告',
-                    style: TextStyle(fontWeight: FontWeight.bold))),
-                SizedBox(
-                  width: 60,
-                  height: 25,
-                  child: OutlineButton(
-                    onPressed: () => showDialog(
-                      context: context,
-                      builder: (context) {
-                        return DialogAlert(
-                          content: '是否撤下当前公告？',
-                          onPressed: () {
-                            print('撤下公告');
-                            Navigator.pop(context);
-                          },
-                        );
-                      }),
-                    color: Colors.white,
-                    child: Text('撤下'),
-                    borderSide: BorderSide(color: Colors.black54, width: 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(3))),
+              padding: EdgeInsets.all(15),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Text('当前公告',
+                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15))),
+                  SizedBox(
+                    width: 60,
+                    height: 25,
+                    child: OutlineButton(
+                      onPressed: () => showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DialogAlert(
+                              content: '是否撤下当前公告？',
+                              onPressed: () {
+                                print('撤下公告');
+                                Navigator.pop(context);
+                              },
+                            );
+                          }),
+                      color: Colors.white,
+                      child: Text('撤下',style: TextStyle(color: Colors.grey[600])),
+                      borderSide: BorderSide(color: Colors.black54, width: 1),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(3))),
+                    ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              )),
           Divider(height: 1, color: Colors.grey),
           Padding(
             padding: EdgeInsets.all(15),
@@ -185,15 +214,15 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text('来开方'),
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: Text(
-                        '发布于:2019-09-03 20:58:54',
-                        style: TextStyle(color: Colors.grey),
-                      )),
-                    Text('永久有效', style: TextStyle(color: Colors.grey))
+                        child: Text(
+                      '发布于:2019-09-03 20:58:54',
+                      style: TextStyle(color: Colors.grey,fontSize: 12),
+                    )),
+                    Text('永久有效', style: TextStyle(color: Colors.grey,fontSize: 12))
                   ],
                 )
               ],

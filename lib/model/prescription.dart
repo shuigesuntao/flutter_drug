@@ -7,7 +7,8 @@ class Prescription{
   String gender;
   int age;
   String symptom; // 症状
+  double price; // 药费
   String time;
 
-  Prescription(this.status,this.statusText,this.name,this.gender,this.age,this.symptom,this.time);
+  Prescription(this.status,this.statusText,this.name,this.gender,this.age,this.symptom,this.price,this.time);
 }

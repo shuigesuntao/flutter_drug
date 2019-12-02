@@ -12,11 +12,11 @@ class PrescriptionAlreadyPage extends StatefulWidget{
 
 class _PrescriptionAlreadyPageState extends State<PrescriptionAlreadyPage>{
   List<String> tabTitles = ["全部","未付款","已付款", "已发货"];
-  List<int> status = [0,2,3];
+  List<int> status = [0,1,2,3];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(context, '已开处方', actionText: '搜索',
+      appBar: TitleBar.buildCommonAppBar(context, '已开处方', actionIcon: 'icon_ss.png',
         onActionPress: () {
           print('点击了搜索');
         },actionTextColor: Colors.black87),

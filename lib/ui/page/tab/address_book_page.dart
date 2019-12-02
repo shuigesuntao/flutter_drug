@@ -40,9 +40,10 @@ class _AddressBookPageState extends State<AddressBookPage>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text('全部(${model.list?.length ?? 0})'),
-              Image.asset(ImageHelper.wrapAssets('ic_arrow_drop_down.png'),
-                width: 15, height: 15)
+              Text('全部',style: TextStyle(color: Colors.black,fontWeight:FontWeight.normal,fontSize: 16)),
+              Text(' (${model.list?.length ?? 0}) ',style: TextStyle(color: Colors.grey,fontSize: 13)),
+              Image.asset(ImageHelper.wrapAssets('icon_qiehuan.png'),
+                width: 12, height: 7)
             ],
           ),
           actions: <Widget>[
@@ -178,17 +179,18 @@ class FriendItemWidget extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 5),
                               child: Row(
                                 children: <Widget>[
-                                  Padding(padding: EdgeInsets.only(right: 5),
-                                    child: Offstage(
+                                   Offstage(
                                       offstage: friend.gender == null ||
                                         friend.gender.isEmpty,
-                                      child: Image.asset(ImageHelper.wrapAssets(
+                                      child: Padding(padding: EdgeInsets.only(right: 5),
+                                        child:Image.asset(ImageHelper.wrapAssets(
                                         friend.gender == '女'
                                           ? 'icon_girl.png'
                                           : 'icon_boy.png'), width: 12,
-                                        height: 12),
-                                    )),
-                                  Text('${friend.age}岁', style: TextStyle(
+                                        height: 12)
+                                      ),
+                                    ),
+                                  Text('${friend.age} 岁', style: TextStyle(
                                     color: Colors.grey, fontSize: 12))
                                 ],
                               ),

@@ -43,7 +43,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
         title: Text('处方模板',style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,fontSize: 18)),
         leading: TitleBar.leading(context,null),
         actions: <Widget>[
-          InkWell(
+          GestureDetector(
             onTap: ()=>Navigator.of(context).pushNamed(RouteName.prescriptionFormWorkSearch),
             child: Padding(
               padding:EdgeInsets.symmetric(horizontal: 8),

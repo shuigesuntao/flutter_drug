@@ -43,14 +43,16 @@ class CheckMessagePage extends StatelessWidget {
 
   Widget _buildMessageItem(
       BuildContext context, int index, CheckMessageModel model) {
-    return Container(
-      color: Colors.white,
-      margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+    return Padding(
+      padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Container(
-            color: Color(0xfff9f9f9),
+            decoration: BoxDecoration(
+              color: Color(0xfff9f9f9),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight:Radius.circular(5))
+            ),
             padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
             child: Row(
               children: <Widget>[
@@ -64,51 +66,58 @@ class CheckMessagePage extends StatelessWidget {
             ),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(child: Text(model.list[index].title)),
-                Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
-                    width: 8, height: 16)
-              ],
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight:Radius.circular(5))
             ),
-          ),
-          Container(height: 0.5, color: Colors.grey[300],margin: EdgeInsets.symmetric(horizontal: 15)),
-          Container(
-              margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      model.list[index].time,
-                      style: TextStyle(color: Colors.grey,fontSize: 12),
-                    ),
-                    Offstage(
-                      offstage: model.list[index].status == 2,
-                      child: Container(
-                        padding: EdgeInsets.fromLTRB(12,1,12,1),
-                        decoration: BoxDecoration(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(child: Text(model.list[index].title)),
+                      Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
+                        width: 8, height: 16)
+                    ],
+                  ),
+                ),
+                Container(height: 0.5, color: Colors.grey[300],margin: EdgeInsets.symmetric(horizontal: 15)),
+                Container(
+                  margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        model.list[index].time,
+                        style: TextStyle(color: Colors.grey,fontSize: 12),
+                      ),
+                      Offstage(
+                        offstage: model.list[index].status == 2,
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(12,1,12,1),
+                          decoration: BoxDecoration(
                             color: Colors.white,
                             border:
-                                Border.all(color: Color(0xff999999), width: 1),
+                            Border.all(color: Color(0xff999999), width: 1),
                             borderRadius: BorderRadius.circular(5)),
-                        child: GestureDetector(
+                          child: GestureDetector(
                             onTap: () => showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return CustomDialogAlert(
-                                    content: '是否确认删除？',
-                                    onPressed: () {
-                                      model.remove(index);
-                                      Navigator.maybePop(context);
-                                    },
-                                  );
-                                }),
+                              context: context,
+                              builder: (context) {
+                                return CustomDialogAlert(
+                                  content: '是否确认删除？',
+                                  onPressed: () => model.remove(index)
+                                );
+                              }),
                             child: Text('删除',style: TextStyle(fontSize: 13),)),
+                        ),
                       ),
-                    ),
-                  ]))
+                    ]))
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -53,7 +53,10 @@ class CustomDialogAlert extends Dialog {
                         Container(width: 0.5, height: 20, color: Colors.grey),
                         Expanded(
                           child: GestureDetector(
-                            onTap: onPressed,
+                            onTap: (){
+                              onPressed();
+                              Navigator.maybePop(context);
+                            },
                             child: Text(confirmText,
                               textAlign:TextAlign.center,
                               style: TextStyle(

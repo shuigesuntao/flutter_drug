@@ -15,7 +15,7 @@ typedef PickerValueFormat<T> = String Function(T value);
 
 /// Picker
 class Picker {
-  static const double DefaultTextSize = 20.0;
+  static const double DefaultTextSize = 16.0;
 
   List<int> selecteds;
   final PickerAdapter adapter;
@@ -50,7 +50,7 @@ class Picker {
     {this.adapter,
       this.delimiter,
       this.selecteds,
-      this.height = 240.0,
+      this.height = 210.0,
       this.itemExtent = 28.0,
       this.columnPadding,
       this.textStyle,
@@ -208,8 +208,7 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
           Container(
             height: 40,
             child: FlatButton(
-              child: Text('取消', style: TextStyle(
-                fontSize:16, color: Colors.grey)),
+              child: Text('取消',style: TextStyle(fontSize: 13)),
               onPressed: () => Navigator.maybePop(context)
             ),
           ),
@@ -217,7 +216,7 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
           Container(
             height: 40,
             child: FlatButton(
-              child: Text('确定', style: TextStyle(fontSize:16,color: Theme.of(context).primaryColor)),
+              child: Text('确定', style: TextStyle(fontSize: 13,color: Theme.of(context).primaryColor)),
               onPressed: () => picker.doConfirm(context)
             ),
           ),

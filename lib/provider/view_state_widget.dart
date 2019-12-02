@@ -55,7 +55,7 @@ class ViewStateWidget extends StatelessWidget {
 /// 页面无数据
 class ViewStateEmptyWidget extends StatelessWidget {
   final String message;
-  final Widget image;
+  final String image;
 
   const ViewStateEmptyWidget(
       {Key key,
@@ -66,13 +66,12 @@ class ViewStateEmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            image ?? Image.asset(ImageHelper.wrapAssets('lb_null.png')),
+            Image.asset(ImageHelper.wrapAssets(image ?? 'lb_null.png')),
             Text(
               message ?? '暂无数据!',
               style: TextStyle(fontSize: 16,color: Colors.grey),

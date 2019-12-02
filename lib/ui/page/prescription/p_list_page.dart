@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/model/prescription.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
+import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -38,7 +40,7 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
           onRefresh: model.refresh,
           onLoading: model.loadMore,
           enablePullUp: !model.empty ,
-          child: model.empty ? ViewStateEmptyWidget() :ListView.builder(
+          child: model.empty ? ViewStateEmptyWidget(image: 'zwdd.png',message: '暂无订单',) :ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {
               return _buildPrescriptionItem(model,index);
@@ -47,81 +49,88 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
     );
   }
 
-
   Widget _buildPrescriptionItem(PrescriptionListModel model,int index){
     Prescription p = model.list[index];
-    return Container(
-      margin: EdgeInsets.only(top: 10),
-      color: Colors.white,
+    return Padding(
+      padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
       child: Column(
         children: <Widget>[
-          Padding(padding: EdgeInsets.all(15),child:
-          Row(
-            children: <Widget>[
-              Text(p.name),
-              Padding(padding: EdgeInsets.symmetric(horizontal: 5),child: Text(p.gender),),
-              Text('${p.age}岁'),
-              Expanded(child: SizedBox()),
-              Text(p.statusText,style: TextStyle(color: p.status == 4?Colors.grey:Colors.redAccent),)
-            ],
-          ),),
-          Divider(height: 1,color: Colors.grey,indent: 15,),
-          Padding(padding: EdgeInsets.all(15),child:
-            Column(
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xfff9f9f9),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight:Radius.circular(5))
+            ),
+            padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+            child: Row(
               children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Expanded(child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(p.symptom),
-                        SizedBox(height: 10),
-                        Text(p.time,style: TextStyle(color: Colors.grey),),
-
-                      ],
-                    ),),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Colors.grey[400],
-                    ),
-                  ],
-                ),
-                Offstage(
-                  offstage: p.status == 4,
-                  child:  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: 60,
-                      height: 30,
-                      child: OutlineButton(
-                        onPressed: () => showDialog(
-                          context: context,
-                          builder: (context) {
-                            return DialogAlert(
-                              content: '您确定删除吗？',
-                              onPressed: (){
-                                model.remove(index);
-                                Navigator.maybePop(context);
-                              },
-                            );
-                          }),
-                        color: Colors.white,
-                        child: Text(
-                          '删除',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        borderSide:
-                        BorderSide(color:Colors.grey, width: 1),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(3))),
-                      ),
-                    ),
-                  ),
-                )
+                Text(p.name),
+                Text(' ${p.gender} ${p.age}岁',style: TextStyle(color: Colors.grey[700])),
+                Expanded(child: SizedBox()),
+                Text(p.statusText,style: TextStyle(color: p.status == 4?Colors.grey:Colors.redAccent))
               ],
             ),
-           )
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(5),bottomRight:Radius.circular(5))
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text('【诊断】${p.symptom}',maxLines: 1,overflow: TextOverflow.ellipsis),
+                          SizedBox(height: 10),
+                          Text('【药费】￥${p.price}')
+                        ],
+                      )),
+                      SizedBox(width: 10),
+                      Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
+                        width: 8, height: 16)
+                    ],
+                  ),
+                ),
+                Container(height: 0.5, color: Colors.grey[300],margin: EdgeInsets.symmetric(horizontal: 15)),
+                Container(
+                  margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        p.time,
+                        style: TextStyle(color: Colors.grey,fontSize: 12),
+                      ),
+                      Offstage(
+                        offstage: p.status == 4,
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(12,1,12,1),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border:
+                            Border.all(color: Color(0xff999999), width: 1),
+                            borderRadius: BorderRadius.circular(5)),
+                          child: GestureDetector(
+                            onTap: () => showDialog(
+                              context: context,
+                              builder: (context) {
+                                return CustomDialogAlert(
+                                  content: '是否确认删除？',
+                                  onPressed: () => model.remove(index)
+                                );
+                              }),
+                            child: Text('删除',style: TextStyle(fontSize: 13),)),
+                        ),
+                      ),
+                    ]))
+              ],
+            ),
+          ),
         ],
       ),
     );

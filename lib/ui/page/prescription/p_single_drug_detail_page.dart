@@ -19,9 +19,9 @@ class SingeDrugDetailPage extends StatelessWidget{
             alignment: Alignment.center,
             width: double.infinity,
             padding: EdgeInsets.all(10),
-            color: Colors.yellow[200],
+            color: Color(0x26eedd8f),
             child: Text('共 ${drugs.length} 味药材，每剂重 ${drugs.fold(0, (pre,e)=>pre+(e.unitCount==null?e.count:e.unitCount))} 克，每剂 ${drugs.fold(0, (pre, e) => (pre + e.price * e.count))} 元',
-              style: TextStyle(color: Colors.orange[600],fontSize: 12)),
+              style: TextStyle(color: Color(0xffeaaf4c),fontSize: 12)),
           ),
           Expanded(child: ListView.separated(
             separatorBuilder: (context,index) => Divider(height: 1,color: Colors.grey[300],),
@@ -30,7 +30,7 @@ class SingeDrugDetailPage extends StatelessWidget{
           )),
           SafeArea(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 15),
             width: double.infinity,
             child: FlatButton(
               padding: EdgeInsets.all(12),
@@ -41,7 +41,7 @@ class SingeDrugDetailPage extends StatelessWidget{
                 style: TextStyle(color: Colors.white),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20))),
+                borderRadius: BorderRadius.all(Radius.circular(5))),
             ),
           ),bottom: true)
         ],
