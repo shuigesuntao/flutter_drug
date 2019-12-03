@@ -64,6 +64,7 @@ class DoctorAdvicePage extends StatelessWidget {
                       controller: model.refreshController,
                       onRefresh: model.refresh,
                       onLoading: model.loadMore,
+                      enablePullUp: true,
                       child: model.empty
                         ? ViewStateEmptyWidget()
                         : ListView.builder(

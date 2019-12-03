@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -18,13 +19,13 @@ class AddPatientPage extends StatelessWidget {
       body: SafeArea(child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.fromLTRB(15,10,15,10),
+            margin: EdgeInsets.fromLTRB(15,ScreenUtil().setHeight(10),15,ScreenUtil().setHeight(10)),
             width: double.infinity,
             height: double.infinity,
             child: Image.asset(ImageHelper.wrapAssets('bg_qrcode_mingpian.png'),fit: BoxFit.fill,),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(75,40,75,0),
+            padding: EdgeInsets.fromLTRB(75,ScreenUtil().setHeight(40),75,0),
             child: Column(
               children: <Widget>[
                 ClipOval(
@@ -35,24 +36,24 @@ class AddPatientPage extends StatelessWidget {
                     height: 60,
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: ScreenUtil().setHeight(5)),
                 Text(
                   userModel.user.name,
                   style: TextStyle(fontSize: 20),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: ScreenUtil().setHeight(5)),
                 Text(
                   '${userModel.user.type} | ${userModel.user.level}',
                   style: TextStyle(fontSize: 12, color: Colors.grey),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: ScreenUtil().setHeight(10)),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   width: double.infinity,
                   height: 0.5,
                   color: Colors.grey[300],
                 ),
-                SizedBox(height: 15),
+                SizedBox(height:ScreenUtil().setHeight(10)),
                 Text(
                   '在家随时随地找我',
                   style: TextStyle(fontSize: 16),
@@ -65,7 +66,7 @@ class AddPatientPage extends StatelessWidget {
                 QrImage(
                   data: userModel.user.id.toString(),
                   version: QrVersions.auto,
-                  size: 140,
+                  size: ScreenUtil().setWidth(140),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
@@ -73,7 +74,7 @@ class AddPatientPage extends StatelessWidget {
                   height: 0.5,
                   color: Colors.grey[300],
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setHeight(10)),
                 RichText(
                   text: TextSpan(
                     text: '微信扫描上方我的二维码，关注',
@@ -88,17 +89,17 @@ class AddPatientPage extends StatelessWidget {
                       )
                     ]),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: ScreenUtil().setHeight(20)),
                 Text(
                   '或通过以下方式分享',
                   style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: ScreenUtil().setHeight(15)),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Image.asset(ImageHelper.wrapAssets('icon_weixin.png'),width: 40,height: 40),
-                    SizedBox(width: 60),
+                    SizedBox(width: ScreenUtil().setWidth(60)),
                     Image.asset(ImageHelper.wrapAssets('icon_pengyouquan.png'),width: 40,height: 40)
                   ],
                 )

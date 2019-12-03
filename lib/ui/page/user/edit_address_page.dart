@@ -120,7 +120,7 @@ class EditAddressPageState extends State<EditAddressPage> {
                         ],
                       ),
                     ),
-                    Divider(height: 1, color: Colors.grey)
+                    Divider(height: 0.5, color: Colors.grey[300])
                   ],
                 ),
               ),
@@ -197,7 +197,7 @@ class EditAddressPageState extends State<EditAddressPage> {
               ],
             ),
           ),
-          maxLines == 1 ? Divider(height: 1, color: Colors.grey) : SizedBox()
+          maxLines == 1 ? Divider(height: 0.5, color: Colors.grey[300]) : SizedBox()
         ],
       ),
     );

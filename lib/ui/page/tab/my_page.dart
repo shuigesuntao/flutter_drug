@@ -70,7 +70,7 @@ class UserListWidget extends StatelessWidget {
           Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
           MeCell('常用医嘱', 'icon_yizhu.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.doctorAdvice)),
           SizedBox(height: 5),
-          MeCell('地址管理', 'icon_dizhi.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.addressManage)),
+          MeCell('地址管理', 'icon_dizhi.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.addressManage,arguments: false)),
           Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
           MeCell('我的执业保障', 'icon_baozhang.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.myOccupation)),
           Divider(indent: 30,height: 0.5,color: Colors.grey[300]),

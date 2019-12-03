@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class SplashPage extends StatefulWidget {
@@ -20,6 +21,8 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(width: 375, height: 667)..init(context);
+
     return Scaffold(
       body: WillPopScope(
         onWillPop: () => Future.value(false),

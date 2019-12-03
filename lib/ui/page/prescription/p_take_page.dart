@@ -242,7 +242,8 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
                 ),
               ),bottom: true),
             )
-          )
+          ),
+          SizedBox(height: 10)
         ],
       )
     );

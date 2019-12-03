@@ -92,6 +92,6 @@ class DrugStoreItem extends StatelessWidget {
   }
 
   double getSinglePrice(List<Drug> drugs) {
-    return drugs == null ? 0 : drugs.fold(0, (pre, e) => (pre + e.price * e.count));
+    return drugs == null ? 0 : double.parse((drugs.fold(0, (pre, e) => (pre + e.price * e.count))).toStringAsFixed(4));
   }
 }

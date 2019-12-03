@@ -10,7 +10,9 @@ import 'package:flutter_drug/ui/page/account/show_account_page.dart';
 import 'package:flutter_drug/ui/page/account/wechat_cash_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
+import 'package:flutter_drug/ui/page/prescription/confirm_order_page.dart';
 import 'package:flutter_drug/ui/page/prescription/edit_drug_page.dart';
+import 'package:flutter_drug/ui/page/prescription/finish_order_detail_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_tab_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_choose_person_page.dart';
@@ -19,6 +21,7 @@ import 'package:flutter_drug/ui/page/prescription/p_sample_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_single_drug_detail_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_take_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_yizhu_page.dart';
+import 'package:flutter_drug/ui/page/prescription/order_detail_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/page/setting_page.dart';
@@ -35,6 +38,8 @@ import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/account/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/example_page.dart';
 import 'package:flutter_drug/ui/page/user/friend_info_page.dart';
+import 'package:flutter_drug/ui/page/user/invite_doctor_page.dart';
+import 'package:flutter_drug/ui/page/user/my_invite_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
 import 'package:flutter_drug/ui/page/user/service_setting_page.dart';
@@ -48,6 +53,8 @@ class RouteName {
   static const String tab = '/';//首页
   static const String test = 'test';//测试
   static const String addPatient = 'addPatient';//添加患者
+  static const String inviteDoctor = 'inviteDoctor';//邀请医生
+  static const String myInvite = 'MyInvite';//邀请医生
   static const String choosePerson = 'choosePerson';//选择开方患者
   static const String friendInfo = 'friendInfo';//患者信息
   static const String openPrescription = 'openPrescription';//在线开方
@@ -59,6 +66,9 @@ class RouteName {
   static const String serviceSetting = 'serviceSetting';//服务设置
   static const String publishNotice = 'publishNotice';//发布公告
   static const String prescriptionAlready = 'prescriptionAlready';//已开处方
+  static const String orderDetail = 'orderDetail';//已开处方详情
+  static const String finishOrderDetail = 'finishOrderDetail';//已开处方详情(已完成)
+  static const String confirmOrder = 'confirmOrder';//确认处方
   static const String prescriptionSample = 'prescriptionSample';//处方示例
   static const String prescriptionFormWorkSearch = 'prescriptionFormWorkSearch';//处方模板搜索
   static const String prescriptionPersonSearch = 'prescriptionPersonSearch';//开方患者搜索
@@ -93,6 +103,10 @@ class Router {
         return NoAnimRouteBuilder(TabNavigator());
       case RouteName.addPatient:
         return CupertinoPageRoute(builder: (_) => AddPatientPage());
+      case RouteName.inviteDoctor:
+        return CupertinoPageRoute(builder: (_) => InviteDoctorPage());
+      case RouteName.myInvite:
+        return CupertinoPageRoute(builder: (_) => MyInvitePage());
       case RouteName.choosePerson:
         return CupertinoPageRoute(builder: (_) => PrescriptionChoosePersonPage());
       case RouteName.friendInfo:
@@ -115,6 +129,12 @@ class Router {
         return CupertinoPageRoute(builder: (_) => PublishNoticePage());
       case RouteName.prescriptionAlready:
         return CupertinoPageRoute(builder: (_) => PrescriptionAlreadyPage());
+      case RouteName.orderDetail:
+        return CupertinoPageRoute(builder: (_) => OrderDetailPage(count: settings.arguments as int));
+      case RouteName.finishOrderDetail:
+        return CupertinoPageRoute(builder: (_) => FinishOrderDetailPage());
+      case RouteName.confirmOrder:
+        return CupertinoPageRoute(builder: (_) => ConfirmOrderPage());
       case RouteName.prescriptionSample:
         return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.prescriptionFormWorkSearch:
@@ -172,7 +192,7 @@ class Router {
       case RouteName.editDoctorAdvice:
         return CupertinoPageRoute(builder: (_) => EditDoctorAdvicePage(advice: settings.arguments as DoctorAdvice));
       case RouteName.addressManage:
-        return CupertinoPageRoute(builder: (_) => AddressManagePage());
+        return CupertinoPageRoute(builder: (_) => AddressManagePage(isSelect:settings.arguments as bool));
       case RouteName.editAddress:
         return CupertinoPageRoute(builder: (_) => EditAddressPage(address: settings.arguments as Address));
       case RouteName.myOccupation:

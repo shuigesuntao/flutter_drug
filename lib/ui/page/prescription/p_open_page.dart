@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/friend.dart';
+import 'package:flutter_drug/model/illegal_drugs.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/diaglog_open_p_tip.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
@@ -17,6 +20,7 @@ import 'package:flutter_drug/ui/widget/dialog_gaofangfuliao_select.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
 import 'edit_drug_page.dart';
@@ -24,8 +28,9 @@ import 'edit_drug_page.dart';
 class PrescriptionOpenPage extends StatefulWidget {
   final Friend friend;
   final bool isWeChat;
+  final bool isImage;
 
-  PrescriptionOpenPage({this.friend, this.isWeChat = false});
+  PrescriptionOpenPage({this.friend, this.isWeChat = false,this.isImage = false});
 
   @override
   State<StatefulWidget> createState() => PrescriptionOpenPageState();
@@ -44,6 +49,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   String _yizhuJiKou = '';
   String _yizhuBuChong = '';
   List<Drug> _drugs = [];
+  List<Poison> poisons = [];
+  List<Conflict> conflicts  = [];
   bool isShowPriceDetail = false;
   bool isDefaultPercent = true;
   double _drugPrice = 0;
@@ -51,7 +58,9 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   int _jiagongfei = 0;
   int _currentPercent;
   int _defaultPercent = 10;
+  String originImage = 'https://app.zgzydb.com/upload/Prescription/191009202635453169f79cae0e245bebcb482c280b66c95.jpg';
   bool _isHide = false;
+  bool _isConfirm = false;
 
   final TextEditingController _controller = TextEditingController(text: "7");
   final TextEditingController _bagController = TextEditingController(text: "2");
@@ -97,7 +106,20 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(context, '在线开方', onPressed: () {
+      appBar: TitleBar.buildCommonAppBar(context, widget.isImage?'拍方上传':'在线开方',actionText: widget.isImage?'查看原图片':null,onActionPress: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) => PhotoView(
+              onTapDown: (context, details, controllerValue) {
+                Navigator.of(context).pop();
+              },
+              imageProvider: NetworkImage(originImage),
+            ),
+          ),
+        );
+      }, onPressed: () {
         showDialog(
             barrierDismissible: false,
             context: context,
@@ -126,6 +148,11 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                 // 开方
                 _buildKaifangWidget(),
                 SizedBox(height: 10),
+                // 超量与配伍禁忌
+                Offstage(
+                  offstage: poisons.length == 0 && conflicts.length == 0,
+                  child: Padding(padding: EdgeInsets.only(bottom: 10),child: _buildExcessWidget(context)),
+                ),
                 // 医嘱
                 _buildYizhuWidget(context),
                 SizedBox(height: 10),
@@ -228,31 +255,34 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             ],
           ),
           SizedBox(height: 10),
-          Row(
-            children: <Widget>[
-              Text('手机'),
-              SizedBox(width: 10),
-              Expanded(
+          Offstage(
+            offstage: widget.isWeChat,
+            child: Row(
+              children: <Widget>[
+                Text('手机'),
+                SizedBox(width: 10),
+                Expanded(
                   child: TextField(
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 10),
-                    enabledBorder: UnderlineInputBorder(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                      enabledBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Colors.grey[300], width: 0.5)),
-                    focusedBorder: UnderlineInputBorder(
+                        BorderSide(color: Colors.grey[300], width: 0.5)),
+                      focusedBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: Colors.grey[300], width: 0.5)),
-                    hintText: '请输入患者手机号',
-                    hintStyle:
-                        TextStyle(color: Colors.grey[300], fontSize: 14)),
-                controller: _phoneController,
-                maxLines: 1,
-                textInputAction: TextInputAction.newline,
-                style: TextStyle(fontSize: 14),
-              ))
-            ],
+                        BorderSide(color: Colors.grey[300], width: 0.5)),
+                      hintText: '请输入患者手机号',
+                      hintStyle:
+                      TextStyle(color: Colors.grey[300], fontSize: 14)),
+                    controller: _phoneController,
+                    maxLines: 1,
+                    textInputAction: TextInputAction.newline,
+                    style: TextStyle(fontSize: 14),
+                  ))
+              ],
+            ),
           ),
           Row(
             children: <Widget>[
@@ -514,6 +544,20 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                           setState(() {
                             _drugs = data;
                             _drugPrice = _getSingleDrugPrice(_drugs);
+                            poisons.clear();
+                            conflicts.clear();
+                            _drugs.forEach((drug){
+                              if(drug.name == '制草乌' && drug.count > 3){
+                                poisons.add(Poison('制草乌','3.0'));
+                              }
+                            });
+                            var names = _drugs.map((drug)=>drug.name).toList();
+                            if(names.contains('川乌') && names.contains('川贝母') ){
+                              conflicts.add(Conflict('川乌','川贝母'));
+                            }
+                            if(names.contains('制草乌') && names.contains('川贝母') ){
+                              conflicts.add(Conflict('制草乌','川贝母'));
+                            }
                           });
                         }
                       });
@@ -933,6 +977,93 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     return widget;
   }
 
+  /// 超量与配伍禁忌
+  Widget _buildExcessWidget(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+      ),
+      child:Stack(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              //标题
+              Row(
+                children: <Widget>[
+                  Image.asset(ImageHelper.wrapAssets('icon_pwjj.png'),
+                    width: 15, height: 15),
+                  SizedBox(width: 10),
+                  Text(
+                    '超量与配伍禁忌',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _buildExcessItem()
+              ),
+              Divider(height: 1, color: Colors.grey[300]),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(_isConfirm?'已确认签字':'请您签字确认以上药材使用无误',style: TextStyle(fontSize: 13)),
+                  Offstage(
+                    offstage: _isConfirm,
+                    child: GestureDetector(
+                      child: Container(
+                        width: 70,
+                        height: 23,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(3)),
+                          border: Border.all(
+                            color: Theme.of(context).primaryColor, width: 1)),
+                        child: Center(
+                          child: Text(
+                            '签名使用',
+                            style:
+                            TextStyle(color: Theme.of(context).primaryColor,fontSize: 13),
+                          ),
+                        )),
+                      onTap: (){
+                        setState(() {
+                          _isConfirm = true;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+          Positioned(
+            right: 1,
+            bottom: 1,
+            child: Offstage(
+              offstage: !_isConfirm,
+              child:Transform.rotate(
+                angle: pi / 12,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Image.asset(ImageHelper.wrapAssets('zhang.png'),width: 80,height: 80),
+                    Text('许洪亮',style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 16))
+                  ],
+                ),
+              ),
+            )
+          ),
+        ],
+      )
+    );
+  }
+
+
   /// 医嘱
   Widget _buildYizhuWidget(BuildContext context) {
     return Container(
@@ -956,7 +1087,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             ],
           ),
           SizedBox(height: 5),
-          //服药方式
+          //用药方法
           Padding(
             padding: EdgeInsets.symmetric(vertical: 10),
             child: Row(
@@ -1391,5 +1522,50 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     data.insert(
         0, '系统默认￥${price * _defaultPercent ~/ 100}（药费$_defaultPercent%）');
     return data;
+  }
+
+  List<Widget> _buildExcessItem() {
+    List<Widget> widgets = List();
+    widgets.addAll(conflicts.map((conflict){
+      return Padding(padding: EdgeInsets.only(bottom: 10),child: RichText(
+        text:TextSpan(
+          text: conflict.name1,
+          style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 12),
+          children: <TextSpan>[
+            TextSpan(
+              text: '和',
+              style: TextStyle(fontSize: 12,color: Colors.black)),
+            TextSpan(
+              text: conflict.name2,
+              style: TextStyle(fontSize: 12,color: Theme.of(context).primaryColor),
+            ),
+            TextSpan(
+              text: '配伍禁忌',
+              style: TextStyle(fontSize: 12,color: Colors.black),
+            )
+          ]),
+      ));
+    }).toList());
+    widgets.addAll(poisons.map((poison){
+      return Padding(padding: EdgeInsets.only(bottom: 10),child: RichText(
+        text:TextSpan(
+          text: poison.name,
+          style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 12),
+          children: <TextSpan>[
+            TextSpan(
+              text: '超出限量(',
+              style: TextStyle(fontSize: 12,color: Colors.black)),
+            TextSpan(
+              text: '限量${poison.maxCount}克',
+              style: TextStyle(fontSize: 12,color: Theme.of(context).primaryColor),
+            ),
+            TextSpan(
+              text: ')',
+              style: TextStyle(fontSize: 12,color: Colors.black),
+            )
+          ]),
+      ));
+    }).toList());
+    return widgets;
   }
 }

@@ -1,16 +1,17 @@
+
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/prescription.dart';
 import 'package:flutter_drug/model/prescription_formwork.dart';
 import 'package:flutter_drug/provider/view_state_refresh_list_model.dart';
 
 
-class PrescriptionListModel extends ViewStateRefreshListModel {
+class PrescriptionListModel extends ViewStateRefreshListModel<Prescription> {
   final int status;
 
   PrescriptionListModel(this.status);
 
   @override
-  Future<List> loadData({int pageNum}) async {
+  Future<List<Prescription>> loadData({int pageNum}) async {
     return await Future.delayed(Duration(seconds: 2), () {
       List<Prescription> results = List();
       results.add(Prescription(1,"未支付","杨","男",31,"阴虚;气郁;气郁;气郁;气郁;气郁;气郁;气郁",275.19,"2019-08-30 14:48:06"));
@@ -22,6 +23,7 @@ class PrescriptionListModel extends ViewStateRefreshListModel {
       if(pageNum > 0){
         results.clear();
       }
+
       return results;
     });
   }
@@ -55,7 +57,7 @@ class PrescriptionFormWorkListModel extends ViewStateRefreshListModel {
       drugs.add(Drug('土大黄',10));
       drugs.add(Drug('车前子',12));
       //常用处方
-      results.add(PrescriptionFormWork(1,"去火",drugs));
+      results.add(PrescriptionFormWork(1,"超量配伍禁忌测试",[Drug('制草乌',12),Drug('川乌',12),Drug('川贝母',12)]));
       results.add(PrescriptionFormWork(1,"跌打损伤",List<Drug>()..add(Drug('当归',10))));
       results.add(PrescriptionFormWork(1,"祛湿",drugs));
 

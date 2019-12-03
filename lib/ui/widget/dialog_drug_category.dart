@@ -21,7 +21,7 @@ class DialogDrugCategory extends StatelessWidget {
         ),
         Container(
           color: Colors.white,
-          height: 550,
+          height: 520,
           child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
             children: <Widget>[
               Container(
@@ -40,7 +40,7 @@ class DialogDrugCategory extends StatelessWidget {
                   ],
                 ),
                 color: Colors.grey[200],
-                padding: EdgeInsets.fromLTRB(20,15,20,15),
+                padding: EdgeInsets.fromLTRB(20,12,20,12),
               ),
               Expanded(
                 child: Row(

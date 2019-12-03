@@ -1,3 +1,4 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/provider_manager.dart';
@@ -8,6 +9,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'config/router_manager.dart';
+import 'event/event_bus.dart';
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -20,6 +22,11 @@ void main() async {
 }
 
 class App extends StatelessWidget {
+
+  App(){
+    final eventBus = new EventBus();
+    ApplicationEvent.event = eventBus;
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -157,7 +157,8 @@ class UserInfoPage extends StatelessWidget {
                 ),
                 bottom: true
               ),
-            )
+            ),
+            SizedBox(height: 10)
           ],
         ),
       ),

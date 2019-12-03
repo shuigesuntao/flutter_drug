@@ -88,6 +88,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
                     labelStyle:TextStyle(fontSize: 16),
                     unselectedLabelColor: Colors.black87,
                     indicatorWeight: 3,
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: List.generate(tabTitles.length, (index) => Tab(text: tabTitles[index]))
                   ),

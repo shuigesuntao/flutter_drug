@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage>
                                 children: <Widget>[
                                   _buildMainItem(
                                       () => Navigator.of(context)
-                                          .pushNamed(RouteName.test),
+                                          .pushNamed(RouteName.inviteDoctor),
                                       Color(0xfffff4f0),
                                       '推荐有奖',
                                       '推荐同行，各得49元现金',

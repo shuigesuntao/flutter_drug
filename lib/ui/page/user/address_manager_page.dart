@@ -10,6 +10,11 @@ import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AddressManagePage extends StatefulWidget {
+
+  final bool isSelect;
+
+  AddressManagePage({this.isSelect});
+
   @override
   State<StatefulWidget> createState() => _AddressManagePageState();
 
@@ -36,6 +41,7 @@ class _AddressManagePageState extends State<AddressManagePage>{
             controller: model.refreshController,
             onRefresh: model.refresh,
             onLoading: model.loadMore,
+            enablePullUp: true,
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverToBoxAdapter(
@@ -98,78 +104,85 @@ class _AddressManagePageState extends State<AddressManagePage>{
   }
 
   Widget _buildAddressItem(BuildContext context, Address address) {
-    return Container(
-      color: Colors.white,
-      child: Row(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(15),
-            child: Container(
-              width: 40,
-              height: 40,
-              decoration:
-              BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
-              child: Center(
-                child: Text(address.name.substring(0, 1),
-                  style: TextStyle(fontSize: 18, color: Colors.white)),
+    return GestureDetector(
+      onTap: (){
+        if(widget.isSelect){
+          Navigator.of(context).pop(address);
+        }
+      },
+      child: Container(
+        color: Colors.white,
+        child: Row(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(15),
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
+                child: Center(
+                  child: Text(address.name.substring(0, 1),
+                    style: TextStyle(fontSize: 18, color: Colors.white)),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(0, 15, 10, 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Text(address.name, style: TextStyle(fontSize: 16)),
-                      SizedBox(width: 10),
-                      Text(address.phone,
-                        style: TextStyle(color: Colors.grey, fontSize: 13))
-                    ]),
-                  SizedBox(height: 3),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Offstage(
-                        offstage: address.isDefault != 1,
-                        child: Container(
-                          margin: EdgeInsets.only(right: 5),
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          decoration: BoxDecoration(
-                            color: Color(0xffda384a),
-                            borderRadius: BorderRadius.circular(5)),
-                          child: Text(
-                            '默认',
-                            style: TextStyle(color: Colors.white, fontSize: 12),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 15, 10, 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        Text(address.name, style: TextStyle(fontSize: 16)),
+                        SizedBox(width: 10),
+                        Text(address.phone,
+                          style: TextStyle(color: Colors.grey, fontSize: 13))
+                      ]),
+                    SizedBox(height: 3),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Offstage(
+                          offstage: address.isDefault != 1,
+                          child: Container(
+                            margin: EdgeInsets.only(right: 5),
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            decoration: BoxDecoration(
+                              color: Color(0xffda384a),
+                              borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              '默认',
+                              style: TextStyle(color: Colors.white, fontSize: 12),
+                            ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Text('${address.area}--${address.address}',
-                          style: TextStyle(fontSize: 13)))
-                    ],
-                  )
-                ],
-              ),
-            )),
-          Container(
-            color: Colors.grey[300],
-            width: 1,
-            height: 25,
-          ),
-          GestureDetector(
-            onTap: () => Navigator.of(context)
-              .pushNamed(RouteName.editAddress, arguments: address),
-            child: Padding(
-              padding: EdgeInsets.all(15),
-              child: Text('编辑',
-                style: TextStyle(color: Colors.grey, fontSize: 12)),
+                        Expanded(
+                          child: Text('${address.area}--${address.address}',
+                            style: TextStyle(fontSize: 13)))
+                      ],
+                    )
+                  ],
+                ),
+              )),
+            Container(
+              color: Colors.grey[300],
+              width: 1,
+              height: 25,
             ),
-          )
-        ],
-      ));
+            GestureDetector(
+              onTap: () => Navigator.of(context)
+                .pushNamed(RouteName.editAddress, arguments: address),
+              child: Padding(
+                padding: EdgeInsets.all(15),
+                child: Text('编辑',
+                  style: TextStyle(color: Colors.grey, fontSize: 12)),
+              ),
+            )
+          ],
+        )),
+    );
   }
 }
