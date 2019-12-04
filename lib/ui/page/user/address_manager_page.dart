@@ -92,7 +92,7 @@ class _AddressManagePageState extends State<AddressManagePage>{
                   : model.error
                 ? ViewStateWidget(onPressed: model.initData)
                   : model.empty
-                ? ViewStateEmptyWidget()
+                ? ViewStateEmptyWidget(image: 'zwshdz.png',)
                   : SliverList(delegate: SliverChildBuilderDelegate((context,index) => _buildAddressItem(context, model.list[index]),childCount: model.list.length)
                 )
               ]

@@ -23,7 +23,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
+  with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -43,226 +43,234 @@ class _HomePageState extends State<HomePage>
 //    /// iPhoneX 头部适配
 //    var top = MediaQuery.of(context).padding.top;
 //    var bannerHeight = size.width * 9 / 16 - top;
+    UserModel model = Provider.of<UserModel>(context);
     return ProviderWidget<HomeModel>(
-        model: HomeModel(),
-        onModelReady: (homeModel) {
-          homeModel.initData();
-        },
-        builder: (context, homeModel, child) {
-          return Scaffold(
-            appBar:
-                TitleBar.buildCommonAppBar(context, '工作室', isShowBack: false),
-            body: homeModel.error
-                ? ViewStateWidget(onPressed: homeModel.initData)
-                : SmartRefresher(
-                    controller: homeModel.refreshController,
-                    onRefresh: homeModel.refresh,
-                    //防止软键盘超出
-                    child: SingleChildScrollView(
-                        child: Column(
-                      children: <Widget>[
-                        Container(
-                            margin: EdgeInsets.symmetric(vertical: 5),
-                            padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                            color: Colors.white,
-                            child: Consumer<UserModel>(
-                                builder: (context, model, child) {
-                              return UserInfoHeader(
-                                imageUrl: model.user?.icon,
-                                name: '${model.user?.name}的个人工作室',
-                                type: model.user?.type,
-                                job: model.user?.level,
-                                hasRightIcon: false,
-                                isLogin: model.hasUser,
-                                onButtonClick: () {
-                                  if (model.hasUser) {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return CupertinoAlertDialog(
-                                            title: Text('400 052 0120'),
-                                            actions: <Widget>[
-                                              CupertinoDialogAction(
-                                                child: Text("取消"),
-                                                onPressed: () {
-                                                  Navigator.maybePop(context);
-                                                  print("取消");
-                                                },
-                                              ),
-                                              CupertinoDialogAction(
-                                                child: Text("呼叫"),
-                                                onPressed: () =>
-                                                    callPhone('400 052 0120'),
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  } else {
-                                    model.saveUser(User(
-                                        1,
-                                        "http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg",
-                                        "许洪亮",
-                                        "内科",
-                                        "主任医师"));
-                                  }
-                                },
+      model: HomeModel(),
+      onModelReady: (homeModel) {
+        homeModel.initData();
+      },
+      builder: (context, homeModel, child) {
+        return Scaffold(
+          appBar:
+          TitleBar.buildCommonAppBar(context, '工作室', isShowBack: false),
+          body: homeModel.error
+            ? ViewStateWidget(onPressed: homeModel.initData)
+            : SmartRefresher(
+            controller: homeModel.refreshController,
+            onRefresh: homeModel.refresh,
+            //防止软键盘超出
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    color: Colors.white,
+                    child: UserInfoHeader(
+                      imageUrl: model.user?.icon,
+                      name: '${model.user?.name}的个人工作室',
+                      type: model.user?.type,
+                      job: model.user?.level,
+                      hasRightIcon: false,
+                      isLogin: model.hasUser,
+                      onButtonClick: () {
+                        if (model.hasUser) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CupertinoAlertDialog(
+                                title: Text('400 052 0120'),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    child: Text("取消"),
+                                    onPressed: () {
+                                      Navigator.maybePop(context);
+                                      print("取消");
+                                    },
+                                  ),
+                                  CupertinoDialogAction(
+                                    child: Text("呼叫"),
+                                    onPressed: () =>
+                                      callPhone('400 052 0120'),
+                                  ),
+                                ],
                               );
-                            })),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  HomeItemWidget(
-                                    '添加患者',
-                                    'icon_yqhz.png',
-                                    onClick: () =>
-                                        nextPage(RouteName.addPatient),
-                                  ),
-                                  HomeItemWidget(
-                                    '在线开方',
-                                    'icon_zxkf.png',
-                                    onClick: () =>
-                                        nextPage(RouteName.choosePerson),
-                                  ),
-                                  HomeItemWidget(
-                                    '拍方上传',
-                                    'icon_pfsc.png',
-                                    onClick: () =>
-                                        nextPage(RouteName.takePrescription),
-                                  ),
-                                  Badge(
-                                    padding: EdgeInsets.all(7),
-                                    elevation: 0,
-                                    badgeContent: Text(
-                                      '1',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    position: BadgePosition.topRight(
-                                        top: -6, right: 1),
-                                    child: HomeItemWidget(
-                                      '审方消息',
-                                      'icon_sfxx.png',
-                                      onClick: () =>
-                                          nextPage(RouteName.checkMessage),
-                                    ),
-                                  ),
-                                ],
+                            });
+                        } else {
+                          Navigator.of(context).pushNamed(RouteName.login);
+                        }
+                      },
+                    )
+                  ),
+                  Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            HomeItemWidget(
+                              '添加患者',
+                              'icon_yqhz.png',
+                              onClick: () =>
+                                nextPage(RouteName.addPatient),
+                            ),
+                            HomeItemWidget(
+                              '在线开方',
+                              'icon_zxkf.png',
+                              onClick: () =>
+                                nextPage(RouteName.choosePerson),
+                            ),
+                            HomeItemWidget(
+                              '拍方上传',
+                              'icon_pfsc.png',
+                              onClick: () =>
+                                nextPage(RouteName.takePrescription),
+                            ),
+                            Badge(
+                              padding: EdgeInsets.all(7),
+                              elevation: 0,
+                              badgeContent: Text(
+                                '1',
+                                style: TextStyle(color: Colors.white),
                               ),
-                              SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  HomeItemWidget(
-                                    '处方模板',
-                                    'icon_cfmb.png',
-                                    onClick: () => Navigator.of(context)
-                                        .pushNamed(
-                                            RouteName.prescriptionFormWork,
-                                            arguments: false),
-                                  ),
-                                  HomeItemWidget(
-                                    '服务设置',
-                                    'icon_szcz.png',
-                                    onClick: () =>
-                                        nextPage(RouteName.serviceSetting),
-                                  ),
-                                  HomeItemWidget(
-                                    '发布公告',
-                                    'icon_fbgg.png',
-                                    onClick: () =>
-                                        nextPage(RouteName.publishNotice),
-                                  ),
-                                  HomeItemWidget(
-                                    '已开处方',
-                                    'icon_ykcf.png',
-                                    onClick: () =>
-                                        nextPage(RouteName.prescriptionAlready),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
+                              position: BadgePosition.topRight(
+                                top: -6, right: 1),
+                              child: HomeItemWidget(
+                                '审方消息',
+                                'icon_sfxx.png',
+                                onClick: () =>
+                                  nextPage(RouteName.checkMessage),
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: 5),
-                        _buildBanner(),
-                        Container(
-                          color: Colors.white,
-                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                          child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: <Widget>[
-                                  _buildMainItem(
-                                      () => Navigator.of(context)
-                                          .pushNamed(RouteName.inviteDoctor),
-                                      Color(0xfffff4f0),
-                                      '推荐有奖',
-                                      '推荐同行，各得49元现金',
-                                      'icon_tjyj.png'),
-                                  SizedBox(width: 5),
-                                  _buildMainItem(
-                                      () => _goToWebPage(
-                                          context,
-                                          '专属药房',
-                                          'https://wx.zgzydb.com/web4/yxzinformation/#/pharmacy',
-                                          true),
-                                      Color(0xfffbf9ea),
-                                      '专属药房',
-                                      '品类齐全，品质保证',
-                                      'icon_zsyf.png'),
-                                  SizedBox(width: 5),
-                                  _buildMainItem(
-                                      () => _goToWebPage(
-                                          context,
-                                          '开方指南',
-                                          'https://wx.zgzydb.com/web4/yxzinformation/#/preguide',
-                                          true),
-                                      Color(0xfffef4e9),
-                                      '开方指南',
-                                      '线上开方，送药到家',
-                                      'icon_kfzn.png'),
-                                ],
-                              )),
-                        ),
-                        SizedBox(height: 5),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                          color: Colors.white,
-                          child: Row(
-                            children: <Widget>[
-                              Image.asset(
-                                  ImageHelper.wrapAssets('icon_xiaoxi.png'),
-                                  width: 40,
-                                  height: 40),
-                              SizedBox(width: 15),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text('消息通知',
-                                        style: TextStyle(fontSize: 16)),
-                                    SizedBox(height: 3),
-                                    Text('暂无消息通知',
-                                        style: TextStyle(
-                                            color: Colors.grey[400],
-                                            fontSize: 12))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
+                        SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            HomeItemWidget(
+                              '处方模板',
+                              'icon_cfmb.png',
+                              onClick: () =>
+                                Navigator.of(context)
+                                  .pushNamed(
+                                  RouteName.prescriptionFormWork,
+                                  arguments: false),
+                            ),
+                            HomeItemWidget(
+                              '服务设置',
+                              'icon_szcz.png',
+                              onClick: () =>
+                                nextPage(RouteName.serviceSetting),
+                            ),
+                            HomeItemWidget(
+                              '发布公告',
+                              'icon_fbgg.png',
+                              onClick: () =>
+                                nextPage(RouteName.publishNotice),
+                            ),
+                            HomeItemWidget(
+                              '已开处方',
+                              'icon_ykcf.png',
+                              onClick: () =>
+                                nextPage(RouteName.prescriptionAlready),
+                            ),
+                          ],
                         )
                       ],
-                    )),
+                    ),
                   ),
-          );
-        });
+                  SizedBox(height: 5),
+                  _buildBanner(),
+                  Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: <Widget>[
+                          _buildMainItem(
+                              () =>
+                              Navigator.of(context)
+                                .pushNamed(RouteName.inviteDoctor),
+                            Color(0xfffff4f0),
+                            '推荐有奖',
+                            '推荐同行，各得49元现金',
+                            'icon_tjyj.png'),
+                          SizedBox(width: 5),
+                          _buildMainItem(
+                              () =>
+                              _goToWebPage(
+                                context,
+                                '专属药房',
+                                'http://wx.zgzydb.com/web4/yxzinformation/#/pharmacy',
+                                true),
+                            Color(0xfffbf9ea),
+                            '专属药房',
+                            '品类齐全，品质保证',
+                            'icon_zsyf.png'),
+                          SizedBox(width: 5),
+                          _buildMainItem(
+                              () =>
+                              _goToWebPage(
+                                context,
+                                '开方指南',
+                                'http://wx.zgzydb.com/web4/yxzinformation/#/preguide',
+                                true),
+                            Color(0xfffef4e9),
+                            '开方指南',
+                            '线上开方，送药到家',
+                            'icon_kfzn.png'),
+                        ],
+                      )),
+                  ),
+                  SizedBox(height: 5),
+                  GestureDetector(
+                    onTap: () {
+                      if (!model.hasUser) {
+                        Navigator.of(context).pushNamed(RouteName.login);
+                      } else {
+                        Navigator.of(context).pushNamed(RouteName.messageNote);
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      color: Colors.white,
+                      child: Row(
+                        children: <Widget>[
+                          Image.asset(
+                            ImageHelper.wrapAssets('icon_xiaoxi.png'),
+                            width: 40,
+                            height: 40),
+                          SizedBox(width: 15),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text('消息通知',
+                                  style: TextStyle(fontSize: 16)),
+                                SizedBox(height: 3),
+                                Text('暂无消息通知',
+                                  style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 12))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+
+                ],
+              )),
+          ),
+        );
+      });
   }
 
   void callPhone(String phone) async {
@@ -287,27 +295,35 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildMainItem(VoidCallback onTap, Color backgroundColor, String title,
-      String subTitle, String icon) {
+    String subTitle, String icon) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: (){
+        if(Provider
+          .of<UserModel>(context)
+          .hasUser){
+          onTap();
+        }else{
+          Navigator.of(context).pushNamed(RouteName.login);
+        }
+      },
       child: Container(
         width: 150,
         decoration: BoxDecoration(
-            color: backgroundColor, borderRadius: BorderRadius.circular(5)),
+          color: backgroundColor, borderRadius: BorderRadius.circular(5)),
         padding: EdgeInsets.all(10),
         child: Row(
           children: <Widget>[
             Expanded(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(title),
-                SizedBox(height: 1),
-                Text(subTitle,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(title),
+                  SizedBox(height: 1),
+                  Text(subTitle,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: Colors.grey[400], fontSize: 10.5))
-              ],
-            )),
+                ],
+              )),
             Image.asset(ImageHelper.wrapAssets(icon), width: 25, height: 25)
           ],
         ),
@@ -317,36 +333,42 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildBanner() {
     return AspectRatio(
-        aspectRatio: 4 / 1,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Consumer<HomeModel>(builder: (_, model, __) {
-            if (model.busy) {
-              return CupertinoActivityIndicator();
-            } else {
-              return Swiper(
-                loop: model.list.length > 1,
-                autoplay: model.list.length > 1,
-                autoplayDelay: 3000,
-                itemCount: model.list.length,
-                pagination: model.list.length > 1
-                    ? SwiperPagination(
-                        margin: EdgeInsets.only(bottom: 2),
-                        builder: DotSwiperPaginationBuilder(
-                            activeColor: Colors.white, color:Colors.grey[350],size: 6, activeSize: 6))
-                    : null,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                      onTap: () => _goToWebPage(context,
-                          model.list[index].title, model.list[index].url, true),
-                      child: BannerImage(model.list[index].image));
-                },
-              );
-            }
-          }),
-        ));
+      aspectRatio: 4 / 1,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Theme
+            .of(context)
+            .scaffoldBackgroundColor,
+        ),
+        child: Consumer<HomeModel>(builder: (_, model, __) {
+          if (model.busy) {
+            return CupertinoActivityIndicator();
+          } else {
+            return Swiper(
+              loop: model.list.length > 1,
+              autoplay: model.list.length > 1,
+              autoplayDelay: 3000,
+              itemCount: model.list.length,
+              pagination: model.list.length > 1
+                ? SwiperPagination(
+                margin: EdgeInsets.only(bottom: 2),
+                builder: DotSwiperPaginationBuilder(
+                  activeColor: Colors.white,
+                  color: Colors.grey[350],
+                  size: 6,
+                  activeSize: 6))
+                : null,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () =>
+                    _goToWebPage(context,
+                      model.list[index].title, model.list[index].url, true),
+                  child: BannerImage(model.list[index].image));
+              },
+            );
+          }
+        }),
+      ));
   }
 }
 
@@ -360,7 +382,15 @@ class HomeItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick,
+      onTap: () {
+        if (Provider
+          .of<UserModel>(context)
+          .hasUser) {
+          onClick();
+        } else {
+          Navigator.of(context).pushNamed(RouteName.login);
+        }
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[

@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'view_state_list_model.dart';
 
 /// 基于
-abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
+abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
   /// 分页第一页页码
   static const int pageNumFirst = 0;
 
@@ -35,14 +35,14 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel {
       } else {
         onCompleted(data);
         list.addAll(data);
-        refreshController.refreshCompleted();
-        // 小于分页的数量,禁止上拉加载更多
-        if (data.length < pageSize) {
-          refreshController.loadNoData();
-        } else {
-          //防止上次上拉加载更多失败,需要重置状态
-          refreshController.loadComplete();
-        }
+        refreshController.refreshCompleted(resetFooterState: true);
+//        // 小于分页的数量,禁止上拉加载更多
+//        if (data.length < pageSize) {
+//          refreshController.loadNoData();
+//        } else {
+//          //防止上次上拉加载更多失败,需要重置状态
+//          refreshController.loadComplete();
+//        }
         setIdle();
       }
       return data;

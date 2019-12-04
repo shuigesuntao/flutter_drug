@@ -8,6 +8,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:label="药匣子"
         android:icon="@mipmap/ic_launcher">
         <activity

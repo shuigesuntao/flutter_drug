@@ -10,11 +10,10 @@ import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
 class EditDrugPage extends StatefulWidget {
-  final List<Drug> drugs;
-  final int category;
-  final int drugStore;
 
-  EditDrugPage({this.drugs, this.category, this.drugStore});
+  final List<Drug> drugs;
+
+  EditDrugPage({this.drugs});
 
   @override
   State<StatefulWidget> createState() => _EditDrugPageState(drugs);
@@ -35,7 +34,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: EditDrugAppBar(drugs: drugs,drugStore: widget.drugStore,category: widget.category,onClear: ()=> setState(()=>drugs.clear()),),
+      appBar: EditDrugAppBar(drugs: drugs,onClear: ()=> setState(()=>drugs.clear())),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: GridView.count(
@@ -177,11 +176,9 @@ class _EditDrugPageState extends State<EditDrugPage> {
 
 class EditDrugAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Drug> drugs;
-  final int category;
-  final int drugStore;
   final VoidCallback onClear;
 
-  EditDrugAppBar({this.drugs, this.category, this.drugStore,this.onClear});
+  EditDrugAppBar({this.drugs,this.onClear});
   @override
   State<StatefulWidget> createState() => _EditDrugAppBarState();
 
@@ -305,16 +302,19 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                         ))
                       ],
                     ),
-                    SizedBox(height: 5),
-                    GestureDetector(
-                      onTap: ()=> Navigator.of(context).pushNamed(RouteName.singleDrugPriceDetail,arguments: widget.drugs),
-                      child: Text(
-                        '共 ${widget.drugs.length} 味，每剂 ${(widget.drugs.fold(0, (pre, e) => (pre + e.price * e.count))).toStringAsFixed(4)} 元，重 ${widget.drugs.fold(0, (pre, e) => pre + (e.unitCount == null ? e.count : e.unitCount))}克，详情',
-                        style:
-                        TextStyle(fontSize: 12, color: Color(0xffeaaf4c)))
-                      ,
+                    Column(
+                      children: <Widget>[
+                        SizedBox(height: 5),
+                        GestureDetector(
+                          onTap: ()=> Navigator.of(context).pushNamed(RouteName.singleDrugPriceDetail,arguments: widget.drugs),
+                          child: Text(
+                            '共 ${widget.drugs.length} 味，每剂 ${(widget.drugs.fold(0, (pre, e) => (pre + e.price * e.count))).toStringAsFixed(4)} 元，重 ${widget.drugs.fold(0, (pre, e) => pre + (e.unitCount == null ? e.count : e.unitCount))}克，详情',
+                            style:
+                            TextStyle(fontSize: 12, color: Color(0xffeaaf4c)))
+                          ,
+                        )
+                      ],
                     )
-
                   ],
                 ),
               ],

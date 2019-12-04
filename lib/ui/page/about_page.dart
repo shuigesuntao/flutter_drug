@@ -14,23 +14,24 @@ class AboutPage extends StatefulWidget{
 class AboutPageState extends State<AboutPage>{
   String _version;
 
+  final String phone = '400-520-120';
+
   @override
   void initState() {
     super.initState();
     getAppVersion();
   }
-
   @override
   Widget build(BuildContext context) {
-    final String phone = '400-520-120';
+
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context, '关于药匣子'),
       body: Column(
         children: <Widget>[
           SizedBox(height: 30),
-          Image.asset(ImageHelper.wrapAssets('logo.png'),width: 100,height: 100),
+          Image.asset(ImageHelper.wrapAssets('logo.png'),width: 80,height: 80),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.only(top: 10,bottom: 25),
             child: Text('药匣子 V$_version',style: TextStyle(fontSize: 16,color: Colors.grey))
           ),
           GestureDetector(
@@ -57,12 +58,12 @@ class AboutPageState extends State<AboutPage>{
                 });
             },
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.fromLTRB(10,12,20,12),
               color: Colors.white,
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Text('联系客服',style: TextStyle(fontSize: 18))),
-                  Text(phone,style: TextStyle(fontSize: 18,color: Theme.of(context).primaryColor))
+                  Expanded(child: Text('联系客服',style: TextStyle(fontSize: 16))),
+                  Text(phone,style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor))
                 ],
               ),
             ),
@@ -75,7 +76,7 @@ class AboutPageState extends State<AboutPage>{
                 children: <Widget>[
                   Text('北京一药良心信息科技有限公司'),
                   SizedBox(height: 3),
-                  Text('©2017-2019 药匣子 technology co.,ltd')
+                  Text('©2015-2018 药匣子 technology co.,ltd')
                 ],
               ),
             )

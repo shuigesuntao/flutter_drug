@@ -3,17 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/model/doctor_advice.dart';
 import 'package:flutter_drug/model/friend.dart';
+import 'package:flutter_drug/model/prescription_formwork.dart';
 import 'package:flutter_drug/ui/page/about_page.dart';
 import 'package:flutter_drug/ui/page/account/bind_wechat_page.dart';
 import 'package:flutter_drug/ui/page/account/month_bill_page.dart';
 import 'package:flutter_drug/ui/page/account/show_account_page.dart';
 import 'package:flutter_drug/ui/page/account/wechat_cash_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
+import 'package:flutter_drug/ui/page/login_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/confirm_order_page.dart';
-import 'package:flutter_drug/ui/page/prescription/edit_drug_page.dart';
 import 'package:flutter_drug/ui/page/prescription/finish_order_detail_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_already_page.dart';
+import 'package:flutter_drug/ui/page/prescription/p_formwork_detail_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_tab_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_choose_person_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_open_page.dart';
@@ -22,9 +24,12 @@ import 'package:flutter_drug/ui/page/prescription/p_single_drug_detail_page.dart
 import 'package:flutter_drug/ui/page/prescription/p_take_page.dart';
 import 'package:flutter_drug/ui/page/prescription/p_yizhu_page.dart';
 import 'package:flutter_drug/ui/page/prescription/order_detail_page.dart';
+import 'package:flutter_drug/ui/page/search/p_already_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
-import 'package:flutter_drug/ui/page/setting_page.dart';
+import 'package:flutter_drug/ui/page/user/modify_password_page.dart';
+import 'package:flutter_drug/ui/page/user/modify_phone_page.dart';
+import 'package:flutter_drug/ui/page/user/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
 import 'package:flutter_drug/ui/page/suggestion_page.dart';
 import 'package:flutter_drug/ui/page/tab/tab_navigator.dart';
@@ -37,10 +42,13 @@ import 'package:flutter_drug/ui/page/user/edit_address_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_doctor_advice_page.dart';
 import 'package:flutter_drug/ui/page/account/my_account_page.dart';
 import 'package:flutter_drug/ui/page/user/example_page.dart';
+import 'package:flutter_drug/ui/page/user/follow_up_page.dart';
 import 'package:flutter_drug/ui/page/user/friend_info_page.dart';
 import 'package:flutter_drug/ui/page/user/invite_doctor_page.dart';
+import 'package:flutter_drug/ui/page/user/message_note_page.dart';
 import 'package:flutter_drug/ui/page/user/my_invite_page.dart';
 import 'package:flutter_drug/ui/page/user/my_occupation_page.dart';
+import 'package:flutter_drug/ui/page/user/patient_tab_page.dart';
 import 'package:flutter_drug/ui/page/user/publish_notice_page.dart';
 import 'package:flutter_drug/ui/page/user/service_setting_page.dart';
 import 'package:flutter_drug/ui/page/user/user_info_page.dart';
@@ -50,8 +58,12 @@ import 'package:flutter_drug/ui/widget/page_route_anim.dart';
 
 class RouteName {
   static const String splash = 'splash';//闪屏页
+  static const String login = 'login';//登录页
   static const String tab = '/';//首页
   static const String test = 'test';//测试
+  static const String messageNote = 'messageNote';//消息通知
+  static const String patientTab = 'patientTab';//随访复诊患者
+  static const String followUp = 'followUp';//随访说明
   static const String addPatient = 'addPatient';//添加患者
   static const String inviteDoctor = 'inviteDoctor';//邀请医生
   static const String myInvite = 'MyInvite';//邀请医生
@@ -63,6 +75,7 @@ class RouteName {
   static const String takePrescription = 'takePrescription';//拍方上传
   static const String checkMessage = 'checkMessage';//审方消息
   static const String prescriptionFormWork = 'prescriptionFormWork';//处方模板
+  static const String formWorkDetail = 'formWorkDetail';//处方模板
   static const String serviceSetting = 'serviceSetting';//服务设置
   static const String publishNotice = 'publishNotice';//发布公告
   static const String prescriptionAlready = 'prescriptionAlready';//已开处方
@@ -71,8 +84,8 @@ class RouteName {
   static const String confirmOrder = 'confirmOrder';//确认处方
   static const String prescriptionSample = 'prescriptionSample';//处方示例
   static const String prescriptionFormWorkSearch = 'prescriptionFormWorkSearch';//处方模板搜索
+  static const String prescriptionAlreadySearch = 'prescriptionAlreadySearch';//已开处方搜索
   static const String prescriptionPersonSearch = 'prescriptionPersonSearch';//开方患者搜索
-  static const String login = 'login';
   static const String register = 'register';
   static const String myAccount = 'myAccount';//我的账户
   static const String webView = 'webView';//提现规则
@@ -91,6 +104,8 @@ class RouteName {
   static const String myOccupation = 'myOccupation';//我的职业保障
   static const String suggestion = 'suggestion';//意见反馈
   static const String setting = 'setting';//设置
+  static const String modifyPhone = 'modifyPhone';//修改手机
+  static const String modifyPassword = 'modifyPassword';//修改密码
   static const String about = 'about';//关于
 }
 
@@ -99,8 +114,16 @@ class Router {
     switch (settings.name) {
       case RouteName.splash:
         return NoAnimRouteBuilder(SplashPage());
+      case RouteName.login:
+        return MaterialPageRoute(fullscreenDialog:true,builder: (_) => LoginPage());
       case RouteName.tab:
         return NoAnimRouteBuilder(TabNavigator());
+      case RouteName.patientTab:
+        return CupertinoPageRoute(builder: (_) => PatientTabPage(type:settings.arguments as int));
+      case RouteName.followUp:
+        return CupertinoPageRoute(builder: (_) => FollowUpPage());
+      case RouteName.messageNote:
+        return CupertinoPageRoute(builder: (_) => MessageNotePage());
       case RouteName.addPatient:
         return CupertinoPageRoute(builder: (_) => AddPatientPage());
       case RouteName.inviteDoctor:
@@ -123,6 +146,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => CheckMessagePage());
       case RouteName.prescriptionFormWork:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkPage(hasHistory: settings.arguments as bool));
+      case RouteName.formWorkDetail:
+        return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkDetailPage(p: settings.arguments as PrescriptionFormWork));
       case RouteName.serviceSetting:
         return CupertinoPageRoute(builder: (_) => ServiceSettingPage());
       case RouteName.publishNotice:
@@ -139,6 +164,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => PrescriptionSamplePage());
       case RouteName.prescriptionFormWorkSearch:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkSearchPage());
+      case RouteName.prescriptionAlreadySearch:
+        return CupertinoPageRoute(builder: (_) => PrescriptionAlreadySearchPage());
       case RouteName.prescriptionPersonSearch:
         return CupertinoPageRoute(builder: (_) => PrescriptionPersonSearchPage(type: settings.arguments as int));
       case RouteName.test:
@@ -203,6 +230,10 @@ class Router {
         return CupertinoPageRoute(builder: (_) => SettingPage());
       case RouteName.about:
         return CupertinoPageRoute(builder: (_) => AboutPage());
+      case RouteName.modifyPhone:
+        return CupertinoPageRoute(builder: (_) => ModifyPhonePage());
+      case RouteName.modifyPassword:
+        return CupertinoPageRoute(builder: (_) => ModifyPasswordPage());
       case RouteName.userInfo:
         return CupertinoPageRoute(builder: (_) => UserInfoPage());
 //      case RouteName.coinRankingList:

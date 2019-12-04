@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
+import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
+import 'package:flutter_drug/ui/widget/dialog_progress.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/publish_notice_model.dart';
 import 'package:oktoast/oktoast.dart';
@@ -16,16 +18,30 @@ class PublishNoticePage extends StatefulWidget {
 class _PublishNoticePageState extends State<PublishNoticePage> {
   final _controller = TextEditingController();
 
+  bool cancel = false;
+  String publish = '呵呵';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context, '发布公告', actionText: '发布',
           onActionPress: () {
-        String text = _controller.value.text;
+        String text = _controller.text;
         if (text.isEmpty) {
-          showToast('请添加公告内容', radius: 5);
+          showToast('请添加公告内容');
         } else {
-          print('点击了发布$text');
+          if(cancel){
+            _publishNotice();
+          }else{
+            showDialog(
+              context: context,
+              builder: (context) {
+                return CustomDialogAlert(
+                  content: '是否确定发布当前公告内容？确定\n则发布并覆盖上一条公告',
+                  onPressed: () => _publishNotice()
+                );
+              });
+          }
         }
       }),
       body: GestureDetector(
@@ -179,30 +195,35 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
           Padding(
               padding: EdgeInsets.all(15),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Expanded(
-                      child: Text('当前公告',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15))),
-                  SizedBox(
-                    width: 60,
-                    height: 25,
-                    child: OutlineButton(
-                      onPressed: () => showDialog(
+                  Text('当前公告',
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                  Offstage(
+                    offstage: cancel,
+                    child: SizedBox(
+                      width: 60,
+                      height: 25,
+                      child: OutlineButton(
+                        onPressed: () => showDialog(
                           context: context,
                           builder: (context) {
                             return DialogAlert(
                               content: '是否撤下当前公告？',
                               onPressed: () {
-                                print('撤下公告');
+                                setState(() {
+                                  cancel = true;
+                                });
                                 Navigator.pop(context);
                               },
                             );
                           }),
-                      color: Colors.white,
-                      child: Text('撤下',style: TextStyle(color: Colors.grey[600])),
-                      borderSide: BorderSide(color: Colors.black54, width: 1),
-                      shape: RoundedRectangleBorder(
+                        color: Colors.white,
+                        child: Text('撤下',style: TextStyle(color: Colors.grey[600])),
+                        borderSide: BorderSide(color: Colors.black54, width: 1),
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(3))),
+                      ),
                     ),
                   ),
                 ],
@@ -213,7 +234,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('来开方'),
+                Text(publish),
                 SizedBox(height: 10),
                 Row(
                   children: <Widget>[
@@ -222,7 +243,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
                       '发布于:2019-09-03 20:58:54',
                       style: TextStyle(color: Colors.grey,fontSize: 12),
                     )),
-                    Text('永久有效', style: TextStyle(color: Colors.grey,fontSize: 12))
+                    Text(cancel?'已撤销':'永久有效', style: TextStyle(color: Colors.grey,fontSize: 12))
                   ],
                 )
               ],
@@ -231,5 +252,23 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
         ],
       ),
     );
+  }
+
+  void _publishNotice() {
+    Future.delayed(Duration(microseconds: 200), (){
+      showDialog(context: context,builder:(context){
+        return ProgressDialog();
+      });
+      Future.delayed(Duration(seconds: 1), (){
+        showToast('发布成功!');
+        setState(() {
+          publish = _controller.text;
+          cancel = false;
+        });
+        _controller.text = '';
+        Navigator.of(context).pop();
+      });
+    });
+
   }
 }

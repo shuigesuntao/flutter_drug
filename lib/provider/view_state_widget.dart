@@ -71,9 +71,9 @@ class ViewStateEmptyWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image.asset(ImageHelper.wrapAssets(image ?? 'lb_null.png')),
+            Image.asset(ImageHelper.wrapAssets(image ?? 'zwsj.png')),
             Text(
-              message ?? '暂无数据!',
+              message ?? '暂无数据',
               style: TextStyle(fontSize: 16,color: Colors.grey),
             ),
           ],

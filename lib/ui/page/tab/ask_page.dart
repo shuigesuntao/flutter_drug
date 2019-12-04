@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/conversation.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
@@ -28,9 +29,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
               children: <Widget>[
                 Expanded(
                   child: GestureDetector(
-                    onTap: (){
-
-                    },
+                    onTap: ()=> Navigator.of(context).pushNamed(RouteName.patientTab,arguments: 1),
                     child: Container(
                       padding: EdgeInsets.fromLTRB(10,5,10,5),
                       decoration: BoxDecoration(
@@ -56,9 +55,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                 SizedBox(width: 10),
                 Expanded(
                   child:  GestureDetector(
-                    onTap: (){
-
-                    },
+                    onTap: ()=>  Navigator.of(context).pushNamed(RouteName.patientTab,arguments: 2),
                     child: Container(
                       padding: EdgeInsets.fromLTRB(10,5,10,5),
                       decoration: BoxDecoration(

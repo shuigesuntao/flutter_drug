@@ -33,9 +33,9 @@ class AuthPageState extends State<AuthPage> {
     _name = userModel.user?.name ?? '';
     _level = userModel.user?.level ?? '';
   }
+
   @override
   Widget build(BuildContext context) {
-
     _controller.value = TextEditingValue(
         // 设置内容
         text: _name,
@@ -58,207 +58,208 @@ class AuthPageState extends State<AuthPage> {
               _buildLevelItem(),
               SizedBox(height: 10),
               Container(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Text('上传医师执业证书证照片', style: TextStyle(fontSize: 15))),
-                          GestureDetector(
-                            onTap: () =>
-                              Navigator.of(context).pushNamed(RouteName.example),
-                            child: Text('查看示例',
-                              style: TextStyle(color: Colors.red[900], fontSize: 15)),
-                          )
-                        ],
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                                child: Text('上传医师执业证书证照片',
+                                    style: TextStyle(fontSize: 15))),
+                            GestureDetector(
+                              onTap: () => Navigator.of(context)
+                                  .pushNamed(RouteName.example),
+                              child: Text('查看示例',
+                                  style: TextStyle(
+                                      color: Colors.red[900], fontSize: 15)),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      color: Colors.grey[350],
-                      height: 0.5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Row(
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () {
-                              _firstCard == null
-                                ? showImageDialog((file) {
-                                setState(() {
-                                  _firstCard = file;
-                                });
-                              })
-                                : Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  fullscreenDialog: true,
-                                  builder: (context) =>
-                                    HeroPhotoViewWrapper(
-                                      imageProvider: FileImage(_firstCard),
-                                      tag: 'first',
-                                    ),
-                                ));
-                            },
-                            child: _buildImageItem(
-                              _firstCard, 'zyzs_01.png', 'first', () {
-                              setState(() {
-                                _firstCard = null;
-                              });
-                            })),
-                          SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () {
-                              _secondCard == null
-                                ? showImageDialog((file) {
-                                setState(() {
-                                  _secondCard = file;
-                                });
-                              })
-                                : Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  fullscreenDialog: true,
-                                  builder: (context) {
-                                    return HeroPhotoViewWrapper(
-                                      imageProvider:
-                                      FileImage(_secondCard),
-                                      tag: 'second',
-                                    );
-                                  }));
-                            },
-                            child: _buildImageItem(
-                              _secondCard, 'zyzs_02.png', 'second', () {
-                              setState(() {
-                                _secondCard = null;
-                              });
-                            }))
-                        ],
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        color: Colors.grey[350],
+                        height: 0.5,
                       ),
-                    ),
-                  ],
-                )
-              ),
+                      Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Row(
+                          children: <Widget>[
+                            GestureDetector(
+                                onTap: () {
+                                  _firstCard == null
+                                      ? showImageDialog((file) {
+                                          setState(() {
+                                            _firstCard = file;
+                                          });
+                                        })
+                                      : Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                            fullscreenDialog: true,
+                                            builder: (context) =>
+                                                HeroPhotoViewWrapper(
+                                              imageProvider:
+                                                  FileImage(_firstCard),
+                                              tag: 'first',
+                                            ),
+                                          ));
+                                },
+                                child: _buildImageItem(
+                                    _firstCard, 'zyzs_01.png', 'first', () {
+                                  setState(() {
+                                    _firstCard = null;
+                                  });
+                                })),
+                            SizedBox(width: 15),
+                            GestureDetector(
+                                onTap: () {
+                                  _secondCard == null
+                                      ? showImageDialog((file) {
+                                          setState(() {
+                                            _secondCard = file;
+                                          });
+                                        })
+                                      : Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              fullscreenDialog: true,
+                                              builder: (context) {
+                                                return HeroPhotoViewWrapper(
+                                                  imageProvider:
+                                                      FileImage(_secondCard),
+                                                  tag: 'second',
+                                                );
+                                              }));
+                                },
+                                child: _buildImageItem(
+                                    _secondCard, 'zyzs_02.png', 'second', () {
+                                  setState(() {
+                                    _secondCard = null;
+                                  });
+                                }))
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
               SizedBox(height: 10),
               Container(
-                color: Colors.white,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                      width: double.infinity,
-                      child: Text('上传其他证件照片（选填）'),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      color: Colors.grey[350],
-                      height: 0.5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child:  Row(
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () {
-                              _zgzsCard == null
-                                ? showImageDialog((file) {
-                                setState(() {
-                                  _zgzsCard = file;
-                                });
-                              })
-                                : Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  fullscreenDialog: true,
-                                  builder: (context) =>
-                                    HeroPhotoViewWrapper(
-                                      imageProvider: FileImage(_zgzsCard),
-                                      tag: 'zgzs',
-                                    ),
-                                ));
-                            },
-                            child: _buildImageItem(_zgzsCard, 'zgzs.png', 'zgzs',
-                                () {
-                                setState(() {
-                                  _zgzsCard = null;
-                                });
-                              })),
-                          SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () {
-                              _qtzjCard == null
-                                ? showImageDialog((file) {
-                                setState(() {
-                                  _qtzjCard = file;
-                                });
-                              })
-                                : Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  fullscreenDialog: true,
-                                  builder: (context) {
-                                    return HeroPhotoViewWrapper(
-                                      imageProvider: FileImage(_qtzjCard),
-                                      tag: 'qtzj',
-                                    );
-                                  }));
-                            },
-                            child: _buildImageItem(_qtzjCard, 'qtzj.png', 'qtzj',
-                                () {
-                                setState(() {
-                                  _qtzjCard = null;
-                                });
-                              }))
-                        ],
+                  color: Colors.white,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        width: double.infinity,
+                        child: Text('上传其他证件照片（选填）'),
                       ),
-                    ),
-                  ],
-                )
-              ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        color: Colors.grey[350],
+                        height: 0.5,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Row(
+                          children: <Widget>[
+                            GestureDetector(
+                                onTap: () {
+                                  _zgzsCard == null
+                                      ? showImageDialog((file) {
+                                          setState(() {
+                                            _zgzsCard = file;
+                                          });
+                                        })
+                                      : Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                            fullscreenDialog: true,
+                                            builder: (context) =>
+                                                HeroPhotoViewWrapper(
+                                              imageProvider:
+                                                  FileImage(_zgzsCard),
+                                              tag: 'zgzs',
+                                            ),
+                                          ));
+                                },
+                                child: _buildImageItem(
+                                    _zgzsCard, 'zgzs.png', 'zgzs', () {
+                                  setState(() {
+                                    _zgzsCard = null;
+                                  });
+                                })),
+                            SizedBox(width: 15),
+                            GestureDetector(
+                                onTap: () {
+                                  _qtzjCard == null
+                                      ? showImageDialog((file) {
+                                          setState(() {
+                                            _qtzjCard = file;
+                                          });
+                                        })
+                                      : Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              fullscreenDialog: true,
+                                              builder: (context) {
+                                                return HeroPhotoViewWrapper(
+                                                  imageProvider:
+                                                      FileImage(_qtzjCard),
+                                                  tag: 'qtzj',
+                                                );
+                                              }));
+                                },
+                                child: _buildImageItem(
+                                    _qtzjCard, 'qtzj.png', 'qtzj', () {
+                                  setState(() {
+                                    _qtzjCard = null;
+                                  });
+                                }))
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
               Container(
                 padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('1、请确保头像以及证件上姓名、照片、编号、执业范围清晰可见；',
-                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
                     SizedBox(height: 3),
                     Text('2、需要上传执业证书第一页、第二页，确保执业地点及变更记录清晰可见；',
-                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
                     SizedBox(height: 3),
                     Text('3、上传资质信息仅用于认证，患者和第三方不可见；',
-                      style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: TextStyle(fontSize: 12, color: Colors.grey)),
                   ],
                 ),
               ),
-              SafeArea(child: GestureDetector(
-                onTap: (){
-                  userModel.user.name = _name;
-                  userModel.user.level = _level;
-                  userModel.saveUser(userModel.user);
-                  Navigator.maybePop(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Theme
-                      .of(context)
-                      .primaryColor,
-                    borderRadius: BorderRadius.circular(5)
+              SafeArea(
+                  child: GestureDetector(
+                    onTap: () {
+                      userModel.user.name = _name;
+                      userModel.user.level = _level;
+                      userModel.saveUser(userModel.user);
+                      Navigator.maybePop(context);
+                    },
+                    child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          '修改资质',
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ),
-                  child: Text(
-                    '修改资质',
-                    style: TextStyle(color: Colors.white),
-                  )
-                ),
-              ),bottom: true),
+                  bottom: true),
             ],
           ),
         ),
@@ -303,7 +304,8 @@ class AuthPageState extends State<AuthPage> {
                     ),
             ),
             SizedBox(width: 10),
-            Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 8,height: 16)
+            Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
+                width: 8, height: 16)
           ],
         ),
       ),
@@ -319,7 +321,7 @@ class AuthPageState extends State<AuthPage> {
           children: <Widget>[
             Text('姓名', style: TextStyle(fontSize: 15)),
             Expanded(
-              child: TextField(
+                child: TextField(
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(0),
                   border: InputBorder.none,
@@ -330,7 +332,7 @@ class AuthPageState extends State<AuthPage> {
               controller: _controller,
               maxLines: 1,
               textInputAction: TextInputAction.done,
-              style: TextStyle(fontSize: 14,color: Colors.grey[600]),
+              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               textAlign: TextAlign.end,
               onSubmitted: (text) {
                 setState(() {
@@ -366,7 +368,8 @@ class AuthPageState extends State<AuthPage> {
               Text(_level.isEmpty ? '请选择' : _level,
                   style: TextStyle(color: Colors.grey[600])),
               SizedBox(width: 10),
-              Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 8,height: 16)
+              Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
+                  width: 8, height: 16)
             ],
           )),
     );

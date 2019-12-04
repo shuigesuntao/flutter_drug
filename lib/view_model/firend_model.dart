@@ -52,7 +52,12 @@ class FriendModel extends ViewStateListModel<Friend>{
   filterData(String query){
     _filterList.clear();
     if(query.isNotEmpty){
-      _filterList.addAll(list.where((friend) => friend.displayName.contains(query) || friend.name.contains(query)));
+      _filterList.addAll(list.where((friend) => friend.displayName.contains(query.toLowerCase()) || friend.name.contains(query.toLowerCase())));
+    }
+    if (_filterList.isEmpty && query.isNotEmpty) {
+      setEmpty();
+    } else {
+      setIdle();
     }
     notifyListeners();
   }

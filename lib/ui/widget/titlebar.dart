@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 
 class TitleBar {
-  static PreferredSize buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,Color titleColor,String actionText,String actionIcon,VoidCallback onActionPress,Color backColor,isShowBack = true,Color actionTextColor,Color backgroundColor = Colors.white}) {
+  static PreferredSize buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,Color titleColor,String actionText,String actionIcon,List<Widget> actions,VoidCallback onActionPress,Color backColor,isShowBack = true,Color actionTextColor,Color backgroundColor = Colors.white}) {
     return PreferredSize(
       child: AppBar(
         backgroundColor: backgroundColor,
         centerTitle: true,
         title: Text(title,style: TextStyle(color: titleColor == null?Colors.black:titleColor,fontWeight: FontWeight.w500,fontSize: 18)),
         leading: isShowBack ? leading(context,onPressed,color:backColor) : null,
-        actions: actionText == null && actionIcon == null ? null : actionText != null?<Widget>[
+        actions: actions == null && actionText == null && actionIcon == null ? null : actionText != null?<Widget>[
           Padding(
             padding: EdgeInsets.only(right: 15),
             child: GestureDetector(
@@ -23,7 +23,7 @@ class TitleBar {
                 ),
               ),
             ))
-        ]:<Widget>[
+        ]: actionIcon != null?<Widget>[
           Padding(
             padding: EdgeInsets.only(right: 15),
             child: GestureDetector(
@@ -31,8 +31,9 @@ class TitleBar {
               child: Center(
                 child: Image.asset(ImageHelper.wrapAssets(actionIcon),width: 18,height: 18),
               ),
-            ))
-        ],
+            )
+          )
+        ]:actions,
       ),
       preferredSize:Size.fromHeight(50)
     );

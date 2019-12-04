@@ -5,3 +5,8 @@ class AlreadyPrescriptionCountEvent {
   final int unPayCount;
   AlreadyPrescriptionCountEvent(this.count, this.unPayCount);
 }
+
+class LoginOutEvent {
+  LoginOutEvent();
+}
+

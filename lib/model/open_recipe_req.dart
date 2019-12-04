@@ -1,7 +1,6 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_drug/model/drug.dart';
 
-class OpenRecipeReq extends Equatable{
+class OpenRecipeReq{
   String name;
   int age;
   String phone;
@@ -26,8 +25,4 @@ class OpenRecipeReq extends Equatable{
 
   OpenRecipeReq({this.name,this.age,this.phone,this.gender,this.bianzheng,this.category,this.drugstore,this.jishu,
   this.daishu, this.haoshengshu, this.gaofangfuliao,this.way,this.drugDesc,this.extraDesc,this.fuzhenDay,this.suifangDay,this.zhenfei,this.singleServicePrice,this.show,this.drugs});
-
-  @override
-  List<Object> get props => [name,age,phone,gender,bianzheng,category,drugstore,jishu,
-    daishu, haoshengshu, gaofangfuliao,way,drugDesc,extraDesc,fuzhenDay,suifangDay,zhenfei,singleServicePrice,show,drugs];
 }

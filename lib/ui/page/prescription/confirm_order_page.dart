@@ -346,7 +346,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage>{
                 SizedBox(height: 3),
                 Text('*药品除质量原因外，一经售出，不予退回；',style: TextStyle(fontSize: 12,color: Colors.grey)),
                 SizedBox(height: 3),
-                Text('*发票问题及药品质量投诉电话400-0520-120',style: TextStyle(fontSize: 12,color: Colors.grey)),
+                Text('*发票问题及药品质量投诉电话:400-0520-120',style: TextStyle(fontSize: 12,color: Colors.grey)),
               ],
             )),
             SizedBox(height: 15),

@@ -32,8 +32,8 @@ class CustomDialogAlert extends Dialog {
                 child: Column(
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 30),
-                      child: Text(content),
+                      height: 80,
+                      child: Center(child: Text(content,textAlign: TextAlign.center)),
                     ),
                     Divider(height: 0.5, color: Colors.grey),
                     Expanded(
@@ -45,7 +45,7 @@ class CustomDialogAlert extends Dialog {
                               if (onCancelPressed != null) {
                                 onCancelPressed();
                               }
-                              Navigator.maybePop(context);
+                              Navigator.of(context).pop();
                             },
                             child: Text(cancelText,textAlign:TextAlign.center,style: TextStyle(color: Colors.grey))
                           ),
@@ -55,7 +55,7 @@ class CustomDialogAlert extends Dialog {
                           child: GestureDetector(
                             onTap: (){
                               onPressed();
-                              Navigator.maybePop(context);
+                              Navigator.of(context).pop();
                             },
                             child: Text(confirmText,
                               textAlign:TextAlign.center,

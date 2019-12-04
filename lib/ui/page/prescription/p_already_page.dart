@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/event/event_bus.dart';
 import 'package:flutter_drug/event/event_model.dart';
 import 'package:flutter_drug/ui/page/prescription/p_list_page.dart';
@@ -40,9 +41,8 @@ class _PrescriptionAlreadyPageState extends State<PrescriptionAlreadyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: TitleBar.buildCommonAppBar(context, '已开处方',
-            actionIcon: 'icon_ss.png', onActionPress: () {
-          print('点击了搜索');
-        }, actionTextColor: Colors.black87),
+            actionIcon: 'icon_ss.png', onActionPress: () =>
+            Navigator.of(context).pushNamed(RouteName.prescriptionAlreadySearch), actionTextColor: Colors.black87),
         body: DefaultTabController(
           length: tabTitles.length,
           initialIndex: 0,

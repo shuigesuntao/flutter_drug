@@ -48,14 +48,21 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
           child: model.empty ? ViewStateEmptyWidget(image: 'zwdd.png',message: '暂无订单',) :ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {
-              return _buildPrescriptionItem(model,index);
+              return PrescriptionItem(model,model.list[index]);
             }));
       },
     );
   }
+}
 
-  Widget _buildPrescriptionItem(PrescriptionListModel model,int index){
-    Prescription p = model.list[index];
+class PrescriptionItem extends StatelessWidget{
+
+   final PrescriptionListModel model;
+   final Prescription p;
+
+  PrescriptionItem(this.model,this.p);
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         if(p.status == 1){
@@ -136,7 +143,7 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
                                 builder: (context) {
                                   return CustomDialogAlert(
                                     content: '是否确认删除？',
-                                    onPressed: () => model.remove(index)
+                                    onPressed: () => model.remove(p)
                                   );
                                 }),
                               child: Text('删除',style: TextStyle(fontSize: 13),)),
@@ -151,4 +158,5 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
       ),
     );
   }
+
 }

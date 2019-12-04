@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/prescription_formwork.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PrescriptionFormWorkListPage extends StatefulWidget {
@@ -50,9 +52,6 @@ class _PrescriptionFormWorkListPageState extends State<PrescriptionFormWorkListP
       },
     );
   }
-
-
-
 }
 
 
@@ -62,42 +61,46 @@ class PrescriptionFormWorkItem extends StatelessWidget {
   PrescriptionFormWorkItem(this.p,{this.hasHistory});
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        if(hasHistory){
-          Navigator.pop(context,p.drugs);
-        }else{
-
-        }
-      },
-      child: Container(
-        margin: EdgeInsets.fromLTRB(15,10,15,0),
-        decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(p.name,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 16)),
-                  Expanded(
-                    child:SizedBox()
-                  ),
-                  Offstage(
-                    offstage: p.status == 1,
-                    child: Text('经典方',style: TextStyle(color: Colors.grey,fontSize: 13)),
-                  )
-                ],
-              ),
-              SizedBox(height: 10),
-              Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700]))
-            ],
-          ),
-        )
-      ),
-    );
+    return Consumer<PrescriptionFormWorkListModel>(builder: (context,model,child){
+      return GestureDetector(
+        onTap: (){
+          if(hasHistory){
+            Navigator.pop(context,p.drugs);
+          }else{
+            Navigator.of(context).pushNamed(RouteName.formWorkDetail,arguments: p).then((id){
+              model.list.removeWhere((p)=>p.id == id);
+            });
+          }
+        },
+        child: Container(
+          margin: EdgeInsets.fromLTRB(15,10,15,0),
+          decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(p.name,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 16)),
+                    Expanded(
+                      child:SizedBox()
+                    ),
+                    Offstage(
+                      offstage: p.status == 1,
+                      child: Text('经典方',style: TextStyle(color: Colors.grey,fontSize: 13)),
+                    )
+                  ],
+                ),
+                SizedBox(height: 10),
+                Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700]))
+              ],
+            ),
+          )
+        ),
+      );
+    });
   }
 
   String _getDrugsText(List<Drug> drugs){

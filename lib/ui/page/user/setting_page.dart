@@ -1,7 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:provider/provider.dart';
 
 class SettingPage extends StatelessWidget{
   @override
@@ -14,24 +17,27 @@ class SettingPage extends StatelessWidget{
       body: Column(
         children: <Widget>[
           Divider(height: 1),
-          _buildItem(context,'修改登录密码',RouteName.test),
-          _buildItem(context,'修改绑定手机',RouteName.test),
+          _buildItem(context,'修改登录密码',RouteName.modifyPassword),
+          _buildItem(context,'修改绑定手机',RouteName.modifyPhone),
           SizedBox(height: 5),
           _buildItem(context,'关于药匣子',RouteName.about),
           SizedBox(height: 50),
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 30),
-            child: FlatButton(
-              onPressed: ()=> print('退出登录'),
+          GestureDetector(
+            onTap: () {
+              Provider.of<UserModel>(context).clearUser();
+              Navigator.pushNamedAndRemoveUntil(context, "/", (route) => route == null);
+            },
+            child: Container(
               padding: EdgeInsets.all(12),
-              color: Colors.white,
-              child: Text(
-                '退出登录',
-                style: TextStyle(fontSize: 18),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(5)
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(5))),
+              margin: EdgeInsets.symmetric(horizontal: 30),
+              child:Center(
+                child: Text('退出登录', style: TextStyle(fontSize: 16)),
+              ),
             ),
           )
         ],
@@ -49,14 +55,11 @@ class SettingPage extends StatelessWidget{
             children: <Widget>[
               Container(
                 height: 50,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.only(left: 10,right: 20),
                 child: Row(
                   children: <Widget>[
-                    Expanded(child: Text(title, style: TextStyle(fontSize: 18))),
-                    Icon(
-                      Icons.chevron_right,
-                      color: Colors.grey[400],
-                    ),
+                    Expanded(child: Text(title, style: TextStyle(fontSize: 16))),
+                    Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 7,height: 14)
                   ],
                 ),
               ),

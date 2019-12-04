@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/page/tab/address_book_page.dart';
 import 'package:flutter_drug/ui/page/tab/ask_page.dart';
 import 'package:flutter_drug/ui/page/tab/home_page.dart';
 import 'package:flutter_drug/ui/page/tab/my_page.dart';
+import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:provider/provider.dart';
 
 class TabNavigator extends StatefulWidget {
   TabNavigator({Key key}) : super(key: key);
@@ -46,28 +49,34 @@ class _TabNavigatorState extends State<TabNavigator> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
-          _buildBottomNavigationBarItem('工作室','icon_home_disselect.png','icon_home_select.png'),
-          _buildBottomNavigationBarItem('资询','icon_talk_disselect.png','icon_talk_select.png'),
-          _buildBottomNavigationBarItem('通讯录','icon_family_disselect.png','icon_family_select.png'),
-          _buildBottomNavigationBarItem('我的','icon_me_disselect.png','icon_me_select.png'),
+          _buildBottomNavigationBarItem(
+              '工作室', 'icon_home_disselect.png', 'icon_home_select.png'),
+          _buildBottomNavigationBarItem(
+              '资询', 'icon_talk_disselect.png', 'icon_talk_select.png'),
+          _buildBottomNavigationBarItem(
+              '通讯录', 'icon_family_disselect.png', 'icon_family_select.png'),
+          _buildBottomNavigationBarItem(
+              '我的', 'icon_me_disselect.png', 'icon_me_select.png'),
         ],
         currentIndex: _selectedIndex,
         onTap: (index) {
-          _pageController.jumpToPage(index);
+          if (Provider.of<UserModel>(context).hasUser) {
+            _pageController.jumpToPage(index);
+          } else {
+            Navigator.of(context).pushNamed(RouteName.login);
+          }
         },
       ),
     );
   }
 
-
-  BottomNavigationBarItem _buildBottomNavigationBarItem(String text,String icon,String activeIcon){
+  BottomNavigationBarItem _buildBottomNavigationBarItem(
+      String text, String icon, String activeIcon) {
     return BottomNavigationBarItem(
-      icon: Image.asset(ImageHelper.wrapAssets(icon),width: 24,height: 24),
-      activeIcon: Image.asset(ImageHelper.wrapAssets(activeIcon),width: 24,height: 24),
-      title: Text(
-        text,
-        style: TextStyle(fontSize: 12)
-      ),
+      icon: Image.asset(ImageHelper.wrapAssets(icon), width: 24, height: 24),
+      activeIcon: Image.asset(ImageHelper.wrapAssets(activeIcon),
+          width: 24, height: 24),
+      title: Text(text, style: TextStyle(fontSize: 12)),
     );
   }
 }
