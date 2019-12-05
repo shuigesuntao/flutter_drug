@@ -17,7 +17,7 @@ class LawHelpPage extends StatelessWidget {
             controller: model.refreshController,
             onRefresh: model.refresh,
             onLoading: model.loadMore,
-            enablePullUp: !model.empty,
+            enablePullUp: true,
             child:  CustomScrollView(
               slivers: <Widget>[
                 // 如果不是Sliver家族的Widget，需要使用SliverToBoxAdapter做层包裹

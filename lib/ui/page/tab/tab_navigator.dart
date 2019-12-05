@@ -7,6 +7,7 @@ import 'package:flutter_drug/ui/page/tab/ask_page.dart';
 import 'package:flutter_drug/ui/page/tab/home_page.dart';
 import 'package:flutter_drug/ui/page/tab/my_page.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class TabNavigator extends StatefulWidget {
@@ -73,10 +74,10 @@ class _TabNavigatorState extends State<TabNavigator> {
   BottomNavigationBarItem _buildBottomNavigationBarItem(
       String text, String icon, String activeIcon) {
     return BottomNavigationBarItem(
-      icon: Image.asset(ImageHelper.wrapAssets(icon), width: 24, height: 24),
+      icon: Image.asset(ImageHelper.wrapAssets(icon), width: ScreenUtil().setWidth(25), height: ScreenUtil().setWidth(25)),
       activeIcon: Image.asset(ImageHelper.wrapAssets(activeIcon),
-          width: 24, height: 24),
-      title: Text(text, style: TextStyle(fontSize: 12)),
+          width: ScreenUtil().setWidth(25), height: ScreenUtil().setWidth(25)),
+      title: Text(text, style: TextStyle(fontSize: ScreenUtil().setSp(12))),
     );
   }
 }

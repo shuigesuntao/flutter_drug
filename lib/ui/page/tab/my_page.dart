@@ -5,6 +5,7 @@ import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/me_header.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -131,22 +132,22 @@ class MeCell extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.fromLTRB(20,12,20,12),
+                padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(20),ScreenUtil().setWidth(14),ScreenUtil().setWidth(20),ScreenUtil().setWidth(14)),
                 child: Row(
                   children: <Widget>[
                     Image.asset(
                       ImageHelper.wrapAssets(image),
-                      width: 20,
-                      height: 20,
+                      width: ScreenUtil().setWidth(20),
+                      height: ScreenUtil().setWidth(20),
                     ),
                     SizedBox(width: 10),
                     Expanded(
-                        child: Text(title, style: TextStyle(fontSize: 16))),
+                        child:Text(title, style: TextStyle(fontSize: ScreenUtil().setSp(16)))),
                     Offstage(
                       offstage: content.isEmpty,
                       child: Padding(
                         padding: EdgeInsets.only(right: 10),
-                        child: Text(content,style: TextStyle(color: Color(0xffe56068)))
+                        child: Text(content,style: TextStyle(color: Color(0xffe56068),fontSize: ScreenUtil().setSp(14)))
                       ),
                     ),
                     Offstage(
@@ -160,9 +161,9 @@ class MeCell extends StatelessWidget {
                         ),
                         child: Row(
                           children: <Widget>[
-                            Image.asset(ImageHelper.wrapAssets('icon_yirenzheng.png'),width: 12,height: 12),
+                            Image.asset(ImageHelper.wrapAssets('icon_yirenzheng.png'),width: ScreenUtil().setWidth(12),height: ScreenUtil().setWidth(12)),
                             SizedBox(width: 5),
-                            Text(auth,style: TextStyle(color: Color(0xffe56068),fontSize: 12)),
+                            Text(auth,style: TextStyle(color: Color(0xffe56068),fontSize: ScreenUtil().setSp(12))),
                           ],
                         ),
                       )

@@ -3,6 +3,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/category.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class DialogDrugCategory extends StatelessWidget {
@@ -12,64 +13,55 @@ class DialogDrugCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        GestureDetector(
-          onTap: () => Navigator.maybePop(context),
-          child: Container(color: Colors.black54, height: double.infinity),
-        ),
-        Container(
-          color: Colors.white,
-          height: 520,
-          child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
-            children: <Widget>[
-              Container(
-                child: Row(
-                  children: <Widget>[
-                    Expanded(child: Text('选择药房及处方剂型')),
-                    GestureDetector(
-                      child: Text('确定',
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor)),
-                      onTap: () {
-                        model.selectedCategory = model.currentCategory;
-                        model.selectedDrugStore = model.currentDrugStore;
-                        Navigator.maybePop(context);
-                      })
-                  ],
-                ),
-                color: Colors.grey[200],
-                padding: EdgeInsets.fromLTRB(20,12,20,12),
-              ),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    new Container(
-                      color: Colors.grey[200],
-                      width: 100,
-                      child: ListView.builder(
-                        itemCount: model.list.length,
-                        itemBuilder: (context, index) =>
-                          _buildCategoryItem(model, index))),
-                    new Expanded(
-                      child: Container(
-                        color: Colors.white,
-                        padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-                        child: ListView.builder(
-                          itemCount: model
-                            .list[model.currentCategory].child.length,
-                          itemBuilder: (context, index) =>
-                            _buildDrugStoreItem(
-                              context, model, index)),
-                      ))
-                  ],
-                )
-              )
-            ],
-          ))
-        )
-      ],
+    return Container(
+      color: Colors.white,
+      height: ScreenUtil().setWidth(550),
+      child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
+        children: <Widget>[
+          Container(
+            child: Row(
+              children: <Widget>[
+                Expanded(child: Text('选择药房及处方剂型',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
+                GestureDetector(
+                  child: Text('确定',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(14))),
+                  onTap: () {
+                    model.selectedCategory = model.currentCategory;
+                    model.selectedDrugStore = model.currentDrugStore;
+                    Navigator.maybePop(context);
+                  })
+              ],
+            ),
+            color: Colors.grey[200],
+            padding: EdgeInsets.fromLTRB(20,12,20,12),
+          ),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                new Container(
+                  color: Colors.grey[200],
+                  width: 100,
+                  child: ListView.builder(
+                    itemCount: model.list.length,
+                    itemBuilder: (context, index) =>
+                      _buildCategoryItem(model, index))),
+                new Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    child: ListView.builder(
+                      itemCount: model
+                        .list[model.currentCategory].child.length,
+                      itemBuilder: (context, index) =>
+                        _buildDrugStoreItem(
+                          context, model, index)),
+                  ))
+              ],
+            )
+          )
+        ],
+      ))
     );
   }
 
@@ -83,7 +75,7 @@ class DialogDrugCategory extends StatelessWidget {
       },
       child: Container(
           alignment: Alignment.center,
-          child: Text(model.list[i].name),
+          child: Text(model.list[i].name,style: TextStyle(fontSize: ScreenUtil().setSp(13))),
           padding: EdgeInsets.symmetric(vertical: 15),
           color: model.currentCategory == i ? Colors.white : Colors.grey[200]),
     );
@@ -109,7 +101,7 @@ class DialogDrugCategory extends StatelessWidget {
                 children: <Widget>[
                   Expanded(child: Row(
                     children: <Widget>[
-                      Text(data.name, style: TextStyle(fontWeight: FontWeight.w500)),
+                      Text(data.name, style: TextStyle(fontSize: ScreenUtil().setSp(16))),
                       Offstage(
                         offstage: data.id !=1 && data.id !=2 && data.id != 3,
                         child: Container(
@@ -123,7 +115,7 @@ class DialogDrugCategory extends StatelessWidget {
                               image: AssetImage(ImageHelper.wrapAssets('pzyc.png'))
                             )
                           ),
-                          child: Text(data.id ==1 ?'特供药材':data.id == 2 ? '上乘药材' :data.id == 3 ? '中乘药材':'',style: TextStyle(fontSize: 10,color: Colors.white)),
+                          child: Text(data.id ==1 ?'特供药材':data.id == 2 ? '上乘药材' :data.id == 3 ? '中乘药材':'',style: TextStyle(fontSize: ScreenUtil().setSp(10),color: Colors.white)),
                         ),
                       )
                     ],
@@ -136,18 +128,18 @@ class DialogDrugCategory extends StatelessWidget {
                       map['share'] = false;
                       Navigator.of(context).pushNamed(RouteName.webView, arguments: map);
                     },
-                    child: Text('查看详情',style: TextStyle(fontSize: 11,color: Color(0xff798fb7))),
+                    child: Text('查看详情',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Color(0xff798fb7))),
                   )
                 ],
               ),
               SizedBox(height: 5),
-              Text(data.label, style: TextStyle(color: Colors.grey,fontSize: 13)),
+              Text(data.label, style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12))),
               SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(data.desc, style: TextStyle(color: Colors.grey,fontSize: 13)),
-                  Image.asset(ImageHelper.wrapAssets(model.currentDrugStore == i?'icon_xz.png':'icon_wxz.png'),width: 18,height: 18)
+                  Text(data.desc, style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12))),
+                  Image.asset(ImageHelper.wrapAssets(model.currentDrugStore == i?'icon_xz.png':'icon_wxz.png'),width: ScreenUtil().setWidth(18),height:ScreenUtil().setWidth(18))
                 ],
               )
 

@@ -78,8 +78,8 @@ class DrugStoreItem extends StatelessWidget {
                               TextStyle(color: Theme.of(context).primaryColor,fontSize: 13),
                         ),
                       )),
-                  onTap: () => showBottomSheet(
-                      backgroundColor: Colors.transparent,
+                  onTap: () => showModalBottomSheet(
+                      isScrollControlled:true,
                       context: context,
                       builder: (context) =>
                           ChangeNotifierProvider<CategoryModel>.value(

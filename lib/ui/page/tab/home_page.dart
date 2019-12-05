@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Banner;
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
-import 'package:flutter_drug/model/user.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/banner_image.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:flutter_drug/view_model/home_model.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -63,8 +63,8 @@ class _HomePageState extends State<HomePage>
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    margin: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                    padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                     color: Colors.white,
                     child: UserInfoHeader(
                       imageUrl: model.user?.icon,
@@ -104,7 +104,7 @@ class _HomePageState extends State<HomePage>
                   ),
                   Container(
                     color: Colors.white,
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                    padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(15)),
                     child: Column(
                       children: <Widget>[
                         Row(
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage>
                             ),
                           ],
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: ScreenUtil().setWidth(20)),
                         Row(
                           mainAxisAlignment:
                           MainAxisAlignment.spaceEvenly,
@@ -184,11 +184,11 @@ class _HomePageState extends State<HomePage>
                       ],
                     ),
                   ),
-                  SizedBox(height: 5),
+                  SizedBox(height: ScreenUtil().setWidth(5)),
                   _buildBanner(),
                   Container(
                     color: Colors.white,
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10), ScreenUtil().setWidth(5), ScreenUtil().setWidth(10), ScreenUtil().setWidth(5)),
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -238,26 +238,26 @@ class _HomePageState extends State<HomePage>
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                      padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                       color: Colors.white,
                       child: Row(
                         children: <Widget>[
                           Image.asset(
                             ImageHelper.wrapAssets('icon_xiaoxi.png'),
-                            width: 40,
-                            height: 40),
-                          SizedBox(width: 15),
+                            width: ScreenUtil().setWidth(45),
+                            height: ScreenUtil().setWidth(45)),
+                          SizedBox(width: ScreenUtil().setWidth(15)),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text('消息通知',
-                                  style: TextStyle(fontSize: 16)),
+                                  style: TextStyle(fontSize: ScreenUtil().setSp(15))),
                                 SizedBox(height: 3),
                                 Text('暂无消息通知',
                                   style: TextStyle(
                                     color: Colors.grey[400],
-                                    fontSize: 12))
+                                    fontSize: ScreenUtil().setSp(12)))
                               ],
                             ),
                           )
@@ -307,24 +307,24 @@ class _HomePageState extends State<HomePage>
         }
       },
       child: Container(
-        width: 150,
+        width: ScreenUtil().setWidth(152),
         decoration: BoxDecoration(
           color: backgroundColor, borderRadius: BorderRadius.circular(5)),
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10),ScreenUtil().setWidth(12),ScreenUtil().setWidth(10),ScreenUtil().setWidth(12)),
         child: Row(
           children: <Widget>[
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(title),
+                  Text(title,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   SizedBox(height: 1),
                   Text(subTitle,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.grey[400], fontSize: 10.5))
+                    style: TextStyle(color: Colors.grey[400], fontSize: ScreenUtil().setSp(10)))
                 ],
               )),
-            Image.asset(ImageHelper.wrapAssets(icon), width: 25, height: 25)
+            Image.asset(ImageHelper.wrapAssets(icon), width: ScreenUtil().setWidth(25), height: ScreenUtil().setWidth(25))
           ],
         ),
       ),
@@ -398,11 +398,11 @@ class HomeItemWidget extends StatelessWidget {
             padding: EdgeInsets.all(6),
             child: Image.asset(
               ImageHelper.wrapAssets(url),
-              width: 28,
-              height: 28,
+              width: ScreenUtil().setWidth(25),
+              height: ScreenUtil().setWidth(25),
             ),
           ),
-          Text(label)
+          Text(label,style: TextStyle(fontSize: ScreenUtil().setSp(14)))
         ],
       ),
     );

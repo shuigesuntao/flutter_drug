@@ -27,6 +27,8 @@ import 'package:flutter_drug/ui/page/prescription/order_detail_page.dart';
 import 'package:flutter_drug/ui/page/search/p_already_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
+import 'package:flutter_drug/ui/page/user/edit_user_desc_page.dart';
+import 'package:flutter_drug/ui/page/user/edit_user_page.dart';
 import 'package:flutter_drug/ui/page/user/modify_password_page.dart';
 import 'package:flutter_drug/ui/page/user/modify_phone_page.dart';
 import 'package:flutter_drug/ui/page/user/setting_page.dart';
@@ -94,6 +96,8 @@ class RouteName {
   static const String showAccount = 'showAccount';//查看账单
   static const String monthBill = 'monthBill';//查看账单
   static const String userInfo = 'userInfo';//我的名片
+  static const String editUser = 'editUser';//编辑个人信息
+  static const String editUserDesc = 'editUserDesc';//编辑个人简介
   static const String auth = 'auth';//资质认证
   static const String example = 'example';//认证示例
   static const String decoct = 'decoct';//煎法管理
@@ -236,6 +240,10 @@ class Router {
         return CupertinoPageRoute(builder: (_) => ModifyPasswordPage());
       case RouteName.userInfo:
         return CupertinoPageRoute(builder: (_) => UserInfoPage());
+      case RouteName.editUser:
+        return CupertinoPageRoute(builder: (_) => EditUserPage());
+      case RouteName.editUserDesc:
+        return CupertinoPageRoute(builder: (_) => EditUserDescPage(desc: settings.arguments as String));
 //      case RouteName.coinRankingList:
 //        return CupertinoPageRoute(builder: (_) => CoinRankingListPage());
       default:

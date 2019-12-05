@@ -1,19 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_drug/model/doctor_advice.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EditDoctorAdvicePage extends StatefulWidget {
+class EditUserDescPage extends StatefulWidget {
 
-  final DoctorAdvice advice;
+  final String desc;
 
-  EditDoctorAdvicePage({this.advice});
+  EditUserDescPage({this.desc});
 
   @override
-  State<StatefulWidget> createState() => EditDoctorAdvicePageState();
+  State<StatefulWidget> createState() => EditUserDescPageState();
 
 }
 
-class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
+class EditUserDescPageState extends State<EditUserDescPage> {
   TextEditingController _controller;
 
   @override
@@ -21,11 +22,11 @@ class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
     super.initState();
     _controller = TextEditingController.fromValue(TextEditingValue(
       // 设置内容
-      text: widget.advice?.content ?? "",
+      text: widget.desc?? "",
       // 保持光标在最后
       selection: TextSelection.fromPosition(TextPosition(
         affinity: TextAffinity.downstream,
-        offset: widget.advice?.content?.length ?? 0))));
+        offset: widget.desc?.length ?? 0))));
   }
 
   @override
@@ -33,8 +34,25 @@ class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
     return GestureDetector(
       onTap: ()=> FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        appBar: TitleBar.buildCommonAppBar(context, widget.advice == null ? '新建医嘱' : '修改医嘱',actionText: '保存',onActionPress: () {
-          print(_controller.text);
+        appBar: TitleBar.buildCommonAppBar(context, '简介',actionText: '确定',onActionPress: () {
+          if(_controller.text.isEmpty){
+            showDialog(context: context,barrierDismissible: false,builder:(context){
+              return CupertinoAlertDialog(
+                title: Text('提示'),
+                content: Text('请输入简介'),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text("确定"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ]
+              );
+            });
+          }else{
+            Navigator.of(context).pop(_controller.text);
+          }
         }),
         resizeToAvoidBottomPadding: false,
         body: GestureDetector(
@@ -52,13 +70,13 @@ class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
                 fillColor: Colors.white,
                 contentPadding: EdgeInsets.all(15),
                 filled: true,
-                hintText: "请填写医嘱内容（最多500字）",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                counterStyle: TextStyle(color: Colors.grey, fontSize: 16),
+                hintText: '我是执业中医师，您有什么日常身体疾病需要帮助，可以随时找我咨询',
+                hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(15)),
+                counterStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(15)),
                 enabledBorder: null,
                 disabledBorder: null),
               controller: _controller,
-              maxLength: 500,
+              maxLength: 1000,
               maxLines: 10,
             ),
           )

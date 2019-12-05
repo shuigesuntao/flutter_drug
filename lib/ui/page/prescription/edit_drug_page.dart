@@ -241,8 +241,8 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                         Expanded(child: SizedBox()),
                         Expanded(flex:2,child: GestureDetector(
                           onTap: () {
-                            showBottomSheet(
-                              backgroundColor: Colors.transparent,
+                            showModalBottomSheet(
+                              isScrollControlled: true,
                               context: context,
                               builder: (context) => ChangeNotifierProvider<
                                 CategoryModel>.value(

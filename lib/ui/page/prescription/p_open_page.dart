@@ -12,6 +12,7 @@ import 'package:flutter_drug/model/illegal_drugs.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/diaglog_open_p_tip.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
+import 'package:flutter_drug/ui/widget/dialog_fuzhen_time.dart';
 import 'package:flutter_drug/ui/widget/drug_store_item.dart';
 import 'package:flutter_drug/ui/widget/dialog_yizhu_select.dart';
 import 'package:flutter_drug/ui/widget/dialog_zhenfei.dart';
@@ -56,6 +57,9 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   double _drugPrice = 0;
   int _zhenfei = 0;
   int _jiagongfei = 0;
+  int _fuzhenTime = 7;
+  int _suifangTime = 4;
+  String _fuzhenText = '系统默认';
   int _currentPercent;
   int _defaultPercent = 10;
   String originImage = 'https://app.zgzydb.com/upload/Prescription/191009202635453169f79cae0e245bebcb482c280b66c95.jpg';
@@ -158,7 +162,16 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                 SizedBox(height: 10),
                 // 复诊随访时间
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>DialogFuzhenTime(fuzhenTime:_fuzhenTime,suifangTime:_suifangTime,onConfirm: (fuzhenTime, suifangTime) {
+                        setState(() {
+                          _fuzhenText = '已设置';
+                          _fuzhenTime = fuzhenTime;
+                          _suifangTime = suifangTime;
+                        });
+                      })
+                  ),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -171,7 +184,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                         Expanded(child: Text('复诊及随访时间')),
                         Row(
                           children: <Widget>[
-                            Text('系统默认'),
+                            Text(_fuzhenText),
                             Icon(
                               Icons.chevron_right,
                               color: Colors.grey[400],
@@ -1106,9 +1119,9 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           Divider(height: 1, color: Colors.grey[300]),
           //用药医嘱
           GestureDetector(
-            onTap: () => showBottomSheet(
-                backgroundColor: Colors.transparent,
+            onTap: () => showModalBottomSheet(
                 context: context,
+                isScrollControlled:true,
                 builder: (context) => DialogYiZhuSelect([
                       '饭前半小时服',
                       '饭后半小时服',

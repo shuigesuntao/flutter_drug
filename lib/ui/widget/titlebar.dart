@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TitleBar {
   static PreferredSize buildCommonAppBar(BuildContext context, String title,{VoidCallback onPressed,Color titleColor,String actionText,String actionIcon,List<Widget> actions,VoidCallback onActionPress,Color backColor,isShowBack = true,Color actionTextColor,Color backgroundColor = Colors.white}) {
@@ -9,7 +10,7 @@ class TitleBar {
       child: AppBar(
         backgroundColor: backgroundColor,
         centerTitle: true,
-        title: Text(title,style: TextStyle(color: titleColor == null?Colors.black:titleColor,fontWeight: FontWeight.w500,fontSize: 18)),
+        title: Text(title,style: TextStyle(color: titleColor == null?Colors.black:titleColor,fontWeight: FontWeight.w500,fontSize: ScreenUtil().setSp(18))),
         leading: isShowBack ? leading(context,onPressed,color:backColor) : null,
         actions: actions == null && actionText == null && actionIcon == null ? null : actionText != null?<Widget>[
           Padding(
@@ -19,7 +20,7 @@ class TitleBar {
               child: Center(
                 child: Text(
                   actionText,
-                  style: TextStyle(fontSize:15,color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
+                  style: TextStyle(fontSize:ScreenUtil().setSp(14),color:actionTextColor == null? Theme.of(context).primaryColor : actionTextColor),
                 ),
               ),
             ))
@@ -35,7 +36,7 @@ class TitleBar {
           )
         ]:actions,
       ),
-      preferredSize:Size.fromHeight(50)
+      preferredSize:Size.fromHeight(ScreenUtil().setWidth(50))
     );
   }
 

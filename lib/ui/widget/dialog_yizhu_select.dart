@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 class DialogYiZhuSelect extends StatefulWidget {
@@ -52,112 +53,102 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
         )
       );
     });
-
     return choices;
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: <Widget>[
-        GestureDetector(
-          onTap: () => Navigator.maybePop(context),
-          child: Container(color: Colors.black54, height: double.infinity),
-        ),
-        Container(
-          color: Colors.white,
-          height: 530,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                height: 40,
-                decoration: BoxDecoration(color: Colors.grey[200]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      height: 40,
-                      child: FlatButton(
-                        child: Text('取消', style: TextStyle(
-                          color: Colors.grey[700])),
-                        onPressed: () => Navigator.maybePop(context)
-                      ),
-                    ),
-                    Text('用药医嘱'),
-                    Container(
-                      height: 40,
-                      child: FlatButton(
-                        child: Text('确定', style: TextStyle(
-                          color: Theme
-                            .of(context)
-                            .primaryColor)),
-                        onPressed: (){
-                          if(selectTimeList.isEmpty && selectJiKouList.isEmpty){
-                            showToast('请选择用药医嘱');
-                          }else{
-                            widget.onConfirm(selectTimeList.join(','),selectJiKouList.join(','));
-                            Navigator.maybePop(context);
-                          }
-                        }
-                      ),
-                    ),
-                  ],
+    return Container(
+      color: Colors.white,
+      height: ScreenUtil().setWidth(510),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            height: 40,
+            decoration: BoxDecoration(color: Colors.grey[200]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  height: 40,
+                  child: FlatButton(
+                    child: Text('取消', style: TextStyle(
+                      color: Colors.grey[700])),
+                    onPressed: () => Navigator.maybePop(context)
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text('*用药时间',style: TextStyle(color: Theme.of(context).primaryColor)),
-              ),
-              Container(
-                height: 85,
-                child: GridView.count(
-                  //水平子Widget之间间距
-                  crossAxisSpacing: 15,
-                  //垂直子Widget之间间距
-                  mainAxisSpacing: 15,
-                  //GridView内边距
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  //一行的Widget数量
-                  crossAxisCount: 3,
-                  //子Widget宽高比例
-                  childAspectRatio: 3,
-                  //子Widget列表
-                  children: _buildChoiceList(widget.dataTimeList,selectTimeList)
+                Text('用药医嘱',style: TextStyle(fontSize: 15)),
+                Container(
+                  height: 40,
+                  child: FlatButton(
+                    child: Text('确定', style: TextStyle(
+                      color: Theme
+                        .of(context)
+                        .primaryColor)),
+                    onPressed: (){
+                      if(selectTimeList.isEmpty && selectJiKouList.isEmpty){
+                        showToast('请选择用药医嘱');
+                      }else{
+                        widget.onConfirm(selectTimeList.join(','),selectJiKouList.join(','));
+                        Navigator.maybePop(context);
+                      }
+                    }
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20),
-                child: Text('*用药忌口',style: TextStyle(color: Theme.of(context).primaryColor)),
-              ),
-              Expanded(
-                child: GridView.count(
-                  //水平子Widget之间间距
-                  crossAxisSpacing: 15,
-                  //垂直子Widget之间间距
-                  mainAxisSpacing: 15,
-                  //GridView内边距
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  //一行的Widget数量
-                  crossAxisCount: 3,
-                  //子Widget宽高比例
-                  childAspectRatio: 3,
-                  //子Widget列表
-                  children: _buildChoiceList(widget.dataJiKouList,selectJiKouList)
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Text('*注：如有特殊用药时间和方法，请在补充医嘱内填写',style: TextStyle(fontSize: 11,color: Colors.red)),
-              ),
-              SizedBox(height: 30)
-            ],
-          )
-        )
-      ],
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text('*用药时间',style: TextStyle(color: Theme.of(context).primaryColor)),
+          ),
+          Container(
+            child: GridView.count(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              //水平子Widget之间间距
+              crossAxisSpacing: 15,
+              //垂直子Widget之间间距
+              mainAxisSpacing: 15,
+              //GridView内边距
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              //一行的Widget数量
+              crossAxisCount: 3,
+              //子Widget宽高比例
+              childAspectRatio: 3,
+              //子Widget列表
+              children: _buildChoiceList(widget.dataTimeList,selectTimeList)
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text('*用药忌口',style: TextStyle(color: Theme.of(context).primaryColor)),
+          ),
+          Expanded(
+            child: GridView.count(
+              physics: NeverScrollableScrollPhysics(),
+              //水平子Widget之间间距
+              crossAxisSpacing: 15,
+              //垂直子Widget之间间距
+              mainAxisSpacing: 15,
+              //GridView内边距
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              //一行的Widget数量
+              crossAxisCount: 3,
+              //子Widget宽高比例
+              childAspectRatio: 3,
+              //子Widget列表
+              children: _buildChoiceList(widget.dataJiKouList,selectJiKouList)
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text('* 注：如有特殊用药时间和方法，请在补充医嘱内填写',style: TextStyle(fontSize: 11,color: Colors.red)),
+          ),
+          SizedBox(height: 30)
+        ],
+      )
     );
   }
 }

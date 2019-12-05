@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UserInfoHeader extends StatelessWidget {
   final String imageUrl;
@@ -26,11 +27,11 @@ class UserInfoHeader extends StatelessWidget {
       children: <Widget>[
         ClipOval(
           child: CachedNetworkImage(
-            width: 45,
-            height: 45,
+            width: ScreenUtil().setWidth(45),
+            height: ScreenUtil().setWidth(45),
             imageUrl: imageUrl??'',
             fit: BoxFit.fill,
-            errorWidget: (context, url, error) => Image.asset(ImageHelper.wrapAssets('yishengtouxiang.png'), width: 50, height: 50),
+            errorWidget: (context, url, error) => Image.asset(ImageHelper.wrapAssets('yishengtouxiang.png'), width: ScreenUtil().setWidth(45), height: ScreenUtil().setWidth(45)),
           )
         ),
         SizedBox(width: 10),
@@ -41,11 +42,11 @@ class UserInfoHeader extends StatelessWidget {
             children: <Widget>[
               Text(
                 isLogin ? name : '您的个人工作室',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: ScreenUtil().setSp(16)),
               ),
               Text(
                 isLogin ? '$type | $job' : '登录体验更多功能',
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                style: TextStyle(color: Colors.grey[600], fontSize: ScreenUtil().setSp(12)),
               )
             ],
           )
@@ -69,10 +70,10 @@ class UserInfoHeader extends StatelessWidget {
                 children: <Widget>[
                   Offstage(
                     offstage: !isLogin,
-                    child: Image.asset(ImageHelper.wrapAssets('icon_phone.png'),width: 11,height: 11),
+                    child: Image.asset(ImageHelper.wrapAssets('icon_phone.png'),width: ScreenUtil().setWidth(11),height: ScreenUtil().setWidth(11)),
                   ),
-                  SizedBox(width: 3),
-                  Text(isLogin ? '平台客服' : '点击登录',style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 12),)
+                  SizedBox(width: 5),
+                  Text(isLogin ? '平台客服' : '点击登录',style: TextStyle(color: Theme.of(context).primaryColor,fontWeight:FontWeight.w600,fontSize: ScreenUtil().setSp(12)),)
                 ],
               ),
             ),
