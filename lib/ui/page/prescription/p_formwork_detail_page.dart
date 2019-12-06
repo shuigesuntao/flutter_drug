@@ -5,9 +5,8 @@ import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/prescription_formwork.dart';
 import 'package:flutter_drug/ui/widget/dialog_custom_input.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-
-import 'edit_drug_page.dart';
 import 'edit_formwork_drug_page.dart';
 import 'p_open_page.dart';
 
@@ -35,7 +34,7 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
           Navigator.of(context).pop(p.id);
       }),
       body: Container(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(ScreenUtil().setWidth(10)),
         child: Column(
           children: <Widget>[
             Container(
@@ -43,17 +42,17 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(5)
               ),
-              padding: EdgeInsets.fromLTRB(15,10,15,10),
+              padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15),ScreenUtil().setWidth(10),ScreenUtil().setWidth(15),ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text('处方名称',style: TextStyle(fontSize: 16)),
-                      SizedBox(height: 5),
-                      SizedBox(height: 0.5),
+                      Text('处方名称',style: TextStyle(fontSize: ScreenUtil().setSp(16))),
+                      SizedBox(height: ScreenUtil().setWidth(5)),
+                      SizedBox(height: ScreenUtil().setWidth(0.5)),
                     ],
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width: ScreenUtil().setWidth(15)),
                   Expanded(
                     child: GestureDetector(
                       onTap: (){
@@ -72,9 +71,9 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(p.name),
-                          SizedBox(height: 5),
-                          Divider(height: 1,color: Colors.grey[400])
+                          Text(p.name,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                          SizedBox(height: ScreenUtil().setWidth(5)),
+                          Divider(height: 0.5,color: Colors.grey[400])
                         ],
                       ),
                     )
@@ -92,16 +91,16 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('药材明细',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
-                  SizedBox(height: 15),
-                  Text('R:',style: TextStyle(fontSize: 22)),
-                  SizedBox(height: 5),
+                  Text('药材明细',style: TextStyle(fontWeight: FontWeight.bold,fontSize: ScreenUtil().setSp(15))),
+                  SizedBox(height: ScreenUtil().setWidth(15)),
+                  Text('R:',style: TextStyle(fontSize: ScreenUtil().setSp(22))),
+                  SizedBox(height: ScreenUtil().setWidth(5)),
                   Stack(
                     children: <Widget>[
-                      Image.asset(ImageHelper.wrapAssets('kuang_left.png'),width: 12,height: 12),
+                      Image.asset(ImageHelper.wrapAssets('kuang_left.png'),width: ScreenUtil().setWidth(12),height: ScreenUtil().setWidth(12)),
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                         color: Color(0x26eedd8f),
                         child: Wrap(
                           spacing: 15,
@@ -111,11 +110,11 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
                       Positioned(
                         bottom: 1,
                         right: 1,
-                        child: Image.asset(ImageHelper.wrapAssets('kuang_right.png'),width: 12,height: 12),
+                        child: Image.asset(ImageHelper.wrapAssets('kuang_right.png'),width: ScreenUtil().setWidth(12),height: ScreenUtil().setWidth(12)),
                       )
                     ],
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
                   Offstage(
                     offstage: p.status != 1,
                     child: Row(
@@ -123,19 +122,19 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
                       children: <Widget>[
                         Text(
                           '共${p.drugs.length}味药，总重${(p.drugs.fold(0, (pre, e) => pre + (e.unitCount == null ? e.count : e.unitCount)))}克',
-                          style: TextStyle(color: Colors.grey,fontSize: 13)),
+                          style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(13))),
                         GestureDetector(
                           child: Row(
                             children: <Widget>[
                               Image.asset(
                                 ImageHelper.wrapAssets('icon_bianjiyaocia.png'),
-                                width: 15,
-                                height: 15),
-                              SizedBox(width: 2),
+                                width: ScreenUtil().setWidth(15),
+                                height: ScreenUtil().setWidth(15)),
+                              SizedBox(width: ScreenUtil().setWidth(2)),
                               Text(
                                 '编辑药材',
                                 style:
-                                TextStyle(color: Theme.of(context).primaryColor,fontSize: 15),
+                                TextStyle(color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(15)),
                               )
                             ],
                           ),
@@ -160,7 +159,6 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
               ) ,
             ),
             Expanded(child: Container(
-
               alignment: Alignment.bottomCenter,
               child: SafeArea(
                 bottom: true,
@@ -169,9 +167,9 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
                     Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:false))),
                   child: Container(
                     width: double.infinity,
-                    height: 40,
+                    height: ScreenUtil().setWidth(40),
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                     decoration: BoxDecoration(
                       color: Theme
                         .of(context)
@@ -180,13 +178,13 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
                     ),
                     child: Text(
                       '使用处方',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
                     )
                   ),
                 ),
               ),
             )),
-            SizedBox(height: 10),
+            SizedBox(height: ScreenUtil().setWidth(10)),
           ],
         ),
       )
@@ -197,10 +195,10 @@ class _PrescriptionFormWorkDetailPageState extends State<PrescriptionFormWorkDet
   List<Widget> _buildDrugWidgets() {
     return p.drugs
       .map((drug) => Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
       child: Text(
         '${drug.name}${drug.count}${drug.unit}',
-        style: TextStyle(fontSize: 13),
+        style: TextStyle(fontSize: ScreenUtil().setSp(13)),
       )))
       .toList();
   }

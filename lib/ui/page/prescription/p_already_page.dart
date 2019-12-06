@@ -6,6 +6,7 @@ import 'package:flutter_drug/event/event_bus.dart';
 import 'package:flutter_drug/event/event_model.dart';
 import 'package:flutter_drug/ui/page/prescription/p_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PrescriptionAlreadyPage extends StatefulWidget {
   @override
@@ -56,6 +57,7 @@ class _PrescriptionAlreadyPageState extends State<PrescriptionAlreadyPage> {
                     child: TabBar(
                         indicatorColor: Theme.of(context).primaryColor,
                         labelColor: Theme.of(context).primaryColor,
+                        labelStyle: TextStyle(fontSize:ScreenUtil().setSp(14)),
                         unselectedLabelColor: Colors.black87,
                         indicatorSize: TabBarIndicatorSize.label,
                         indicatorWeight: 3,

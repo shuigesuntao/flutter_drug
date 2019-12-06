@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 class CustomInputDialog extends StatefulWidget {
@@ -53,16 +54,16 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
             GestureDetector(onTap: () => FocusScope.of(context).requestFocus(FocusNode())),
             Center(
               child: Container(
-                margin: EdgeInsets.all(45),
-                height: 140,
+                margin: EdgeInsets.all(ScreenUtil().setWidth(45)),
+                height: ScreenUtil().setWidth(140),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white),
                 child: Column(
                   children: <Widget>[
-                    Padding(padding: EdgeInsets.all(15),child: Text(widget.title,style: TextStyle(fontWeight: FontWeight.bold))),
+                    Padding(padding: EdgeInsets.all(ScreenUtil().setWidth(15)),child: Text(widget.title,style: TextStyle(fontSize: ScreenUtil().setSp(15)))),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                       color: Colors.white,
                       child:TextField(
                         inputFormatters:widget.keyboardType == TextInputType.number ?  [
@@ -78,14 +79,14 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
                             borderRadius: BorderRadius.circular(5),
                             borderSide: BorderSide.none),
                           hintText: widget.hint,
-                          hintStyle: TextStyle(fontSize: 14, color: Colors.grey,)
+                          hintStyle: TextStyle(fontSize: ScreenUtil().setSp(14), color: Colors.grey,)
                         ),
                         textInputAction: TextInputAction.done,
                         keyboardType: widget.keyboardType != null? widget.keyboardType : null,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(14)),
                       )
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: ScreenUtil().setWidth(15)),
                     Divider(height: 0.5, color: Colors.grey[400]),
                     Expanded(
                       child: Row(
@@ -102,7 +103,7 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
                                 style: TextStyle(color: Colors.grey))
                             ),
                           ),
-                          Container(width: 0.5, height: 20, color: Colors.grey[400]),
+                          Container(width: 0.5, height: ScreenUtil().setWidth(20), color: Colors.grey[400]),
                           Expanded(
                             child: GestureDetector(
                               onTap:(){
@@ -123,7 +124,7 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
                                 style: TextStyle(
                                   color: Theme
                                     .of(context)
-                                    .primaryColor)),
+                                    .primaryColor,fontSize: ScreenUtil().setSp(14))),
                             ),
                           ),
                         ],

@@ -22,7 +22,7 @@ class UserInfoPage extends StatelessWidget {
           children: <Widget>[
             Container(
               height: ScreenUtil().setWidth(120),
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
@@ -45,7 +45,7 @@ class UserInfoPage extends StatelessWidget {
                       ),
                     )
                   ),
-                  SizedBox(width: 15),
+                  SizedBox(width:  ScreenUtil().setWidth(15)),
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class UserInfoPage extends StatelessWidget {
                           userModel.user.name ,
                           style: TextStyle(fontSize: ScreenUtil().setSp(16),color: Colors.white),
                         ),
-                        SizedBox(height: 5),
+                        SizedBox(height:  ScreenUtil().setWidth(5)),
                         Text(
                           '${userModel.user.type} | ${userModel.user.level}',
                           style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(12)),
@@ -68,15 +68,15 @@ class UserInfoPage extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.fromLTRB(20,10,20,10),
+              padding: EdgeInsets.fromLTRB( ScreenUtil().setWidth(20), ScreenUtil().setWidth(10), ScreenUtil().setWidth(20), ScreenUtil().setWidth(10)),
               decoration: BoxDecoration(
                 color: Color(0xfffcf3e4),
                 borderRadius: BorderRadius.circular(5)),
               child: Text('公告：找',style: TextStyle(color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(12))),
             ),
             Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(15),
+              margin: EdgeInsets.all( ScreenUtil().setWidth(10)),
+              padding: EdgeInsets.all( ScreenUtil().setWidth(15)),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -90,8 +90,8 @@ class UserInfoPage extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(16)),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15),
-                    padding: EdgeInsets.fromLTRB(12, 2, 12, 2),
+                    margin: EdgeInsets.only(top:  ScreenUtil().setWidth(15)),
+                    padding: EdgeInsets.fromLTRB( ScreenUtil().setWidth(12), ScreenUtil().setWidth(2), ScreenUtil().setWidth(12), ScreenUtil().setWidth(2)),
                     decoration:BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
@@ -103,8 +103,8 @@ class UserInfoPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal:10),
-              padding: EdgeInsets.all(15),
+              margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
+              padding: EdgeInsets.all( ScreenUtil().setWidth(15)),
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -119,8 +119,8 @@ class UserInfoPage extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 15),
-                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top:  ScreenUtil().setWidth(15)),
+                    padding: EdgeInsets.all( ScreenUtil().setWidth(10)),
                     decoration:BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
@@ -142,13 +142,13 @@ class UserInfoPage extends StatelessWidget {
                     Container(
                       height: ScreenUtil().setWidth(40),
                       alignment: Alignment.bottomCenter,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),
                       child: GestureDetector(
                         onTap: () => Navigator.of(context).pushNamed(RouteName.editUser),
                         child: Container(
                           width: double.infinity,
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all( ScreenUtil().setWidth(10)),
                           decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(5)),
@@ -162,7 +162,7 @@ class UserInfoPage extends StatelessWidget {
                 bottom: true
               ),
             ),
-            SizedBox(height: 10)
+            SizedBox(height: ScreenUtil().setWidth(10))
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_custom_input.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/service_setting_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +28,8 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                 return Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+                      margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
+                      padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(15)),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
@@ -38,7 +39,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                           Row(
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(right: 10),
+                                margin: EdgeInsets.only(right: ScreenUtil().setWidth(10)),
                                 width: 4,
                                 height: 15,
                                 color: Theme.of(context).primaryColor,
@@ -46,13 +47,13 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                               Text(
                                 '线上咨询',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
+                                    fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(15)),
                               )
                             ],
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(height: ScreenUtil().setWidth(5)),
                           _buildSwitch(),
-                          Divider(height: 1, color: Colors.grey[300]),
+                          Divider(height: 0.5, color: Colors.grey[400]),
                           _buildAskPrice(
                             '线上咨询费',
                             '结束后收益立即到账',
@@ -79,7 +80,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                       });
                                 }),
                           ),
-                          Divider(height: 1, color: Colors.grey[300]),
+                          Divider(height: 0.5, color: Colors.grey[400]),
                           _buildAskPrice(
                             '后续咨询费',
                             '建议为老患者提供优惠',
@@ -106,51 +107,51 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                       });
                                 }),
                           ),
-                          Divider(height: 1, color: Colors.grey[300]),
+                          Divider(height: 0.5, color: Colors.grey[400]),
                           Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Text('服务说明')),
+                              padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                              child: Text('服务说明',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                           Text('1、服务期间您可以使用图文、语音与患者交流;',
                               style: TextStyle(
-                                  fontSize: 12, color: Colors.grey[600])),
+                                  fontSize: ScreenUtil().setSp(12), color: Colors.grey[600])),
                           RichText(
                               text: TextSpan(
                                   text: '2、',
                                   style: TextStyle(
-                                      fontSize: 12, color: Colors.grey[600]),
+                                      fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]),
                                   children: <TextSpan>[
                                 TextSpan(
                                     text: '首次',
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: ScreenUtil().setSp(12),
                                         color: Theme.of(context).primaryColor)),
                                 TextSpan(
                                     text: '回复时间需在',
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600])),
+                                        fontSize: ScreenUtil().setSp(12), color: Colors.grey[600])),
                                 TextSpan(
                                     text: '24小时内',
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: ScreenUtil().setSp(12),
                                         color: Theme.of(context).primaryColor)),
                                 TextSpan(
                                     text:
                                         '，单次服务时间为首次回复后的72小时，若确认已解决患者问题，可提前结束对话;',
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600]))
+                                        fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]))
                               ])),
                           Text('3、逾期未回复患者，平台将自动结束该项问诊;',
                               style: TextStyle(
-                                  fontSize: 12, color: Colors.grey[600])),
+                                  fontSize: ScreenUtil().setSp(12), color: Colors.grey[600])),
                           Text('4、您需根据患者实际情况辩证开方、给出调理建议；',
                               style: TextStyle(
-                                  fontSize: 12, color: Colors.grey[600])),
+                                  fontSize: ScreenUtil().setSp(12), color: Colors.grey[600])),
                         ],
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 15),
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+                      margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                      padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(15)),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
@@ -160,7 +161,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                           Row(
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.only(right: 10),
+                                margin: EdgeInsets.only(right: ScreenUtil().setWidth(10)),
                                 width: 4,
                                 height: 15,
                                 color: Theme.of(context).primaryColor,
@@ -168,11 +169,11 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                               Text(
                                 '在线开方',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
+                                    fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(15)),
                               )
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: ScreenUtil().setWidth(10)),
                           GestureDetector(
                             onTap: () => showDialog(
                                 context: context,
@@ -198,7 +199,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                       });
                                 }),
                             child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10),
+                                padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
                                 child: Row(
                                   children: <Widget>[
                                     Expanded(
@@ -208,7 +209,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                         style: TextStyle(
                                             color:
                                                 Theme.of(context).primaryColor,
-                                            fontSize: 13)),
+                                            fontSize: ScreenUtil().setSp(13))),
                                     Icon(
                                       CupertinoIcons.right_chevron,
                                       size: 20,
@@ -217,54 +218,54 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                   ],
                                 )),
                           ),
-                          Divider(height: 1, color: Colors.grey[300]),
+                          Divider(height: 0.5, color: Colors.grey[400]),
                           Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Text('设置说明')),
+                              padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                              child: Text('设置说明',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                           RichText(
                               text: TextSpan(
                                   text: '1、',
                                   style: TextStyle(
-                                      fontSize: 12, color: Colors.grey[600]),
+                                      fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]),
                                   children: <TextSpan>[
                                 TextSpan(
                                     text: '最高',
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: ScreenUtil().setSp(12),
                                         color: Theme.of(context).primaryColor)),
                                 TextSpan(
                                     text: '可输入药费的',
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600])),
+                                        fontSize: ScreenUtil().setSp(12), color: Colors.grey[600])),
                                 TextSpan(
                                     text: '100%',
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: ScreenUtil().setSp(12),
                                         color: Theme.of(context).primaryColor)),
                                 TextSpan(
                                     text: ';',
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600]))
+                                        fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]))
                               ])),
                           RichText(
                               text: TextSpan(
                                   text: '2、在患者支付时',
                                   style: TextStyle(
-                                      fontSize: 12, color: Colors.grey[600]),
+                                      fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]),
                                   children: <TextSpan>[
                                 TextSpan(
                                     text: '与药费合并显示',
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: ScreenUtil().setSp(12),
                                         color: Theme.of(context).primaryColor)),
                                 TextSpan(
                                     text: ';',
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.grey[600]))
+                                        fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]))
                               ])),
                           Text('3、在线开方时系统会默认成您设置的比例；',
                               style: TextStyle(
-                                  fontSize: 12, color: Colors.grey[600]))
+                                  fontSize: ScreenUtil().setSp(12), color: Colors.grey[600]))
                         ],
                       ),
                     )
@@ -280,22 +281,22 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: Row(
                   children: <Widget>[
                     Text(title),
-                    SizedBox(width: 10),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
                     Text(desc,
-                        style: TextStyle(color: Colors.grey, fontSize: 13)),
+                        style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(13))),
                   ],
                 ),
               ),
               Text('$price 元/次',
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor, fontSize: 13)),
+                      color: Theme.of(context).primaryColor, fontSize: ScreenUtil().setSp(13))),
               Icon(
                 CupertinoIcons.right_chevron,
                 size: 20,
@@ -312,18 +313,22 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
         padding: EdgeInsets.symmetric(vertical: 2),
         child: Row(
           children: <Widget>[
-            Expanded(child: Text('是否开启咨询')),
+            Expanded(child: Text('是否开启咨询',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
             Text(model.isOpenAsk ? '开' : '关',
                 style: TextStyle(
                     color: model.isOpenAsk
                         ? Theme.of(context).primaryColor
-                        : Colors.black54)),
-            CupertinoSwitch(
-              activeColor: Theme.of(context).primaryColor,
-              value: model.isOpenAsk,
-              onChanged: (value) {
-                model.isOpenAsk = value;
-              },
+                        : Colors.black54,
+                  fontSize: ScreenUtil().setSp(14))),
+            GestureDetector(
+              onTap: () => model.isOpenAsk = !model.isOpenAsk,
+              child:  CupertinoSwitch(
+                activeColor: Theme.of(context).primaryColor,
+                value: model.isOpenAsk,
+                onChanged: (value) {
+                  model.isOpenAsk = value;
+                },
+              ),
             )
           ],
         ),

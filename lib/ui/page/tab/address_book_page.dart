@@ -8,6 +8,7 @@ import 'package:flutter_drug/model/friend.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 
@@ -40,8 +41,8 @@ class _AddressBookPageState extends State<AddressBookPage>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text('全部',style: TextStyle(color: Colors.black,fontWeight:FontWeight.normal,fontSize: 16)),
-              Text(' (${model.list?.length ?? 0}) ',style: TextStyle(color: Colors.grey,fontSize: 13)),
+              Text('全部',style: TextStyle(color: Colors.black,fontWeight:FontWeight.normal,fontSize: ScreenUtil().setSp(17))),
+              Text(' (${model.list?.length ?? 0}) ',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(13))),
               Image.asset(ImageHelper.wrapAssets('icon_qiehuan.png'),
                 width: 12, height: 7)
             ],
@@ -49,7 +50,7 @@ class _AddressBookPageState extends State<AddressBookPage>
           actions: <Widget>[
             Padding(
               padding: EdgeInsets.only(right: 15),
-              child: InkWell(
+              child: GestureDetector(
                 onTap: () {
                   if (widget.onItemClick == null) {
                     Navigator.of(context).pushNamed(
@@ -68,7 +69,7 @@ class _AddressBookPageState extends State<AddressBookPage>
                   child: Text(
                     '搜索',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: ScreenUtil().setSp(15),
                       color: Theme
                         .of(context)
                         .primaryColor),
@@ -95,6 +96,15 @@ class _AddressBookPageState extends State<AddressBookPage>
               },
               isShowIndex: model.isShowSuspension
             ),
+          indexBarBuilder:(BuildContext context, List<String> tags, IndexBarTouchCallback onTouch){
+            return IndexBar(
+              textStyle:TextStyle(fontSize: ScreenUtil().setSp(12)),
+              touchDownTextStyle:TextStyle(fontSize: ScreenUtil().setSp(12),color: Colors.grey),
+              touchDownColor: Colors.transparent,
+              data: tags,
+              onTouch: onTouch,
+            );
+          },
           suspensionWidget: SusWidget(tag: model.suspensionTag),
           isUseRealIndex: true,
           itemHeight: 60,
@@ -136,17 +146,17 @@ class FriendItemWidget extends StatelessWidget {
                     errorWidget: (context, url, error) =>
                     friend.gender == '女'
                       ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-                      width: 40, height: 40)
+                      width: ScreenUtil().setWidth(40), height: ScreenUtil().setWidth(40))
                       : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-                      width: 40, height: 40),
+                      width: ScreenUtil().setWidth(40), height: ScreenUtil().setWidth(40)),
                     fit: BoxFit.fill,
-                    width: 40,
-                    height: 40,
+                    width: ScreenUtil().setWidth(40),
+                    height: ScreenUtil().setWidth(40),
                   ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: 10),
+                    padding: EdgeInsets.only(left: ScreenUtil().setWidth(10)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -157,13 +167,13 @@ class FriendItemWidget extends StatelessWidget {
                           children: <Widget>[
                             Text(
                               friend.displayName,
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                             ),
                             Offstage(
                               offstage:
                               friend.name == null || friend.name.isEmpty,
                               child: Text('（${friend.name}）',
-                                style: TextStyle(color: Colors.grey)),
+                                style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14))),
                             )
                           ],
                         ),
@@ -186,8 +196,8 @@ class FriendItemWidget extends StatelessWidget {
                                         child:Image.asset(ImageHelper.wrapAssets(
                                         friend.gender == '女'
                                           ? 'icon_girl.png'
-                                          : 'icon_boy.png'), width: 12,
-                                        height: 12)
+                                          : 'icon_boy.png'), width: ScreenUtil().setWidth(12),
+                                        height: ScreenUtil().setWidth(12))
                                       ),
                                     ),
                                   Text('${friend.age} 岁', style: TextStyle(
@@ -195,11 +205,11 @@ class FriendItemWidget extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: ScreenUtil().setWidth(10)),
                             Text(
                               '问诊${friend.askCount}次 | 购药${friend.buyDrugCount}次',
                               style: TextStyle(
-                                color: Colors.grey, fontSize: 12),
+                                color: Colors.grey, fontSize: ScreenUtil().setSp(12)),
                             )
                           ],
                         )
@@ -209,7 +219,7 @@ class FriendItemWidget extends StatelessWidget {
               ],
             )),
         ),
-        Divider(height: 1)
+        Divider(height: 0.5,color: Colors.grey[300])
       ],
     );
   }
@@ -223,15 +233,15 @@ class SusWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
-      padding: const EdgeInsets.only(left: 15),
+      height: ScreenUtil().setWidth(30),
+      padding: EdgeInsets.only(left: ScreenUtil().setWidth(15)),
       color: Theme.of(context).scaffoldBackgroundColor,
       alignment: Alignment.centerLeft,
       child: Text(
         tag,
         softWrap: false,
         style: TextStyle(
-          color: Colors.black87,
+          color: Colors.black87,fontSize: ScreenUtil().setSp(14)
         ),
       ),
     );

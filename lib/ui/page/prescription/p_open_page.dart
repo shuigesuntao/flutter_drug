@@ -17,9 +17,9 @@ import 'package:flutter_drug/ui/widget/drug_store_item.dart';
 import 'package:flutter_drug/ui/widget/dialog_yizhu_select.dart';
 import 'package:flutter_drug/ui/widget/dialog_zhenfei.dart';
 import 'package:flutter_drug/ui/widget/picker.dart';
-import 'package:flutter_drug/ui/widget/dialog_gaofangfuliao_select.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +31,8 @@ class PrescriptionOpenPage extends StatefulWidget {
   final bool isWeChat;
   final bool isImage;
 
-  PrescriptionOpenPage({this.friend, this.isWeChat = false,this.isImage = false});
+  PrescriptionOpenPage(
+      {this.friend, this.isWeChat = false, this.isImage = false});
 
   @override
   State<StatefulWidget> createState() => PrescriptionOpenPageState();
@@ -40,20 +41,22 @@ class PrescriptionOpenPage extends StatefulWidget {
 class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   int showChecked = 0;
   int wayChecked = 0;
+  int packWay = 0;
   int tisnaWay = 1;
+  int gaoAssist = -1; //0 蜂蜜 1 木糖醇
   double category = 1;
   String _gender = '';
-  String _countOfBag = '200';
   Friend _friend;
-  String _gaoAssist = '';
   String _yizhuTime = '';
   String _yizhuJiKou = '';
   String _yizhuBuChong = '';
+  String _ml = '200';
   List<Drug> _drugs = [];
   List<Poison> poisons = [];
-  List<Conflict> conflicts  = [];
+  List<Conflict> conflicts = [];
   bool isShowPriceDetail = false;
   bool isDefaultPercent = true;
+  bool isKeLiCount = false;
   double _drugPrice = 0;
   int _zhenfei = 0;
   int _jiagongfei = 0;
@@ -62,18 +65,21 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   String _fuzhenText = '系统默认';
   int _currentPercent;
   int _defaultPercent = 10;
-  String originImage = 'https://app.zgzydb.com/upload/Prescription/191009202635453169f79cae0e245bebcb482c280b66c95.jpg';
+  String originImage =
+      'https://app.zgzydb.com/upload/Prescription/191009202635453169f79cae0e245bebcb482c280b66c95.jpg';
   bool _isHide = false;
   bool _isConfirm = false;
 
-  final TextEditingController _controller = TextEditingController(text: "7");
-  final TextEditingController _bagController = TextEditingController(text: "2");
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _diseaseController = TextEditingController();
-  final TextEditingController _chiefComplaintController =
-      TextEditingController();
+  final TextEditingController _controller = TextEditingController(text: "7");//剂量
+  final TextEditingController _bagController = TextEditingController();//袋数
+  final TextEditingController _countOfDayController = TextEditingController();//每日服药次数
+  final TextEditingController _countOfUseDrugController = TextEditingController();//每次服药数量
+
+  final TextEditingController _nameController = TextEditingController(); //姓名
+  final TextEditingController _phoneController = TextEditingController(); //电话
+  final TextEditingController _ageController = TextEditingController(); //年龄
+  final TextEditingController _diseaseController = TextEditingController(); //病症
+  final TextEditingController _chiefComplaintController = TextEditingController(); //辩证
 
   @override
   void initState() {
@@ -110,7 +116,9 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(context, widget.isImage?'拍方上传':'在线开方',actionText: widget.isImage?'查看原图片':null,onActionPress: (){
+      appBar: TitleBar.buildCommonAppBar(
+          context, widget.isImage ? '拍方上传' : '在线开方',
+          actionText: widget.isImage ? '查看原图片' : null, onActionPress: () {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -143,48 +151,59 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
         return GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             child: ListView(
               children: <Widget>[
                 // 诊断
                 _buildZhenduanWidget(),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 // 开方
                 _buildKaifangWidget(),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 // 超量与配伍禁忌
                 Offstage(
                   offstage: poisons.length == 0 && conflicts.length == 0,
-                  child: Padding(padding: EdgeInsets.only(bottom: 10),child: _buildExcessWidget(context)),
+                  child: Padding(
+                      padding:
+                          EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
+                      child: _buildExcessWidget(context)),
                 ),
                 // 医嘱
                 _buildYizhuWidget(context),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 // 复诊随访时间
                 GestureDetector(
                   onTap: () => showModalBottomSheet(
-                    context: context,
-                    builder: (context) =>DialogFuzhenTime(fuzhenTime:_fuzhenTime,suifangTime:_suifangTime,onConfirm: (fuzhenTime, suifangTime) {
-                        setState(() {
-                          _fuzhenText = '已设置';
-                          _fuzhenTime = fuzhenTime;
-                          _suifangTime = suifangTime;
-                        });
-                      })
-                  ),
+                      context: context,
+                      builder: (context) => DialogFuzhenTime(
+                          fuzhenTime: _fuzhenTime,
+                          suifangTime: _suifangTime,
+                          onConfirm: (fuzhenTime, suifangTime) {
+                            setState(() {
+                              _fuzhenText = '已设置';
+                              _fuzhenTime = fuzhenTime;
+                              _suifangTime = suifangTime;
+                            });
+                          })),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    height: 50,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(15)),
+                    height: ScreenUtil().setWidth(50),
                     child: Row(
                       children: <Widget>[
-                        Expanded(child: Text('复诊及随访时间')),
+                        Expanded(
+                            child: Text('复诊及随访时间',
+                                style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(14)))),
                         Row(
                           children: <Widget>[
-                            Text(_fuzhenText),
+                            Text(_fuzhenText,
+                                style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(14))),
                             Icon(
                               Icons.chevron_right,
                               color: Colors.grey[400],
@@ -195,49 +214,56 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 // 划价
                 _buildHuajiaWidget(context),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 // 处方是否可见
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
-                  height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  height: ScreenUtil().setWidth(50),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setWidth(15)),
                   child: Row(
                     children: <Widget>[
-                      Expanded(child: Text('处方是否可见处方')),
+                      Expanded(
+                          child: Text('处方是否可见处方',
+                              style:
+                                  TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Row(
                         children: <Widget>[
                           _buildShowButton(0, '可见'),
-                          SizedBox(width: 10),
+                          SizedBox(width: ScreenUtil().setWidth(10)),
                           _buildShowButton(1, '不可见')
                         ],
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 // 提交
                 SafeArea(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: FlatButton(
-                        padding: EdgeInsets.all(10),
-                        onPressed: () => print('确认签名并发送'),
-                        color: Theme.of(context).primaryColor,
-                        child: Text(
-                          '确认签名并发送',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(5))),
-                      ),
+                    child: GestureDetector(
+                      onTap: () => print('确认签名并发送'),
+                      child: Container(
+                          width: double.infinity,
+                          height: ScreenUtil().setWidth(40),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            '确认签名并发送',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ScreenUtil().setSp(14)),
+                          )),
                     ),
                     bottom: true),
+                SizedBox(height: ScreenUtil().setWidth(10)),
               ],
             ),
           ),
@@ -249,7 +275,11 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   /// 诊断
   Widget _buildZhenduanWidget() {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+      padding: EdgeInsets.fromLTRB(
+          ScreenUtil().setWidth(15),
+          ScreenUtil().setWidth(10),
+          ScreenUtil().setWidth(15),
+          ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -259,41 +289,44 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           Row(
             children: <Widget>[
               Image.asset(ImageHelper.wrapAssets('icon_zhenduan.png'),
-                  width: 15, height: 15),
-              SizedBox(width: 10),
+                  width: ScreenUtil().setWidth(15),
+                  height: ScreenUtil().setWidth(15)),
+              SizedBox(width: ScreenUtil().setWidth(10)),
               Text(
                 '诊断',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: ScreenUtil().setSp(12)),
               ),
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: ScreenUtil().setWidth(10)),
           Offstage(
             offstage: widget.isWeChat,
             child: Row(
               children: <Widget>[
-                Text('手机'),
-                SizedBox(width: 10),
+                Text('手机', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                SizedBox(width: ScreenUtil().setWidth(10)),
                 Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                    child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setWidth(10)),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Colors.grey[300], width: 0.5)),
+                          borderSide:
+                              BorderSide(color: Colors.grey[300], width: 0.5)),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                        BorderSide(color: Colors.grey[300], width: 0.5)),
+                          borderSide:
+                              BorderSide(color: Colors.grey[300], width: 0.5)),
                       hintText: '请输入患者手机号',
-                      hintStyle:
-                      TextStyle(color: Colors.grey[300], fontSize: 14)),
-                    controller: _phoneController,
-                    maxLines: 1,
-                    textInputAction: TextInputAction.newline,
-                    style: TextStyle(fontSize: 14),
-                  ))
+                      hintStyle: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: ScreenUtil().setSp(14))),
+                  controller: _phoneController,
+                  maxLines: 1,
+                  textInputAction: TextInputAction.newline,
+                  style: TextStyle(fontSize: ScreenUtil().setSp(14)),
+                ))
               ],
             ),
           ),
@@ -303,12 +336,14 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                   flex: 3,
                   child: Row(
                     children: <Widget>[
-                      Text('患者'),
-                      SizedBox(width: 10),
+                      Text('患者',
+                          style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Expanded(
                           child: TextField(
                         decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 10),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: ScreenUtil().setWidth(10)),
                             enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Colors.grey[300], width: 0.5)),
@@ -316,17 +351,19 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                                 borderSide: BorderSide(
                                     color: Colors.grey[300], width: 0.5)),
                             hintText: '请输入患者姓名',
-                            hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 14)),
+                            hintStyle: TextStyle(
+                                color: Colors.grey[300],
+                                fontSize: ScreenUtil().setSp(14))),
                         controller: _nameController,
                         maxLines: 1,
                         textInputAction: TextInputAction.newline,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(14)),
                       ))
                     ],
                   )),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding:
+                    EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () => showCupertinoModalPopup(
@@ -340,10 +377,12 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                           )),
                   child: Row(
                     children: <Widget>[
-                      Text(_gender.isEmpty ? '性别' : _gender),
-                      SizedBox(width: 3),
+                      Text(_gender.isEmpty ? '性别' : _gender,
+                          style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                      SizedBox(width: ScreenUtil().setWidth(3)),
                       Image.asset(ImageHelper.wrapAssets('icon_jiantou.png'),
-                          width: 10, height: 10)
+                          width: ScreenUtil().setWidth(10),
+                          height: ScreenUtil().setWidth(10))
                     ],
                   ),
                 ),
@@ -360,7 +399,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                       ],
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(vertical: 5),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: ScreenUtil().setWidth(5)),
                           enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
                                   color: Colors.grey[300], width: 0.5)),
@@ -368,14 +408,16 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                               borderSide: BorderSide(
                                   color: Colors.grey[300], width: 0.5)),
                           hintText: '年龄',
-                          hintStyle:
-                              TextStyle(color: Colors.grey, fontSize: 14)),
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: ScreenUtil().setSp(14))),
                       controller: _ageController,
                       maxLines: 1,
                       textInputAction: TextInputAction.newline,
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: ScreenUtil().setSp(14)),
                     )),
-                    Text('岁')
+                    Text('岁',
+                        style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                   ],
                 ),
               )
@@ -383,12 +425,13 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           ),
           Row(
             children: <Widget>[
-              Text('病症'),
-              SizedBox(width: 10),
+              Text('病症', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+              SizedBox(width: ScreenUtil().setWidth(10)),
               Expanded(
                   child: TextField(
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 10),
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setWidth(10)),
                     enabledBorder: UnderlineInputBorder(
                         borderSide:
                             BorderSide(color: Colors.grey[300], width: 0.5)),
@@ -396,23 +439,25 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                         borderSide:
                             BorderSide(color: Colors.grey[300], width: 0.5)),
                     hintText: '填写中医病症名称（必填）',
-                    hintStyle:
-                        TextStyle(color: Colors.grey[300], fontSize: 14)),
+                    hintStyle: TextStyle(
+                        color: Colors.grey[300],
+                        fontSize: ScreenUtil().setSp(14))),
                 controller: _diseaseController,
                 maxLines: 1,
                 textInputAction: TextInputAction.newline,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontSize: ScreenUtil().setSp(14)),
               ))
             ],
           ),
           Row(
             children: <Widget>[
-              Text('辩证'),
-              SizedBox(width: 10),
+              Text('辩证', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+              SizedBox(width: ScreenUtil().setWidth(10)),
               Expanded(
                 child: TextField(
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                      contentPadding: EdgeInsets.symmetric(
+                          vertical: ScreenUtil().setWidth(10)),
                       enabledBorder: UnderlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.grey[300], width: 0.5)),
@@ -420,12 +465,13 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                           borderSide:
                               BorderSide(color: Colors.grey[300], width: 0.5)),
                       hintText: '请输入主诉、辩证（选填）',
-                      hintStyle:
-                          TextStyle(color: Colors.grey[300], fontSize: 14)),
-                  controller: _diseaseController,
+                      hintStyle: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: ScreenUtil().setSp(14))),
+                  controller: _chiefComplaintController,
                   maxLines: 1,
                   textInputAction: TextInputAction.newline,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(14)),
                 ),
               )
             ],
@@ -456,7 +502,11 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   /// 开方
   Widget _buildKaifangWidget() {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+      padding: EdgeInsets.fromLTRB(
+          ScreenUtil().setWidth(15),
+          ScreenUtil().setWidth(10),
+          ScreenUtil().setWidth(15),
+          ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -475,40 +525,66 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                     Row(
                       children: <Widget>[
                         Image.asset(ImageHelper.wrapAssets('icon_kaifang.png'),
-                            width: 15, height: 15),
-                        SizedBox(width: 10),
+                            width: ScreenUtil().setWidth(15),
+                            height: ScreenUtil().setWidth(15)),
+                        SizedBox(width: ScreenUtil().setWidth(10)),
                         Text(
                           '开方',
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                         ),
                       ],
                     ),
                   ],
                 ),
                 Text('存为常用处方',
-                    style: TextStyle(color: Color(0xffeaaf4c), fontSize: 12))
+                    style: TextStyle(
+                        color: Color(0xffeaaf4c),
+                        fontSize: ScreenUtil().setSp(12)))
               ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: ScreenUtil().setWidth(5)),
             Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding:
+                    EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
                 child: model.busy
                     ? SizedBox.shrink()
                     : DrugStoreItem(drugs: _drugs)),
             Image.asset(ImageHelper.wrapAssets('xuxian.png')),
             Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Text('R:',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.w500))),
+                padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('R:',
+                      style: TextStyle(
+                        fontSize: ScreenUtil().setSp(22),
+                        fontWeight: FontWeight.w500)),
+                    Offstage(
+                      offstage: model.currentCategory != 1,
+                      child: GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            isKeLiCount = !isKeLiCount;
+                          });
+                        },
+                        child: Text(isKeLiCount?'显示饮片克数':'显示颗粒克数',
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
+                      ),
+                    )
+                  ],
+                )
+            ),
             _drugs.isEmpty
                 ? SizedBox.shrink()
                 : Stack(
                     children: <Widget>[
-                      Image.asset(ImageHelper.wrapAssets('kuang_left.png'),width: 12,height: 12),
+                      Image.asset(ImageHelper.wrapAssets('kuang_left.png'),
+                          width: ScreenUtil().setWidth(12),
+                          height: ScreenUtil().setWidth(12)),
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                         color: Color(0x26eedd8f),
                         child: Wrap(
                           spacing: 15,
@@ -518,29 +594,35 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                       Positioned(
                         bottom: 1,
                         right: 1,
-                        child: Image.asset(ImageHelper.wrapAssets('kuang_right.png'),width: 12,height: 12),
+                        child: Image.asset(
+                            ImageHelper.wrapAssets('kuang_right.png'),
+                            width: ScreenUtil().setWidth(12),
+                            height: ScreenUtil().setWidth(12)),
                       )
                     ],
                   ),
-            SizedBox(height: 10),
+            SizedBox(height: ScreenUtil().setWidth(10)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                     '共${_drugs.length}味药，总重${(_drugs.fold(0, (pre, e) => pre + (e.unitCount == null ? e.count : e.unitCount))) * int.parse(_controller.text)}克',
-                    style: TextStyle(color: Color(0xffeaaf4c), fontSize: 13)),
+                    style: TextStyle(
+                        color: Color(0xffeaaf4c),
+                        fontSize: ScreenUtil().setSp(13))),
                 GestureDetector(
                     child: Row(
                       children: <Widget>[
                         Image.asset(
                             ImageHelper.wrapAssets('icon_bianjiyaocia.png'),
-                            width: 15,
-                            height: 15),
-                        SizedBox(width: 2),
+                            width: ScreenUtil().setWidth(15),
+                            height: ScreenUtil().setWidth(15)),
+                        SizedBox(width: ScreenUtil().setWidth(2)),
                         Text(
                           '编辑药材',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: ScreenUtil().setSp(15)),
                         )
                       ],
                     ),
@@ -559,17 +641,19 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                             _drugPrice = _getSingleDrugPrice(_drugs);
                             poisons.clear();
                             conflicts.clear();
-                            _drugs.forEach((drug){
-                              if(drug.name == '制草乌' && drug.count > 3){
-                                poisons.add(Poison('制草乌','3.0'));
+                            _drugs.forEach((drug) {
+                              if (drug.name == '制草乌' && drug.count > 3) {
+                                poisons.add(Poison('制草乌', '3.0'));
                               }
                             });
-                            var names = _drugs.map((drug)=>drug.name).toList();
-                            if(names.contains('川乌') && names.contains('川贝母') ){
-                              conflicts.add(Conflict('川乌','川贝母'));
+                            var names =
+                                _drugs.map((drug) => drug.name).toList();
+                            if (names.contains('川乌') && names.contains('川贝母')) {
+                              conflicts.add(Conflict('川乌', '川贝母'));
                             }
-                            if(names.contains('制草乌') && names.contains('川贝母') ){
-                              conflicts.add(Conflict('制草乌','川贝母'));
+                            if (names.contains('制草乌') &&
+                                names.contains('川贝母')) {
+                              conflicts.add(Conflict('制草乌', '川贝母'));
                             }
                           });
                         }
@@ -577,30 +661,57 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                     })
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: ScreenUtil().setWidth(10)),
             Image.asset(ImageHelper.wrapAssets('xuxian.png')),
+            SizedBox(height: ScreenUtil().setWidth(5)),
             _buildCountWidget(model.selectedCategory),
             Offstage(
                 offstage: model.currentCategory != 0,
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 10),
+                    SizedBox(height: ScreenUtil().setWidth(10)),
                     Row(
                       children: <Widget>[
-                        Expanded(child: Text('煎药方式')),
+                        Expanded(
+                            child: Text('煎药方式',
+                                style: TextStyle(
+                                    fontSize: ScreenUtil().setSp(14)))),
                         Row(
                           children: <Widget>[
                             _buildTisnaWayButton(0, '自煎'),
-                            SizedBox(width: 10),
+                            SizedBox(width: ScreenUtil().setWidth(10)),
                             _buildTisnaWayButton(1, '代煎')
                           ],
                         )
                       ],
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: ScreenUtil().setWidth(10)),
                     Divider(height: 0.5, color: Colors.grey[400]),
                   ],
-                ))
+                )),
+            Offstage(
+              offstage: model.currentCategory != 3,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text('膏方辅料选择',
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(14)))),
+                      Row(
+                        children: <Widget>[
+                          _buildFuLiaoButton(0, '蜂蜜'),
+                          SizedBox(width: ScreenUtil().setWidth(10)),
+                          _buildFuLiaoButton(1, '木糖醇')
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                ],
+              ))
           ],
         ),
       ),
@@ -609,16 +720,16 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
 
   /// 毫升数
   List<Widget> _buildCountOfBagActions() {
-    final List<String> levels = ['50', '100', '150', '200', '250'];
-    return levels
-        .map((countOfBag) => CupertinoActionSheetAction(
+    final List<String> mls = ['50', '100', '150', '200', '250'];
+    return mls
+        .map((ml) => CupertinoActionSheetAction(
             onPressed: () {
               setState(() {
-                _countOfBag = countOfBag;
+                _ml = ml;
               });
               Navigator.maybePop(context);
             },
-            child: Text(countOfBag)))
+            child: Text(ml)))
         .toList();
   }
 
@@ -626,10 +737,10 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   List<Widget> _buildDrugWidgets() {
     return _drugs
         .map((drug) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 5),
+            padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
             child: Text(
               '${drug.name}${drug.count}${drug.unit}',
-              style: TextStyle(fontSize: 13),
+              style: TextStyle(fontSize: ScreenUtil().setSp(13)),
             )))
         .toList();
   }
@@ -639,349 +750,176 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     Widget widget = SizedBox.shrink();
     switch (category) {
       case 0:
-      case 5:
-      case 6:
-      case 7:
-        widget = Row(
+        widget = Column(
           children: <Widget>[
-            Text('共', style: TextStyle(color: Colors.grey)),
-            Column(
+            Row(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  height: 30,
-                  width: 50,
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter.digitsOnly
-                    ],
-                    controller: _controller,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.number,
-                    onChanged: (text) {
-                      if (text.isEmpty || int.parse(text) < 1) {
-                        showToast('处方剂量最小为1剂');
-                        _controller.text = '';
-                      }
-                    },
-                    decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[300], width: 0.5)),
-                        focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[300], width: 0.5)),
-                        contentPadding: EdgeInsets.all(5)),
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
-                ),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                _buildDrugUseCountWidget(_bagController, '，每剂', '袋', '每剂袋数',width: 38),
+                Row(
+                  children: <Widget>[
+                    Text('，每袋', style: TextStyle(color: Colors.grey)),
+                    GestureDetector(
+                      onTap: ()=> showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => CupertinoActionSheet(
+                          message: Text('请选择'),
+                          cancelButton: CupertinoActionSheetAction(
+                            onPressed: () => Navigator.maybePop(context),
+                            child: Text('取消')),
+                          actions: _buildCountOfBagActions(),
+                        )),
+                      child:  Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
+                        height: ScreenUtil().setWidth(30),
+                        width: ScreenUtil().setWidth(38),
+                        decoration: BoxDecoration(
+                          border: Border(bottom: BorderSide(color: Colors.grey[300], width: 0.5))
+                        ),
+                        child: Text(_ml,style: TextStyle(color: Theme.of(context).primaryColor))
+                      ),
+                    ),
+                    Text('ml', style: TextStyle(color: Colors.grey)),
+                  ],
+                )
               ],
             ),
-            Text('剂', style: TextStyle(color: Colors.grey)),
+            SizedBox(height: ScreenUtil().setWidth(5)),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_countOfDayController, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController, '每次', '袋', '每次服药数量',width: 38),
+              ],
+            )
           ],
         );
         break;
       case 1:
-        widget = Row(
+        widget = Column(
           children: <Widget>[
-            Text('共', style: TextStyle(color: Colors.grey)),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                height: 30,
-                width: 50,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey[200]),
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white),
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                  controller: _controller,
-                  textInputAction: TextInputAction.newline,
-                  keyboardType: TextInputType.number,
-                  onChanged: (text) {
-                    if (text.isEmpty || int.parse(text) < 1) {
-                      showToast('处方剂量最小为1剂');
-                      _controller.text = '';
-                    }
-                  },
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.all(5)),
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-              ),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                _buildDrugUseCountWidget(_bagController, '，每剂', '袋', '每剂袋数',width: 38)
+              ],
             ),
-            Text('剂', style: TextStyle(color: Colors.grey)),
-            Text('，每剂', style: TextStyle(color: Colors.grey)),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                width: 40,
-                height: 30,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey[200]),
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.white),
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                  controller: _bagController,
-                  textInputAction: TextInputAction.newline,
-                  keyboardType: TextInputType.number,
-                  onChanged: (text) {
-                    if (text.isEmpty || int.parse(text) < 1) {
-                      showToast('每剂袋数最小为1袋');
-                      _bagController.text = '';
-                    }
-                  },
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.all(5)),
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-              ),
-            ),
-            Text('袋，每袋', style: TextStyle(color: Colors.grey)),
-            Expanded(
-              child: GestureDetector(
-                onTap: () => showCupertinoModalPopup(
-                    context: context,
-                    builder: (context) => CupertinoActionSheet(
-                          message: Text('请选择'),
-                          cancelButton: CupertinoActionSheetAction(
-                              onPressed: () => Navigator.maybePop(context),
-                              child: Text('取消')),
-                          actions: _buildCountOfBagActions(),
-                        )),
-                child: Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  width: 50,
-                  height: 30,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey[200]),
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white),
-                  child: Text(
-                    _countOfBag,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
-                ),
-              ),
-            ),
-            Text('ml', style: TextStyle(color: Colors.grey)),
+            SizedBox(height: ScreenUtil().setWidth(5)),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_countOfDayController, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController, '每次', '袋', '每次服药数量',width: 38),
+              ],
+            )
           ],
         );
         break;
       case 2:
-        widget = Row(
+        widget = Column(
           children: <Widget>[
-            Text('共', style: TextStyle(color: Colors.grey)),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              height: 30,
-              width: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey[200]),
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white),
-              child: TextField(
-                textAlign: TextAlign.center,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: _controller,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  if (text.isEmpty || int.parse(text) < 1) {
-                    showToast('处方剂量最小为1剂');
-                    _controller.text = '';
-                  }
-                },
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(5)),
-                style: TextStyle(color: Theme.of(context).primaryColor),
-              ),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                SizedBox(width: ScreenUtil().setWidth(10)),
+                GestureDetector(
+                  onTap: (){
+                    showDialog( context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return TipDialog();
+                    });
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Text('*建议处方重量在1kg以上 ',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
+                      Image.asset(ImageHelper.wrapAssets('icon_shuoming.png'),width: ScreenUtil().setWidth(15),height: ScreenUtil().setWidth(15)),
+                    ],
+                  )
+                )
+              ],
             ),
-            Text('剂', style: TextStyle(color: Colors.grey)),
-            Text('，每剂', style: TextStyle(color: Colors.grey)),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              width: 35,
-              height: 30,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey[200]),
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white),
-              child: TextField(
-                textAlign: TextAlign.center,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: _bagController,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  if (text.isEmpty || int.parse(text) < 1) {
-                    showToast('每剂袋数最小为1袋');
-                    _bagController.text = '';
-                  }
-                },
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(5)),
-                style: TextStyle(color: Theme.of(context).primaryColor),
-              ),
-            ),
-            Text('袋', style: TextStyle(color: Colors.grey)),
+            SizedBox(height: ScreenUtil().setWidth(5)),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_countOfDayController..text = '3', '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = '10', '每次', '克', '每次服药数量',width: 38),
+              ],
+            )
           ],
         );
         break;
       case 3:
-        widget = Row(
+        widget = Column(
           children: <Widget>[
-            Text('共', style: TextStyle(color: Colors.grey)),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              height: 30,
-              width: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey[200]),
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white),
-              child: TextField(
-                textAlign: TextAlign.center,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: _controller,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  if (text.isEmpty || int.parse(text) < 1) {
-                    showToast('处方剂量最小为1剂');
-                    _controller.text = '';
-                  }
-                },
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(5)),
-                style: TextStyle(color: Theme.of(context).primaryColor),
-              ),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                SizedBox(width: ScreenUtil().setWidth(20)),
+                Row(
+                  children: <Widget>[
+                    _buildPackButton(0, '袋装(10-15ml)'),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
+                    _buildPackButton(1, '瓶装(180ml)')
+                  ],
+                )
+              ],
             ),
-            Text('剂，*建议处方重量在1kg以上', style: TextStyle(color: Colors.grey)),
-            GestureDetector(
-              onTap: () => showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) => TipDialog()),
-              child: ImageIcon(
-                AssetImage(ImageHelper.wrapAssets('ic_shuoming.png')),
-                size: 15,
-                color: Colors.grey[400],
-              ),
-            ),
+            SizedBox(height: ScreenUtil().setWidth(5)),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_countOfDayController..text = '3', '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_bagController..text = '1', '每次', '袋', '每次服药数量',width: 38),
+              ],
+            )
           ],
         );
         break;
       case 4:
         widget = Row(
           children: <Widget>[
-            Text('共', style: TextStyle(color: Colors.grey)),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10),
-              height: 30,
-              width: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey[200]),
-                  borderRadius: BorderRadius.circular(5),
-                  color: Colors.white),
-              child: TextField(
-                textAlign: TextAlign.center,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                controller: _controller,
-                textInputAction: TextInputAction.newline,
-                keyboardType: TextInputType.number,
-                onChanged: (text) {
-                  if (text.isEmpty || int.parse(text) < 1) {
-                    showToast('处方剂量最小为1剂');
-                    _controller.text = '';
-                  }
-                },
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(5)),
-                style: TextStyle(color: Theme.of(context).primaryColor),
-              ),
-            ),
-            Text('剂，*每丸9克', style: TextStyle(color: Colors.grey)),
+            _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+            _buildDrugUseCountWidget(
+              _countOfDayController..text = '3', '，每日', '次', '每天服药次数',width: 38)
           ],
         );
         break;
-      case 8:
+      case 5:
+      case 6:
         widget = Column(
           children: <Widget>[
             Row(
               children: <Widget>[
-                Text('共', style: TextStyle(color: Colors.grey)),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  height: 30,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey[200]),
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white),
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter.digitsOnly
-                    ],
-                    controller: _controller,
-                    textInputAction: TextInputAction.newline,
-                    keyboardType: TextInputType.number,
-                    onChanged: (text) {
-                      if (text.isEmpty || int.parse(text) < 1) {
-                        showToast('处方剂量最小为1剂');
-                        _controller.text = '';
-                      }
-                    },
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(5)),
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
-                ),
-                Text('剂', style: TextStyle(color: Colors.grey)),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                SizedBox(width: ScreenUtil().setWidth(10)),
+                Text('*每丸约0.09克',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
               ],
             ),
-            SizedBox(height: 10),
-            Divider(height: 1, color: Colors.grey),
-            SizedBox(height: 10),
-            GestureDetector(
-              onTap: () => showModalBottomSheet(
-                  context: context,
-                  builder: (context) => DialogGaoFangFuLiaoSelect(['蜂蜜', '木糖醇'],
-                          selectList: [_gaoAssist],
-                          height: 150, onConfirm: (data) {
-                        setState(() {
-                          _gaoAssist = data;
-                        });
-                      })),
-              child: Row(
-                children: <Widget>[
-                  Expanded(child: Text('膏方辅料选择')),
-                  Text(
-                    _gaoAssist.isEmpty ? '选择' : _gaoAssist,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: _gaoAssist.isEmpty ? Colors.grey : null),
-                  ),
-                  Icon(
-                    Icons.chevron_right,
-                    color: Colors.grey[400],
-                  ),
-                ],
-              ),
+            SizedBox(height: ScreenUtil().setWidth(5)),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_countOfDayController..text = '2', '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = '1', '每次', '丸', '每次服药数量',width: 38),
+              ],
+            )
+          ],
+        );
+        break;
+      case 7:
+        widget = Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                SizedBox(width: ScreenUtil().setWidth(10)),
+                Text('*每丸约9克',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
+              ],
+            ),
+            SizedBox(height: ScreenUtil().setWidth(5)),
+            Row(
+              children: <Widget>[
+                _buildDrugUseCountWidget(_countOfDayController..text = '2', '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = '1', '每次', '丸', '每次服药数量',width: 38),
+              ],
             )
           ],
         );
@@ -990,97 +928,141 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     return widget;
   }
 
-  /// 超量与配伍禁忌
-  Widget _buildExcessWidget(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-      ),
-      child:Stack(
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              //标题
-              Row(
-                children: <Widget>[
-                  Image.asset(ImageHelper.wrapAssets('icon_pwjj.png'),
-                    width: 15, height: 15),
-                  SizedBox(width: 10),
-                  Text(
-                    '超量与配伍禁忌',
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _buildExcessItem()
-              ),
-              Divider(height: 1, color: Colors.grey[300]),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(_isConfirm?'已确认签字':'请您签字确认以上药材使用无误',style: TextStyle(fontSize: 13)),
-                  Offstage(
-                    offstage: _isConfirm,
-                    child: GestureDetector(
-                      child: Container(
-                        width: 70,
-                        height: 23,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(3)),
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor, width: 1)),
-                        child: Center(
-                          child: Text(
-                            '签名使用',
-                            style:
-                            TextStyle(color: Theme.of(context).primaryColor,fontSize: 13),
-                          ),
-                        )),
-                      onTap: (){
-                        setState(() {
-                          _isConfirm = true;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          Positioned(
-            right: 1,
-            bottom: 1,
-            child: Offstage(
-              offstage: !_isConfirm,
-              child:Transform.rotate(
-                angle: pi / 12,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Image.asset(ImageHelper.wrapAssets('zhang.png'),width: 80,height: 80),
-                    Text('许洪亮',style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 16))
-                  ],
-                ),
-              ),
-            )
-          ),
-        ],
-      )
+  /// 用药输入框
+  Widget _buildDrugUseCountWidget(TextEditingController controller,
+      String text1, String text2, String toastText,{ num width = 50 }) {
+    return Row(
+      children: <Widget>[
+        Text(text1, style: TextStyle(color: Colors.grey)),
+        Container(
+          margin:
+          EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
+          height: ScreenUtil().setWidth(30),
+          width: ScreenUtil().setWidth(width),
+          child: TextField(
+            textAlign: TextAlign.center,
+            inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+            controller: controller,
+            textInputAction: TextInputAction.newline,
+            keyboardType: TextInputType.number,
+            onChanged: (text) {
+              if (text.isEmpty || int.parse(text) < 1) {
+                showToast('$toastText最小为1');
+                controller.text = '';
+              }
+            },
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide:
+                BorderSide(color: Colors.grey[300], width: 0.5)),
+              focusedBorder: UnderlineInputBorder(
+                borderSide:
+                BorderSide(color: Colors.grey[300], width: 0.5)),
+              contentPadding: EdgeInsets.all(ScreenUtil().setWidth(5))),
+            style: TextStyle(color: Theme.of(context).primaryColor),
+          )),
+        Text(text2, style: TextStyle(color: Colors.grey)),
+      ],
     );
   }
 
+  /// 超量与配伍禁忌
+  Widget _buildExcessWidget(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //标题
+                Row(
+                  children: <Widget>[
+                    Image.asset(ImageHelper.wrapAssets('icon_pwjj.png'),
+                        width: ScreenUtil().setWidth(15),
+                        height: ScreenUtil().setWidth(15)),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
+                    Text(
+                      '超量与配伍禁忌',
+                      style: TextStyle(fontSize: ScreenUtil().setSp(12)),
+                    ),
+                  ],
+                ),
+                SizedBox(height: ScreenUtil().setWidth(15)),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: _buildExcessItem()),
+                Divider(height: 0.5, color: Colors.grey[400]),
+                SizedBox(height: ScreenUtil().setWidth(15)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(_isConfirm ? '已确认签字' : '请您签字确认以上药材使用无误',
+                        style: TextStyle(fontSize: ScreenUtil().setSp(13))),
+                    Offstage(
+                      offstage: _isConfirm,
+                      child: GestureDetector(
+                        child: Container(
+                            width: ScreenUtil().setWidth(70),
+                            height: ScreenUtil().setWidth(23),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3)),
+                                border: Border.all(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 1)),
+                            child: Center(
+                              child: Text(
+                                '签名使用',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: ScreenUtil().setSp(13)),
+                              ),
+                            )),
+                        onTap: () {
+                          setState(() {
+                            _isConfirm = true;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Positioned(
+                right: 1,
+                bottom: 1,
+                child: Offstage(
+                  offstage: !_isConfirm,
+                  child: Transform.rotate(
+                    angle: pi / 12,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Image.asset(ImageHelper.wrapAssets('zhang.png'),
+                            width: ScreenUtil().setWidth(80),
+                            height: ScreenUtil().setWidth(80)),
+                        Text('许洪亮',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontSize: ScreenUtil().setSp(16)))
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ));
+  }
 
   /// 医嘱
   Widget _buildYizhuWidget(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -1091,37 +1073,40 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           Row(
             children: <Widget>[
               Image.asset(ImageHelper.wrapAssets('icon_yizhu_small.png'),
-                  width: 15, height: 15),
-              SizedBox(width: 10),
+                  width: ScreenUtil().setWidth(15),
+                  height: ScreenUtil().setWidth(15)),
+              SizedBox(width: ScreenUtil().setWidth(10)),
               Text(
                 '医嘱',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: ScreenUtil().setSp(12)),
               ),
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: ScreenUtil().setWidth(5)),
           //用药方法
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
             child: Row(
               children: <Widget>[
-                Expanded(child: Text('用药方法')),
+                Expanded(
+                    child: Text('用药方法',
+                        style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                 Row(
                   children: <Widget>[
                     _buildWayButton(0, '内服'),
-                    SizedBox(width: 10),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
                     _buildWayButton(1, '外用')
                   ],
                 )
               ],
             ),
           ),
-          Divider(height: 1, color: Colors.grey[300]),
+          Divider(height: 0.5, color: Colors.grey[400]),
           //用药医嘱
           GestureDetector(
             onTap: () => showModalBottomSheet(
                 context: context,
-                isScrollControlled:true,
+                isScrollControlled: true,
                 builder: (context) => DialogYiZhuSelect([
                       '饭前半小时服',
                       '饭后半小时服',
@@ -1159,13 +1144,15 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                       });
                     })),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding:
+                  EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
-                  Text('用药医嘱'),
+                  Text('用药医嘱',
+                      style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   Expanded(
                       child: Container(
-                    padding: EdgeInsets.only(left: 20),
+                    padding: EdgeInsets.only(left: ScreenUtil().setWidth(20)),
                     alignment: Alignment.centerRight,
                     child: Text(
                         _yizhuTime.isEmpty && _yizhuJiKou.isEmpty
@@ -1180,7 +1167,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                         style: TextStyle(
                             color: _yizhuTime.isEmpty && _yizhuJiKou.isEmpty
                                 ? Colors.grey
-                                : null)),
+                                : null,
+                            fontSize: ScreenUtil().setSp(14))),
                   )),
                   Icon(
                     Icons.chevron_right,
@@ -1190,7 +1178,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ),
           ),
-          Divider(height: 1, color: Colors.grey[300]),
+          Divider(height: 0.5, color: Colors.grey[400]),
           //补充医嘱
           GestureDetector(
             onTap: () => Navigator.of(context)
@@ -1204,13 +1192,17 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               }
             }),
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding:
+                  EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Text('补充医嘱')),
+                  Expanded(
+                      child: Text('补充医嘱',
+                          style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                   Text(_yizhuBuChong.isEmpty ? '选填' : _yizhuBuChong,
                       style: TextStyle(
-                          color: _yizhuBuChong.isEmpty ? Colors.grey : null)),
+                          color: _yizhuBuChong.isEmpty ? Colors.grey : null,
+                          fontSize: ScreenUtil().setSp(14))),
                   Icon(
                     Icons.chevron_right,
                     color: Colors.grey[400],
@@ -1219,8 +1211,60 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ),
           ),
-          Divider(height: 1, color: Colors.grey[300]),
+          Divider(height: 0.5, color: Colors.grey[400]),
         ],
+      ),
+    );
+  }
+
+  /// 包装按钮
+  Widget _buildPackButton(int index, String text) {
+    return GestureDetector(
+      onTap: () => setState(() => packWay = index),
+      child: SizedBox(
+        width: ScreenUtil().setWidth(90),
+        height: ScreenUtil().setWidth(20),
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(text,
+            style: TextStyle(
+              color: packWay == index ? Colors.white : Colors.grey[400],
+              fontSize: ScreenUtil().setSp(12))),
+          decoration: BoxDecoration(
+            border: packWay == index
+              ? null
+              : Border.all(color: Colors.grey[400], width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: packWay == index
+              ? Theme.of(context).primaryColor
+              : Colors.white),
+        ),
+      ),
+    );
+  }
+
+  /// 膏方辅料选择按钮
+  Widget _buildFuLiaoButton(int index, String text) {
+    return GestureDetector(
+      onTap: () => setState(() => gaoAssist = index),
+      child: SizedBox(
+        width: ScreenUtil().setWidth(50),
+        height: ScreenUtil().setWidth(20),
+        child: Container(
+          alignment: Alignment.center,
+          child: Text(text,
+            style: TextStyle(
+              color: gaoAssist == index ? Colors.white : Colors.grey[400],
+              fontSize: ScreenUtil().setSp(12))),
+          decoration: BoxDecoration(
+            border: gaoAssist == index
+              ? null
+              : Border.all(color: Colors.grey[400], width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            color: gaoAssist == index
+              ? Theme.of(context).primaryColor
+              : Colors.white),
+        ),
       ),
     );
   }
@@ -1230,19 +1274,19 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     return GestureDetector(
       onTap: () => setState(() => tisnaWay = index),
       child: SizedBox(
-        width: 50,
-        height: 20,
+        width: ScreenUtil().setWidth(50),
+        height: ScreenUtil().setWidth(20),
         child: Container(
           alignment: Alignment.center,
           child: Text(text,
               style: TextStyle(
                   color: tisnaWay == index ? Colors.white : Colors.grey[400],
-                  fontSize: 12)),
+                  fontSize: ScreenUtil().setSp(12))),
           decoration: BoxDecoration(
               border: tisnaWay == index
                   ? null
                   : Border.all(color: Colors.grey[400], width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(3)),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
               color: tisnaWay == index
                   ? Theme.of(context).primaryColor
                   : Colors.white),
@@ -1256,19 +1300,19 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     return GestureDetector(
       onTap: () => setState(() => wayChecked = index),
       child: SizedBox(
-        width: 50,
-        height: 20,
+        width: ScreenUtil().setWidth(50),
+        height: ScreenUtil().setWidth(20),
         child: Container(
           alignment: Alignment.center,
           child: Text(text,
               style: TextStyle(
                   color: wayChecked == index ? Colors.white : Colors.grey[400],
-                  fontSize: 12)),
+                  fontSize: ScreenUtil().setSp(12))),
           decoration: BoxDecoration(
               border: wayChecked == index
                   ? null
                   : Border.all(color: Colors.grey[400], width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(3)),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
               color: wayChecked == index
                   ? Theme.of(context).primaryColor
                   : Colors.white),
@@ -1282,19 +1326,19 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
     return GestureDetector(
       onTap: () => setState(() => showChecked = index),
       child: SizedBox(
-        width: 50,
-        height: 20,
+        width: ScreenUtil().setWidth(50),
+        height: ScreenUtil().setWidth(20),
         child: Container(
           alignment: Alignment.center,
           child: Text(text,
               style: TextStyle(
                   color: showChecked == index ? Colors.white : Colors.grey[400],
-                  fontSize: 12)),
+                  fontSize: ScreenUtil().setSp(12))),
           decoration: BoxDecoration(
               border: showChecked == index
                   ? null
                   : Border.all(color: Colors.grey[400], width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(3)),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
               color: showChecked == index
                   ? Theme.of(context).primaryColor
                   : Colors.white),
@@ -1306,7 +1350,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   /// 划价
   Widget _buildHuajiaWidget(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -1317,15 +1361,16 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           Row(
             children: <Widget>[
               Image.asset(ImageHelper.wrapAssets('icon_huajia.png'),
-                  width: 15, height: 15),
-              SizedBox(width: 10),
+                  width: ScreenUtil().setWidth(15),
+                  height: ScreenUtil().setWidth(15)),
+              SizedBox(width: ScreenUtil().setWidth(10)),
               Text(
                 '划价',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontSize: ScreenUtil().setSp(12)),
               ),
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: ScreenUtil().setWidth(5)),
           // 设置诊费
           GestureDetector(
             onTap: () {
@@ -1342,20 +1387,24 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                       }));
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding:
+                  EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
                   Expanded(
                       child: Row(children: <Widget>[
-                    Text('设置诊费'),
+                    Text('设置诊费',
+                        style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                     Offstage(
                       offstage: !_isHide,
                       child: Text('（附加到药费展示）',
-                          style:
-                              TextStyle(color: Colors.grey[400], fontSize: 13)),
+                          style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: ScreenUtil().setSp(13))),
                     ),
                   ])),
-                  Text('${_zhenfei == 0 ? '免费' : '￥$_zhenfei'}'),
+                  Text('${_zhenfei == 0 ? '免费' : '￥$_zhenfei'}',
+                      style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   Icon(
                     Icons.chevron_right,
                     color: Colors.grey[400],
@@ -1364,7 +1413,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ),
           ),
-          Divider(height: 1, color: Colors.grey[300]),
+          Divider(height: 0.5, color: Colors.grey[400]),
           // 单次处方服务费
           GestureDetector(
             onTap: () {
@@ -1380,7 +1429,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                       pickerdata:
                           _getSingleServicePriceList(getTotalDrugPrice()),
                     ),
-                    itemExtent: 45,
+                    itemExtent: ScreenUtil().setWidth(45),
                     selectedTextStyle: TextStyle(color: Colors.black),
                     onConfirm: (Picker picker, List value) {
                       setState(() {
@@ -1393,13 +1442,18 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               }
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding:
+                  EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Text('单次处方服务费')),
-                  Text(isDefaultPercent
-                      ? '系统默认'
-                      : '￥${_getSingleServicePrice()}'),
+                  Expanded(
+                      child: Text('单次处方服务费',
+                          style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
+                  Text(
+                      isDefaultPercent
+                          ? '系统默认'
+                          : '￥${_getSingleServicePrice()}',
+                      style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   Icon(
                     Icons.chevron_right,
                     color: Colors.grey[400],
@@ -1408,7 +1462,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ),
           ),
-          Divider(height: 1, color: Colors.grey[300]),
+          Divider(height: 0.5, color: Colors.grey[400]),
           // 处方合计
           GestureDetector(
             onTap: () {
@@ -1421,14 +1475,18 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               }
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding:
+                  EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
                   Expanded(
                       child: Text(
                           '处方合计：${(getTotalDrugPrice() + _zhenfei + _getSingleServicePrice() + _jiagongfei).toStringAsFixed(2)}元',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Text(isShowPriceDetail ? '收起' : '明细'),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: ScreenUtil().setSp(14)))),
+                  Text(isShowPriceDetail ? '收起' : '明细',
+                      style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   Icon(
                     Icons.chevron_right,
                     color: Colors.grey[400],
@@ -1437,68 +1495,87 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ),
           ),
-          Divider(height: 1, color: Colors.grey[300]),
+          Divider(height: 0.5, color: Colors.grey[400]),
           // 明细
           Offstage(
             offstage: !isShowPriceDetail,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setWidth(5)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text('药费', style: TextStyle(color: Colors.grey[700])),
+                        Text('药费',
+                            style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: ScreenUtil().setSp(13))),
                         Text(
-                            '￥$_drugPrice x ${_controller.text}剂 = ￥${(getTotalDrugPrice()).toStringAsFixed(2)}'),
+                            '￥$_drugPrice x ${_controller.text}剂 = ￥${(getTotalDrugPrice()).toStringAsFixed(2)}',
+                            style: TextStyle(fontSize: ScreenUtil().setSp(13))),
                       ],
                     )),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setWidth(5)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Row(
                           children: <Widget>[
                             Text('诊费',
-                                style: TextStyle(color: Colors.grey[700])),
+                                style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: ScreenUtil().setSp(13))),
                             Offstage(
                               offstage: !_isHide,
                               child: Text('（附加到药费展示）',
                                   style: TextStyle(
-                                      color: Colors.grey[400], fontSize: 13)),
+                                      color: Colors.grey[400],
+                                      fontSize: ScreenUtil().setSp(12))),
                             )
                           ],
                         ),
-                        Text('￥$_zhenfei'),
+                        Text('￥$_zhenfei',
+                            style: TextStyle(fontSize: ScreenUtil().setSp(13))),
                       ],
                     )),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setWidth(5)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Row(
                           children: <Widget>[
                             Text('单次处方服务费',
-                                style: TextStyle(color: Colors.grey[700])),
+                                style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: ScreenUtil().setSp(13))),
                             Text('（附加到药费展示）',
                                 style: TextStyle(
-                                    color: Colors.grey[400], fontSize: 13)),
+                                    color: Colors.grey[400],
+                                    fontSize: ScreenUtil().setSp(12))),
                           ],
                         ),
-                        Text('￥${_getSingleServicePrice()}'),
+                        Text('￥${_getSingleServicePrice()}',
+                            style: TextStyle(fontSize: ScreenUtil().setSp(13))),
                       ],
                     )),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
+                    padding: EdgeInsets.symmetric(
+                        vertical: ScreenUtil().setWidth(5)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text('处方加工费',
-                            style: TextStyle(color: Colors.grey[700])),
-                        Text('￥$_jiagongfei'),
+                            style: TextStyle(
+                                color: Colors.grey[700],
+                                fontSize: ScreenUtil().setSp(13))),
+                        Text('￥$_jiagongfei',
+                            style: TextStyle(fontSize: ScreenUtil().setSp(13))),
                       ],
                     )),
               ],
@@ -1539,45 +1616,63 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
 
   List<Widget> _buildExcessItem() {
     List<Widget> widgets = List();
-    widgets.addAll(conflicts.map((conflict){
-      return Padding(padding: EdgeInsets.only(bottom: 10),child: RichText(
-        text:TextSpan(
-          text: conflict.name1,
-          style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 12),
-          children: <TextSpan>[
-            TextSpan(
-              text: '和',
-              style: TextStyle(fontSize: 12,color: Colors.black)),
-            TextSpan(
-              text: conflict.name2,
-              style: TextStyle(fontSize: 12,color: Theme.of(context).primaryColor),
-            ),
-            TextSpan(
-              text: '配伍禁忌',
-              style: TextStyle(fontSize: 12,color: Colors.black),
-            )
-          ]),
-      ));
+    widgets.addAll(conflicts.map((conflict) {
+      return Padding(
+          padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
+          child: RichText(
+            text: TextSpan(
+                text: conflict.name1,
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: ScreenUtil().setSp(12)),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: '和',
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(12),
+                          color: Colors.black)),
+                  TextSpan(
+                    text: conflict.name2,
+                    style: TextStyle(
+                        fontSize: ScreenUtil().setSp(12),
+                        color: Theme.of(context).primaryColor),
+                  ),
+                  TextSpan(
+                    text: '配伍禁忌',
+                    style: TextStyle(
+                        fontSize: ScreenUtil().setSp(12), color: Colors.black),
+                  )
+                ]),
+          ));
     }).toList());
-    widgets.addAll(poisons.map((poison){
-      return Padding(padding: EdgeInsets.only(bottom: 10),child: RichText(
-        text:TextSpan(
-          text: poison.name,
-          style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 12),
-          children: <TextSpan>[
-            TextSpan(
-              text: '超出限量(',
-              style: TextStyle(fontSize: 12,color: Colors.black)),
-            TextSpan(
-              text: '限量${poison.maxCount}克',
-              style: TextStyle(fontSize: 12,color: Theme.of(context).primaryColor),
-            ),
-            TextSpan(
-              text: ')',
-              style: TextStyle(fontSize: 12,color: Colors.black),
-            )
-          ]),
-      ));
+    widgets.addAll(poisons.map((poison) {
+      return Padding(
+          padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
+          child: RichText(
+            text: TextSpan(
+                text: poison.name,
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontSize: ScreenUtil().setSp(12)),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: '超出限量(',
+                      style: TextStyle(
+                          fontSize: ScreenUtil().setSp(12),
+                          color: Colors.black)),
+                  TextSpan(
+                    text: '限量${poison.maxCount}克',
+                    style: TextStyle(
+                        fontSize: ScreenUtil().setSp(12),
+                        color: Theme.of(context).primaryColor),
+                  ),
+                  TextSpan(
+                    text: ')',
+                    style: TextStyle(
+                        fontSize: ScreenUtil().setSp(12), color: Colors.black),
+                  )
+                ]),
+          ));
     }).toList());
     return widgets;
   }

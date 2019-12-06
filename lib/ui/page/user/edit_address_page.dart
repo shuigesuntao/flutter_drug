@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_drug/model/address.dart';
 import 'package:flutter_drug/ui/widget/picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 class EditAddressPage extends StatefulWidget {
@@ -87,7 +88,7 @@ class EditAddressPageState extends State<EditAddressPage> {
             GestureDetector(
               onTap: () => Picker(
                 adapter: PickerDataAdapter<String>(pickerdata: _cityData),
-                itemExtent: 35,
+                itemExtent: ScreenUtil().setWidth(35),
                 selectedTextStyle: TextStyle(color: Colors.black),
                 onConfirm: (Picker picker, List value) {
                   setState(() {
@@ -100,19 +101,17 @@ class EditAddressPageState extends State<EditAddressPage> {
                 child: Column(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(ScreenUtil().setWidth(12)),
                       child: Row(
                         children: <Widget>[
-                          SizedBox(width: 60, child: Text('所在地区')),
-                          SizedBox(width: 15),
+                          SizedBox(width: ScreenUtil().setWidth(60), child: Text('所在地区',style: TextStyle(fontSize:ScreenUtil().setWidth(14)))),
+                          SizedBox(width: ScreenUtil().setWidth(15)),
                           Expanded(
                             child: Text(
                               widget.address == null
                                 ? '省市区县、乡镇等'
                                 : _area,
-                              style: widget.address == null
-                                ? TextStyle(color: Colors.grey)
-                                : null)),
+                              style: TextStyle(color: widget.address == null ?Colors.grey: null,fontSize: ScreenUtil().setWidth(14)))),
                           Icon(
                             Icons.chevron_right,
                             color: Colors.grey[400],
@@ -120,28 +119,35 @@ class EditAddressPageState extends State<EditAddressPage> {
                         ],
                       ),
                     ),
-                    Divider(height: 0.5, color: Colors.grey[300])
+                    Divider(height: 0.5, color: Colors.grey[400])
                   ],
                 ),
               ),
             ),
             _buildItem(_addressController, '详细地址', '如道路、门牌号、小区、楼栋号、单元室等',
               maxLines: 3),
-            SizedBox(height: 20),
+            SizedBox(height: ScreenUtil().setWidth(20)),
             Container(
               color: Colors.white,
-              padding: EdgeInsets.fromLTRB(12, 5, 12, 5),
+              padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(12), ScreenUtil().setWidth(5), ScreenUtil().setWidth(12), ScreenUtil().setWidth(5)),
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Text('设为默认地址'),
+                    child: Text('设为默认地址',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   ),
-                  CupertinoSwitch(
-                    activeColor: Theme.of(context).primaryColor,
-                    value: _isDefault == 1,
-                    onChanged: (value) {
-                      _isDefault = value ? 1 : 0;
-                    },
+                  GestureDetector(
+                    onTap: ()=> setState(() {
+                      _isDefault = _isDefault == 1 ? 0 : 1;
+                    }),
+                    child: CupertinoSwitch(
+                      activeColor: Theme.of(context).primaryColor,
+                      value: _isDefault == 1,
+                      onChanged: (value) {
+                        setState(() {
+                          _isDefault = value ? 1 : 0;
+                        });
+                      },
+                    ),
                   )
                 ],
               ),
@@ -168,12 +174,12 @@ class EditAddressPageState extends State<EditAddressPage> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(12)),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(width: 60, child: Text(title)),
-                SizedBox(width: 15),
+                SizedBox(width: ScreenUtil().setWidth(60), child: Text(title,style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
+                SizedBox(width: ScreenUtil().setWidth(15)),
                 Expanded(
                     child: TextField(
                   inputFormatters: isNumber
@@ -183,21 +189,21 @@ class EditAddressPageState extends State<EditAddressPage> {
                       contentPadding: EdgeInsets.all(0),
                       border: InputBorder.none,
                       hintText: hint,
-                      hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(14)),
                       enabledBorder: null,
                       disabledBorder: null),
                   controller: controller,
                   maxLines: maxLines,
                   textInputAction: TextInputAction.next,
                   keyboardType: isNumber ? TextInputType.number : null,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(14)),
                   textAlign: TextAlign.start,
                 )
                 )
               ],
             ),
           ),
-          maxLines == 1 ? Divider(height: 0.5, color: Colors.grey[300]) : SizedBox()
+          maxLines == 1 ? Divider(height: 0.5, color: Colors.grey[400]) : SizedBox()
         ],
       ),
     );

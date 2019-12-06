@@ -19,88 +19,89 @@ class AddPatientPage extends StatelessWidget {
       body: SafeArea(child: Stack(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.fromLTRB(15,ScreenUtil().setHeight(10),15,ScreenUtil().setHeight(10)),
+            margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15),ScreenUtil().setWidth(10),ScreenUtil().setWidth(15),ScreenUtil().setWidth(10)),
             width: double.infinity,
             height: double.infinity,
             child: Image.asset(ImageHelper.wrapAssets('bg_qrcode_mingpian.png'),fit: BoxFit.fill,),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(75,ScreenUtil().setHeight(40),75,0),
+            padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(75),ScreenUtil().setWidth(50),ScreenUtil().setWidth(75),0),
             child: Column(
               children: <Widget>[
                 ClipOval(
                   child: CachedNetworkImage(
                     imageUrl: userModel.user.icon,
                     fit: BoxFit.fill,
-                    width: 60,
-                    height: 60,
+                    width: ScreenUtil().setWidth(55),
+                    height: ScreenUtil().setWidth(55),
                   ),
                 ),
-                SizedBox(height: ScreenUtil().setHeight(5)),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Text(
                   userModel.user.name,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(18)),
                 ),
-                SizedBox(height: ScreenUtil().setHeight(5)),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Text(
                   '${userModel.user.type} | ${userModel.user.level}',
-                  style: TextStyle(fontSize: 12, color: Colors.grey),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Colors.grey),
                 ),
-                SizedBox(height: ScreenUtil().setHeight(10)),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   width: double.infinity,
                   height: 0.5,
                   color: Colors.grey[300],
                 ),
-                SizedBox(height:ScreenUtil().setHeight(10)),
+                SizedBox(height:ScreenUtil().setWidth(10)),
                 Text(
                   '在家随时随地找我',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                 ),
                 Text(
                   '复诊调方',
                   style: TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 32, letterSpacing: 2),
+                    fontWeight: FontWeight.w600, fontSize: ScreenUtil().setSp(32), letterSpacing: 2),
                 ),
                 QrImage(
                   data: userModel.user.id.toString(),
                   version: QrVersions.auto,
-                  size: ScreenUtil().setWidth(140),
+                  size: ScreenUtil().setWidth(130),
                 ),
+                SizedBox(height: ScreenUtil().setWidth(5)),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   width: double.infinity,
                   height: 0.5,
                   color: Colors.grey[300],
                 ),
-                SizedBox(height: ScreenUtil().setHeight(10)),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 RichText(
                   text: TextSpan(
                     text: '微信扫描上方我的二维码，关注',
-                    style: TextStyle(color: Colors.black,fontSize: 12),
+                    style: TextStyle(color: Colors.black,fontSize: ScreenUtil().setSp(12)),
                     children: <TextSpan>[
                       TextSpan(
                         text: '「药匣子在线」',
-                        style: TextStyle(fontSize: 12,color: Theme.of(context).primaryColor)),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
                       TextSpan(
                         text: '公众号，即可随时微信与我沟通，在家找我复诊调方',
-                        style: TextStyle(fontSize: 12,color:  Colors.black),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(12),color:  Colors.black),
                       )
                     ]),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(20)),
                 Text(
                   '或通过以下方式分享',
-                  style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(16),color: Theme.of(context).primaryColor),
                 ),
                 SizedBox(height: ScreenUtil().setHeight(15)),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Image.asset(ImageHelper.wrapAssets('icon_weixin.png'),width: 40,height: 40),
-                    SizedBox(width: ScreenUtil().setWidth(60)),
-                    Image.asset(ImageHelper.wrapAssets('icon_pengyouquan.png'),width: 40,height: 40)
+                    Image.asset(ImageHelper.wrapAssets('icon_weixin.png'),width: ScreenUtil().setWidth(45),height: ScreenUtil().setWidth(45)),
+                    SizedBox(width: ScreenUtil().setWidth(65)),
+                    Image.asset(ImageHelper.wrapAssets('icon_pengyouquan.png'),width: ScreenUtil().setWidth(45),height: ScreenUtil().setWidth(45))
                   ],
                 )
               ],

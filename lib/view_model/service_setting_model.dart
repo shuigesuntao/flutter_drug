@@ -13,7 +13,7 @@ class ServiceSettingModel extends ViewStateModel{
   int get singleServicePrice => _singleServicePrice;
 
   set isOpenAsk(bool isAsk) {
-    isOpenAsk = isAsk;
+    _isOpenAsk = isAsk;
     notifyListeners();
   }
 

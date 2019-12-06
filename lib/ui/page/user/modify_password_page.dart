@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 class ModifyPasswordPage extends StatefulWidget {
@@ -50,9 +51,9 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(10,20,10,20),
+            padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10),ScreenUtil().setWidth(20),ScreenUtil().setWidth(10),ScreenUtil().setWidth(20)),
             child: Text('您的登录手机号为:${_getPhoneStr(phone)}',
-              style: TextStyle(fontSize: 16))
+              style: TextStyle(fontSize: ScreenUtil().setSp(16)))
           ),
           Container(
             color: Colors.white,
@@ -60,13 +61,13 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10,12,10,12),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10),ScreenUtil().setWidth(12),ScreenUtil().setWidth(10),ScreenUtil().setWidth(12)),
                   child: Row(
                     children: <Widget>[
                       Image.asset(
-                        ImageHelper.wrapAssets('password.png'), width: 14,
-                        height: 16),
-                      SizedBox(width: 10),
+                        ImageHelper.wrapAssets('password.png'), width: ScreenUtil().setWidth(14),
+                        height: ScreenUtil().setWidth(16)),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Expanded(
                         child: TextField(
                           obscureText:true,
@@ -75,12 +76,12 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                             contentPadding: EdgeInsets.all(0),
                             border: InputBorder.none,
                             hintText: '请输入6-16位新密码',
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 16)
+                            hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(16))
                           ),
                           controller: _newPasswordController,
                           maxLines: 1,
                           textInputAction: TextInputAction.newline,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                         )
                       )
                     ],
@@ -88,13 +89,13 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                 ),
                 Divider(height: 1, color: Colors.grey),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10,12,10,12),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10),ScreenUtil().setWidth(12),ScreenUtil().setWidth(10),ScreenUtil().setWidth(12)),
                   child: Row(
                     children: <Widget>[
                       Image.asset(
-                        ImageHelper.wrapAssets('password.png'), width: 14,
-                        height: 16),
-                      SizedBox(width: 10),
+                        ImageHelper.wrapAssets('password.png'), width: ScreenUtil().setWidth(14),
+                        height: ScreenUtil().setWidth(16)),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Expanded(
                         child: TextField(
                           obscureText:true,
@@ -103,12 +104,12 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                             contentPadding: EdgeInsets.all(0),
                             border: InputBorder.none,
                             hintText: '请再次输入新密码',
-                            hintStyle: TextStyle(color: Colors.grey, fontSize: 16)
+                            hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(16))
                           ),
                           controller: _confirmPasswordController,
                           maxLines: 1,
                           textInputAction: TextInputAction.newline,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                         )
                       )
                     ],
@@ -116,13 +117,13 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                 ),
                 Divider(height: 1, color: Colors.grey),
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                   child: Row(
                     children: <Widget>[
                       Image.asset(
-                        ImageHelper.wrapAssets('yanzhengma.png'), width: 18,
-                        height: 14),
-                      SizedBox(width: 10),
+                        ImageHelper.wrapAssets('yanzhengma.png'), width: ScreenUtil().setWidth(18),
+                        height: ScreenUtil().setWidth(14)),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Expanded(
                         child: TextField(
                           keyboardType: TextInputType.number,
@@ -134,13 +135,13 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                             border: InputBorder.none,
                             hintText: '请输入验证码',
                             hintStyle: TextStyle(color: Colors.grey,
-                              fontSize: 16),
+                              fontSize: ScreenUtil().setSp(16)),
                             enabledBorder: null,
                             disabledBorder: null),
                           controller: _verifyCodeController,
                           maxLines: 1,
                           textInputAction: TextInputAction.newline,
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                         )
                       ),
                       GestureDetector(
@@ -150,7 +151,7 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                           }
                         },
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                          padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(8), ScreenUtil().setWidth(2), ScreenUtil().setWidth(8), ScreenUtil().setWidth(2)),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5),
@@ -162,7 +163,7 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
                             ? '${countdownTime}s后重发'
                             : countdownTime==0? '重新获取':'获取验证码', style: TextStyle(color:countdownTime>0?Colors.grey: Theme
                             .of(context)
-                            .primaryColor, fontSize: 16)),
+                            .primaryColor, fontSize: ScreenUtil().setSp(16))),
                         ),
                       )
                     ],
@@ -171,7 +172,7 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
               ],
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: ScreenUtil().setWidth(50)),
           GestureDetector(
             onTap: (){
               if(_newPasswordController.text.length < 6
@@ -190,11 +191,11 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
               }
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
               width: double.infinity,
-              height: 40,
+              height: ScreenUtil().setWidth(40),
               alignment: Alignment.center,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
               decoration: BoxDecoration(
                 color: Theme
                   .of(context)
@@ -203,7 +204,7 @@ class _ModifyPasswordPageState extends State<ModifyPasswordPage> {
               ),
               child: Text(
                 '更换',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
               )
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
 import 'package:flutter_drug/ui/widget/dialog_drug_category.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
@@ -43,11 +44,11 @@ class _EditDrugPageState extends State<EditDrugPage> {
           //垂直子Widget之间间距
           mainAxisSpacing: 10,
           //GridView内边距
-          padding: EdgeInsets.all(15),
+          padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
           //一行的Widget数量
           crossAxisCount: 2,
           //子Widget宽高比例
-          childAspectRatio: 3,
+          childAspectRatio: 2.7,
           //子Widget列表
           children: _buildEditDrugList(),
         )),
@@ -64,7 +65,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
 
   Widget _buildEditDrugItem(TextEditingController controller,int index,Drug drug) {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+      padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(3)
@@ -76,29 +77,30 @@ class _EditDrugPageState extends State<EditDrugPage> {
               Expanded(
                   child: Text(drug == null ? '请输入药材简拼' : drug.name,
                       style: TextStyle(
+                        fontSize: ScreenUtil().setSp(14),
                           color: drug == null ? Colors.grey[300] : null))),
               Offstage(
                   offstage: drug == null,
                   child: Row(
                     children: <Widget>[
                       Container(
-                        width: 28,
+                        width: ScreenUtil().setWidth(25),
                         child: TextField(
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.right,
                           controller: controller,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             WhitelistingTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.all(0),
+                              contentPadding: EdgeInsets.only(bottom: 1),
                               border: InputBorder.none,
                               hintText: '0',
                               hintStyle: TextStyle(
-                                fontSize: 14,
+                                fontSize: ScreenUtil().setSp(13),
                                 color: Color(0xFFcccccc),
                               )),
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: ScreenUtil().setSp(13)),
                           onChanged: (text) {
                             if (int.parse(text) > 300) {
                               showToast('数量最大为300');
@@ -108,12 +110,12 @@ class _EditDrugPageState extends State<EditDrugPage> {
                           },
                         ),
                       ),
-                      Text('克',style: TextStyle(color: Colors.grey,fontSize: 13),)
+                      Text('克',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(13)))
                     ],
                   ))
             ],
           ),
-          SizedBox(height: 5),
+          SizedBox(height: ScreenUtil().setWidth(5)),
           Offstage(
             offstage: drug == null,
             child: Row(
@@ -121,7 +123,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                 Expanded(
                     child: Text('煎法',
                         style:
-                            TextStyle(color: Colors.grey, fontSize: 13))),
+                            TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(13)))),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -129,7 +131,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                     });
                   },
                   child: Image.asset(ImageHelper.wrapAssets('ic_guanbi.png'),
-                      width: 15, height: 15),
+                      width: ScreenUtil().setWidth(18), height: ScreenUtil().setWidth(18)),
                 )
               ],
             ),
@@ -153,7 +155,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                   }),
                   child: Text('处方模板',
                     style: TextStyle(
-                      color: Colors.blueAccent[400], fontSize: 13)),
+                      color: Color(0xff798fb7), fontSize: ScreenUtil().setSp(13))),
                 )
               ],
             ),
@@ -183,7 +185,7 @@ class EditDrugAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<StatefulWidget> createState() => _EditDrugAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(56);
+  Size get preferredSize => Size.fromHeight(ScreenUtil().setWidth(50));
 }
 
 class _EditDrugAppBarState extends State<EditDrugAppBar> {
@@ -257,7 +259,7 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                               Text(
                                 '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
                                 style: TextStyle(
-                                  fontSize: 16, color: Colors.black)),
+                                  fontSize:  ScreenUtil().setSp(16), color: Colors.black)),
                               Icon(Icons.keyboard_arrow_down,
                                 color: Colors.black54),
                             ],
@@ -285,9 +287,9 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                                   height: 5),
                               ),
                             ),
-                            SizedBox(width: 15),
+                            SizedBox(width:  ScreenUtil().setWidth(15)),
                             Padding(
-                              padding: EdgeInsets.only(right: 15),
+                              padding: EdgeInsets.only(right:  ScreenUtil().setWidth(15)),
                               child: GestureDetector(
                                 onTap: () => Navigator.of(context).pop(widget.drugs),
                                 child: Center(
@@ -304,13 +306,12 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                     ),
                     Column(
                       children: <Widget>[
-                        SizedBox(height: 5),
+                        SizedBox(height:  ScreenUtil().setWidth(5)),
                         GestureDetector(
                           onTap: ()=> Navigator.of(context).pushNamed(RouteName.singleDrugPriceDetail,arguments: widget.drugs),
                           child: Text(
                             '共 ${widget.drugs.length} 味，每剂 ${(widget.drugs.fold(0, (pre, e) => (pre + e.price * e.count))).toStringAsFixed(4)} 元，重 ${widget.drugs.fold(0, (pre, e) => pre + (e.unitCount == null ? e.count : e.unitCount))}克，详情',
-                            style:
-                            TextStyle(fontSize: 12, color: Color(0xffeaaf4c)))
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Color(0xffeaaf4c)))
                           ,
                         )
                       ],

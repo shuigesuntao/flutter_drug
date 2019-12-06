@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'insurance_page.dart';
 import 'law_help_page.dart';
@@ -23,7 +24,7 @@ class MyOccupationPageState extends State<MyOccupationPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                width: 44,
+                width: ScreenUtil().setWidth(44),
                 padding: EdgeInsets.all(0),
                 child: new IconButton(
                   padding: EdgeInsets.only(left: 16, right: 16),
@@ -72,7 +73,7 @@ class MyOccupationPageState extends State<MyOccupationPage> {
     return GestureDetector(
       onTap: () => _animateToPage(index),
       child: Container(
-          padding: EdgeInsets.fromLTRB(15, 3, 15, 3),
+          padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(3), ScreenUtil().setWidth(15), ScreenUtil().setWidth(3)),
           decoration: BoxDecoration(
             color: _selectedIndex == index
                 ? Theme.of(context).primaryColor
@@ -87,7 +88,7 @@ class MyOccupationPageState extends State<MyOccupationPage> {
           child: Text(
             text,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: ScreenUtil().setSp(14),
               color: _selectedIndex == index
                   ? Colors.white
                   : Theme.of(context).primaryColor),

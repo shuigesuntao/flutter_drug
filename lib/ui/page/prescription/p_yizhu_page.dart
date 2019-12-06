@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 class PrescriptionYiZhuPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
       backgroundColor: Colors.white,
       appBar: TitleBar.buildCommonAppBar(context, '补充医嘱'),
       body: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
         child: Column(
           children: <Widget>[
             Row(
@@ -39,7 +40,7 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
                 Expanded(
                   child: Text(
                     '补充医嘱',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize:  ScreenUtil().setSp(16)),
                   )),
                 Text('常用医嘱', style: TextStyle(color:Theme.of(context).primaryColor)),
                 Icon(
@@ -49,21 +50,21 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            SizedBox(height: ScreenUtil().setWidth(15)),
             Container(
               decoration: BoxDecoration(
                 color: Color(0xFFF7F7F7),
                 borderRadius: BorderRadius.circular(5)),
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(5)),
               child: TextField(
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   //去掉输入框的下滑线
                   fillColor: Color(0xFFF7F7F7),
-                  contentPadding: EdgeInsets.all(5),
+                  contentPadding: EdgeInsets.all(ScreenUtil().setWidth(5)),
                   filled: true,
                   hintText: '请输入补充嘱咐内容',
-                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(14)),
                   enabledBorder: null,
                   disabledBorder: null),
                 controller: _controller,
@@ -72,7 +73,7 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -101,7 +102,7 @@ class _PrescriptionYiZhuPageState extends State<PrescriptionYiZhuPage>{
                 child: SafeArea(child: SizedBox(
                   width: double.infinity,
                   child: FlatButton(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                     onPressed: (){
                       if(_controller.text.isEmpty){
                         showToast('请输入医嘱');

@@ -15,7 +15,7 @@ class DialogDrugCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: ScreenUtil().setWidth(550),
+      height: ScreenUtil().setWidth(600),
       child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
         children: <Widget>[
           Container(
@@ -132,7 +132,11 @@ class DialogDrugCategory extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
+              Offstage(
+                offstage: price == 0,
+                child: Padding(padding: EdgeInsets.only(bottom: 5),child: Text('每剂：￥$price',style: TextStyle(color: Color(0xffeaaf4c),fontSize: ScreenUtil().setSp(12)))),
+              ),
               Text(data.label, style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12))),
               SizedBox(height: 5),
               Row(

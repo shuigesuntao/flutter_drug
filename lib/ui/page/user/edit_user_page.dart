@@ -28,7 +28,7 @@ class _EditUserPageState extends State<EditUserPage>{
       appBar: TitleBar.buildCommonAppBar(context, '编辑个人资料'),
       body: Column(
         children: <Widget>[
-          SizedBox(height: 10),
+          SizedBox(height: ScreenUtil().setWidth(10)),
           GestureDetector(
             onTap:(){
               showDialog(context: context,barrierDismissible: false,builder:(context){
@@ -46,7 +46,7 @@ class _EditUserPageState extends State<EditUserPage>{
               });
             },
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child:Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +55,7 @@ class _EditUserPageState extends State<EditUserPage>{
                   Row(
                     children: <Widget>[
                       Text('许洪亮',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
-                      SizedBox(width: 10),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       SizedBox(width: 7,height: 14)
                     ],
                   )
@@ -63,7 +63,7 @@ class _EditUserPageState extends State<EditUserPage>{
               )
             ),
           ),
-          Divider(height: 1,color:Colors.grey[400]),
+          Divider(height: 0.5,color:Colors.grey[400]),
           GestureDetector(
             onTap:()=>showCupertinoModalPopup(
               context: context,
@@ -75,7 +75,7 @@ class _EditUserPageState extends State<EditUserPage>{
                 actions: _buildGenderActions(),
               )),
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child:  Row(
                 children: <Widget>[
@@ -83,7 +83,7 @@ class _EditUserPageState extends State<EditUserPage>{
                   Row(
                     children: <Widget>[
                       Text(_gender,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
-                      SizedBox(width: 10),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 7,height: 14)
                     ],
                   )
@@ -91,7 +91,7 @@ class _EditUserPageState extends State<EditUserPage>{
               )
             ),
           ),
-          Divider(height: 1,color:Colors.grey[400]),
+          Divider(height: 0.5,color:Colors.grey[400]),
           GestureDetector(
             onTap:() =>  showCupertinoModalPopup(
               context: context,
@@ -103,7 +103,7 @@ class _EditUserPageState extends State<EditUserPage>{
                 actions: _buildLevelActions(),
               )),
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child: Row(
                 children: <Widget>[
@@ -111,7 +111,7 @@ class _EditUserPageState extends State<EditUserPage>{
                   Row(
                     children: <Widget>[
                       Text(_level,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
-                      SizedBox(width: 10),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 7,height: 14)
                     ],
                   )
@@ -119,11 +119,11 @@ class _EditUserPageState extends State<EditUserPage>{
               )
             ),
           ),
-          Divider(height: 1,color:Colors.grey[400]),
+          Divider(height: 0.5,color:Colors.grey[400]),
           GestureDetector(
             onTap:() => Navigator.of(context).pushNamed(RouteName.test),
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child: Row(
                 children: <Widget>[
@@ -131,7 +131,7 @@ class _EditUserPageState extends State<EditUserPage>{
                   Row(
                     children: <Widget>[
                       Text(_type,style: TextStyle(fontSize: ScreenUtil().setSp(13))),
-                      SizedBox(width: 10),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 7,height: 14)
                     ],
                   )
@@ -139,11 +139,11 @@ class _EditUserPageState extends State<EditUserPage>{
               )
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: ScreenUtil().setWidth(10)),
           GestureDetector(
             onTap:() => Navigator.of(context).pushNamed(RouteName.test),
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child:  Row(
                 children: <Widget>[
@@ -151,7 +151,7 @@ class _EditUserPageState extends State<EditUserPage>{
                   Row(
                     children: <Widget>[
                       Text('编辑',style: TextStyle(fontSize: ScreenUtil().setSp(13))),
-                      SizedBox(width: 10),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 7,height: 14)
                     ],
                   )
@@ -159,14 +159,14 @@ class _EditUserPageState extends State<EditUserPage>{
               )
             ),
           ),
-          Divider(height: 1,color:Colors.grey[400]),
+          Divider(height: 0.5,color:Colors.grey[400]),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             color: Colors.white,
             child: Text('${_myGoods.join(',')}',style: TextStyle(fontSize: ScreenUtil().setSp(13))),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: ScreenUtil().setWidth(10)),
           GestureDetector(
             onTap:() => Navigator.of(context).pushNamed(RouteName.editUserDesc,arguments: _desc).then((text){
               if(text != null){
@@ -176,7 +176,7 @@ class _EditUserPageState extends State<EditUserPage>{
               }
             }),
             child: Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child:  Row(
                 children: <Widget>[
@@ -184,7 +184,7 @@ class _EditUserPageState extends State<EditUserPage>{
                   Row(
                     children: <Widget>[
                       Text('编辑',style: TextStyle(fontSize: ScreenUtil().setSp(13))),
-                      SizedBox(width: 10),
+                      SizedBox(width: ScreenUtil().setWidth(10)),
                       Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),width: 7,height: 14)
                     ],
                   )
@@ -192,15 +192,15 @@ class _EditUserPageState extends State<EditUserPage>{
               )
             ),
           ),
-          Divider(height: 1,color:Colors.grey[400]),
+          Divider(height: 0.5,color:Colors.grey[400]),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             color: Colors.white,
             child: Text('$_desc',style: TextStyle(fontSize: ScreenUtil().setSp(13))),
           ),
           Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             child: RichText(
               text: TextSpan(
                 text: '*',
@@ -214,18 +214,18 @@ class _EditUserPageState extends State<EditUserPage>{
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: ScreenUtil().setWidth(20)),
           GestureDetector(
             onTap: (){
               showToast('修改成功');
               Navigator.of(context).pop();
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
               width: double.infinity,
               height: ScreenUtil().setWidth(40),
               alignment: Alignment.center,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
               decoration: BoxDecoration(
                 color: Theme
                   .of(context)

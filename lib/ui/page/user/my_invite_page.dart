@@ -8,6 +8,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/my_invite_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MyInvitePage extends StatelessWidget{
@@ -44,7 +45,7 @@ class MyInvitePage extends StatelessWidget{
 
   Widget _buildMyInviteItem(MyInvite user){
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
       color: Colors.white,
       child: Row(
         children: <Widget>[
@@ -52,29 +53,29 @@ class MyInvitePage extends StatelessWidget{
             imageUrl:user.imageUrl,
             errorWidget: (context, url, error) => user.gender == "女"
               ? Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-              width: 45, height: 45)
+              width: ScreenUtil().setWidth(42), height: ScreenUtil().setWidth(42))
               : Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-              width: 45, height: 45),
+              width: ScreenUtil().setWidth(42), height: ScreenUtil().setWidth(42)),
             fit: BoxFit.fill,
-            width: 45,
-            height: 45,
+            width: ScreenUtil().setWidth(42),
+            height: ScreenUtil().setWidth(42),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: ScreenUtil().setWidth(10)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text(user.name,style: TextStyle(color: Colors.black,fontSize: 16)),
-                    SizedBox(width: 10),
-                    Image.asset(ImageHelper.wrapAssets(user.type == 0?'icon_yh.png':user.auth == 0?'icon_ys_wrz.png':'icon_ys_yrz.png'),width: 32,height: 16,)
+                    Text(user.name,style: TextStyle(color: Colors.black,fontSize: ScreenUtil().setSp(15))),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
+                    Image.asset(ImageHelper.wrapAssets(user.type == 0?'icon_yh.png':user.auth == 0?'icon_ys_wrz.png':'icon_ys_yrz.png'),width: ScreenUtil().setWidth(28),height: ScreenUtil().setWidth(14),)
                   ],
                 ),
-                SizedBox(height: 5),
-                Text('${user.gender} | ${user.phone}',style: TextStyle(color: Colors.grey,fontSize: 13)),
-                SizedBox(height: 5),
-                Text('邀请加入时间：${user.time}',style: TextStyle(color: Colors.grey,fontSize: 13))
+                SizedBox(height: ScreenUtil().setWidth(3)),
+                Text('${user.gender} | ${user.phone}',style: TextStyle(color: Colors.grey,fontSize:  ScreenUtil().setSp(13))),
+                SizedBox(height: ScreenUtil().setWidth(3)),
+                Text('邀请加入时间：${user.time}',style: TextStyle(color: Colors.grey,fontSize:  ScreenUtil().setSp(13)))
               ],
             )
           )

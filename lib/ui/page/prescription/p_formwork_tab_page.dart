@@ -5,6 +5,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/page/prescription/p_formwork_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PrescriptionFormWorkPage extends StatefulWidget{
 
@@ -85,7 +86,7 @@ class _PrescriptionFormWorkPageState extends State<PrescriptionFormWorkPage>{
                   child: TabBar(
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
-                    labelStyle:TextStyle(fontSize: 16),
+                    labelStyle:TextStyle(fontSize: ScreenUtil().setSp(15)),
                     unselectedLabelColor: Colors.black87,
                     indicatorWeight: 3,
                     indicatorPadding: EdgeInsets.symmetric(horizontal: 15),

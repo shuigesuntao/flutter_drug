@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyAccountPage extends StatelessWidget {
   @override
@@ -17,14 +18,14 @@ class MyAccountPage extends StatelessWidget {
           Navigator.of(context).pushNamed(RouteName.webView, arguments: map);
         }),
       body: Container(
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(ScreenUtil().setWidth(15)),
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 20),
-              padding: EdgeInsets.all(15),
+              margin: EdgeInsets.only(bottom: ScreenUtil().setWidth(20)),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               width: double.infinity,
-              height: 150,
+              height: ScreenUtil().setWidth(150),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.fill,
@@ -33,12 +34,12 @@ class MyAccountPage extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     '账户余额（元）',
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                    style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
                   ),
                   Center(
                     child: Text(
                       '￥3.01',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: ScreenUtil().setSp(20), color: Colors.white),
                     ),
                   )
                 ],
@@ -47,7 +48,7 @@ class MyAccountPage extends StatelessWidget {
             Container(
               color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -57,12 +58,12 @@ class MyAccountPage extends StatelessWidget {
                             text: TextSpan(
                               text: '￥',
                               style: TextStyle(
-                                fontSize: 12, color: Colors.black),
+                                fontSize: ScreenUtil().setSp(12), color: Colors.black),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: '0',
                                   style: TextStyle(
-                                    fontSize: 16, color: Colors.black))
+                                    fontSize: ScreenUtil().setSp(14), color: Colors.black))
                               ]),
                           ),
                           SizedBox(
@@ -70,7 +71,7 @@ class MyAccountPage extends StatelessWidget {
                           ),
                           Text(
                             '上月收入',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           )
                         ],
                       ),
@@ -79,7 +80,7 @@ class MyAccountPage extends StatelessWidget {
                     Container(
                       color: Colors.grey[200],
                       width: 1,
-                      height: 20,
+                      height: ScreenUtil().setWidth(20),
                     ),
                     Expanded(
                       child: Column(
@@ -88,20 +89,20 @@ class MyAccountPage extends StatelessWidget {
                             text: TextSpan(
                               text: '￥',
                               style: TextStyle(
-                                fontSize: 12, color: Colors.black),
+                                fontSize: ScreenUtil().setSp(12), color: Colors.black),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: '0',
                                   style: TextStyle(
-                                    fontSize: 16, color: Colors.black))
+                                    fontSize: ScreenUtil().setSp(14), color: Colors.black))
                               ]),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: ScreenUtil().setWidth(5),
                           ),
                           Text(
                             '本月收入',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           )
                         ],
                       ),
@@ -110,7 +111,7 @@ class MyAccountPage extends StatelessWidget {
                     Container(
                       color: Colors.grey[200],
                       width: 1,
-                      height: 20,
+                      height: ScreenUtil().setWidth(20),
                     ),
                     Expanded(
                       child: Column(
@@ -119,20 +120,20 @@ class MyAccountPage extends StatelessWidget {
                             text: TextSpan(
                               text: '￥',
                               style: TextStyle(
-                                fontSize: 12, color: Colors.black),
+                                fontSize: ScreenUtil().setSp(12), color: Colors.black),
                               children: <TextSpan>[
                                 TextSpan(
                                   text: '0',
                                   style: TextStyle(
-                                    fontSize: 16, color: Colors.black))
+                                    fontSize: ScreenUtil().setSp(14), color: Colors.black))
                               ]),
                           ),
                           SizedBox(
-                            height: 5,
+                            height: ScreenUtil().setWidth(5),
                           ),
                           Text(
                             '上月支出',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           )
                         ],
                       ),
@@ -154,7 +155,7 @@ class MyAccountPage extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
+                        height: ScreenUtil().setWidth(40),
                         decoration: BoxDecoration(
                           color: Theme
                             .of(context)
@@ -167,13 +168,13 @@ class MyAccountPage extends StatelessWidget {
                         )
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: ScreenUtil().setWidth(10)),
                     GestureDetector(
                       onTap: () => Navigator.of(context).pushNamed(RouteName.showAccount),
                       child: Container(
+                        height: ScreenUtil().setWidth(40),
                         width: double.infinity,
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5),
@@ -181,7 +182,7 @@ class MyAccountPage extends StatelessWidget {
                         ),
                         child: Text(
                           '查看账单',
-                          style: TextStyle(color:Theme.of(context).primaryColor),
+                          style: TextStyle(color:Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(14)),
                         )
                       ),
                     )

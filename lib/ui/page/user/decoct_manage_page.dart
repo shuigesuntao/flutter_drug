@@ -6,6 +6,7 @@ import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
 import 'package:flutter_drug/ui/widget/dialog_custom_input.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/decoct_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class DecoctManagePage extends StatelessWidget {
@@ -35,18 +36,19 @@ class DecoctManagePage extends StatelessWidget {
                                 });
                               }),
                           child: Container(
-                              margin: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                              margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), 0),
                               width: double.infinity,
-                              height: 40,
+                              height: ScreenUtil().setWidth(40),
                               alignment: Alignment.center,
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                               decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(5)),
                               child: Text(
                                 '新增入煎方法',
-                                style: TextStyle(color: Colors.white),
-                              )),
+                                style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
+                              )
+                          ),
                         ),
                         bottom: true,
                       ))
@@ -70,7 +72,7 @@ class DecoctManagePage extends StatelessWidget {
               itemCount: model.list?.length ?? 0,
               itemBuilder: (context, index) {
                 return Padding(
-                    padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                    padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), 0),
                     child: Row(
                       children: <Widget>[
                         Offstage(
@@ -85,17 +87,17 @@ class DecoctManagePage extends StatelessWidget {
                                   );
                                 }),
                             child: Padding(
-                                padding: EdgeInsets.only(right: 10),
+                                padding: EdgeInsets.only(right: ScreenUtil().setWidth(10)),
                                 child: Image.asset(
                                     ImageHelper.wrapAssets(
                                         'icon_delete_cicle.png'),
-                                    width: 20,
-                                    height: 20)),
+                                    width: ScreenUtil().setWidth(20),
+                                    height: ScreenUtil().setWidth(20))),
                           ),
                         ),
                         Expanded(
                             child: Container(
-                          padding: EdgeInsets.fromLTRB(10,12,10,12),
+                          padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10),ScreenUtil().setWidth(12),ScreenUtil().setWidth(10),ScreenUtil().setWidth(12)),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Colors.white),

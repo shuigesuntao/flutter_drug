@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/page/user/patient_list_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PatientTabPage extends StatefulWidget{
 
@@ -38,10 +39,10 @@ class _PatientTabPageState extends State<PatientTabPage>{
                   child: TabBar(
                     indicatorColor: Theme.of(context).primaryColor,
                     labelColor: Theme.of(context).primaryColor,
-                    labelStyle:TextStyle(fontSize: 16),
+                    labelStyle:TextStyle(fontSize: ScreenUtil().setSp(16)),
                     unselectedLabelColor: Colors.black87,
                     indicatorWeight: 3,
-                    indicatorPadding: EdgeInsets.symmetric(horizontal: 10),
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
                     indicatorSize: TabBarIndicatorSize.label,
                     tabs: List.generate(tabTitles.length, (index) => Tab(text: tabTitles[index]))
                   ),

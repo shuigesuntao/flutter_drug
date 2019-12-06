@@ -34,7 +34,7 @@ class UserInfoHeader extends StatelessWidget {
             errorWidget: (context, url, error) => Image.asset(ImageHelper.wrapAssets('yishengtouxiang.png'), width: ScreenUtil().setWidth(45), height: ScreenUtil().setWidth(45)),
           )
         ),
-        SizedBox(width: 10),
+        SizedBox(width: ScreenUtil().setWidth(10)),
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +60,7 @@ class UserInfoHeader extends StatelessWidget {
           child: GestureDetector(
             onTap: onButtonClick,
             child: Container(
-              padding: EdgeInsets.fromLTRB(8,3,8,3),
+              padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(8),ScreenUtil().setWidth(3),ScreenUtil().setWidth(8),ScreenUtil().setWidth(3)),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20),
@@ -70,10 +70,9 @@ class UserInfoHeader extends StatelessWidget {
                 children: <Widget>[
                   Offstage(
                     offstage: !isLogin,
-                    child: Image.asset(ImageHelper.wrapAssets('icon_phone.png'),width: ScreenUtil().setWidth(11),height: ScreenUtil().setWidth(11)),
+                    child: Padding(padding: EdgeInsets.only(right: ScreenUtil().setWidth(5)),child: Image.asset(ImageHelper.wrapAssets('icon_phone.png'),width: ScreenUtil().setWidth(11),height: ScreenUtil().setWidth(11))),
                   ),
-                  SizedBox(width: 5),
-                  Text(isLogin ? '平台客服' : '点击登录',style: TextStyle(color: Theme.of(context).primaryColor,fontWeight:FontWeight.w600,fontSize: ScreenUtil().setSp(12)),)
+                  Text(isLogin ? '平台客服' : '点击登录',style: TextStyle(color: Theme.of(context).primaryColor,fontWeight:FontWeight.w600,fontSize: ScreenUtil().setSp(12)))
                 ],
               ),
             ),

@@ -6,6 +6,7 @@ import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/check_message_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'p_open_page.dart';
@@ -52,7 +53,7 @@ class CheckMessagePage extends StatelessWidget {
         }
       },
       child: Padding(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+        padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
@@ -61,15 +62,15 @@ class CheckMessagePage extends StatelessWidget {
                 color: Color(0xfff9f9f9),
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(5),topRight:Radius.circular(5))
               ),
-              padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+              padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Text(model.list[index].desc)),
+                  Expanded(child: Text(model.list[index].desc,style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                   Text(model.list[index].statusText,
                     style: TextStyle(
                       color: model.list[index].status == 2
                         ? Color(0xffeaaf4c)
-                        : Colors.red))
+                        : Colors.red,fontSize: ScreenUtil().setSp(14)))
                 ],
               ),
             ),
@@ -81,7 +82,7 @@ class CheckMessagePage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15),ScreenUtil().setWidth(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -91,20 +92,20 @@ class CheckMessagePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(height: 0.5, color: Colors.grey[300],margin: EdgeInsets.symmetric(horizontal: 15)),
+                  Container(height: 0.5, color: Colors.grey[300],margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15))),
                   Container(
-                    margin: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           model.list[index].time,
-                          style: TextStyle(color: Colors.grey,fontSize: 12),
+                          style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12)),
                         ),
                         Offstage(
                           offstage: model.list[index].status == 2,
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(12,1,12,1),
+                            padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(12),1,ScreenUtil().setWidth(12),1),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               border:
@@ -119,7 +120,7 @@ class CheckMessagePage extends StatelessWidget {
                                     onPressed: () => model.remove(index)
                                   );
                                 }),
-                              child: Text('删除',style: TextStyle(fontSize: 13),)),
+                              child: Text('删除',style: TextStyle(fontSize: ScreenUtil().setSp(13)))),
                           ),
                         ),
                       ]))

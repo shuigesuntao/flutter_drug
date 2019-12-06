@@ -8,6 +8,7 @@ import 'package:flutter_drug/ui/widget/dialog_progress.dart';
 import 'package:flutter_drug/ui/widget/picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/bill_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ShowAccountPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class ShowAccountPage extends StatelessWidget {
           return Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -30,16 +31,16 @@ class ShowAccountPage extends StatelessWidget {
                         GestureDetector(
                           onTap: () => showPicker(context),
                           child: Text('${formatDate()}',
-                              style: TextStyle(fontSize: 16)),
+                              style: TextStyle(fontSize: ScreenUtil().setSp(16))),
                         ),
-                        SizedBox(width: 5),
+                        SizedBox(width: ScreenUtil().setWidth(5)),
                         Image.asset(
                             ImageHelper.wrapAssets('icon_qiehuan.png'),
-                            width: 12,
-                            height: 12)
+                            width: ScreenUtil().setWidth(12),
+                            height: ScreenUtil().setWidth(12))
                       ],
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: ScreenUtil().setWidth(5)),
                     GestureDetector(
                       onTap: () => Navigator.of(context).pushNamed(RouteName.monthBill),
                       child: Row(
@@ -47,8 +48,8 @@ class ShowAccountPage extends StatelessWidget {
                           Expanded(
                               child: Text(
                                   '收入￥${model.totalIn} 支出￥${model.totalOut}',
-                                  style: TextStyle(color: Colors.grey))),
-                          Text('月账单', style: TextStyle(color: Colors.grey)),
+                                  style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14)))),
+                          Text('月账单', style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14))),
                           Icon(
                             Icons.chevron_right,
                             color: Colors.grey[400],
@@ -90,24 +91,24 @@ class ShowAccountPage extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             child: Row(
               children: <Widget>[
-                Image.asset(ImageHelper.wrapAssets(bill.type==1?'ic_shou.png':'ic_zhi.png'),width: 35,height: 35),
-                SizedBox(width: 15),
+                Image.asset(ImageHelper.wrapAssets(bill.type==1?'ic_shou.png':'ic_zhi.png'),width: ScreenUtil().setWidth(32),height: ScreenUtil().setWidth(32)),
+                SizedBox(width: ScreenUtil().setWidth(15)),
                 Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(bill.name,style: TextStyle(fontSize: 16)),
-                    SizedBox(height: 5),
-                    Text(bill.time,style: TextStyle(color: Colors.grey))
+                    Text(bill.name,style: TextStyle(fontSize: ScreenUtil().setSp(16))),
+                    SizedBox(height: ScreenUtil().setWidth(5)),
+                    Text(bill.time,style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(13)))
                   ],
                 )),
-                Text(bill.type==1?'+${bill.price}':'-${bill.price}',style: TextStyle(fontSize:18,fontWeight:FontWeight.bold,color: bill.type==1?Theme.of(context).primaryColor:Colors.red))
+                Text(bill.type==1?'+${bill.price}':'-${bill.price}',style: TextStyle(fontSize:ScreenUtil().setSp(18),fontWeight:FontWeight.w500,color: bill.type==1?Theme.of(context).primaryColor:Colors.red))
               ],
             ),
           ),
-          Divider(indent: 65,color: Colors.grey,height: 1,)
+          Divider(indent: ScreenUtil().setWidth(65),color: Colors.grey[400],height: 0.5,)
         ],
       )
     );

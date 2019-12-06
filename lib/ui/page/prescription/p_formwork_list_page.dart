@@ -5,6 +5,7 @@ import 'package:flutter_drug/model/prescription_formwork.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -73,28 +74,28 @@ class PrescriptionFormWorkItem extends StatelessWidget {
           }
         },
         child: Container(
-          margin: EdgeInsets.fromLTRB(15,10,15,0),
+          margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15),ScreenUtil().setWidth(10),ScreenUtil().setWidth(15),0),
           decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(5)),
           child: Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text(p.name,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 16)),
+                    Text(p.name,style: TextStyle(fontWeight:FontWeight.bold,fontSize: ScreenUtil().setSp(16))),
                     Expanded(
                       child:SizedBox()
                     ),
                     Offstage(
                       offstage: p.status == 1,
-                      child: Text('经典方',style: TextStyle(color: Colors.grey,fontSize: 13)),
+                      child: Text('经典方',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(13))),
                     )
                   ],
                 ),
-                SizedBox(height: 10),
-                Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700]))
+                SizedBox(height: ScreenUtil().setWidth(15)),
+                Text(_getDrugsText(p.drugs),style: TextStyle(height: 1.5,color: Colors.grey[700],fontSize: ScreenUtil().setSp(14)))
               ],
             ),
           )

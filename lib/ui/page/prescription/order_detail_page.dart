@@ -3,6 +3,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class OrderDetailPage extends StatelessWidget {
@@ -30,25 +31,25 @@ class OrderDetailPage extends StatelessWidget {
                     color: Colors.white,
                     child: Column(
                       children: <Widget>[
-                        Divider(height: 1, color: Colors.grey),
-                        SizedBox(height: 10),
+                        Divider(height: 0.5, color: Colors.grey[400]),
+                        SizedBox(height: ScreenUtil().setWidth(15)),
                         Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
                           Image.asset(ImageHelper.wrapAssets('icon_cfsc.png'),
-                              width: 15, height: 15),
-                          SizedBox(width: 5),
-                          Text('处方已生成')
+                              width: ScreenUtil().setWidth(16), height: ScreenUtil().setWidth(16)),
+                          SizedBox(width: ScreenUtil().setWidth(5)),
+                          Text('处方已生成',style: TextStyle(fontSize: ScreenUtil().setSp(15)))
                         ]),
-                        SizedBox(height: 10),
+                        SizedBox(height: ScreenUtil().setWidth(15)),
                         Text('患者绑定【药匣子在线】微信公众号可以直接购买',
-                            style: TextStyle(fontSize: 12)),
-                        SizedBox(height: 10),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12))),
+                        SizedBox(height: ScreenUtil().setWidth(10)),
                         Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(25)),
                             child: Image.asset(
                                 ImageHelper.wrapAssets('xuxian.png'))),
-                        SizedBox(height: 5),
-                        Text('您也可以用以下方式帮助患者支付', style: TextStyle(fontSize: 16)),
-                        SizedBox(height: 15),
+                        SizedBox(height: ScreenUtil().setWidth(5)),
+                        Text('您也可以用以下方式帮助患者支付', style: TextStyle(fontSize: ScreenUtil().setSp(15))),
+                        SizedBox(height: ScreenUtil().setWidth(20)),
                         Row(
                           children: <Widget>[
                             Expanded(
@@ -56,10 +57,10 @@ class OrderDetailPage extends StatelessWidget {
                               children: <Widget>[
                                 Image.asset(
                                     ImageHelper.wrapAssets('icon_zhifu02.png'),
-                                    width: 40,
-                                    height: 40),
-                                SizedBox(height: 10),
-                                Text('分享患者付款', style: TextStyle(fontSize: 13))
+                                    width: ScreenUtil().setWidth(40),
+                                    height: ScreenUtil().setWidth(40)),
+                                SizedBox(height: ScreenUtil().setWidth(10)),
+                                Text('分享患者付款', style: TextStyle(fontSize: ScreenUtil().setSp(13)))
                               ],
                             )),
                             Expanded(
@@ -77,10 +78,10 @@ class OrderDetailPage extends StatelessWidget {
                                   Image.asset(
                                       ImageHelper.wrapAssets(
                                           'icon_zhifu01.png'),
-                                      width: 40,
-                                      height: 40),
-                                  SizedBox(height: 10),
-                                  Text('患者扫码支付', style: TextStyle(fontSize: 13))
+                                      width: ScreenUtil().setWidth(40),
+                                      height: ScreenUtil().setWidth(40)),
+                                  SizedBox(height: ScreenUtil().setWidth(10)),
+                                  Text('患者扫码支付', style: TextStyle(fontSize: ScreenUtil().setSp(13)))
                                 ],
                               ),
                             )),
@@ -92,16 +93,16 @@ class OrderDetailPage extends StatelessWidget {
                                   Image.asset(
                                       ImageHelper.wrapAssets(
                                           'icon_zhifu03.png'),
-                                      width: 40,
-                                      height: 40),
-                                  SizedBox(height: 10),
-                                  Text('医师代患者付', style: TextStyle(fontSize: 13))
+                                      width: ScreenUtil().setWidth(40),
+                                      height: ScreenUtil().setWidth(40)),
+                                  SizedBox(height: ScreenUtil().setWidth(10)),
+                                  Text('医师代患者付', style: TextStyle(fontSize: ScreenUtil().setSp(13)))
                                 ],
                               ),
                             )),
                           ],
                         ),
-                        SizedBox(height: 20)
+                        SizedBox(height: ScreenUtil().setWidth(20))
                       ],
                     ),
                   ),
@@ -109,7 +110,7 @@ class OrderDetailPage extends StatelessWidget {
                 Offstage(
                   offstage: count == 0,
                   child: Padding(
-                      padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+                      padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), 0),
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -119,17 +120,17 @@ class OrderDetailPage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(3)),
                             child: Text('第$count次',
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 12)),
+                                    color: Colors.white, fontSize: ScreenUtil().setSp(12))),
                           ),
-                          SizedBox(width: 10),
-                          Text('$time 开方', style: TextStyle(fontSize: 15))
+                          SizedBox(width: ScreenUtil().setWidth(10)),
+                          Text('$time 开方', style: TextStyle(fontSize: ScreenUtil().setSp(15)))
                         ],
                       )),
                 ),
                 SizedBox(height: 10),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+                  margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(15)),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -141,35 +142,35 @@ class OrderDetailPage extends StatelessWidget {
                         children: <Widget>[
                           Image.asset(
                               ImageHelper.wrapAssets('icon_zhenduan.png'),
-                              width: 15,
-                              height: 15),
-                          SizedBox(width: 10),
+                              width: ScreenUtil().setWidth(15),
+                              height: ScreenUtil().setWidth(15)),
+                          SizedBox(width: ScreenUtil().setWidth(10)),
                           Text(
                             '诊断',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           ),
                         ],
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: ScreenUtil().setWidth(15)),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【手机】 13426288108')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【手机】 13426288108',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【患者】 余英 女 22岁')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【患者】 余英 女 22岁',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【病症】 风燥伤肺症')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【病症】 风燥伤肺症',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【辩证】 舌干咳嗽')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【辩证】 舌干咳嗽',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+                  margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(15)),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -181,32 +182,32 @@ class OrderDetailPage extends StatelessWidget {
                         children: <Widget>[
                           Image.asset(
                               ImageHelper.wrapAssets('icon_kaifang.png'),
-                              width: 15,
-                              height: 15),
-                          SizedBox(width: 10),
+                              width: ScreenUtil().setWidth(15),
+                              height: ScreenUtil().setWidth(15)),
+                          SizedBox(width: ScreenUtil().setWidth(10)),
                           Text(
                             '开方',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           ),
                         ],
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: ScreenUtil().setWidth(10)),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text('药匣子优选-汤剂(代煎)')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                          child: Text('药匣子优选-汤剂(代煎)',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Divider(height: 0.5, color: Colors.grey[300]),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
                           child: Text('R:',
                               style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.w500))),
+                                  fontSize: ScreenUtil().setSp(22), fontWeight: FontWeight.w500))),
                       Stack(
                         children: <Widget>[
                           Image.asset(ImageHelper.wrapAssets('kuang_left.png'),
-                              width: 12, height: 12),
+                              width: ScreenUtil().setWidth(12), height: ScreenUtil().setWidth(12)),
                           Container(
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                             color: Color(0x26eedd8f),
                             child: Wrap(
                               spacing: 20,
@@ -218,56 +219,56 @@ class OrderDetailPage extends StatelessWidget {
                             right: 1,
                             child: Image.asset(
                                 ImageHelper.wrapAssets('kuang_right.png'),
-                                width: 12,
-                                height: 12),
+                                width: ScreenUtil().setWidth(12),
+                                height: ScreenUtil().setWidth(12)),
                           )
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Divider(height: 0.5, color: Colors.grey[300]),
+                        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                        child: Divider(height: 0.5, color: Colors.grey[400]),
                       ),
                       RichText(
                           text: TextSpan(
                               text: '共',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14)),
                               children: <TextSpan>[
                             TextSpan(
                                 text: ' 7 ',
                                 style: TextStyle(
-                                    color: Theme.of(context).primaryColor)),
+                                    color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(14))),
                             TextSpan(
                               text: '剂，每剂',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14)),
                             ),
                             TextSpan(
                               text: ' 2 ',
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(14)),
                             ),
                             TextSpan(
                               text: '袋，每袋',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14)),
                             ),
                             TextSpan(
                               text: ' 200 ',
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(14)),
                             ),
                             TextSpan(
                               text: 'ml',
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14)),
                             ),
                           ])),
                       SizedBox(height: 10),
-                      Text('【煎药方式】 代煎')
+                      Text('【煎药方式】 代煎',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+                  margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(15)),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -279,37 +280,37 @@ class OrderDetailPage extends StatelessWidget {
                         children: <Widget>[
                           Image.asset(
                               ImageHelper.wrapAssets('icon_yizhu_small.png'),
-                              width: 15,
-                              height: 15),
-                          SizedBox(width: 10),
+                              width: ScreenUtil().setWidth(15),
+                              height: ScreenUtil().setWidth(15)),
+                          SizedBox(width: ScreenUtil().setWidth(10)),
                           Text(
                             '医嘱',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           ),
                         ],
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: ScreenUtil().setWidth(15)),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【用药方法】 内服')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【用药方法】 内服',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【用药医嘱】 辛辣')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【用药医嘱】 辛辣',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text('【补充医嘱】 勿捂，及时添减衣服')),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+                          child: Text('【补充医嘱】 勿捂，及时添减衣服',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Divider(height: 0.5, color: Colors.grey[300]),
+                        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                        child: Divider(height: 0.5, color: Colors.grey[400]),
                       ),
-                      Text('【患者是否可见处方】 可见')
+                      Text('【患者是否可见处方】 可见',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 15),
+                  margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(15)),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -320,74 +321,77 @@ class OrderDetailPage extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Image.asset(ImageHelper.wrapAssets('icon_huajia.png'),
-                              width: 15, height: 15),
-                          SizedBox(width: 10),
+                              width: ScreenUtil().setWidth(15), height: ScreenUtil().setWidth(15)),
+                          SizedBox(width: ScreenUtil().setWidth(10)),
                           Text(
                             '划价',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: ScreenUtil().setSp(12)),
                           ),
                         ],
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: ScreenUtil().setWidth(15)),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[Text('药费'), Text('￥275.19')],
+                            children: <Widget>[Text('药费',style: TextStyle(fontSize: ScreenUtil().setSp(14))), Text('￥275.19',style: TextStyle(fontSize: ScreenUtil().setSp(14)))],
                           )),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[Text('诊费'), Text('￥0.00')],
+                            children: <Widget>[Text('诊费',style: TextStyle(fontSize: ScreenUtil().setSp(14))), Text('￥0.00',style: TextStyle(fontSize: ScreenUtil().setSp(14)))],
                           )),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  Text('单次处方服务费'),
+                                  Text('单次处方服务费',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                                   Text(
                                     '（附加到药费展示）',
                                     style: TextStyle(
-                                        color: Colors.grey, fontSize: 12),
+                                        color: Colors.grey, fontSize: ScreenUtil().setSp(12)),
                                   )
                                 ],
                               ),
-                              Text('￥0.00')
+                              Text('￥0.00',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                             ],
                           )),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[Text('处方加工费'), Text('￥0.00')],
+                            children: <Widget>[
+                              Text('处方加工费',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                              Text('￥0.00',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
+                            ],
                           )),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Divider(height: 0.5, color: Colors.grey[300]),
+                        padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+                        child: Divider(height: 0.5, color: Colors.grey[400]),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text('处方合计',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15)),
+                                  fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(15))),
                           Text('￥275.19',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15))
+                                  fontWeight: FontWeight.bold, fontSize: ScreenUtil().setSp(15)))
                         ],
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Container(
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                  padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -396,17 +400,17 @@ class OrderDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
                           child: Text('处方编号：20191009203842214066289RP',
-                              style: TextStyle(fontSize: 12))),
+                              style: TextStyle(fontSize: ScreenUtil().setSp(12)))),
                       Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
+                          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
                           child: Text('创建时间：$time',
-                              style: TextStyle(fontSize: 12))),
+                              style: TextStyle(fontSize: ScreenUtil().setSp(12)))),
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: ScreenUtil().setWidth(10)),
               ],
             ),
             bottom: true,
@@ -420,13 +424,18 @@ class OrderDetailPage extends StatelessWidget {
       Drug('枳实', 30),
       Drug('白术', 30),
       Drug('桑叶', 28),
+      Drug('桑叶', 28),
+      Drug('桑叶', 28),
+      Drug('桑叶', 28),
+      Drug('桑叶', 28),
+      Drug('桑叶', 28),
       Drug('炒苦杏仁', 59),
       Drug('菊花', 30)
     ]
         .map((drug) => Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
             child: Text(
-              '${drug.name}${drug.count}${drug.unit}',
+              '${drug.name} ${drug.count} ${drug.unit}',style: TextStyle(fontSize: ScreenUtil().setSp(14)),
             )))
         .toList();
   }
@@ -447,44 +456,44 @@ class GenderChooseDialog extends Dialog {
           Stack(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.fromLTRB(30,15,30,15),
+                padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(30),ScreenUtil().setWidth(15),ScreenUtil().setWidth(30),ScreenUtil().setWidth(15)),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(5)),
-                margin: EdgeInsets.all(40),
+                margin: EdgeInsets.all(ScreenUtil().setWidth(40)),
                 child: Column(children: <Widget>[
                   Text('处方已划价',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: ScreenUtil().setSp(13),
                       color: Theme.of(context).primaryColor)),
-                  SizedBox(height: 10),
-                  Divider(height: 1, color: Colors.grey),
-                  SizedBox(height: 10),
-                  Text('请患者微信扫码购药', style: TextStyle(fontSize: 18)),
-                  SizedBox(height: 10),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  Divider(height: 0.5, color: Colors.grey[400]),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  Text('请患者微信扫码购药', style: TextStyle(fontSize: ScreenUtil().setSp(18))),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
                   QrImage(
                     data: 'asdawdasdawdeawdawdawd',
                     version: QrVersions.auto,
-                    size: 170,
+                    size: ScreenUtil().setWidth(170),
                   ),
-                  SizedBox(height: 10),
-                  Divider(height: 1, color: Colors.grey),
-                  SizedBox(height: 10),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  Divider(height: 0.5, color: Colors.grey[400]),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('支付操作步骤：',style: TextStyle(fontSize: 12)),
-                      Text('1、填写收货人地址；2、完成付款。',style: TextStyle(fontSize: 12))
+                      Text('支付操作步骤：',style: TextStyle(fontSize: ScreenUtil().setSp(12))),
+                      Text('1、填写收货人地址；2、完成付款。',style: TextStyle(fontSize: ScreenUtil().setSp(12)))
                     ],
                   )
                 ])
               ),
               Positioned(
-                right: 55,
-                top: 50,
+                right: ScreenUtil().setWidth(55),
+                top: ScreenUtil().setWidth(50),
                 child: GestureDetector(
                   onTap: ()=> Navigator.maybePop(context),
-                  child: Image.asset(ImageHelper.wrapAssets('icon_shanchu_gray.png'),width: 12,height: 12),
+                  child: Image.asset(ImageHelper.wrapAssets('icon_shanchu_gray.png'),width: ScreenUtil().setWidth(12),height: ScreenUtil().setWidth(12)),
                 )
               )
             ],

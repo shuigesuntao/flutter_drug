@@ -6,6 +6,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/address_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -48,31 +49,31 @@ class _AddressManagePageState extends State<AddressManagePage>{
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: 40,
+                        height: ScreenUtil().setWidth(40),
                         color: Colors.white,
                         child: Container(
-                          margin: EdgeInsets.fromLTRB(15,5,15,5),
+                          margin: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15),ScreenUtil().setWidth(5),ScreenUtil().setWidth(15),ScreenUtil().setWidth(5)),
                           decoration: BoxDecoration(
                             color: Color(0xffeeeeed),
-                            borderRadius: BorderRadius.circular(4.0),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                           child: TextField(
                             controller: _controller,
                             maxLines: 1,
                             textInputAction: TextInputAction.search,
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.fromLTRB(-20, 5, 10, 5),
+                              contentPadding: EdgeInsets.fromLTRB(-ScreenUtil().setWidth(20), ScreenUtil().setWidth(5), ScreenUtil().setWidth(10), ScreenUtil().setWidth(5)),
                               border: InputBorder.none,
                               icon: Padding(
-                                padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                                padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(5), ScreenUtil().setWidth(15), ScreenUtil().setWidth(5)),
                                 child: Image.asset(
-                                  ImageHelper.wrapAssets('edit_search.png'),
-                                  width: 14,
-                                  height: 14),
+                                  ImageHelper.wrapAssets('icon_sousuo.png'),
+                                  width: ScreenUtil().setWidth(14),
+                                  height: ScreenUtil().setWidth(14)),
                               ),
                               hintText: '请输入姓名或手机号查询',
                               hintStyle: TextStyle(
-                                fontSize: 14, color: Colors.grey[350])),
+                                fontSize: ScreenUtil().setSp(14), color: Colors.grey[350])),
                             onSubmitted: (text) {
                               if (text.isEmpty) {
                                 showToast('请输入搜索内容');
@@ -83,12 +84,12 @@ class _AddressManagePageState extends State<AddressManagePage>{
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: ScreenUtil().setWidth(10)),
                     ],
                   ),
                 ),
                 model.busy
-                ? SliverToBoxAdapter(child: Container(height:400,alignment:Alignment.center,child: CircularProgressIndicator()))
+                ? SliverToBoxAdapter(child: Container(height:ScreenUtil().setWidth(400),alignment:Alignment.center,child: CircularProgressIndicator()))
                   : model.error
                 ? ViewStateWidget(onPressed: model.initData)
                   : model.empty
@@ -115,53 +116,53 @@ class _AddressManagePageState extends State<AddressManagePage>{
         child: Row(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               child: Container(
-                width: 40,
-                height: 40,
+                width: ScreenUtil().setWidth(40),
+                height: ScreenUtil().setWidth(40),
                 decoration:
                 BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
                 child: Center(
                   child: Text(address.name.substring(0, 1),
-                    style: TextStyle(fontSize: 18, color: Colors.white)),
+                    style: TextStyle(fontSize: ScreenUtil().setSp(18), color: Colors.white)),
                 ),
               ),
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 15, 10, 15),
+                padding: EdgeInsets.fromLTRB(0, ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
-                        Text(address.name, style: TextStyle(fontSize: 16)),
-                        SizedBox(width: 10),
+                        Text(address.name, style: TextStyle(fontSize: ScreenUtil().setSp(16))),
+                        SizedBox(width: ScreenUtil().setWidth(10)),
                         Text(address.phone,
-                          style: TextStyle(color: Colors.grey, fontSize: 13))
+                          style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(13)))
                       ]),
-                    SizedBox(height: 3),
+                    SizedBox(height: ScreenUtil().setWidth(3)),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Offstage(
                           offstage: address.isDefault != 1,
                           child: Container(
-                            margin: EdgeInsets.only(right: 5),
-                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            margin: EdgeInsets.only(right: ScreenUtil().setWidth(5)),
+                            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(8)),
                             decoration: BoxDecoration(
                               color: Color(0xffda384a),
                               borderRadius: BorderRadius.circular(5)),
                             child: Text(
                               '默认',
-                              style: TextStyle(color: Colors.white, fontSize: 12),
+                              style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(12)),
                             ),
                           ),
                         ),
                         Expanded(
                           child: Text('${address.area}--${address.address}',
-                            style: TextStyle(fontSize: 13)))
+                            style: TextStyle(fontSize: ScreenUtil().setSp(13))))
                       ],
                     )
                   ],
@@ -170,15 +171,15 @@ class _AddressManagePageState extends State<AddressManagePage>{
             Container(
               color: Colors.grey[300],
               width: 1,
-              height: 25,
+              height: ScreenUtil().setWidth(25),
             ),
             GestureDetector(
               onTap: () => Navigator.of(context)
                 .pushNamed(RouteName.editAddress, arguments: address),
               child: Padding(
-                padding: EdgeInsets.all(15),
+                padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                 child: Text('编辑',
-                  style: TextStyle(color: Colors.grey, fontSize: 12)),
+                  style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
               ),
             )
           ],

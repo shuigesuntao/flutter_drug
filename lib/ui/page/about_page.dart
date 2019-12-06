@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/utils/platform_utils.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatefulWidget{
@@ -28,11 +29,11 @@ class AboutPageState extends State<AboutPage>{
       appBar: TitleBar.buildCommonAppBar(context, '关于药匣子'),
       body: Column(
         children: <Widget>[
-          SizedBox(height: 30),
-          Image.asset(ImageHelper.wrapAssets('logo.png'),width: 80,height: 80),
+          SizedBox(height: ScreenUtil().setWidth(30)),
+          Image.asset(ImageHelper.wrapAssets('logo.png'),width: ScreenUtil().setWidth(80),height: ScreenUtil().setWidth(80)),
           Padding(
-            padding: EdgeInsets.only(top: 10,bottom: 25),
-            child: Text('药匣子 V$_version',style: TextStyle(fontSize: 16,color: Colors.grey))
+            padding: EdgeInsets.only(top: ScreenUtil().setWidth(10),bottom: ScreenUtil().setWidth(25)),
+            child: Text('药匣子 V$_version',style: TextStyle(fontSize: ScreenUtil().setSp(16),color: Colors.grey))
           ),
           GestureDetector(
             onTap: (){
@@ -58,12 +59,12 @@ class AboutPageState extends State<AboutPage>{
                 });
             },
             child: Container(
-              padding: EdgeInsets.fromLTRB(10,12,20,12),
+              padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10),ScreenUtil().setWidth(12),ScreenUtil().setWidth(20),ScreenUtil().setWidth(12)),
               color: Colors.white,
               child: Row(
                 children: <Widget>[
-                  Expanded(child: Text('联系客服',style: TextStyle(fontSize: 16))),
-                  Text(phone,style: TextStyle(fontSize: 16,color: Theme.of(context).primaryColor))
+                  Expanded(child: Text('联系客服',style: TextStyle(fontSize: ScreenUtil().setSp(16)))),
+                  Text(phone,style: TextStyle(fontSize: ScreenUtil().setSp(16),color: Theme.of(context).primaryColor))
                 ],
               ),
             ),
@@ -74,14 +75,14 @@ class AboutPageState extends State<AboutPage>{
               child:Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Text('北京一药良心信息科技有限公司'),
-                  SizedBox(height: 3),
-                  Text('©2015-2018 药匣子 technology co.,ltd')
+                  Text('北京一药良心信息科技有限公司',style: TextStyle(fontSize: ScreenUtil().setWidth(14))),
+                  SizedBox(height: ScreenUtil().setWidth(3)),
+                  Text('©2015-2018 药匣子 technology co.,ltd',style: TextStyle(fontSize: ScreenUtil().setWidth(14)))
                 ],
               ),
             )
           ),
-          SizedBox(height: 20)
+          SizedBox(height: ScreenUtil().setWidth(20))
         ],
       ),
     );

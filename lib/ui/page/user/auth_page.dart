@@ -7,6 +7,7 @@ import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/dialog_image_picker.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
@@ -50,41 +51,41 @@ class AuthPageState extends State<AuthPage> {
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SizedBox(height: 5),
+              SizedBox(height: ScreenUtil().setWidth(5)),
               _buildHeaderItem(),
               Divider(height: 0.5, color: Colors.grey[400]),
               _buildNameItem(),
               Divider(height: 0.5, color: Colors.grey[400]),
               _buildLevelItem(),
-              SizedBox(height: 10),
+              SizedBox(height: ScreenUtil().setWidth(10)),
               Container(
                   color: Colors.white,
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                         child: Row(
                           children: <Widget>[
                             Expanded(
                                 child: Text('上传医师执业证书证照片',
-                                    style: TextStyle(fontSize: 15))),
+                                    style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
                             GestureDetector(
                               onTap: () => Navigator.of(context)
                                   .pushNamed(RouteName.example),
                               child: Text('查看示例',
                                   style: TextStyle(
-                                      color: Colors.red[900], fontSize: 15)),
+                                      color: Colors.red[900], fontSize: ScreenUtil().setSp(14))),
                             )
                           ],
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15),
-                        color: Colors.grey[350],
+                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                        color: Colors.grey[400],
                         height: 0.5,
                       ),
                       Padding(
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                         child: Row(
                           children: <Widget>[
                             GestureDetector(
@@ -113,7 +114,7 @@ class AuthPageState extends State<AuthPage> {
                                     _firstCard = null;
                                   });
                                 })),
-                            SizedBox(width: 15),
+                            SizedBox(width: ScreenUtil().setWidth(15)),
                             GestureDetector(
                                 onTap: () {
                                   _secondCard == null
@@ -145,23 +146,23 @@ class AuthPageState extends State<AuthPage> {
                       ),
                     ],
                   )),
-              SizedBox(height: 10),
+              SizedBox(height: ScreenUtil().setWidth(10)),
               Container(
                   color: Colors.white,
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                         width: double.infinity,
-                        child: Text('上传其他证件照片（选填）'),
+                        child: Text('上传其他证件照片（选填）',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15),
-                        color: Colors.grey[350],
+                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                        color: Colors.grey[400],
                         height: 0.5,
                       ),
                       Padding(
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                         child: Row(
                           children: <Widget>[
                             GestureDetector(
@@ -190,7 +191,7 @@ class AuthPageState extends State<AuthPage> {
                                     _zgzsCard = null;
                                   });
                                 })),
-                            SizedBox(width: 15),
+                            SizedBox(width: ScreenUtil().setWidth(15)),
                             GestureDetector(
                                 onTap: () {
                                   _qtzjCard == null
@@ -223,18 +224,18 @@ class AuthPageState extends State<AuthPage> {
                     ],
                   )),
               Container(
-                padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(10), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('1、请确保头像以及证件上姓名、照片、编号、执业范围清晰可见；',
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    SizedBox(height: 3),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Colors.grey)),
+                    SizedBox(height: ScreenUtil().setWidth(3)),
                     Text('2、需要上传执业证书第一页、第二页，确保执业地点及变更记录清晰可见；',
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
-                    SizedBox(height: 3),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Colors.grey)),
+                    SizedBox(height: ScreenUtil().setWidth(3)),
                     Text('3、上传资质信息仅用于认证，患者和第三方不可见；',
-                        style: TextStyle(fontSize: 12, color: Colors.grey)),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Colors.grey)),
                   ],
                 ),
               ),
@@ -247,16 +248,16 @@ class AuthPageState extends State<AuthPage> {
                       Navigator.maybePop(context);
                     },
                     child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                         width: double.infinity,
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(5)),
                         child: Text(
                           '修改资质',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
                         )),
                   ),
                   bottom: true),
@@ -277,33 +278,33 @@ class AuthPageState extends State<AuthPage> {
         });
       },
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
-        height: 55,
+        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+        height: ScreenUtil().setWidth(55),
         color: Colors.white,
         child: Row(
           children: <Widget>[
-            Expanded(child: Text('头像', style: TextStyle(fontSize: 15))),
+            Expanded(child: Text('头像', style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
             ClipOval(
               child: _header == null
                   ? CachedNetworkImage(
                       imageUrl: userModel.user.icon,
-                      width: 45,
-                      height: 45,
+                      width: ScreenUtil().setWidth(40),
+                      height: ScreenUtil().setWidth(40),
                       errorWidget: (context, url, error) => Image.asset(
                         ImageHelper.wrapAssets('yishengtouxiang.png'),
                         fit: BoxFit.fill,
-                        width: 45,
-                        height: 45,
+                        width: ScreenUtil().setWidth(40),
+                        height: ScreenUtil().setWidth(40),
                       ),
                     )
                   : Image.file(
                       _header,
-                      width: 45,
-                      height: 45,
+                      width: ScreenUtil().setWidth(40),
+                      height: ScreenUtil().setWidth(40),
                       fit: BoxFit.fill,
                     ),
             ),
-            SizedBox(width: 10),
+            SizedBox(width: ScreenUtil().setWidth(10)),
             Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
                 width: 8, height: 16)
           ],
@@ -314,25 +315,23 @@ class AuthPageState extends State<AuthPage> {
 
   Widget _buildNameItem() {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
         color: Colors.white,
-        height: 45,
+        height: ScreenUtil().setWidth(45),
         child: Row(
           children: <Widget>[
-            Text('姓名', style: TextStyle(fontSize: 15)),
+            Text('姓名', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
             Expanded(
                 child: TextField(
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(0),
                   border: InputBorder.none,
                   hintText: '请输入您的姓名',
-                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-                  enabledBorder: null,
-                  disabledBorder: null),
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(14))),
               controller: _controller,
               maxLines: 1,
               textInputAction: TextInputAction.done,
-              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              style: TextStyle(fontSize: ScreenUtil().setSp(14), color: Colors.grey[600]),
               textAlign: TextAlign.end,
               onSubmitted: (text) {
                 setState(() {
@@ -357,17 +356,17 @@ class AuthPageState extends State<AuthPage> {
                 actions: _buildLevelActions(),
               )),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          height: 45,
+          padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+          height: ScreenUtil().setWidth(45),
           color: Colors.white,
           child: Row(
             children: <Widget>[
               Expanded(
-                child: Text('职称', style: TextStyle(fontSize: 15)),
+                child: Text('职称', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
               ),
               Text(_level.isEmpty ? '请选择' : _level,
-                  style: TextStyle(color: Colors.grey[600])),
-              SizedBox(width: 10),
+                  style: TextStyle(color: Colors.grey[600],fontSize: ScreenUtil().setSp(14))),
+              SizedBox(width: ScreenUtil().setWidth(10)),
               Image.asset(ImageHelper.wrapAssets('youjiantou_new2x.png'),
                   width: 8, height: 16)
             ],
@@ -386,14 +385,14 @@ class AuthPageState extends State<AuthPage> {
                 child: file == null
                     ? Image.asset(
                         ImageHelper.wrapAssets(defaultImage),
-                        width: 90,
-                        height: 90,
+                        width: ScreenUtil().setWidth(90),
+                        height: ScreenUtil().setWidth(90),
                         fit: BoxFit.fill,
                       )
                     : Image.file(
                         file,
-                        width: 90,
-                        height: 90,
+                        width: ScreenUtil().setWidth(90),
+                        height: ScreenUtil().setWidth(90),
                         fit: BoxFit.fill,
                       ))),
         Positioned(
@@ -404,7 +403,7 @@ class AuthPageState extends State<AuthPage> {
                 child: InkWell(
                   onTap: onTap,
                   child: Image.asset(ImageHelper.wrapAssets('icon_delete.png'),
-                      width: 20, height: 20),
+                      width: ScreenUtil().setWidth(20), height: ScreenUtil().setWidth(20)),
                 ))),
       ],
     );

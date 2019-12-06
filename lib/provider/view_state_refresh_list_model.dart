@@ -35,7 +35,7 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
       } else {
         onCompleted(data);
         list.addAll(data);
-        refreshController.refreshCompleted(resetFooterState: true);
+        refreshController.refreshCompleted();
 //        // 小于分页的数量,禁止上拉加载更多
 //        if (data.length < pageSize) {
 //          refreshController.loadNoData();

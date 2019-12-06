@@ -60,15 +60,15 @@ class EditUserDescPageState extends State<EditUserDescPage> {
           child:  Container(
             decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            margin: EdgeInsets.all(15),
-            padding: EdgeInsets.only(bottom: 15),
+            margin: EdgeInsets.all(ScreenUtil().setWidth(15)),
+            padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(15)),
             child: TextField(
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 //去掉输入框的下滑线
                 fillColor: Colors.white,
-                contentPadding: EdgeInsets.all(15),
+                contentPadding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                 filled: true,
                 hintText: '我是执业中医师，您有什么日常身体疾病需要帮助，可以随时找我咨询',
                 hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(15)),

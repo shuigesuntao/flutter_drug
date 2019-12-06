@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/model/doctor_advice.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditDoctorAdvicePage extends StatefulWidget {
 
@@ -42,19 +43,19 @@ class EditDoctorAdvicePageState extends State<EditDoctorAdvicePage> {
           child:  Container(
             decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            margin: EdgeInsets.all(15),
-            padding: EdgeInsets.only(bottom: 15),
+            margin: EdgeInsets.all(ScreenUtil().setWidth(15)),
+            padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(15)),
             child: TextField(
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 //去掉输入框的下滑线
                 fillColor: Colors.white,
-                contentPadding: EdgeInsets.all(15),
+                contentPadding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                 filled: true,
                 hintText: "请填写医嘱内容（最多500字）",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 16),
-                counterStyle: TextStyle(color: Colors.grey, fontSize: 16),
+                hintStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(16)),
+                counterStyle: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(16)),
                 enabledBorder: null,
                 disabledBorder: null),
               controller: _controller,

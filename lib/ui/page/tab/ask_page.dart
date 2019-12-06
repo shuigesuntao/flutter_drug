@@ -6,6 +6,7 @@ import 'package:flutter_drug/model/conversation.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/conversation_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AskPage extends StatefulWidget {
   @override
@@ -24,14 +25,14 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
       body: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
             child: Row(
               children: <Widget>[
                 Expanded(
                   child: GestureDetector(
                     onTap: ()=> Navigator.of(context).pushNamed(RouteName.patientTab,arguments: 1),
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(10,5,10,5),
+                      padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15),ScreenUtil().setWidth(5),ScreenUtil().setWidth(15),ScreenUtil().setWidth(5)),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
@@ -42,11 +43,11 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('待随访',style: TextStyle(fontSize: 16)),
-                              Text('共 0 人',style: TextStyle(color: Colors.grey)),
+                              Text('待随访',style: TextStyle(fontSize: ScreenUtil().setSp(16))),
+                              Text('共 0 人',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14))),
                             ]
                           ),
-                          Image.asset(ImageHelper.wrapAssets('icon_daisuifagn.png'),width: 30,height: 30)
+                          Image.asset(ImageHelper.wrapAssets('icon_daisuifagn.png'),width: ScreenUtil().setWidth(30),height: ScreenUtil().setWidth(30))
                         ],
                       ),
                     ),
@@ -57,7 +58,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                   child:  GestureDetector(
                     onTap: ()=>  Navigator.of(context).pushNamed(RouteName.patientTab,arguments: 2),
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(10,5,10,5),
+                      padding:  EdgeInsets.fromLTRB(ScreenUtil().setWidth(15),ScreenUtil().setWidth(5),ScreenUtil().setWidth(15),ScreenUtil().setWidth(5)),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
@@ -68,11 +69,11 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text('待复诊',style: TextStyle(fontSize: 16)),
-                              Text('共 0 人',style: TextStyle(color: Colors.grey)),
+                              Text('待复诊',style: TextStyle(fontSize: ScreenUtil().setSp(16))),
+                              Text('共 0 人',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14))),
                             ]
                           ),
-                          Image.asset(ImageHelper.wrapAssets('icon_daifuzhen.png'),width: 30,height: 30)
+                          Image.asset(ImageHelper.wrapAssets('icon_daifuzhen.png'),width: ScreenUtil().setWidth(30),height: ScreenUtil().setWidth(30))
                         ],
                       ),
                     ),
@@ -108,40 +109,40 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                   imageUrl: conversation.headerUrl,
                   errorWidget: (context, url, error) => conversation.gender == "男"
                     ? Image.asset(ImageHelper.wrapAssets('gender_boy.png'),
-                    width: 45, height: 45)
+                    width: ScreenUtil().setWidth(45), height: ScreenUtil().setWidth(45))
                     : Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
-                    width: 45, height: 45),
+                    width: ScreenUtil().setWidth(45), height: ScreenUtil().setWidth(45)),
                   fit: BoxFit.fill,
-                  width: 45,
-                  height: 45,
+                  width: ScreenUtil().setWidth(45),
+                  height: ScreenUtil().setWidth(45),
                 ),
               ),
-              Expanded(child: Padding(padding: EdgeInsets.only(left: 10),child: Column(
+              Expanded(child: Padding(padding: EdgeInsets.only(left: ScreenUtil().setWidth(10)),child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     conversation.name,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                   ),
                   Text(
                     conversation.message,
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(14)),
                   )
                 ],
               ),)),
               Container(
-                height: 40,
+                height: ScreenUtil().setWidth(40),
                 alignment: Alignment.topRight,
                 child:  Text(
                   conversation.time,
-                  style: TextStyle(fontSize: 12,color: Colors.grey)
+                  style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Colors.grey)
                 ),
               )
             ],
           )
         ),
-        Divider(height: 1)
+        Divider(height: 0.5,color: Colors.grey[300])
       ],
     );
   }

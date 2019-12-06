@@ -4,6 +4,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/image_button.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 class WeChatCashPage extends StatefulWidget {
@@ -18,46 +19,47 @@ class WeChatCashPageState extends State<WeChatCashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       appBar: TitleBar.buildCommonAppBar(context, '微信提现'),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
         child: Column(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              padding: EdgeInsets.all(15),
+              margin: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child: Row(
                 children: <Widget>[
                   Expanded(
                     child:
-                        Text('提现到微信钱包 | 已绑定', style: TextStyle(fontSize: 15)),
+                        Text('提现到微信钱包 | 已绑定', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   ),
                   GestureDetector(
                     onTap: () =>
                         Navigator.of(context).pushNamed(RouteName.bindWeChat),
                     child: Text('更换',
                         style: TextStyle(
-                            fontSize: 15,
+                            fontSize: ScreenUtil().setSp(14),
                             color: Theme.of(context).primaryColor)),
                   )
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('提现金额', style: TextStyle(fontSize: 15)),
-                  SizedBox(height: 10),
+                  Text('提现金额', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
                   Row(
                     children: <Widget>[
                       Text('￥',
                           style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold)),
-                      SizedBox(width: 5),
+                              fontSize: ScreenUtil().setSp(24), fontWeight: FontWeight.bold)),
+                      SizedBox(width: ScreenUtil().setWidth(5)),
                       Expanded(
                           child: TextField(
                         autofocus: true,
@@ -67,26 +69,22 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                         ],
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(0),
-                            border: InputBorder.none,
-                            hintStyle:
-                                TextStyle(color: Colors.grey, fontSize: 14),
-                            enabledBorder: null,
-                            disabledBorder: null),
+                            border: InputBorder.none),
                         controller: _controller,
                         maxLines: 1,
                         textInputAction: TextInputAction.next,
                         keyboardType:
                             TextInputType.numberWithOptions(decimal: true),
-                        style: TextStyle(fontSize: 50),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(50)),
                       )),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                         child: SimpleImageButton(
                             normalImage: ImageHelper.wrapAssets(
                                 'search_clear_normal.png'),
                             pressedImage: ImageHelper.wrapAssets(
                                 'search_clear_pressed.png'),
-                            width: 20,
+                            width: ScreenUtil().setWidth(20),
                             onPressed: () {
                               _controller.clear();
                             }),
@@ -97,34 +95,34 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                         },
                         child: Text('全部',
                             style: TextStyle(
-                                fontSize: 15,
+                                fontSize: ScreenUtil().setSp(14),
                                 color: Theme.of(context).primaryColor)),
                       )
                     ],
                   ),
-                  Divider(height: 1, color: Colors.grey),
-                  SizedBox(height: 10),
-                  Text('钱包余额￥$account', style: TextStyle(fontSize: 15)),
+                  Divider(height: 0.5, color: Colors.grey[400]),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  Text('钱包余额￥$account', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                 ],
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
-              padding: EdgeInsets.all(15),
+              margin: EdgeInsets.only(top: ScreenUtil().setWidth(10)),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('温馨提示', style: TextStyle(fontSize: 15)),
+                  Text('温馨提示', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   SizedBox(height: 10),
                   Text('1.钱包余额大于50元，可申请提现',
-                      style: TextStyle(color: Colors.grey, fontSize: 12)),
+                      style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
                   SizedBox(height: 5),
                   Text('2.单次最大可申请5000元，每天最多申请5次；',
-                      style: TextStyle(color: Colors.grey, fontSize: 12)),
+                      style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
                   SizedBox(height: 5),
                   Text('3.累计提现金额大于5000元，本平台将代扣0.6%手续费给予第三方支付平台。',
-                      style: TextStyle(color: Colors.grey, fontSize: 12)),
+                      style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
                 ],
               ),
             ),
@@ -140,9 +138,9 @@ class WeChatCashPageState extends State<WeChatCashPage> {
 
                           },
                           child: Container(
-                            height: 40,
+                            height: ScreenUtil().setWidth(40),
                             alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                             width: double.infinity,
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
@@ -150,10 +148,10 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                               borderRadius: BorderRadius.circular(20)),
                             child: Text(
                               '免手续费提现',
-                              style: TextStyle(color: Colors.white, fontSize: 16),
+                              style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
                             )),
                         ),
-                        SizedBox(height: 15),
+                        SizedBox(height: ScreenUtil().setWidth(15)),
                         GestureDetector(
                           onTap: () {
                             if (_controller.text.isNotEmpty &&
@@ -165,17 +163,17 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                             }
                           },
                           child: Container(
-                            height: 40,
+                            height: ScreenUtil().setWidth(40),
                             alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                             width: double.infinity,
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
                             decoration: BoxDecoration(
                               color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(20)),
                             child: Text(
                               '提现',
-                              style: TextStyle(color: Colors.white, fontSize: 16),
+                              style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
                             )),
                         )
                       ],

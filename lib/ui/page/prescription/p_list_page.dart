@@ -9,6 +9,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/ui/widget/dialog_custom_alert.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PrescriptionListPage extends StatefulWidget{
@@ -85,10 +86,10 @@ class PrescriptionItem extends StatelessWidget{
               padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: Row(
                 children: <Widget>[
-                  Text(p.name),
-                  Text(' ${p.gender} ${p.age}岁',style: TextStyle(color: Colors.grey[700])),
+                  Text(p.name,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                  Text(' ${p.gender} ${p.age}岁',style: TextStyle(color: Colors.grey[700],fontSize: ScreenUtil().setSp(14))),
                   Expanded(child: SizedBox()),
-                  Text(p.statusText,style: TextStyle(color: p.status == 4?Colors.grey:Colors.redAccent))
+                  Text(p.statusText,style: TextStyle(color: p.status == 4?Colors.grey:Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(14)))
                 ],
               ),
             ),
@@ -107,9 +108,9 @@ class PrescriptionItem extends StatelessWidget{
                         Expanded(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text('【诊断】${p.symptom}',maxLines: 1,overflow: TextOverflow.ellipsis),
+                            Text('【诊断】${p.symptom}',maxLines: 1,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                             SizedBox(height: 10),
-                            Text('【药费】￥${p.price}')
+                            Text('【药费】￥${p.price}',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                           ],
                         )),
                         SizedBox(width: 10),
@@ -126,7 +127,7 @@ class PrescriptionItem extends StatelessWidget{
                       children: <Widget>[
                         Text(
                           p.time,
-                          style: TextStyle(color: Colors.grey,fontSize: 12),
+                          style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12)),
                         ),
                         Offstage(
                           offstage: p.status == 4,
@@ -146,7 +147,7 @@ class PrescriptionItem extends StatelessWidget{
                                     onPressed: () => model.remove(p)
                                   );
                                 }),
-                              child: Text('删除',style: TextStyle(fontSize: 13),)),
+                              child: Text('删除',style: TextStyle(fontSize: ScreenUtil().setSp(13)))),
                           ),
                         ),
                       ]))

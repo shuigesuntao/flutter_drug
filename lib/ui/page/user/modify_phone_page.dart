@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ModifyPhonePage extends StatefulWidget {
   @override
@@ -46,23 +47,23 @@ class _ModifyPhonePageState extends State<ModifyPhonePage> {
       body: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
             color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 10),
                 Text('当前绑定的手机号为:${_getPhoneStr(phone)}',
-                  style: TextStyle(fontSize: 16)),
-                SizedBox(height: 15),
-                Divider(height: 1, color: Colors.grey),
-                SizedBox(height: 10),
+                  style: TextStyle(fontSize: ScreenUtil().setSp(16))),
+                SizedBox(height: ScreenUtil().setWidth(15)),
+                Divider(height: 0.5, color: Colors.grey[400]),
+                SizedBox(height: ScreenUtil().setWidth(10)),
                 Row(
                   children: <Widget>[
                     Image.asset(
-                      ImageHelper.wrapAssets('yanzhengma.png'), width: 18,
-                      height: 14),
-                    SizedBox(width: 10),
+                      ImageHelper.wrapAssets('yanzhengma.png'), width: ScreenUtil().setWidth(18),
+                      height: ScreenUtil().setWidth(14)),
+                    SizedBox(width: ScreenUtil().setWidth(10)),
                     Expanded(
                       child: TextField(
                         keyboardType: TextInputType.number,
@@ -74,13 +75,13 @@ class _ModifyPhonePageState extends State<ModifyPhonePage> {
                           border: InputBorder.none,
                           hintText: '请输入验证码',
                           hintStyle: TextStyle(color: Colors.grey,
-                            fontSize: 16),
+                            fontSize: ScreenUtil().setSp(16)),
                           enabledBorder: null,
                           disabledBorder: null),
                         controller: _controller,
                         maxLines: 1,
                         textInputAction: TextInputAction.newline,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(16)),
                       )
                     ),
                     GestureDetector(
@@ -90,7 +91,7 @@ class _ModifyPhonePageState extends State<ModifyPhonePage> {
                         }
                       },
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                        padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(8), ScreenUtil().setWidth(2), ScreenUtil().setWidth(8), ScreenUtil().setWidth(2)),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5),
@@ -102,7 +103,7 @@ class _ModifyPhonePageState extends State<ModifyPhonePage> {
                           ? '${countdownTime}s后重发'
                           : countdownTime==0? '重新获取':'获取验证码', style: TextStyle(color:countdownTime>0?Colors.grey: Theme
                           .of(context)
-                          .primaryColor, fontSize: 16)),
+                          .primaryColor, fontSize: ScreenUtil().setSp(16))),
                       ),
                     )
                   ],
@@ -110,15 +111,15 @@ class _ModifyPhonePageState extends State<ModifyPhonePage> {
               ],
             ),
           ),
-          SizedBox(height: 50),
+          SizedBox(height: ScreenUtil().setWidth(50)),
           GestureDetector(
             onTap: () => print('下一步'),
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
               width: double.infinity,
-              height: 40,
+              height: ScreenUtil().setWidth(40),
               alignment: Alignment.center,
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
               decoration: BoxDecoration(
                 color: Theme
                   .of(context)
@@ -127,7 +128,7 @@ class _ModifyPhonePageState extends State<ModifyPhonePage> {
               ),
               child: Text(
                 '下一步',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
               )
             ),
           ),

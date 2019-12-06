@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class SearchBar extends StatefulWidget implements PreferredSizeWidget{
@@ -52,14 +53,14 @@ class _SearchBarState extends State<SearchBar> {
         color: widget.backgroundColor,
         child: SafeArea(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 15),
+            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
             color: widget.backgroundColor,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded(
                   child: Container(
-                    height: 32,
+                    height:  ScreenUtil().setWidth(32),
                     decoration: BoxDecoration(
                       color: Color(0xFFF6F6F6),
                       borderRadius: BorderRadius.circular(4.0),
@@ -69,14 +70,14 @@ class _SearchBarState extends State<SearchBar> {
                       maxLines: 1,
                       textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(-20,5,10,5),
+                        contentPadding: EdgeInsets.fromLTRB(- ScreenUtil().setWidth(20), ScreenUtil().setWidth(5), ScreenUtil().setWidth(10), ScreenUtil().setWidth(5)),
                         border: InputBorder.none,
                         icon: Padding(
-                          padding: const EdgeInsets.fromLTRB(15,5,15,5),
-                          child: Image.asset(ImageHelper.wrapAssets('edit_search.png'),width: 14,height: 14),
+                          padding: EdgeInsets.fromLTRB( ScreenUtil().setWidth(15), ScreenUtil().setWidth(5), ScreenUtil().setWidth(15), ScreenUtil().setWidth(5)),
+                          child: Image.asset(ImageHelper.wrapAssets('icon_sousuo.png'),width: ScreenUtil().setWidth(14),height:  ScreenUtil().setWidth(14)),
                         ),
                         hintText: widget.hintText,
-                        hintStyle:TextStyle(fontSize: 14,color: Colors.grey[350])
+                        hintStyle:TextStyle(fontSize: ScreenUtil().setSp(14),color: Colors.grey[350])
                       ),
                       onSubmitted: (text){
                         widget.onPressed(text);
@@ -90,14 +91,14 @@ class _SearchBarState extends State<SearchBar> {
                   ),
                 ),
                 widget.isCancel?Padding(
-                  padding: EdgeInsets.only(left: 15),
+                  padding: EdgeInsets.only(left: ScreenUtil().setWidth(15)),
                   child:  GestureDetector(
                     onTap: (){
                       FocusScope.of(context).unfocus();
                       Navigator.maybePop(context);
                     },
                     child: Center(
-                      child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: 15)),
+                      child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(15))),
                     ),
                   )
                 ):Container()
