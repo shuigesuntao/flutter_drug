@@ -70,6 +70,10 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
   bool _isHide = false;
   bool _isConfirm = false;
 
+  String _countOfDay = '';//每日服药次数
+  String _countOfUse = '';//每次服药数量
+  String _countOfBag = '';//袋数
+
   final TextEditingController _controller = TextEditingController(text: "7");//剂量
   final TextEditingController _bagController = TextEditingController();//袋数
   final TextEditingController _countOfDayController = TextEditingController();//每日服药次数
@@ -755,7 +759,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             Row(
               children: <Widget>[
                 _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
-                _buildDrugUseCountWidget(_bagController, '，每剂', '袋', '每剂袋数',width: 38),
+                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数',width: 38),
                 Row(
                   children: <Widget>[
                     Text('，每袋', style: TextStyle(color: Colors.grey)),
@@ -788,8 +792,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController, '每次', '袋', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '袋', '每次服药数量',width: 38),
               ],
             )
           ],
@@ -801,14 +805,14 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             Row(
               children: <Widget>[
                 _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
-                _buildDrugUseCountWidget(_bagController, '，每剂', '袋', '每剂袋数',width: 38)
+                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数',width: 38)
               ],
             ),
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController, '每次', '袋', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '袋', '每次服药数量',width: 38),
               ],
             )
           ],
@@ -841,8 +845,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = '3', '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = '10', '每次', '克', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'10':_countOfUse, '每次', '克', '每次服药数量',width: 38),
               ],
             )
           ],
@@ -867,8 +871,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = '3', '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_bagController..text = '1', '每次', '袋', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'1':_countOfBag, '每次', '袋', '每次服药数量',width: 38),
               ],
             )
           ],
@@ -879,7 +883,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
             _buildDrugUseCountWidget(
-              _countOfDayController..text = '3', '，每日', '次', '每天服药次数',width: 38)
+              _countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '，每日', '次', '每天服药次数',width: 38)
           ],
         );
         break;
@@ -897,8 +901,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = '2', '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = '1', '每次', '丸', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '丸', '每次服药数量',width: 38),
               ],
             )
           ],
@@ -917,8 +921,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = '2', '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = '1', '每次', '丸', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数',width:38),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '丸', '每次服药数量',width: 38),
               ],
             )
           ],
@@ -949,6 +953,14 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               if (text.isEmpty || int.parse(text) < 1) {
                 showToast('$toastText最小为1');
                 controller.text = '';
+              }else{
+                if(controller == _bagController){
+                  _countOfBag = text;
+                }else if(controller == _countOfUseDrugController){
+                  _countOfUse = text;
+                }else if(controller == _countOfDayController){
+                  _countOfDay = text;
+                }
               }
             },
             decoration: InputDecoration(
@@ -1082,7 +1094,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ],
           ),
-          SizedBox(height: ScreenUtil().setWidth(5)),
+          SizedBox(height: ScreenUtil().setWidth(10)),
           //用药方法
           Padding(
             padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
@@ -1370,7 +1382,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               ),
             ],
           ),
-          SizedBox(height: ScreenUtil().setWidth(5)),
+          SizedBox(height: ScreenUtil().setWidth(10)),
           // 设置诊费
           GestureDetector(
             onTap: () {

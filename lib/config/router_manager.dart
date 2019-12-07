@@ -27,10 +27,12 @@ import 'package:flutter_drug/ui/page/prescription/order_detail_page.dart';
 import 'package:flutter_drug/ui/page/search/p_already_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
+import 'package:flutter_drug/ui/page/user/edit_good_at_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_user_desc_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_user_page.dart';
 import 'package:flutter_drug/ui/page/user/modify_password_page.dart';
 import 'package:flutter_drug/ui/page/user/modify_phone_page.dart';
+import 'package:flutter_drug/ui/page/user/select_office_page.dart';
 import 'package:flutter_drug/ui/page/user/setting_page.dart';
 import 'package:flutter_drug/ui/page/splash.dart';
 import 'package:flutter_drug/ui/page/suggestion_page.dart';
@@ -97,6 +99,8 @@ class RouteName {
   static const String monthBill = 'monthBill';//查看账单
   static const String userInfo = 'userInfo';//我的名片
   static const String editUser = 'editUser';//编辑个人信息
+  static const String editUserGoodAt = 'editUserGoodAt';//编辑擅长
+  static const String selectUserOffice = 'selectUserOffice';//选择科室
   static const String editUserDesc = 'editUserDesc';//编辑个人简介
   static const String auth = 'auth';//资质认证
   static const String example = 'example';//认证示例
@@ -242,6 +246,10 @@ class Router {
         return CupertinoPageRoute(builder: (_) => UserInfoPage());
       case RouteName.editUser:
         return CupertinoPageRoute(builder: (_) => EditUserPage());
+      case RouteName.selectUserOffice:
+        return CupertinoPageRoute(builder: (_) => SelectOfficePage(office:settings.arguments as String));
+      case RouteName.editUserGoodAt:
+        return CupertinoPageRoute(builder: (_) => EditGoodAtPage(goodAt:settings.arguments as String));
       case RouteName.editUserDesc:
         return CupertinoPageRoute(builder: (_) => EditUserDescPage(desc: settings.arguments as String));
 //      case RouteName.coinRankingList:

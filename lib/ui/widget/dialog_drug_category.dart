@@ -15,7 +15,7 @@ class DialogDrugCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: ScreenUtil().setWidth(600),
+      height: ScreenUtil().setWidth(580),
       child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
         children: <Widget>[
           Container(
@@ -34,14 +34,14 @@ class DialogDrugCategory extends StatelessWidget {
               ],
             ),
             color: Colors.grey[200],
-            padding: EdgeInsets.fromLTRB(20,12,20,12),
+            padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(20),ScreenUtil().setWidth(12),ScreenUtil().setWidth(20),ScreenUtil().setWidth(12)),
           ),
           Expanded(
             child: Row(
               children: <Widget>[
                 new Container(
                   color: Colors.grey[200],
-                  width: 100,
+                  width: ScreenUtil().setWidth(100),
                   child: ListView.builder(
                     itemCount: model.list.length,
                     itemBuilder: (context, index) =>
@@ -49,7 +49,7 @@ class DialogDrugCategory extends StatelessWidget {
                 new Expanded(
                   child: Container(
                     color: Colors.white,
-                    padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+                    padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(5), ScreenUtil().setWidth(15), ScreenUtil().setWidth(5)),
                     child: ListView.builder(
                       itemCount: model
                         .list[model.currentCategory].child.length,
@@ -76,7 +76,7 @@ class DialogDrugCategory extends StatelessWidget {
       child: Container(
           alignment: Alignment.center,
           child: Text(model.list[i].name,style: TextStyle(fontSize: ScreenUtil().setSp(13))),
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(15)),
           color: model.currentCategory == i ? Colors.white : Colors.grey[200]),
     );
   }
@@ -88,8 +88,8 @@ class DialogDrugCategory extends StatelessWidget {
           model.currentDrugStore = i;
         },
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 5),
-          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(5)),
+          padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
           decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(5),
@@ -108,8 +108,8 @@ class DialogDrugCategory extends StatelessWidget {
                           margin: EdgeInsets.only(left:2,bottom: 10),
                           alignment: Alignment.center,
                           padding: EdgeInsets.only(left:2,bottom:2),
-                          width: 52,
-                          height: 18,
+                          width: ScreenUtil().setWidth(52),
+                          height: ScreenUtil().setWidth(18),
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage(ImageHelper.wrapAssets('pzyc.png'))
@@ -132,13 +132,13 @@ class DialogDrugCategory extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: ScreenUtil().setWidth(10)),
               Offstage(
                 offstage: price == 0,
                 child: Padding(padding: EdgeInsets.only(bottom: 5),child: Text('每剂：￥$price',style: TextStyle(color: Color(0xffeaaf4c),fontSize: ScreenUtil().setSp(12)))),
               ),
               Text(data.label, style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12))),
-              SizedBox(height: 5),
+              SizedBox(height: ScreenUtil().setWidth(5)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

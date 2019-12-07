@@ -18,12 +18,12 @@ class WeChatCashPageState extends State<WeChatCashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      appBar: TitleBar.buildCommonAppBar(context, '微信提现'),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Column(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        appBar: TitleBar.buildCommonAppBar(context, '微信提现'),
+        body: Column(
           children: <Widget>[
             Container(
               margin: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
@@ -33,15 +33,15 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                 children: <Widget>[
                   Expanded(
                     child:
-                        Text('提现到微信钱包 | 已绑定', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                    Text('提现到微信钱包 | 已绑定', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   ),
                   GestureDetector(
                     onTap: () =>
-                        Navigator.of(context).pushNamed(RouteName.bindWeChat),
+                      Navigator.of(context).pushNamed(RouteName.bindWeChat),
                     child: Text('更换',
-                        style: TextStyle(
-                            fontSize: ScreenUtil().setSp(14),
-                            color: Theme.of(context).primaryColor)),
+                      style: TextStyle(
+                        fontSize: ScreenUtil().setSp(14),
+                        color: Theme.of(context).primaryColor)),
                   )
                 ],
               ),
@@ -57,46 +57,46 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                   Row(
                     children: <Widget>[
                       Text('￥',
-                          style: TextStyle(
-                              fontSize: ScreenUtil().setSp(24), fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(24), fontWeight: FontWeight.bold)),
                       SizedBox(width: ScreenUtil().setWidth(5)),
                       Expanded(
-                          child: TextField(
-                        autofocus: true,
-                        cursorColor: Theme.of(context).primaryColor,
-                        inputFormatters: [
-                          WhitelistingTextInputFormatter(RegExp(r"^[.0-9]+$"))
-                        ],
-                        decoration: InputDecoration(
+                        child: TextField(
+                          autofocus: true,
+                          cursorColor: Theme.of(context).primaryColor,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter(RegExp(r"^[.0-9]+$"))
+                          ],
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(0),
                             border: InputBorder.none),
-                        controller: _controller,
-                        maxLines: 1,
-                        textInputAction: TextInputAction.next,
-                        keyboardType:
-                            TextInputType.numberWithOptions(decimal: true),
-                        style: TextStyle(fontSize: ScreenUtil().setSp(50)),
-                      )),
+                          controller: _controller,
+                          maxLines: 1,
+                          textInputAction: TextInputAction.next,
+                          keyboardType:
+                          TextInputType.numberWithOptions(decimal: true),
+                          style: TextStyle(fontSize: ScreenUtil().setSp(50)),
+                        )),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
                         child: SimpleImageButton(
-                            normalImage: ImageHelper.wrapAssets(
-                                'search_clear_normal.png'),
-                            pressedImage: ImageHelper.wrapAssets(
-                                'search_clear_pressed.png'),
-                            width: ScreenUtil().setWidth(20),
-                            onPressed: () {
-                              _controller.clear();
-                            }),
+                          normalImage: ImageHelper.wrapAssets(
+                            'search_clear_normal.png'),
+                          pressedImage: ImageHelper.wrapAssets(
+                            'search_clear_pressed.png'),
+                          width: ScreenUtil().setWidth(20),
+                          onPressed: () {
+                            _controller.clear();
+                          }),
                       ),
                       GestureDetector(
                         onTap: () {
                           _controller.text = account.toString();
                         },
                         child: Text('全部',
-                            style: TextStyle(
-                                fontSize: ScreenUtil().setSp(14),
-                                color: Theme.of(context).primaryColor)),
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(14),
+                            color: Theme.of(context).primaryColor)),
                       )
                     ],
                   ),
@@ -116,74 +116,78 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                   Text('温馨提示', style: TextStyle(fontSize: ScreenUtil().setSp(14))),
                   SizedBox(height: 10),
                   Text('1.钱包余额大于50元，可申请提现',
-                      style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
+                    style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
                   SizedBox(height: 5),
                   Text('2.单次最大可申请5000元，每天最多申请5次；',
-                      style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
+                    style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
                   SizedBox(height: 5),
                   Text('3.累计提现金额大于5000元，本平台将代扣0.6%手续费给予第三方支付平台。',
-                      style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
+                    style: TextStyle(color: Colors.grey, fontSize: ScreenUtil().setSp(12))),
                 ],
               ),
             ),
             Expanded(
               child: SafeArea(
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-
-                          },
-                          child: Container(
-                            height: ScreenUtil().setWidth(40),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
-                            width: double.infinity,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Color(0xffeaaf4c),
-                              borderRadius: BorderRadius.circular(20)),
-                            child: Text(
-                              '免手续费提现',
-                              style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
-                            )),
-                        ),
-                        SizedBox(height: ScreenUtil().setWidth(15)),
-                        GestureDetector(
-                          onTap: () {
-                            if (_controller.text.isNotEmpty &&
-                              double.parse(_controller.text) > account) {
-                              showToast('提现金额大于账户可提现金额');
-                            } else if (_controller.text.isEmpty ||
-                              double.parse(_controller.text) < 50) {
-                              showToast('提现金额不能小于50');
-                            }
-                          },
-                          child: Container(
-                            height: ScreenUtil().setWidth(40),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
-                            width: double.infinity,
-                            padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(20)),
-                            child: Text(
-                              '提现',
-                              style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
-                            )),
-                        )
-                      ],
-                    ),
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Map map = Map();
+                          map['title'] = '操作说明';
+                          map['url'] = 'http://wx2.zgzydb.com/web/doctorSide/#/step';
+                          map['share'] = false;
+                          Navigator.of(context).pushNamed(RouteName.webView,arguments: map);
+                        },
+                        child: Container(
+                          height: ScreenUtil().setWidth(40),
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                          width: double.infinity,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Color(0xffeaaf4c),
+                            borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            '免手续费提现',
+                            style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
+                          )),
+                      ),
+                      SizedBox(height: ScreenUtil().setWidth(15)),
+                      GestureDetector(
+                        onTap: () {
+                          if (_controller.text.isNotEmpty &&
+                            double.parse(_controller.text) > account) {
+                            showToast('提现金额大于账户可提现金额');
+                          } else if (_controller.text.isEmpty ||
+                            double.parse(_controller.text) < 50) {
+                            showToast('提现金额不能小于50');
+                          }
+                        },
+                        child: Container(
+                          height: ScreenUtil().setWidth(40),
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+                          width: double.infinity,
+                          padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            '提现',
+                            style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(14)),
+                          )),
+                      )
+                    ],
                   ),
-                  bottom: true
+                ),
+                bottom: true
               ),
             )
           ],
-        ),
+        )
       ),
     );
   }

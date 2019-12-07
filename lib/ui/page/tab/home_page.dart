@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage>
                                 style: TextStyle(color: Colors.white),
                               ),
                               position: BadgePosition.topRight(
-                                top: -6, right: 1),
+                                top: -8, right: 5),
                               child: HomeItemWidget(
                                 '审方消息',
                                 'icon_sfxx.png',

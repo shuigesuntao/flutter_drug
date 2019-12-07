@@ -4,6 +4,7 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
@@ -23,22 +24,22 @@ class DrugStoreItem extends StatelessWidget {
                   imageUrl: model.list[model.selectedCategory].imageUrl,
                   errorWidget: (context, url, error) => Image.asset(
                       ImageHelper.wrapAssets('tangji.png'),
-                      width: 45,
-                      height: 45),
+                      width: ScreenUtil().setWidth(45),
+                      height: ScreenUtil().setWidth(45)),
                   fit: BoxFit.fill,
-                  width: 45,
-                  height: 45,
+                  width: ScreenUtil().setWidth(45),
+                  height: ScreenUtil().setWidth(45),
                 ),
                 Expanded(
                     child: Padding(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: EdgeInsets.only(left: ScreenUtil().setWidth(10)),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               '${model.list[model.selectedCategory].child[model.selectedDrugStore].name}-${model.list[model.selectedCategory].name}',
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: ScreenUtil().setSp(15),
                                   fontWeight: FontWeight.w600),
                             ),
                             Offstage(
@@ -58,15 +59,15 @@ class DrugStoreItem extends StatelessWidget {
                                     child: Text(
                                         '每剂：${getSinglePrice(drugs) == 0 ? '- -' : '￥${getSinglePrice(drugs)}'}',
                                         style: TextStyle(
-                                            fontSize: 13, color: Colors.grey))),
+                                            fontSize: ScreenUtil().setSp(13), color: Colors.grey))),
                               ),
                             )
                           ],
                         ))),
                 GestureDetector(
                   child: Container(
-                      width: 70,
-                      height: 23,
+                      width: ScreenUtil().setWidth(70),
+                      height: ScreenUtil().setWidth(23),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(3)),
                           border: Border.all(
@@ -75,7 +76,7 @@ class DrugStoreItem extends StatelessWidget {
                         child: Text(
                           '更换剂型',
                           style:
-                              TextStyle(color: Theme.of(context).primaryColor,fontSize: 13),
+                              TextStyle(color: Theme.of(context).primaryColor,fontSize: ScreenUtil().setSp(13)),
                         ),
                       )),
                   onTap: () => showModalBottomSheet(

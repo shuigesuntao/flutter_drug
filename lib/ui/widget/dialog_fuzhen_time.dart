@@ -26,33 +26,33 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setWidth(240),
+      height: ScreenUtil().setWidth(ScreenUtil().setWidth(240)),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 40,
+            height: ScreenUtil().setWidth(40),
             decoration: BoxDecoration(color: Colors.grey[200]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  height: 40,
+                  height: ScreenUtil().setWidth(40),
                   child: FlatButton(
                     child: Text('取消', style: TextStyle(
-                      color: Colors.grey[700])),
+                      color: Colors.grey[700],fontSize: ScreenUtil().setSp(14))),
                     onPressed: () => Navigator.maybePop(context)
                   ),
                 ),
-                Text('复诊及随访时间',style: TextStyle(fontSize: 15)),
+                Text('复诊及随访时间',style: TextStyle(fontSize: ScreenUtil().setSp(15))),
                 Container(
-                  height: 40,
+                  height: ScreenUtil().setWidth(40),
                   child: FlatButton(
                     child: Text('确定', style: TextStyle(
                       color: Theme
                         .of(context)
-                        .primaryColor)),
+                        .primaryColor,fontSize: ScreenUtil().setSp(14))),
                     onPressed: (){
                       widget.onConfirm(fuzhenTime,suifangTime);
                       Navigator.maybePop(context);
@@ -63,15 +63,15 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(20)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 20),
+                SizedBox(height: ScreenUtil().setWidth(20)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('提醒患者复诊',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500)),
+                    Text('提醒患者复诊',style: TextStyle(fontSize: ScreenUtil().setSp(15))),
                     Row(
                       children: <Widget>[
                         Transform(
@@ -86,12 +86,12 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                                 });
                               }
                             },
-                            child: Image.asset(ImageHelper.wrapAssets('icon_minus1.png'),width: 28,height: 28),
+                            child: Image.asset(ImageHelper.wrapAssets('icon_minus1.png'),width: ScreenUtil().setWidth(28),height: ScreenUtil().setWidth(28)),
                           ),
                         ),
                         Container(
-                          width: 70,
-                          height: 28,
+                          width: ScreenUtil().setWidth(70),
+                          height: ScreenUtil().setWidth(28),
                           decoration: BoxDecoration(
                             image: DecorationImage(image: AssetImage(ImageHelper.wrapAssets('rect.png')))
                           ),
@@ -111,20 +111,20 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                                 });
                               }
                             },
-                            child: Image.asset(ImageHelper.wrapAssets('icon_add1.png'),width: 28,height: 28),
+                            child: Image.asset(ImageHelper.wrapAssets('icon_add1.png'),width: ScreenUtil().setWidth(28),height: ScreenUtil().setWidth(28)),
                           ),
                         ),
                       ],
                     )
                   ],
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: ScreenUtil().setWidth(15)),
                 Text('*系统将通过【药匣子在线】公众号给予自动给予该患者复诊提醒。',style: TextStyle(fontSize: 12,color: Colors.grey)),
-                SizedBox(height: 20),
+                SizedBox(height: ScreenUtil().setWidth(20)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('设置随访时间',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w500)),
+                    Text('设置随访时间',style: TextStyle(fontSize: ScreenUtil().setSp(15))),
                     Row(
                       children: <Widget>[
                         Transform(
@@ -139,12 +139,12 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                                 });
                               }
                             },
-                            child: Image.asset(ImageHelper.wrapAssets('icon_minus1.png'),width: 28,height: 28),
+                            child: Image.asset(ImageHelper.wrapAssets('icon_minus1.png'),width: ScreenUtil().setWidth(28),height: ScreenUtil().setWidth(28)),
                           ),
                         ),
                         Container(
-                          width: 70,
-                          height: 28,
+                          width: ScreenUtil().setWidth(70),
+                          height: ScreenUtil().setWidth(28),
                           decoration: BoxDecoration(
                             image: DecorationImage(image: AssetImage(ImageHelper.wrapAssets('rect.png')))
                           ),
@@ -165,16 +165,16 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                                 });
                               }
                             },
-                            child: Image.asset(ImageHelper.wrapAssets('icon_add1.png'),width: 28,height: 28),
+                            child: Image.asset(ImageHelper.wrapAssets('icon_add1.png'),width: ScreenUtil().setWidth(28),height: ScreenUtil().setWidth(28)),
                           ),
                         ),
                       ],
                     )
                   ],
                 ),
-                SizedBox(height: 15),
-                Text('*依据用药情况，设置对该患者的随访时间，系统将自动给予患者发送用药随访单，并提醒医生随访。',style: TextStyle(fontSize: 12,color: Colors.grey)),
-                SizedBox(height: 30)
+                SizedBox(height: ScreenUtil().setWidth(15)),
+                Text('*依据用药情况，设置对该患者的随访时间，系统将自动给予患者发送用药随访单，并提醒医生随访。',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Colors.grey)),
+                SizedBox(height: ScreenUtil().setWidth(30))
               ],
             ),
           )

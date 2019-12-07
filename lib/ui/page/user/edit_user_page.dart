@@ -18,7 +18,7 @@ class _EditUserPageState extends State<EditUserPage>{
   String _gender = '男';
   String _level = '执业医师';
   String _type = '内科';
-  List<String> _myGoods = ['内科'];
+  String _myGoods = '内科';
   String _desc = '我是执业中医师，您有什么日常身体疾病需要帮助，可以给我图文留言或者电话咨询！';
 
   @override
@@ -121,7 +121,13 @@ class _EditUserPageState extends State<EditUserPage>{
           ),
           Divider(height: 0.5,color:Colors.grey[400]),
           GestureDetector(
-            onTap:() => Navigator.of(context).pushNamed(RouteName.test),
+            onTap:() => Navigator.of(context).pushNamed(RouteName.selectUserOffice,arguments: _type).then((text){
+              if(text != null){
+                setState(() {
+                  _type = text;
+                });
+              }
+            }),
             child: Container(
               padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
@@ -141,7 +147,13 @@ class _EditUserPageState extends State<EditUserPage>{
           ),
           SizedBox(height: ScreenUtil().setWidth(10)),
           GestureDetector(
-            onTap:() => Navigator.of(context).pushNamed(RouteName.test),
+            onTap:() => Navigator.of(context).pushNamed(RouteName.editUserGoodAt,arguments: _myGoods).then((text){
+              if(text != null){
+                setState(() {
+                  _myGoods = text;
+                });
+              }
+            }),
             child: Container(
               padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
               color: Colors.white,
@@ -164,7 +176,7 @@ class _EditUserPageState extends State<EditUserPage>{
             width: double.infinity,
             padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
             color: Colors.white,
-            child: Text('${_myGoods.join(',')}',style: TextStyle(fontSize: ScreenUtil().setSp(13))),
+            child: Text(_myGoods,style: TextStyle(fontSize: ScreenUtil().setSp(13))),
           ),
           SizedBox(height: ScreenUtil().setWidth(10)),
           GestureDetector(
