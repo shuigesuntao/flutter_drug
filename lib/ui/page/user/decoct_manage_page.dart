@@ -51,7 +51,8 @@ class DecoctManagePage extends StatelessWidget {
                           ),
                         ),
                         bottom: true,
-                      ))
+                      )),
+                  SizedBox(height: ScreenUtil().setWidth(10))
                 ],
               ));
         });

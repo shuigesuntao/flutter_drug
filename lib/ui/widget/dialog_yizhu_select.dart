@@ -60,7 +60,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      height: ScreenUtil().setWidth(510),
+      height: ScreenUtil().setWidth(540),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -146,7 +146,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text('* 注：如有特殊用药时间和方法，请在补充医嘱内填写',style: TextStyle(fontSize: 11,color: Colors.red)),
           ),
-          SizedBox(height: 30)
+          SizedBox(height: 40)
         ],
       )
     );

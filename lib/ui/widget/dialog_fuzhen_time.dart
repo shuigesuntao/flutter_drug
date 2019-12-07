@@ -26,7 +26,7 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setWidth(ScreenUtil().setWidth(240)),
+      height: ScreenUtil().setWidth(ScreenUtil().setWidth(230)),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,9 +118,9 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                     )
                   ],
                 ),
+                SizedBox(height: ScreenUtil().setWidth(10)),
+                Text('*系统将通过【药匣子在线】公众号给予自动给予该患者复诊提醒。',style: TextStyle(fontSize: ScreenUtil().setSp(11),color: Colors.grey)),
                 SizedBox(height: ScreenUtil().setWidth(15)),
-                Text('*系统将通过【药匣子在线】公众号给予自动给予该患者复诊提醒。',style: TextStyle(fontSize: 12,color: Colors.grey)),
-                SizedBox(height: ScreenUtil().setWidth(20)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -157,7 +157,7 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                           transform: Matrix4.translationValues(-3, 0, 0),
                           child:GestureDetector(
                             onTap: (){
-                              if(suifangTime ==30){
+                              if(suifangTime == 30){
                                 showToast('最大可设置为30');
                               }else{
                                 setState(() {
@@ -172,9 +172,8 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                     )
                   ],
                 ),
-                SizedBox(height: ScreenUtil().setWidth(15)),
-                Text('*依据用药情况，设置对该患者的随访时间，系统将自动给予患者发送用药随访单，并提醒医生随访。',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Colors.grey)),
-                SizedBox(height: ScreenUtil().setWidth(30))
+                SizedBox(height: ScreenUtil().setWidth(10)),
+                Text('*依据用药情况，设置对该患者的随访时间，系统将自动给予患者发送用药随访单，并提醒医生随访。',style: TextStyle(fontSize: ScreenUtil().setSp(11),color: Colors.grey)),
               ],
             ),
           )

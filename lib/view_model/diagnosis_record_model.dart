@@ -11,6 +11,9 @@ class DiagnosisRecordModel extends ViewStateRefreshListModel<Diagnosis>{
       results.add(Diagnosis(1, "头疼",[Drug('滑石粉',18),Drug('生甘草',30),Drug('薄荷',9)],'2019-10-09'));
       results.add(Diagnosis(2, "阴虚;气郁;气郁;气郁;气郁;气郁;气郁;气郁;",[Drug('滑石粉',18),Drug('生甘草',30),Drug('薄荷',9)],'2019-08-30'));
       results.add(Diagnosis(3, "阴虚;痰湿;气郁;血瘀;气虚;湿热;",[Drug('党参',12),Drug('麸炒白术',9),Drug('茯苓',9),Drug('炙甘草',5),Drug('陈皮',3),Drug('法半夏',3),Drug('生姜',3),Drug('大枣',1,unit: '枚(约10克)'),Drug('当归',9),Drug('白芍',9)],'2019-08-29'));
+      if(pageNum > 0){
+        results.clear();
+      }
       return results;
     });
   }

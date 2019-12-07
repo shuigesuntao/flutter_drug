@@ -185,7 +185,8 @@ class WeChatCashPageState extends State<WeChatCashPage> {
                 ),
                 bottom: true
               ),
-            )
+            ),
+            SizedBox(height: ScreenUtil().setWidth(10))
           ],
         )
       ),

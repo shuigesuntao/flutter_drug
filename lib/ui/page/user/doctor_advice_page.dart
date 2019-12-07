@@ -28,7 +28,7 @@ class _DoctorAdvicePageState extends State<DoctorAdvicePage>{
       child: Scaffold(
         appBar: TitleBar.buildCommonAppBar(context, '医嘱管理'),
         body: Padding(
-          padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(5), ScreenUtil().setWidth(15), ScreenUtil().setWidth(5)),
+          padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(15), ScreenUtil().setWidth(5), ScreenUtil().setWidth(15), ScreenUtil().setWidth(10)),
           child: Column(
             children: <Widget>[
               Container(

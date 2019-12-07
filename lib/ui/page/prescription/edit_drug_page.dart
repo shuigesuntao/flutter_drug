@@ -48,7 +48,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
           //一行的Widget数量
           crossAxisCount: 2,
           //子Widget宽高比例
-          childAspectRatio: 2.7,
+          childAspectRatio: 2.6,
           //子Widget列表
           children: _buildEditDrugList(),
         )),
@@ -93,7 +93,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                             WhitelistingTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 1),
+                              contentPadding: EdgeInsets.only(top: 1),
                               border: InputBorder.none,
                               hintText: '0',
                               hintStyle: TextStyle(
@@ -155,7 +155,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                   }),
                   child: Text('处方模板',
                     style: TextStyle(
-                      color: Color(0xff798fb7), fontSize: ScreenUtil().setSp(13))),
+                      color: Color(0xff798fb7), fontSize: ScreenUtil().setSp(14))),
                 )
               ],
             ),

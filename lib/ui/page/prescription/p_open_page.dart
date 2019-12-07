@@ -154,121 +154,122 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
       body: Builder(builder: (context) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: Container(
-            padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
-            child: ListView(
-              children: <Widget>[
-                // 诊断
-                _buildZhenduanWidget(),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-                // 开方
-                _buildKaifangWidget(),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-                // 超量与配伍禁忌
-                Offstage(
-                  offstage: poisons.length == 0 && conflicts.length == 0,
-                  child: Padding(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
+              child: Column(
+                children: <Widget>[
+                  // 诊断
+                  _buildZhenduanWidget(),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  // 开方
+                  _buildKaifangWidget(),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  // 超量与配伍禁忌
+                  Offstage(
+                    offstage: poisons.length == 0 && conflicts.length == 0,
+                    child: Padding(
                       padding:
-                          EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
+                      EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
                       child: _buildExcessWidget(context)),
-                ),
-                // 医嘱
-                _buildYizhuWidget(context),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-                // 复诊随访时间
-                GestureDetector(
-                  onTap: () => showModalBottomSheet(
+                  ),
+                  // 医嘱
+                  _buildYizhuWidget(context),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  // 复诊随访时间
+                  GestureDetector(
+                    onTap: () => showModalBottomSheet(
                       context: context,
                       builder: (context) => DialogFuzhenTime(
-                          fuzhenTime: _fuzhenTime,
-                          suifangTime: _suifangTime,
-                          onConfirm: (fuzhenTime, suifangTime) {
-                            setState(() {
-                              _fuzhenText = '已设置';
-                              _fuzhenTime = fuzhenTime;
-                              _suifangTime = suifangTime;
-                            });
-                          })),
-                  child: Container(
+                        fuzhenTime: _fuzhenTime,
+                        suifangTime: _suifangTime,
+                        onConfirm: (fuzhenTime, suifangTime) {
+                          setState(() {
+                            _fuzhenText = '已设置';
+                            _fuzhenTime = fuzhenTime;
+                            _suifangTime = suifangTime;
+                          });
+                        })),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: ScreenUtil().setWidth(15)),
+                      height: ScreenUtil().setWidth(50),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text('复诊及随访时间',
+                              style: TextStyle(
+                                fontSize: ScreenUtil().setSp(14)))),
+                          Row(
+                            children: <Widget>[
+                              Text(_fuzhenText,
+                                style: TextStyle(
+                                  fontSize: ScreenUtil().setSp(14))),
+                              Icon(
+                                Icons.chevron_right,
+                                color: Colors.grey[400],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  // 划价
+                  _buildHuajiaWidget(context),
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  // 处方是否可见
+                  Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                     ),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: ScreenUtil().setWidth(15)),
                     height: ScreenUtil().setWidth(50),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: ScreenUtil().setWidth(15)),
                     child: Row(
                       children: <Widget>[
                         Expanded(
-                            child: Text('复诊及随访时间',
-                                style: TextStyle(
-                                    fontSize: ScreenUtil().setSp(14)))),
+                          child: Text('处方是否可见处方',
+                            style:
+                            TextStyle(fontSize: ScreenUtil().setSp(14)))),
                         Row(
                           children: <Widget>[
-                            Text(_fuzhenText,
-                                style: TextStyle(
-                                    fontSize: ScreenUtil().setSp(14))),
-                            Icon(
-                              Icons.chevron_right,
-                              color: Colors.grey[400],
-                            ),
+                            _buildShowButton(0, '可见'),
+                            SizedBox(width: ScreenUtil().setWidth(10)),
+                            _buildShowButton(1, '不可见')
                           ],
                         )
                       ],
                     ),
                   ),
-                ),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-                // 划价
-                _buildHuajiaWidget(context),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-                // 处方是否可见
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                  ),
-                  height: ScreenUtil().setWidth(50),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: ScreenUtil().setWidth(15)),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Text('处方是否可见处方',
-                              style:
-                                  TextStyle(fontSize: ScreenUtil().setSp(14)))),
-                      Row(
-                        children: <Widget>[
-                          _buildShowButton(0, '可见'),
-                          SizedBox(width: ScreenUtil().setWidth(10)),
-                          _buildShowButton(1, '不可见')
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-                // 提交
-                SafeArea(
+                  SizedBox(height: ScreenUtil().setWidth(10)),
+                  // 提交
+                  SafeArea(
                     child: GestureDetector(
                       onTap: () => print('确认签名并发送'),
                       child: Container(
-                          width: double.infinity,
-                          height: ScreenUtil().setWidth(40),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Text(
-                            '确认签名并发送',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ScreenUtil().setSp(14)),
-                          )),
+                        width: double.infinity,
+                        height: ScreenUtil().setWidth(40),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          '确认签名并发送',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: ScreenUtil().setSp(14)),
+                        )),
                     ),
                     bottom: true),
-                SizedBox(height: ScreenUtil().setWidth(10)),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -758,8 +759,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
-                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数',width: 38),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数'),
                 Row(
                   children: <Widget>[
                     Text('，每袋', style: TextStyle(color: Colors.grey)),
@@ -775,7 +776,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                         )),
                       child:  Container(
                         alignment: Alignment.center,
-                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
+                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5)),
                         height: ScreenUtil().setWidth(30),
                         width: ScreenUtil().setWidth(38),
                         decoration: BoxDecoration(
@@ -792,8 +793,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '袋', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数'),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '袋', '每次服药数量'),
               ],
             )
           ],
@@ -804,15 +805,15 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
-                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数',width: 38)
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数')
               ],
             ),
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '袋', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数'),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '袋', '每次服药数量'),
               ],
             )
           ],
@@ -823,7 +824,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
                 SizedBox(width: ScreenUtil().setWidth(10)),
                 GestureDetector(
                   onTap: (){
@@ -845,8 +846,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'10':_countOfUse, '每次', '克', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数'),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'10':_countOfUse, '每次', '克', '每次服药数量'),
               ],
             )
           ],
@@ -857,7 +858,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
                 SizedBox(width: ScreenUtil().setWidth(20)),
                 Row(
                   children: <Widget>[
@@ -871,8 +872,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'1':_countOfBag, '每次', '袋', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '每日', '次，', '每天服药次数'),
+                _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'1':_countOfBag, '每次', '袋', '每次服药数量'),
               ],
             )
           ],
@@ -881,9 +882,9 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
       case 4:
         widget = Row(
           children: <Widget>[
-            _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+            _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
             _buildDrugUseCountWidget(
-              _countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '，每日', '次', '每天服药次数',width: 38)
+              _countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '，每日', '次', '每天服药次数')
           ],
         );
         break;
@@ -893,7 +894,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
                 SizedBox(width: ScreenUtil().setWidth(10)),
                 Text('*每丸约0.09克',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
               ],
@@ -901,8 +902,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '丸', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数'),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '丸', '每次服药数量'),
               ],
             )
           ],
@@ -913,7 +914,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量'),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
                 SizedBox(width: ScreenUtil().setWidth(10)),
                 Text('*每丸约9克',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
               ],
@@ -921,8 +922,8 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             SizedBox(height: ScreenUtil().setWidth(5)),
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数',width:38),
-                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '丸', '每次服药数量',width: 38),
+                _buildDrugUseCountWidget(_countOfDayController..text = _countOfDay.isEmpty?'2':_countOfDay, '每日', '次，', '每天服药次数'),
+                _buildDrugUseCountWidget(_countOfUseDrugController..text = _countOfUse.isEmpty?'1':_countOfUse, '每次', '丸', '每次服药数量'),
               ],
             )
           ],
@@ -934,13 +935,13 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
 
   /// 用药输入框
   Widget _buildDrugUseCountWidget(TextEditingController controller,
-      String text1, String text2, String toastText,{ num width = 50 }) {
+      String text1, String text2, String toastText,{ num width = 43 }) {
     return Row(
       children: <Widget>[
         Text(text1, style: TextStyle(color: Colors.grey)),
         Container(
           margin:
-          EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
+          EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5)),
           height: ScreenUtil().setWidth(30),
           width: ScreenUtil().setWidth(width),
           child: TextField(
@@ -1386,17 +1387,27 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           // 设置诊费
           GestureDetector(
             onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) => ZhenFeiDialog(
-                      selected: _zhenfei == 0 ? '免费' : _zhenfei.toString(),
-                      isHide: _isHide,
-                      onConfirm: (data, isHide) {
-                        setState(() {
-                          _zhenfei = data == '免费' ? 0 : int.parse(data);
-                          _isHide = isHide;
-                        });
-                      }));
+//              showModalBottomSheet(
+//                  context: context,
+//                  isScrollControlled: true,
+//                  builder: (context) => ZhenFeiDialog(
+//                      selected: _zhenfei == 0 ? '免费' : _zhenfei.toString(),
+//                      isHide: _isHide,
+//                      onConfirm: (data, isHide) {
+//                        setState(() {
+//                          _zhenfei = data == '免费' ? 0 : int.parse(data);
+//                          _isHide = isHide;
+//                        });
+//                      }));
+              Navigator.push(context, PopRoute(child:ZhenFeiDialog(
+                selected: _zhenfei == 0 ? '免费' : _zhenfei.toString(),
+                isHide: _isHide,
+                onConfirm: (data, isHide) {
+                  setState(() {
+                    _zhenfei = data == '免费' ? 0 : int.parse(data);
+                    _isHide = isHide;
+                  });
+                })));
             },
             child: Padding(
               padding:

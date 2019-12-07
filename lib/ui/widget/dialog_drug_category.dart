@@ -132,13 +132,13 @@ class DialogDrugCategory extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(height: ScreenUtil().setWidth(10)),
+              SizedBox(height: ScreenUtil().setWidth(8)),
               Offstage(
                 offstage: price == 0,
-                child: Padding(padding: EdgeInsets.only(bottom: 5),child: Text('每剂：￥$price',style: TextStyle(color: Color(0xffeaaf4c),fontSize: ScreenUtil().setSp(12)))),
+                child: Padding(padding: EdgeInsets.only(bottom: ScreenUtil().setWidth(3)),child: Text('每剂：￥$price',style: TextStyle(color: Color(0xffeaaf4c),fontSize: ScreenUtil().setSp(12)))),
               ),
               Text(data.label, style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12))),
-              SizedBox(height: ScreenUtil().setWidth(5)),
+              SizedBox(height: ScreenUtil().setWidth(3)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

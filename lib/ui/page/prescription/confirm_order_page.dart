@@ -41,9 +41,11 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage>{
                       context,
                       CupertinoPageRoute(
                         builder: (context) => AddressManagePage(isSelect: true))).then((address) {
-                      setState(() {
-                        this.address = address;
-                      });
+                          if(address != null){
+                            setState(() {
+                              this.address = address;
+                            });
+                          }
                     });
                   },
                   child: Container(
