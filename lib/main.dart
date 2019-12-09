@@ -1,8 +1,11 @@
+import 'package:cool_ui/cool_ui.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/provider_manager.dart';
 import 'package:flutter_drug/config/storage_manager.dart';
+import 'package:flutter_drug/ui/widget/custom_letter_keyboard.dart';
+import 'package:flutter_drug/ui/widget/custom_number_keyboard.dart';
 import 'package:flutter_drug/ui/widget/refresh_footer.dart';
 import 'package:flutter_drug/ui/widget/refresh_header.dart';
 import 'package:oktoast/oktoast.dart';
@@ -15,7 +18,9 @@ void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
-  runApp(App());
+  CustomNumberKeyBoard.register();
+  CustomLetterKeyboard.register();
+  runApp(KeyboardRootWidget(child:App()));
   // Android状态栏透明
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(statusBarColor: Colors.transparent));

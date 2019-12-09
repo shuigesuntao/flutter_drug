@@ -15,6 +15,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.2"
+  back_button_interceptor:
+    dependency: transitive
+    description:
+      name: back_button_interceptor
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.2.2"
   badges:
     dependency: "direct main"
     description:
@@ -57,6 +64,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  cool_ui:
+    dependency: "direct main"
+    description:
+      name: cool_ui
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.1"
   crypto:
     dependency: transitive
     description:
