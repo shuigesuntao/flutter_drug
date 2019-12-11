@@ -22,7 +22,7 @@ class EditDrugPage extends StatefulWidget {
   EditDrugPage({this.drugs});
 
   @override
-  State<StatefulWidget> createState() => _EditDrugPageState(drugs);
+  State<StatefulWidget> createState() => _EditDrugPageState(List.generate(drugs.length, (index)=> drugs[index],growable: true));
 }
 
 class _EditDrugPageState extends State<EditDrugPage> {
@@ -107,10 +107,10 @@ class _EditDrugPageState extends State<EditDrugPage> {
   List<Widget> _buildEditDrugList() {
     List<Widget> widgets = List.generate(drugs.length, (index) {
       return _buildEditDrugItem(_nameControllers[index],
-          _countControllers[index],null,index, drugs[index]);
+          _countControllers[index],_countFocusNode,index, drugs[index]);
     }).toList();
     widgets.add(_buildEditDrugItem(
-      _newNameController, _newCountController, _countFocusNode,drugs.length, null));
+      _newNameController, _newCountController, null,drugs.length, null));
     return widgets;
   }
 
@@ -153,7 +153,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                           child: TextField(
                             textAlign: TextAlign.right,
                             controller: countController,
-                            focusNode: countFocusNode,
+                            focusNode: index == drugs.length-1 ? countFocusNode : null,
                             keyboardType: CustomNumberKeyBoard.inputType,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(top: 1),
@@ -259,7 +259,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
     _nameControllers.clear();
     drugs.forEach((drug) {
       TextEditingController c1 = TextEditingController(
-          text: drug == null
+          text: drug == null || drug.count == 0
               ? ''
               : '${drug.unitCount == null ? drug.count : drug.unitCount}');
       _countControllers.add(c1);
@@ -276,13 +276,13 @@ class _EditDrugPageState extends State<EditDrugPage> {
         if(drugs.where((d)=>d.name == drug.name).isNotEmpty){
           showToast('您已添加过此药');
         }else{
-          setState(() {
-            drugs.add(Drug(drug.name, 0,price: drug.price));
-            refreshDrugs();
-          });
-          _nameFocusNode.unfocus();
+          drugs.add(Drug(drug.name, 0,price: drug.price));
+          refreshDrugs();
           _newNameController.text='';
           model.clearQuery();
+          Future.delayed(Duration(milliseconds: 200),(){
+            FocusScope.of(context).requestFocus(_countFocusNode);
+          });
         }
       },
       child: Padding(
