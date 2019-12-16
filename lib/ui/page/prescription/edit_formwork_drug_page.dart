@@ -141,7 +141,7 @@ class _EditFormWorkDrugPageState extends State<EditFormWorkDrugPage> {
                               showToast('数量最大为300');
                               controller.text = '300';
                             }
-                            widget.drugs[index].count = int.parse(controller.text);
+                            widget.drugs[index].count = double.parse(controller.text);
                           },
                         ),
                       ),

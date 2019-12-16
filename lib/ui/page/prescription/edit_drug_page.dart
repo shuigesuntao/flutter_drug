@@ -6,8 +6,8 @@ import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/model/simple_drug.dart';
 import 'package:flutter_drug/provider/provider_widget.dart';
+import 'package:flutter_drug/ui/widget/custom_edit_drug_keyboard.dart';
 import 'package:flutter_drug/ui/widget/custom_letter_keyboard.dart';
-import 'package:flutter_drug/ui/widget/custom_number_keyboard.dart';
 import 'package:flutter_drug/ui/widget/dialog_alert.dart';
 import 'package:flutter_drug/ui/widget/dialog_drug_category.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
@@ -77,7 +77,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                       //一行的Widget数量
                       crossAxisCount: 2,
                       //子Widget宽高比例
-                      childAspectRatio: 2.5,
+                      childAspectRatio: 2.7,
                       //子Widget列表
                       children: _buildEditDrugList(),
                     )),
@@ -117,46 +117,53 @@ class _EditDrugPageState extends State<EditDrugPage> {
   Widget _buildEditDrugItem(TextEditingController nameController,
       TextEditingController countController, FocusNode countFocusNode,int index, Drug drug) {
     return Container(
-        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
+        padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(10)),
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(3)),
+            color: Colors.white, borderRadius: BorderRadius.circular(5)),
         child: Consumer<SearchDrugsModel>(builder: (context,model,child){
           return Column(
             children: <Widget>[
               Row(
                 children: <Widget>[
                   Expanded(
-                    child: drug == null ? TextField(
-                      controller: nameController,
-                      focusNode: _nameFocusNode,
-                      keyboardType: CustomLetterKeyboard.inputType,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(top: 1),
-                        border: InputBorder.none,
-                        hintText: '请输入药材简拼',
-                        hintStyle: TextStyle(
-                          fontSize: ScreenUtil().setSp(14),
-                          color: Colors.grey[300],
-                        )),
-                      style: TextStyle(fontSize: ScreenUtil().setSp(14)),
-                      onChanged: (text) {
-                        model.queryDrug(text);
-                      },
-                    ):Text(drug.name,style: TextStyle(fontSize: ScreenUtil().setSp(14)))
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      height: ScreenUtil().setWidth(35),
+                      child: drug == null ? TextField(
+                        controller: nameController,
+                        focusNode: _nameFocusNode,
+                        keyboardType: CustomLetterKeyboard.inputType,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: ScreenUtil().setWidth(5)),
+                          border: InputBorder.none,
+                          hintText: '请输入药材简拼',
+                          hintStyle: TextStyle(
+                            fontSize: ScreenUtil().setSp(14),
+                            color: Colors.grey[300],
+                          )),
+                        style: TextStyle(fontSize: ScreenUtil().setSp(14)),
+                        onChanged: (text) {
+                          model.queryDrug(text);
+                        },
+                      ):Text(drug.name,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                    )
                   ),
                   Offstage(
                     offstage: drug == null,
                     child: Row(
                       children: <Widget>[
                         Container(
-                          width: ScreenUtil().setWidth(25),
+                          width: ScreenUtil().setWidth(50),
+                          height: ScreenUtil().setWidth(35),
                           child: TextField(
+                            maxLength: 6,
                             textAlign: TextAlign.right,
                             controller: countController,
                             focusNode: index == drugs.length-1 ? countFocusNode : null,
-                            keyboardType: CustomNumberKeyBoard.inputType,
+                            keyboardType: CustomEditDrugBoard.inputType,
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.only(top: 1),
+                              counterText:'',
+                              contentPadding: EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
                               border: InputBorder.none,
                               hintText: '0',
                               hintStyle: TextStyle(
@@ -181,25 +188,27 @@ class _EditDrugPageState extends State<EditDrugPage> {
                               }
                               setState(() {
                                 drugs[index].count =
-                                  int.parse(countController.text);
+                                  double.parse(countController.text);
                               });
                             },
                             onSubmitted: (text) {
-                              if (text.isEmpty) {
-                                showToast('数量不能为0');
-                              }
+                              Future.delayed(Duration(milliseconds: 200),(){
+                                FocusScope.of(context).requestFocus(_nameFocusNode);
+                              });
+                              model.clearQuery();
                             },
                           ),
                         ),
+                        SizedBox(width: ScreenUtil().setWidth(3)),
                         Text('克',
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: ScreenUtil().setSp(13)))
                       ],
-                    ))
+                    )
+                  )
                 ],
               ),
-              SizedBox(height: ScreenUtil().setWidth(5)),
               Offstage(
                 offstage: drug == null,
                 child: Row(

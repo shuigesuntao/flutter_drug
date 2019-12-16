@@ -3,7 +3,7 @@
 class Drug{
   String name;
   String unit;
-  int count;
+  double count;
   int unitCount;
   String methodText;
   double price;

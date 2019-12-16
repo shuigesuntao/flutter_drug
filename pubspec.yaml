@@ -11,7 +11,7 @@ description: A new Flutter application.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 5.0.2+2
+version: 5.0.3+3
 
 environment:
   sdk: ">=2.4.0 <3.0.0"
@@ -23,10 +23,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   cool_ui:  ^0.3.1
-  device_info: ^0.4.1+3
-  package_info: ^0.4.0+1
+  device_info: ^0.4.1+4
+  package_info: ^0.4.0+13
   # 屏幕适配
-  flutter_screenutil: ^0.6.1
+  flutter_screenutil: ^0.7.0
   # State
   provider: ^3.2.0
   # UI
@@ -35,18 +35,18 @@ dependencies:
   pull_to_refresh: ^1.5.7
   # banner
   flutter_swiper: ^1.1.6
-  cached_network_image: ^1.1.3
+  cached_network_image: ^2.0.0-rc
   # Data
   dio: ^3.0.7
   # 本地存储
-  shared_preferences: ^0.5.4+8
+  shared_preferences: ^0.5.6
   localstorage: ^2.0.0
   # event_bus
   event_bus: ^1.1.0
-  url_launcher: ^5.2.7
-  path_provider: ^1.4.5
+  url_launcher: ^5.4.1
+  path_provider: ^1.5.1
   # WebView iOS添加键值对 o.flutter.embedded_views_preview = YES
-  webview_flutter: ^0.3.17
+  webview_flutter: ^0.3.18+1
   # 二维码
   qr_flutter: ^3.0.1
   # 字母筛选
@@ -55,7 +55,7 @@ dependencies:
   # 小红点
   badges: ^1.1.0
   # 图片选择
-  image_picker: ^0.6.2+1
+  image_picker: ^0.6.2+3
   # 图片缩放
   photo_view: ^0.9.0
 

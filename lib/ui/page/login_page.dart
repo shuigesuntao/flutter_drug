@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
@@ -205,8 +206,8 @@ class _LoginPageState extends State<LoginPage>{
                     borderRadius: BorderRadius.circular(5)
                   ),
                   child: Text(
-                    '登录',
-                    style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
+                    '同意协议并登录',
+                    style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(15)),
                   )
                 ),
               ),
@@ -220,13 +221,13 @@ class _LoginPageState extends State<LoginPage>{
                         isVerify = !isVerify;
                       });
                     },
-                    child: Text(isVerify?'账号密码登录':'手机快捷登录',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Colors.grey)),
+                    child: Text(isVerify?'账号密码登录':'手机快捷登录',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
                   ),
                   Offstage(
                     offstage: isVerify,
                     child:GestureDetector(
                       onTap: (){},
-                      child: Text('忘记密码?',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Colors.grey)),
+                      child: Text('忘记密码?',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
                     ),
                   )
                 ],
@@ -248,21 +249,18 @@ class _LoginPageState extends State<LoginPage>{
                     SizedBox(height: ScreenUtil().setWidth(15)),
                     Image.asset(ImageHelper.wrapAssets('icon_weixin.png'),width: ScreenUtil().setWidth(42),height: ScreenUtil().setWidth(42)),
                     SizedBox(height: ScreenUtil().setWidth(30)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
                       children: <Widget>[
-                        Text('注册/登录即表示同意',style: TextStyle(fontSize: ScreenUtil().setSp(12))),
-                        GestureDetector(
-                          onTap: (){
-                            Map map = Map();
-                            map['title'] = '服务协议';
-                            map['url'] = 'http://www.zgzydb.com/app/doctorReg.html';
-                            map['share'] = false;
-                            Navigator.of(context).pushNamed(RouteName.webView, arguments: map);
-                          },
-                          child: Text('《药匣子服务协议》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
-                        ),
-                        Text('《免责条款》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor))
+                        Text('为保障您的个人隐私权益，请在点击同意按钮前认真阅读' ,style: TextStyle(fontSize: ScreenUtil().setSp(12))),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text('下方协议：',style: TextStyle(fontSize: ScreenUtil().setSp(12))),
+                            Text('《药匣子服务协议》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
+                            Text('、',style: TextStyle(fontSize: ScreenUtil().setSp(12))),
+                            Text('《免责条款》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
+                          ],
+                        )
                       ],
                     )
                   ],

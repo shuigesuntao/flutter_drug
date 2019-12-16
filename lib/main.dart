@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/provider_manager.dart';
 import 'package:flutter_drug/config/storage_manager.dart';
+import 'package:flutter_drug/ui/widget/custom_edit_drug_keyboard.dart';
 import 'package:flutter_drug/ui/widget/custom_letter_keyboard.dart';
 import 'package:flutter_drug/ui/widget/custom_number_keyboard.dart';
 import 'package:flutter_drug/ui/widget/refresh_footer.dart';
@@ -20,6 +21,7 @@ void main() async {
   await StorageManager.init();
   CustomNumberKeyBoard.register();
   CustomLetterKeyboard.register();
+  CustomEditDrugBoard.register();
   runApp(KeyboardRootWidget(child:App()));
   // Android状态栏透明
   SystemChrome.setSystemUIOverlayStyle(

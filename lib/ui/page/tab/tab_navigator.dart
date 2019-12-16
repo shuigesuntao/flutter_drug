@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/config/router_manager.dart';
+import 'package:flutter_drug/config/storage_manager.dart';
 import 'package:flutter_drug/ui/page/tab/address_book_page.dart';
 import 'package:flutter_drug/ui/page/tab/ask_page.dart';
 import 'package:flutter_drug/ui/page/tab/home_page.dart';
 import 'package:flutter_drug/ui/page/tab/my_page.dart';
+import 'package:flutter_drug/ui/widget/dialog_main_tip.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,21 @@ class _TabNavigatorState extends State<TabNavigator> {
   var _pageController = PageController();
   int _selectedIndex = 0;
   DateTime _lastPressed;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    Future.delayed(Duration(seconds: 1),(){
+      if(StorageManager.sharedPreferences.getBool('firstOpen')??true){
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return MainTipDialog();
+          });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

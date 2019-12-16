@@ -25,6 +25,7 @@ class SearchDrugsModel extends ViewStateListModel<SimpleDrug>{
 
   clearQuery(){
     _query = '';
+    list.clear();
     notifyListeners();
   }
 }

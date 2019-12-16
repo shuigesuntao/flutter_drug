@@ -971,7 +971,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               focusedBorder: UnderlineInputBorder(
                 borderSide:
                 BorderSide(color: Colors.grey[300], width: 0.5)),
-              contentPadding: EdgeInsets.all(ScreenUtil().setWidth(5))),
+              contentPadding: EdgeInsets.only(bottom:ScreenUtil().setWidth(15))),
             style: TextStyle(color: Theme.of(context).primaryColor),
           )),
         Text(text2, style: TextStyle(color: Colors.grey)),

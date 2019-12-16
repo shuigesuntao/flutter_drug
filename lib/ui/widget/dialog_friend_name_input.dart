@@ -19,6 +19,7 @@ class InputDialogWidget extends StatefulWidget{
   final Function(String) onConfirm;
 
   InputDialogWidget({@required this.data, this.onConfirm});
+
   @override
   State<StatefulWidget> createState()=> _InputDialogWidgetState();
 
