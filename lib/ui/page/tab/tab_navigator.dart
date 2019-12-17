@@ -33,7 +33,10 @@ class _TabNavigatorState extends State<TabNavigator> {
           context: context,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return MainTipDialog();
+            return WillPopScope(
+              child: MainTipDialog(),
+              onWillPop: () async => false
+            );
           });
       }
     });

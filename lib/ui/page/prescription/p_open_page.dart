@@ -759,7 +759,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 55),
                 _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数'),
                 Row(
                   children: <Widget>[
@@ -805,7 +805,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 55),
                 _buildDrugUseCountWidget(_bagController..text = _countOfBag.isEmpty?'2':_countOfBag, '，每剂', '袋', '每剂袋数')
               ],
             ),
@@ -858,7 +858,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 55),
                 SizedBox(width: ScreenUtil().setWidth(20)),
                 Row(
                   children: <Widget>[
@@ -882,7 +882,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
       case 4:
         widget = Row(
           children: <Widget>[
-            _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+            _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 55),
             _buildDrugUseCountWidget(
               _countOfDayController..text = _countOfDay.isEmpty?'3':_countOfDay, '，每日', '次', '每天服药次数')
           ],
@@ -894,7 +894,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 55),
                 SizedBox(width: ScreenUtil().setWidth(10)),
                 Text('*每丸约0.09克',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
               ],
@@ -914,7 +914,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 58),
+                _buildDrugUseCountWidget(_controller, '共', '剂', '处方剂量',width: 55),
                 SizedBox(width: ScreenUtil().setWidth(10)),
                 Text('*每丸约9克',style: TextStyle(fontSize: ScreenUtil().setSp(13),color: Colors.grey)),
               ],
@@ -935,13 +935,12 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
 
   /// 用药输入框
   Widget _buildDrugUseCountWidget(TextEditingController controller,
-      String text1, String text2, String toastText,{ num width = 43 }) {
+      String text1, String text2, String toastText,{ num width = 40 }) {
     return Row(
       children: <Widget>[
         Text(text1, style: TextStyle(color: Colors.grey)),
         Container(
-          margin:
-          EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5)),
+          margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(5)),
           height: ScreenUtil().setWidth(30),
           width: ScreenUtil().setWidth(width),
           child: TextField(
@@ -971,7 +970,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               focusedBorder: UnderlineInputBorder(
                 borderSide:
                 BorderSide(color: Colors.grey[300], width: 0.5)),
-              contentPadding: EdgeInsets.only(bottom:ScreenUtil().setWidth(15))),
+              contentPadding: EdgeInsets.only(bottom:ScreenUtil().setWidth(18))),
             style: TextStyle(color: Theme.of(context).primaryColor),
           )),
         Text(text2, style: TextStyle(color: Colors.grey)),

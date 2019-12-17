@@ -27,6 +27,7 @@ import 'package:flutter_drug/ui/page/prescription/order_detail_page.dart';
 import 'package:flutter_drug/ui/page/search/p_already_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_form_work_search_page.dart';
 import 'package:flutter_drug/ui/page/search/p_person_search_page.dart';
+import 'package:flutter_drug/ui/page/user/chat_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_good_at_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_user_desc_page.dart';
 import 'package:flutter_drug/ui/page/user/edit_user_page.dart';
@@ -73,6 +74,7 @@ class RouteName {
   static const String myInvite = 'MyInvite';//邀请医生
   static const String choosePerson = 'choosePerson';//选择开方患者
   static const String friendInfo = 'friendInfo';//患者信息
+  static const String chat = 'chat';//聊天页面
   static const String openPrescription = 'openPrescription';//在线开方
   static const String prescriptionYiZhu = 'prescriptionYiZhu';//开方医嘱
   static const String singleDrugPriceDetail = 'singleDrugPriceDetail';//单剂药品详情
@@ -142,6 +144,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => PrescriptionChoosePersonPage());
       case RouteName.friendInfo:
         return CupertinoPageRoute(builder: (_) => FriendInfoPage(friend: settings.arguments as Friend));
+      case RouteName.chat:
+        return CupertinoPageRoute(builder: (_) => ChatPage(friend: settings.arguments as Friend));
       case RouteName.openPrescription:
         return CupertinoPageRoute(builder: (_) => PrescriptionOpenPage(friend: settings.arguments as Friend));
       case RouteName.prescriptionYiZhu:

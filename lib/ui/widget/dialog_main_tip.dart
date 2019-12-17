@@ -68,7 +68,10 @@ class MainTipDialog extends Dialog{
                           context: context,
                           barrierDismissible: false,
                           builder: (BuildContext context) {
-                            return SecondTipDialog();
+                            return WillPopScope(
+                              child: SecondTipDialog(),
+                              onWillPop: () async => false
+                            );
                           });
                       },
                       child: Container(
@@ -122,7 +125,7 @@ class SecondTipDialog extends Dialog{
       type: MaterialType.transparency,
       child:  Center(
         child: Container(
-          height: ScreenUtil().setWidth(154),
+          height: ScreenUtil().setWidth(160),
           width: double.infinity,
           margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(40)),
           decoration: BoxDecoration(
@@ -138,19 +141,24 @@ class SecondTipDialog extends Dialog{
                 child: Text('请同意并接受《药匣子服务协议》及《免责条款》全部条款后再开始使用我们的服务',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(12)))
               ),
               Divider(height: 0.5,color: Colors.grey[400]),
-              GestureDetector(
-                onTap: (){
-                  Navigator.of(context).pop();
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return MainTipDialog();
-                    });
-                },
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(8)),
-                  child: Text('下一步',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+              Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return WillPopScope(
+                          child: MainTipDialog(),
+                          onWillPop: () async => false
+                        );
+                      });
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    child:Text('下一步',style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                  )
                 ),
               )
             ],

@@ -218,7 +218,7 @@ class _ZhenFeiDialogState extends State<ZhenFeiDialog>{
                                       }
                                     },
                                     decoration: InputDecoration(
-                                      contentPadding:EdgeInsets.all(0),
+                                      contentPadding:EdgeInsets.only(bottom: ScreenUtil().setWidth(13)),
                                       border: InputBorder.none,
                                       hintText: '自定义',
                                       hintStyle: TextStyle(fontSize: 14,color: Colors.grey[700])

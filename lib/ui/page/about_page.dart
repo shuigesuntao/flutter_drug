@@ -24,7 +24,6 @@ class AboutPageState extends State<AboutPage>{
   }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context, '关于药匣子'),
       body: Column(

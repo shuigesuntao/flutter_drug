@@ -189,7 +189,7 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                 children: <Widget>[
                   Expanded(child: SizedBox(
                     child: FlatButton(
-                      onPressed: ()=>print('进入会话'),
+                      onPressed: ()=>Navigator.of(context).pushNamed(RouteName.chat,arguments: widget.friend),
                       color: Theme.of(context).primaryColor,
                       child: Text(
                         '进入会话',

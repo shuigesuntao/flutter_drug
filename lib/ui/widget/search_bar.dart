@@ -70,7 +70,7 @@ class _SearchBarState extends State<SearchBar> {
                       maxLines: 1,
                       textInputAction: TextInputAction.search,
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(- ScreenUtil().setWidth(20), ScreenUtil().setWidth(5), ScreenUtil().setWidth(10), ScreenUtil().setWidth(5)),
+                        contentPadding: EdgeInsets.fromLTRB(-ScreenUtil().setWidth(20), ScreenUtil().setWidth(10), ScreenUtil().setWidth(10), ScreenUtil().setWidth(10)),
                         border: InputBorder.none,
                         icon: Padding(
                           padding: EdgeInsets.fromLTRB( ScreenUtil().setWidth(15), ScreenUtil().setWidth(5), ScreenUtil().setWidth(15), ScreenUtil().setWidth(5)),

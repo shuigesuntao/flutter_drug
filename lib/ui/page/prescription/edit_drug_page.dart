@@ -163,7 +163,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                             keyboardType: CustomEditDrugBoard.inputType,
                             decoration: InputDecoration(
                               counterText:'',
-                              contentPadding: EdgeInsets.only(bottom: ScreenUtil().setWidth(10)),
+                              contentPadding: EdgeInsets.only(bottom: ScreenUtil().setWidth(14)),
                               border: InputBorder.none,
                               hintText: '0',
                               hintStyle: TextStyle(
@@ -172,10 +172,13 @@ class _EditDrugPageState extends State<EditDrugPage> {
                               )),
                             style: TextStyle(fontSize: ScreenUtil().setSp(13)),
                             onChanged: (text) {
+                              if(text.endsWith('.')){
+                                return;
+                              }
                               if (text.isEmpty) {
                                 showToast('数量最小为1');
                               }
-                              if (int.parse(text) > 300) {
+                              if (double.parse(text) > 300) {
                                 showToast('数量最大为300');
                                 countController.value = TextEditingValue(
                                   // 设置内容
@@ -458,7 +461,7 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                                   RouteName.singleDrugPriceDetail,
                                   arguments: widget.drugs),
                               child: Text(
-                                  '共 ${widget.drugs.length} 味，每剂 ${(widget.drugs.fold(0, (pre, e) => (pre + e.price * e.count))).toStringAsFixed(4)} 元，重 ${widget.drugs.fold(0, (pre, e) => pre + (e.unitCount == null ? e.count : e.unitCount))}克，详情',
+                                  '共 ${widget.drugs.length} 味，每剂 ${(widget.drugs.fold(0, (pre, e) => (pre + e.price * e.count))).toStringAsFixed(4)} 元，重 ${widget.drugs.fold(0, (pre, e) => pre + e.count)}克，详情',
                                   style: TextStyle(
                                       fontSize: ScreenUtil().setSp(12),
                                       color: Color(0xffeaaf4c))),
