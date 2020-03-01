@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drug/config/net/api.dart';
 import 'package:flutter_drug/provider/view_state.dart';
+import 'package:oktoast/oktoast.dart';
 
 
 class ViewStateModel with ChangeNotifier {
@@ -15,76 +19,111 @@ class ViewStateModel with ChangeNotifier {
   /// 子类可以在构造函数指定需要的页面状态
   /// FooModel():super(viewState:ViewState.busy);
   ViewStateModel({ViewState viewState})
-      : _viewState = viewState ?? ViewState.idle;
+      : _viewState = viewState ?? ViewState.idle {
+    debugPrint('ViewStateModel---constructor--->$runtimeType');
+  }
 
+  /// ViewState
   ViewState get viewState => _viewState;
 
   set viewState(ViewState viewState) {
+    _viewStateError = null;
     _viewState = viewState;
     notifyListeners();
   }
 
-  /// 出错时的message
-  String _errorMessage;
+  /// ViewStateError
+  ViewStateError _viewStateError;
 
-  String get errorMessage => _errorMessage;
+  ViewStateError get viewStateError => _viewStateError;
 
   /// 以下变量是为了代码书写方便,加入的变量.严格意义上讲,并不严谨
+  /// get
+  bool get isBusy => viewState == ViewState.busy;
 
-  bool get busy => viewState == ViewState.busy;
+  bool get isIdle => viewState == ViewState.idle;
 
-  bool get idle => viewState == ViewState.idle;
+  bool get isEmpty => viewState == ViewState.empty;
 
-  bool get empty => viewState == ViewState.empty;
+  bool get isError => viewState == ViewState.error;
 
-  bool get error => viewState == ViewState.error;
-
-  bool get unAuthorized => viewState == ViewState.unAuthorized;
-
+  /// set
   void setIdle() {
-    _errorMessage = null;
     viewState = ViewState.idle;
   }
 
   void setBusy() {
-    _errorMessage = null;
     viewState =ViewState.busy;
   }
 
   void setEmpty() {
-    _errorMessage = null;
     viewState = ViewState.empty;
   }
 
   /// [e]分类Error和Exception两种
-  void setError(e, {String message, StackTrace stackTrace}) {
-    if (e is String) {
-      _errorMessage = e;
-    } else {
-      debugPrint('''
-<-----↓↓↓↓↓↓↓↓↓↓-----error-----↓↓↓↓↓↓↓↓↓↓----->
-$e
-<-----↑↑↑↑↑↑↑↑↑↑-----error-----↑↑↑↑↑↑↑↑↑↑----->
-    ''');
+  void setError(e, stackTrace,{String message}) {
+    ViewStateErrorType errorType = ViewStateErrorType.defaultError;
 
-      debugPrint('''
-<-----↓↓↓↓↓↓↓↓↓↓-----trace-----↓↓↓↓↓↓↓↓↓↓----->
-$stackTrace
-<-----↑↑↑↑↑↑↑↑↑↑-----trace-----↑↑↑↑↑↑↑↑↑↑----->
-    ''');
-      _errorMessage = message ?? (e is Error ? e.toString() : e.message);
+    /// 见https://github.com/flutterchina/dio/blob/master/README-ZH.md#dioerrortype
+    if (e is DioError) {
+      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+        e.type == DioErrorType.SEND_TIMEOUT ||
+        e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        // timeout
+        errorType = ViewStateErrorType.networkTimeOutError;
+        message = e.error;
+      } else if (e.type == DioErrorType.RESPONSE) {
+        // incorrect status, such as 404, 503...
+        message = e.error;
+      } else if (e.type == DioErrorType.CANCEL) {
+        // to be continue...
+        message = e.error;
+      } else {
+        // dio将原error重新套了一层
+        e = e.error;
+        if (e is UnAuthorizedException) {
+          stackTrace = null;
+          errorType = ViewStateErrorType.unauthorizedError;
+        } else if (e is NotSuccessException) {
+          stackTrace = null;
+          message = e.message;
+        } else if (e is SocketException) {
+          errorType = ViewStateErrorType.networkTimeOutError;
+          message = e.message;
+        } else {
+          message = e.message;
+        }
+      }
     }
     viewState = ViewState.error;
+    _viewStateError = ViewStateError(
+      errorType,
+      message: message,
+      errorMessage: e.toString(),
+    );
+    printErrorStack(e, stackTrace);
+    onError(viewStateError);
   }
 
-  void setUnAuthorized() {
-    _errorMessage = null;
-    viewState = ViewState.unAuthorized;
+  void onError(ViewStateError viewStateError) {}
+
+  /// 显示错误消息
+  showErrorMessage(context, {String message}) {
+    if (viewStateError != null || message != null) {
+      if (viewStateError.isNetworkTimeOut) {
+        message ??= "网络连接异常,请检查网络或稍后重试";
+      } else {
+        message ??= viewStateError.message;
+      }
+      Future.microtask(() {
+        showToast(message, context: context);
+      });
+    }
   }
 
   @override
   String toString() {
-    return 'BaseModel{_viewState: $viewState, _errorMessage: $_errorMessage}';
+    return 'BaseModel{_viewState: $viewState, _errorMessage: $_viewStateError}';
   }
 
   @override
@@ -97,20 +136,22 @@ $stackTrace
   @override
   void dispose() {
     _disposed = true;
+    debugPrint('view_state_model dispose -->$runtimeType');
     super.dispose();
   }
 
-  /// Handle Error and Exception
-  ///
-  /// 统一处理子类的异常情况
-  /// [e],有可能是Error,也有可能是Exception.所以需要判断处理
-  /// [s] 为堆栈信息
-  void handleCatch(e, s) {
-    // DioError的判断,理论不应该拿进来,增强了代码耦合性,抽取为时组件时.应移除
-    if (e is DioError && e.error is UnAuthorizedException) {
-      setUnAuthorized();
-    } else {
-      setError(e, stackTrace: s);
-    }
+  /// [e]为错误类型 :可能为 Error , Exception ,String
+  /// [s]为堆栈信息
+  printErrorStack(e, s) {
+    debugPrint('''
+<-----↓↓↓↓↓↓↓↓↓↓-----error-----↓↓↓↓↓↓↓↓↓↓----->
+$e
+<-----↑↑↑↑↑↑↑↑↑↑-----error-----↑↑↑↑↑↑↑↑↑↑----->''');
+    if (s != null) debugPrint('''
+<-----↓↓↓↓↓↓↓↓↓↓-----trace-----↓↓↓↓↓↓↓↓↓↓----->
+$s
+<-----↑↑↑↑↑↑↑↑↑↑-----trace-----↑↑↑↑↑↑↑↑↑↑----->
+    ''');
   }
+
 }

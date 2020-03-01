@@ -25,7 +25,7 @@ class SettingPage extends StatelessWidget{
           SizedBox(height: ScreenUtil().setWidth(50)),
           GestureDetector(
             onTap: () {
-              Provider.of<UserModel>(context).clearUser();
+              Provider.of<UserModel>(context,listen: false).clearUser();
               Navigator.pushNamedAndRemoveUntil(context, "/", (route) => route == null);
             },
             child: Container(

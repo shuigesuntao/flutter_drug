@@ -87,7 +87,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                       alignment: Alignment.center,
                       color: Colors.white,
                       width: ScreenUtil.screenWidthDp,
-                      child: model.empty && model.query.isNotEmpty ? Text('没有找到该药材，请尝试别名或其他制法！',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
+                      child: model.isEmpty && model.query.isNotEmpty ? Text('没有找到该药材，请尝试别名或其他制法！',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                       : ListView.builder(
                         scrollDirection:Axis.horizontal,
                         itemCount: model.list.length,

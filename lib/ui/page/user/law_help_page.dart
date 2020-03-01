@@ -140,11 +140,11 @@ class LawHelpPage extends StatelessWidget {
                     ],
                   )
                 ),
-                model.busy
+                model.isBusy
                   ? SliverToBoxAdapter(child: Container(height:400,alignment:Alignment.center,child: CircularProgressIndicator()))
-                  : model.error
+                  : model.isError
                     ? ViewStateWidget(onPressed: model.initData)
-                    : model.empty
+                    : model.isEmpty
                       ? ViewStateEmptyWidget()
                       : SliverList(delegate: SliverChildBuilderDelegate((context,index) => _buildLawNewsItem(context,model.list[index]), childCount:model.list.length),
                 ),

@@ -59,15 +59,15 @@ class DecoctManagePage extends StatelessWidget {
   }
 
   _buildBody(DecoctModel model) {
-    if (model.busy) {
+    if (model.isBusy) {
       return Center(child: CircularProgressIndicator());
-    } else if (model.error) {
+    } else if (model.isError) {
       return ViewStateWidget(onPressed: model.initData);
     }
     return SmartRefresher(
       controller: model.refreshController,
       onRefresh: model.refresh,
-      child: model.empty
+      child: model.isEmpty
           ? ViewStateEmptyWidget()
           : ListView.builder(
               itemCount: model.list?.length ?? 0,

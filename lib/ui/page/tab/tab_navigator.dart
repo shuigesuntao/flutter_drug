@@ -81,7 +81,7 @@ class _TabNavigatorState extends State<TabNavigator> {
         ],
         currentIndex: _selectedIndex,
         onTap: (index) {
-          if (Provider.of<UserModel>(context).hasUser) {
+          if (Provider.of<UserModel>(context,listen: false).hasUser) {
             _pageController.jumpToPage(index);
           } else {
             Navigator.of(context).pushNamed(RouteName.login);

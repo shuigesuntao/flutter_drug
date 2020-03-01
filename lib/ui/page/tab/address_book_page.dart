@@ -78,7 +78,7 @@ class _AddressBookPageState extends State<AddressBookPage>
               ))
           ],
         ),
-        body: model.busy
+        body: model.isBusy
           ? Center(child: CircularProgressIndicator())
           : AzListView(
           data: model.list,

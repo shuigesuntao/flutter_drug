@@ -14,7 +14,7 @@ class CustomEditDrugBoard extends StatelessWidget{
   const CustomEditDrugBoard({this.controller});
 
   static register(){
-    CoolKeyboard.addKeyboard(CustomEditDrugBoard.inputType,KeyboardConfig(builder: (context,controller){
+    CoolKeyboard.addKeyboard(CustomEditDrugBoard.inputType,KeyboardConfig(builder: (context,controller,params){
       return CustomEditDrugBoard(controller: controller);
     },getHeight: CustomEditDrugBoard.getHeight));
   }

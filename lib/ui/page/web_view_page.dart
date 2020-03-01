@@ -4,51 +4,51 @@ import 'package:flutter_drug/ui/widget/dialog_share.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPage extends StatefulWidget{
+class WebViewPage extends StatefulWidget {
   final Map map;
+
   WebViewPage({this.map});
+
   @override
   State<StatefulWidget> createState() => _WebViewPageState();
-
 }
 
-class _WebViewPageState extends State<WebViewPage>{
+class _WebViewPageState extends State<WebViewPage> {
   WebViewController _webViewController;
   ValueNotifier canGoBack = ValueNotifier(false);
   ValueNotifier canGoForward = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar.buildCommonAppBar(context, widget.map['title'],actionText: widget.map['share']?'分享':null,
-        actionTextColor: Colors.black87,
-        onActionPress: () {
+        appBar: TitleBar.buildCommonAppBar(context, widget.map['title'],
+            actionText: widget.map['share'] ? '分享' : null,
+            actionTextColor: Colors.black87, onActionPress: () {
           showModalBottomSheet(
-            context: context,
-            builder: (context) => ShareDialog()
-          );
+              context: context, builder: (context) => ShareDialog());
         }),
-      body: WebView(
-        initialUrl: widget.map['url'],
-        // 加载js
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (WebViewController controller) {
-          _webViewController = controller;
-          _webViewController.currentUrl().then((url) {
-                  debugPrint('返回当前$url');
-          });
-          showDialog(context: context,builder:(context){
-            return ProgressDialog();
-          });
-        },
-        onPageFinished: (String value) async {
-          debugPrint('加载完成: $value');
-          Navigator.pop(context);
-          refreshNavigator();
-        },
-      )
-    );
+        body: WebView(
+          initialUrl: widget.map['url'],
+          // 加载js
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController controller) {
+            _webViewController = controller;
+            _webViewController.currentUrl().then((url) {
+              debugPrint('返回当前$url');
+            });
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return ProgressDialog();
+                });
+          },
+          onPageFinished: (String value) async {
+            debugPrint('加载完成: $value');
+            Navigator.pop(context);
+            refreshNavigator();
+          },
+        ));
   }
-
 
   /// 刷新导航按钮
   ///

@@ -16,12 +16,12 @@ class PatientListPage extends StatelessWidget{
       model: PatientListModel(status),
       onModelReady: (model) => model.initData(),
       builder: (context, model, child) {
-        if (model.busy) {
+        if (model.isBusy) {
           return Center(child: CircularProgressIndicator());
-        } else if (model.error) {
+        } else if (model.isError) {
           return ViewStateWidget(onPressed: model.initData);
         }
-        return model.empty ? ViewStateEmptyWidget() : ListView.builder(
+        return model.isEmpty ? ViewStateEmptyWidget() : ListView.builder(
           itemCount: model.list.length,
           itemBuilder: (context, index) {
             return Container();

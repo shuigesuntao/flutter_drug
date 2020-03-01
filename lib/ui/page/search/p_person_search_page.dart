@@ -35,11 +35,11 @@ class _PrescriptionPersonSearchPageState
                 }
               },
             ),
-            body: model.busy
+            body: model.isBusy
                 ? Center(child: CircularProgressIndicator())
-                : model.error
+                : model.isError
                     ? ViewStateWidget(onPressed: model.initData)
-                    : model.empty
+                    : model.isEmpty
                         ? ViewStateEmptyWidget(image: 'wssjg.png',message: '搜索无结果')
                         : ListView.builder(
                             itemCount: model.filterList.length,

@@ -88,11 +88,11 @@ class _AddressManagePageState extends State<AddressManagePage>{
                     ],
                   ),
                 ),
-                model.busy
+                model.isBusy
                 ? SliverToBoxAdapter(child: Container(height:ScreenUtil().setWidth(400),alignment:Alignment.center,child: CircularProgressIndicator()))
-                  : model.error
+                  : model.isError
                 ? ViewStateWidget(onPressed: model.initData)
-                  : model.empty
+                  : model.isEmpty
                 ? ViewStateEmptyWidget(image: 'zwshdz.png',)
                   : SliverList(delegate: SliverChildBuilderDelegate((context,index) => _buildAddressItem(context, model.list[index]),childCount: model.list.length)
                 )

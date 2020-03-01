@@ -60,16 +60,16 @@ class ShowAccountPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(child: model.busy
+              Expanded(child: model.isBusy
                 ? Center(child: ProgressDialog())
-                : model.error
+                : model.isError
                 ? ViewStateWidget(onPressed: model.initData)
                 : SmartRefresher(
                 controller: model.refreshController,
                 onRefresh: model.refresh,
                 onLoading: model.loadMore,
-                enablePullUp: !model.empty,
-                child: model.empty
+                enablePullUp: !model.isEmpty,
+                child: model.isEmpty
                   ? ViewStateEmptyWidget()
                   : ListView.builder(
                   itemCount: model.list.length,

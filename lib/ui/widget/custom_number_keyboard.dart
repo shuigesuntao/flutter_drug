@@ -13,7 +13,7 @@ class CustomNumberKeyBoard extends StatelessWidget{
   const CustomNumberKeyBoard({this.controller});
 
   static register(){
-    CoolKeyboard.addKeyboard(CustomNumberKeyBoard.inputType,KeyboardConfig(builder: (context,controller){
+    CoolKeyboard.addKeyboard(CustomNumberKeyBoard.inputType,KeyboardConfig(builder: (context,controller,params){
       return CustomNumberKeyBoard(controller: controller);
     },getHeight: CustomNumberKeyBoard.getHeight));
   }

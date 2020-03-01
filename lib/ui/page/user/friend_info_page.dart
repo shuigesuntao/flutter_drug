@@ -163,11 +163,11 @@ class FriendInfoPageState extends State<FriendInfoPage>{
                           ],
                         ),
                       ),
-                      model.busy
+                      model.isBusy
                         ? SliverToBoxAdapter(child:Container(height:ScreenUtil().setWidth(240),child: Center(child:CircularProgressIndicator())))
-                        : model.error
+                        : model.isError
                         ? SliverToBoxAdapter(child:ViewStateWidget(onPressed: model.initData))
-                        : model.empty
+                        : model.isEmpty
                         ? SliverToBoxAdapter(child:Container(height:ScreenUtil().setWidth(240),child: Center(child: Text('暂无病历档案',style: TextStyle(fontSize: ScreenUtil().setSp(14))))))
                         : SliverList(delegate:
                       SliverChildBuilderDelegate(

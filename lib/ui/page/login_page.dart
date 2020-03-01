@@ -189,7 +189,7 @@ class _LoginPageState extends State<LoginPage>{
                     });
                     Future.delayed(Duration(seconds: 2), (){
                       Navigator.of(context).pop();
-                      Provider.of<UserModel>(context).saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","许洪亮","内科","主任医师"));
+                      Provider.of<UserModel>(context,listen: false).saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","许洪亮","内科","主任医师"));
                       Navigator.of(context).pushNamed(RouteName.tab);
                     });
                   }

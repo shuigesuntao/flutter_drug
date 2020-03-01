@@ -30,7 +30,7 @@ class AuthPageState extends State<AuthPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    userModel = Provider.of<UserModel>(context);
+    userModel = Provider.of<UserModel>(context,listen: false);
     _name = userModel.user?.name ?? '';
     _level = userModel.user?.level ?? '';
   }

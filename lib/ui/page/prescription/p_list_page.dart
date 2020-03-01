@@ -33,9 +33,9 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
       model: PrescriptionListModel(widget.status),
       onModelReady: (model) => model.initData(),
       builder: (context, model, child) {
-        if (model.busy) {
+        if (model.isBusy) {
           return Center(child: CircularProgressIndicator());
-        } else if (model.error) {
+        } else if (model.isError) {
           return ViewStateWidget(onPressed: model.initData);
         }
         if(widget.status == 0){
@@ -45,8 +45,8 @@ class _PrescriptionListPageState extends State<PrescriptionListPage> with Automa
           controller: model.refreshController,
           onRefresh: model.refresh,
           onLoading: model.loadMore,
-          enablePullUp: !model.empty ,
-          child: model.empty ? ViewStateEmptyWidget(image: 'zwdd.png',message: '暂无订单',) :ListView.builder(
+          enablePullUp: !model.isEmpty ,
+          child: model.isEmpty ? ViewStateEmptyWidget(image: 'zwdd.png',message: '暂无订单',) :ListView.builder(
             itemCount: model.list.length,
             itemBuilder: (context, index) {
               return PrescriptionItem(model,model.list[index]);

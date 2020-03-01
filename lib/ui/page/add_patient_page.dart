@@ -10,7 +10,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 class AddPatientPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    UserModel userModel = Provider.of<UserModel>(context);
+    UserModel userModel = Provider.of<UserModel>(context,listen: false);
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(
         context,

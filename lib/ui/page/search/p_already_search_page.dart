@@ -26,16 +26,16 @@ class PrescriptionAlreadySearchPage extends StatelessWidget {
                 }
               },
             ),
-            body: model.busy
+            body: model.isBusy
               ? Center(child: CircularProgressIndicator())
-              : model.error
+              : model.isError
               ? ViewStateWidget(onPressed: model.initData)
               : SmartRefresher(
               controller: model.refreshController,
               onRefresh: model.refresh,
               onLoading: model.loadMore,
               enablePullUp: true,
-              child: model.empty ? ViewStateEmptyWidget(
+              child: model.isEmpty ? ViewStateEmptyWidget(
                 image: 'wssjg.png', message: '搜索无结果') : ListView.builder(
                 itemCount: model.filterList.length,
                 itemBuilder: (context, index) {

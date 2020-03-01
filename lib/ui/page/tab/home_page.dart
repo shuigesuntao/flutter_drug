@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((callback) {
-      Provider.of<FriendModel>(context).initData();
+      Provider.of<FriendModel>(context,listen: false).initData();
     });
     super.initState();
   }
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage>
 //    /// iPhoneX 头部适配
 //    var top = MediaQuery.of(context).padding.top;
 //    var bannerHeight = size.width * 9 / 16 - top;
-    UserModel model = Provider.of<UserModel>(context);
+    UserModel model = Provider.of<UserModel>(context,listen: false);
     return ProviderWidget<HomeModel>(
       model: HomeModel(),
       onModelReady: (homeModel) {
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage>
         return Scaffold(
           appBar:
           TitleBar.buildCommonAppBar(context, '工作室', isShowBack: false),
-          body: homeModel.error
+          body: homeModel.isError
             ? ViewStateWidget(onPressed: homeModel.initData)
             : SmartRefresher(
             controller: homeModel.refreshController,
@@ -301,7 +301,7 @@ class _HomePageState extends State<HomePage>
     return GestureDetector(
       onTap: (){
         if(Provider
-          .of<UserModel>(context)
+          .of<UserModel>(context,listen: false)
           .hasUser){
           onTap();
         }else{
@@ -343,7 +343,7 @@ class _HomePageState extends State<HomePage>
             .scaffoldBackgroundColor,
         ),
         child: Consumer<HomeModel>(builder: (_, model, __) {
-          if (model.busy) {
+          if (model.isBusy) {
             return CupertinoActivityIndicator();
           } else {
             return Swiper(
@@ -377,7 +377,7 @@ class _HomePageState extends State<HomePage>
 class HomeItemWidget extends StatelessWidget {
   final String label;
   final String url;
-  final Function onClick;
+  final VoidCallback onClick;
 
   const HomeItemWidget(this.label, this.url, {this.onClick});
 
@@ -385,9 +385,7 @@ class HomeItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (Provider
-          .of<UserModel>(context)
-          .hasUser) {
+        if (Provider.of<UserModel>(context,listen: false).hasUser) {
           onClick();
         } else {
           Navigator.of(context).pushNamed(RouteName.login);

@@ -14,7 +14,7 @@ class CustomLetterKeyboard extends StatelessWidget{
   const CustomLetterKeyboard({this.controller});
 
   static register(){
-    CoolKeyboard.addKeyboard(CustomLetterKeyboard.inputType,KeyboardConfig(builder: (context,controller){
+    CoolKeyboard.addKeyboard(CustomLetterKeyboard.inputType,KeyboardConfig(builder: (context,controller,params){
       return CustomLetterKeyboard(controller: controller);
     },getHeight: CustomLetterKeyboard.getHeight));
   }

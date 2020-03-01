@@ -22,17 +22,17 @@ class CheckMessagePage extends StatelessWidget {
               model.initData();
             },
             builder: (context, model, child) {
-              if (model.busy) {
+              if (model.isBusy) {
                 return Center(child: CircularProgressIndicator());
-              } else if (model.error) {
+              } else if (model.isError) {
                 return ViewStateWidget(onPressed: model.initData);
               }
               return SmartRefresher(
                 controller: model.refreshController,
                 onRefresh: model.refresh,
                 onLoading: model.loadMore,
-                enablePullUp: !model.empty,
-                child: model.empty
+                enablePullUp: !model.isEmpty,
+                child: model.isEmpty
                     ? ViewStateEmptyWidget()
                     : ListView.builder(
                         itemCount: model.list?.length ?? 0,

@@ -66,9 +66,9 @@ class _DoctorAdvicePageState extends State<DoctorAdvicePage>{
                     model.initData();
                   },
                   builder: (context, model, child) {
-                    if (model.busy) {
+                    if (model.isBusy) {
                       return Center(child: CircularProgressIndicator());
-                    } else if (model.error) {
+                    } else if (model.isError) {
                       return ViewStateWidget(onPressed: model.initData);
                     }
                     return SmartRefresher(
@@ -76,7 +76,7 @@ class _DoctorAdvicePageState extends State<DoctorAdvicePage>{
                       onRefresh: model.refresh,
                       onLoading: model.loadMore,
                       enablePullUp: true,
-                      child: model.empty
+                      child: model.isEmpty
                         ? ViewStateEmptyWidget()
                         : ListView.builder(
                         itemCount: model.list?.length ?? 0,

@@ -551,7 +551,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
             Padding(
                 padding:
                     EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
-                child: model.busy
+                child: model.isBusy
                     ? SizedBox.shrink()
                     : DrugStoreItem(drugs: _drugs)),
             Image.asset(ImageHelper.wrapAssets('xuxian.png')),

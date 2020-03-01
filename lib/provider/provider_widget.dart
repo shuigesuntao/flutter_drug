@@ -9,6 +9,7 @@ class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
   final T model;
   final Widget child;
   final Function(T) onModelReady;
+  final bool autoDispose;
 
   ProviderWidget({
     Key key,
@@ -16,6 +17,7 @@ class ProviderWidget<T extends ChangeNotifier> extends StatefulWidget {
     @required this.model,
     this.child,
     this.onModelReady,
+    this.autoDispose: true,
   }) : super(key: key);
 
   _ProviderWidgetState<T> createState() => _ProviderWidgetState<T>();
@@ -28,12 +30,14 @@ class _ProviderWidgetState<T extends ChangeNotifier>
   @override
   void initState() {
     model = widget.model;
-
-    if (widget.onModelReady != null) {
-      widget.onModelReady(model);
-    }
-
+    widget.onModelReady?.call(model);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (widget.autoDispose) model.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,7 +59,8 @@ class ProviderWidget2<A extends ChangeNotifier, B extends ChangeNotifier>
   final A model1;
   final B model2;
   final Widget child;
-  final Function(A, B) onModelReady;
+  final Function(A model1, B model2) onModelReady;
+  final bool autoDispose;
 
   ProviderWidget2({
     Key key,
@@ -64,6 +69,7 @@ class ProviderWidget2<A extends ChangeNotifier, B extends ChangeNotifier>
     @required this.model2,
     this.child,
     this.onModelReady,
+    this.autoDispose,
   }) : super(key: key);
 
   _ProviderWidgetState2<A, B> createState() => _ProviderWidgetState2<A, B>();
@@ -78,24 +84,25 @@ class _ProviderWidgetState2<A extends ChangeNotifier, B extends ChangeNotifier>
   void initState() {
     model1 = widget.model1;
     model2 = widget.model2;
-
-    if (widget.onModelReady != null) {
-      widget.onModelReady(model1, model2);
-    }
-
+    widget.onModelReady?.call(model1, model2);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (widget.autoDispose) {
+      model1.dispose();
+      model2.dispose();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider<A>(
-            create: (context) => model1,
-          ),
-          ChangeNotifierProvider<B>(
-            create: (context) => model2,
-          )
+          ChangeNotifierProvider<A>(create: (context) => model1),
+          ChangeNotifierProvider<B>(create: (context) => model2)
         ],
         child: Consumer2<A, B>(
           builder: widget.builder,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
+import 'package:flutter_drug/provider/view_state.dart';
 /// 加载中
 class ViewStateBusyWidget extends StatelessWidget {
   @override
@@ -51,6 +52,70 @@ class ViewStateWidget extends StatelessWidget {
     );
   }
 }
+
+/// ErrorWidget
+class ViewStateErrorWidget extends StatelessWidget {
+  final ViewStateError error;
+  final String title;
+  final String message;
+  final Widget image;
+  final Widget buttonText;
+  final String buttonTextData;
+  final VoidCallback onPressed;
+
+  const ViewStateErrorWidget({
+    Key key,
+    @required this.error,
+    this.image,
+    this.title,
+    this.message,
+    this.buttonText,
+    this.buttonTextData,
+    @required this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var defaultImage;
+    var defaultTitle;
+    var errorMessage = error.message;
+    String defaultTextData = "重试";
+    switch (error.errorType) {
+      case ViewStateErrorType.networkTimeOutError:
+        defaultImage = Transform.translate(
+          offset: Offset(-50, 0),
+          child: const Icon(Icons.error,
+            size: 100, color: Colors.grey),
+        );
+        defaultTitle = "网络连接异常,请检查网络或稍后重试";
+        break;
+      case ViewStateErrorType.defaultError:
+        defaultImage =
+        const Icon(IconFonts.pageError, size: 100, color: Colors.grey);
+        defaultTitle = "加载失败";
+        break;
+
+      case ViewStateErrorType.unauthorizedError:
+        return null;
+//        return ViewStateUnAuthWidget(
+//          image: image,
+//          message: message,
+//          buttonText: buttonText,
+//          onPressed: onPressed,
+//        );
+    }
+    return null;
+//    return ViewStateWidget(
+//      onPressed: this.onPressed,
+//      image: image ?? defaultImage,
+//      title: title ?? defaultTitle,
+//      message: message ?? errorMessage,
+//      buttonTextData: buttonTextData ?? defaultTextData,
+//      buttonText: buttonText,
+//    );
+  }
+}
+
 
 /// 页面无数据
 class ViewStateEmptyWidget extends StatelessWidget {

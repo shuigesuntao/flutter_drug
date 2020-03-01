@@ -1,30 +1,35 @@
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 
-List<SingleChildCloneableWidget> providers = [
+List<SingleChildWidget> providers = [
   ...independentServices,
   ...dependentServices,
   ...uiConsumableProviders
 ];
 
 /// 独立的model
-List<SingleChildCloneableWidget> independentServices = [
+List<SingleChildWidget> independentServices = [
 //  Provider.value(value: Api())
-  ChangeNotifierProvider<UserModel>.value(value: UserModel()),
-  ChangeNotifierProvider<FriendModel>.value(value: FriendModel()),
+  ChangeNotifierProvider<UserModel>(
+    create: (context) => UserModel(),
+  ),
+  ChangeNotifierProvider<FriendModel>(
+    create: (context) => FriendModel(),
+  )
 ];
 
 /// 需要依赖的model
-List<SingleChildCloneableWidget> dependentServices = [
+List<SingleChildWidget> dependentServices = [
 //  ProxyProvider<Api, AuthenticationService>(
 //    builder: (context, api, authenticationService) =>
-//        AuthenticationService(api: api),
+// FriendModel       AuthenticationService(api: api),
 //  )
 ];
 
-List<SingleChildCloneableWidget> uiConsumableProviders = [
+List<SingleChildWidget> uiConsumableProviders = [
 //  StreamProvider<User>(
 //    builder: (context) => Provider.of<AuthenticationService>(context, listen: false).user,
 //  )

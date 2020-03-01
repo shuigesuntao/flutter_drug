@@ -81,7 +81,7 @@ class _TakePrescriptionPageState extends State<TakePrescriptionPage>{
                   model: CategoryModel(),
                   onModelReady: (model) => model.initData(),
                   builder: (context,model,child) =>
-                  model.busy? SizedBox():Column(
+                  model.isBusy? SizedBox():Column(
                     children: <Widget>[
                       DrugStoreItem(),
                       Offstage(
