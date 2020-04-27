@@ -11,6 +11,7 @@ import 'package:flutter_drug/ui/page/account/show_account_page.dart';
 import 'package:flutter_drug/ui/page/account/wechat_cash_page.dart';
 import 'package:flutter_drug/ui/page/add_patient_page.dart';
 import 'package:flutter_drug/ui/page/login_page.dart';
+import 'package:flutter_drug/ui/page/prescription/ask_formwork_page.dart';
 import 'package:flutter_drug/ui/page/prescription/check_message_page.dart';
 import 'package:flutter_drug/ui/page/prescription/confirm_order_page.dart';
 import 'package:flutter_drug/ui/page/prescription/finish_order_detail_page.dart';
@@ -81,6 +82,7 @@ class RouteName {
   static const String takePrescription = 'takePrescription';//拍方上传
   static const String checkMessage = 'checkMessage';//审方消息
   static const String prescriptionFormWork = 'prescriptionFormWork';//处方模板
+  static const String askFormWork = 'askFormWork';//问诊模板
   static const String formWorkDetail = 'formWorkDetail';//处方模板
   static const String serviceSetting = 'serviceSetting';//服务设置
   static const String publishNotice = 'publishNotice';//发布公告
@@ -158,6 +160,8 @@ class Router {
         return CupertinoPageRoute(builder: (_) => CheckMessagePage());
       case RouteName.prescriptionFormWork:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkPage(hasHistory: settings.arguments as bool));
+      case RouteName.askFormWork:
+        return CupertinoPageRoute(builder: (_) => AskFormWorkPage());
       case RouteName.formWorkDetail:
         return CupertinoPageRoute(builder: (_) => PrescriptionFormWorkDetailPage(p: settings.arguments as PrescriptionFormWork));
       case RouteName.serviceSetting:

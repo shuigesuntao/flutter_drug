@@ -52,7 +52,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                             ],
                           ),
                           SizedBox(height: ScreenUtil().setWidth(5)),
-                          _buildSwitch(),
+                          _buildAskSwitch(),
                           Divider(height: 0.5, color: Colors.grey[400]),
                           _buildAskPrice(
                             '线上咨询费',
@@ -174,6 +174,8 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                             ],
                           ),
                           SizedBox(height: ScreenUtil().setWidth(10)),
+                          _buildPriceSwitch(),
+                          Divider(height: 0.5, color: Colors.grey[400]),
                           GestureDetector(
                             onTap: () => showDialog(
                                 context: context,
@@ -307,7 +309,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
     );
   }
 
-  Widget _buildSwitch() {
+  Widget _buildAskSwitch() {
     return Consumer<ServiceSettingModel>(builder: (context, model, child) {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 2),
@@ -327,6 +329,35 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                 value: model.isOpenAsk,
                 onChanged: (value) {
                   model.isOpenAsk = value;
+                },
+              ),
+            )
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget _buildPriceSwitch() {
+    return Consumer<ServiceSettingModel>(builder: (context, model, child) {
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 2),
+        child: Row(
+          children: <Widget>[
+            Expanded(child: Text('是否隐藏诊费',style: TextStyle(fontSize: ScreenUtil().setSp(14)))),
+            Text(model.isHidePrice ? '隐藏' : '不隐藏',
+              style: TextStyle(
+                color: model.isHidePrice
+                  ? Theme.of(context).primaryColor
+                  : Colors.black54,
+                fontSize: ScreenUtil().setSp(14))),
+            GestureDetector(
+              onTap: () => model.isHidePrice = !model.isHidePrice,
+              child:  CupertinoSwitch(
+                activeColor: Theme.of(context).primaryColor,
+                value: model.isHidePrice,
+                onChanged: (value) {
+                  model.isHidePrice = value;
                 },
               ),
             )

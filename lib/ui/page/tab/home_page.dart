@@ -115,19 +115,19 @@ class _HomePageState extends State<HomePage>
                           children: <Widget>[
                             HomeItemWidget(
                               '添加患者',
-                              'icon_yqhz.png',
+                              'icon_1.png',
                               onClick: () =>
                                 nextPage(RouteName.addPatient),
                             ),
                             HomeItemWidget(
                               '在线开方',
-                              'icon_zxkf.png',
+                              'icon_2.png',
                               onClick: () =>
                                 nextPage(RouteName.choosePerson),
                             ),
                             HomeItemWidget(
                               '拍方上传',
-                              'icon_pfsc.png',
+                              'icon_3.png',
                               onClick: () =>
                                 nextPage(RouteName.takePrescription),
                             ),
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage>
                                 top: -8, right: 5),
                               child: HomeItemWidget(
                                 '审方消息',
-                                'icon_sfxx.png',
+                                'icon_4.png',
                                 onClick: () =>
                                   nextPage(RouteName.checkMessage),
                               ),
@@ -155,8 +155,14 @@ class _HomePageState extends State<HomePage>
                           MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             HomeItemWidget(
+                              '服务设置',
+                              'icon_6.png',
+                              onClick: () =>
+                                nextPage(RouteName.serviceSetting),
+                            ),
+                            HomeItemWidget(
                               '处方模板',
-                              'icon_cfmb.png',
+                              'icon_5.png',
                               onClick: () =>
                                 Navigator.of(context)
                                   .pushNamed(
@@ -164,20 +170,14 @@ class _HomePageState extends State<HomePage>
                                   arguments: false),
                             ),
                             HomeItemWidget(
-                              '服务设置',
-                              'icon_szcz.png',
+                              '问诊模板',
+                              'icon_wzmb.png',
                               onClick: () =>
-                                nextPage(RouteName.serviceSetting),
-                            ),
-                            HomeItemWidget(
-                              '发布公告',
-                              'icon_fbgg.png',
-                              onClick: () =>
-                                nextPage(RouteName.publishNotice),
+                                nextPage(RouteName.askFormWork),
                             ),
                             HomeItemWidget(
                               '已开处方',
-                              'icon_ykcf.png',
+                              'icon_8.png',
                               onClick: () =>
                                 nextPage(RouteName.prescriptionAlready),
                             ),
@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage>
                             Color(0xfffff4f0),
                             '推荐有奖',
                             '推荐同行，各得49元现金',
-                            'icon_tjyj.png'),
+                            'icon_9.png'),
                           SizedBox(width: 5),
                           _buildMainItem(
                               () =>
@@ -214,7 +214,7 @@ class _HomePageState extends State<HomePage>
                             Color(0xfffbf9ea),
                             '专属药房',
                             '品类齐全，品质保证',
-                            'icon_zsyf.png'),
+                            'icon_10.png'),
                           SizedBox(width: 5),
                           _buildMainItem(
                               () =>
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage>
                             Color(0xfffef4e9),
                             '开方指南',
                             '线上开方，送药到家',
-                            'icon_kfzn.png'),
+                            'icon_11.png'),
                         ],
                       )),
                   ),

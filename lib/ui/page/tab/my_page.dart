@@ -65,6 +65,8 @@ class UserListWidget extends StatelessWidget {
                   )),
           MeCell('我的账户', 'icon_zhanghu.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.myAccount)),
           SizedBox(height: 5),
+          MeCell('发布公告', 'icon_7.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.publishNotice)),
+          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
           MeCell('资质认证', 'icon_zizhi.png', auth:'已认证',onTap:()=>Navigator.of(context).pushNamed(RouteName.auth)),
           Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
           MeCell('煎法管理', 'icon_jianfa.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.decoct)),
