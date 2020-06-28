@@ -75,7 +75,7 @@ class _TabNavigatorState extends State<TabNavigator> {
           _buildBottomNavigationBarItem(
               '资询', 'icon_talk_disselect.png', 'icon_talk_select.png'),
           _buildBottomNavigationBarItem(
-              '通讯录', 'icon_family_disselect.png', 'icon_family_select.png'),
+              '患者', 'icon_family_disselect.png', 'icon_family_select.png'),
           _buildBottomNavigationBarItem(
               '我的', 'icon_me_disselect.png', 'icon_me_select.png'),
         ],

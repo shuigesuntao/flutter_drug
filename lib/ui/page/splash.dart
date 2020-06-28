@@ -20,7 +20,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context,width: 375, height: 667);
+    ScreenUtil.init(context, width: 375, height: 667);
 
     return Scaffold(
       body: WillPopScope(
@@ -30,16 +30,18 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                child: Image.asset(
-                  ImageHelper.wrapAssets('spl_bg.jpg'),
-                  fit: BoxFit.fill,
-                ),
+                color: Colors.white,
               ),
               Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Image.asset(
-                  ImageHelper.wrapAssets('splash_bg.jpg'),
-                ),
+                padding: EdgeInsets.only(top: ScreenUtil().setWidth(30)),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Image.asset(
+                    ImageHelper.wrapAssets('splash_bg.png'),
+                    fit: BoxFit.contain,
+                  ),
+                )
               )
             ],
           )),

@@ -52,7 +52,7 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: GestureDetector(
-                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:false))),
+//                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:false))),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -81,7 +81,7 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                   SizedBox(width: ScreenUtil().setWidth(8)),
                   Expanded(
                     child:GestureDetector(
-                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:true))),
+//                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:true))),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -116,10 +116,12 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                   data: model.list,
                   itemBuilder: (context, model) => FriendItemWidget(
                     friend:model,
-                    onItemClick:(model)=> Navigator.of(context).pushNamed(
-                      RouteName.openPrescription,
-                      arguments: model
-                    ),
+                    onItemClick:(model){
+//                      Navigator.of(context).pushNamed(
+//                        RouteName.openPrescription,
+//                        arguments: model
+//                      );
+                    },
                     isShowIndex:model.isShowSuspension
                   ),
                   indexBarBuilder:(BuildContext context, List<String> tags, IndexBarTouchCallback onTouch){

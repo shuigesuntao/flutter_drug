@@ -46,7 +46,7 @@ class App extends StatelessWidget {
           hideFooterWhenNotFull: true,
           child: MaterialApp(
           debugShowCheckedModeBanner:false,
-          title: '药匣子',
+          title: '药良心',
           theme: ThemeData(
             primaryColor: Color(0xffd80c18),
             scaffoldBackgroundColor: Color(0xffeeeeed),

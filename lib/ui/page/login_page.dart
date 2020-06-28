@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drug/config/resource_mananger.dart';
@@ -62,7 +61,7 @@ class _LoginPageState extends State<LoginPage>{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('登录药匣子',style: TextStyle(fontSize: ScreenUtil().setSp(24),fontWeight: FontWeight.bold)),
+              Text('登录药良心',style: TextStyle(fontSize: ScreenUtil().setSp(24),fontWeight: FontWeight.bold)),
               SizedBox(height: ScreenUtil().setWidth(20)),
               Row(
                 children: <Widget>[
@@ -189,7 +188,7 @@ class _LoginPageState extends State<LoginPage>{
                     });
                     Future.delayed(Duration(seconds: 2), (){
                       Navigator.of(context).pop();
-                      Provider.of<UserModel>(context,listen: false).saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","许洪亮","内科","主任医师"));
+                      Provider.of<UserModel>(context,listen: false).saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","薛Tony","内科","主任医师"));
                       Navigator.of(context).pushNamed(RouteName.tab);
                     });
                   }
@@ -256,7 +255,7 @@ class _LoginPageState extends State<LoginPage>{
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Text('下方协议：',style: TextStyle(fontSize: ScreenUtil().setSp(12))),
-                            Text('《药匣子服务协议》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
+                            Text('《药良心服务协议》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
                             Text('、',style: TextStyle(fontSize: ScreenUtil().setSp(12))),
                             Text('《免责条款》',style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
                           ],

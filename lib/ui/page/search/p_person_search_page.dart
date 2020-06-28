@@ -48,20 +48,20 @@ class _PrescriptionPersonSearchPageState
                                   friend: model.filterList[index],
                                   onItemClick: (friend) {
                                     if (widget.onItemClick == null) {
-                                      switch (widget.type) {
-                                        //患者信息
-                                        case 1:
-                                          Navigator.of(context).pushNamed(
-                                              RouteName.friendInfo,
-                                              arguments: friend);
-                                          break;
-                                        //在线开方
-                                        case 2:
-                                          Navigator.of(context).pushNamed(
-                                              RouteName.openPrescription,
-                                              arguments: friend);
-                                          break;
-                                      }
+//                                      switch (widget.type) {
+//                                        //患者信息
+//                                        case 1:
+//                                          Navigator.of(context).pushNamed(
+//                                              RouteName.friendInfo,
+//                                              arguments: friend);
+//                                          break;
+//                                        //在线开方
+//                                        case 2:
+//                                          Navigator.of(context).pushNamed(
+//                                              RouteName.openPrescription,
+//                                              arguments: friend);
+//                                          break;
+//                                      }
                                     } else {
                                       model.filterData('');
                                       widget.onItemClick(friend);

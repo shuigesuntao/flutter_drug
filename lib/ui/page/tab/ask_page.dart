@@ -112,7 +112,7 @@ class _AskPageState extends State<AskPage> with AutomaticKeepAliveClientMixin{
                     width: ScreenUtil().setWidth(45), height: ScreenUtil().setWidth(45))
                     : Image.asset(ImageHelper.wrapAssets('gender_gril.png'),
                     width: ScreenUtil().setWidth(45), height: ScreenUtil().setWidth(45)),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   width: ScreenUtil().setWidth(45),
                   height: ScreenUtil().setWidth(45),
                 ),

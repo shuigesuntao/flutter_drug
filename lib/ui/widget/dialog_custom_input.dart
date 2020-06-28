@@ -55,7 +55,7 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
             Center(
               child: Container(
                 margin: EdgeInsets.all(ScreenUtil().setWidth(45)),
-                height: ScreenUtil().setWidth(140),
+                height: ScreenUtil().setWidth(160),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white),

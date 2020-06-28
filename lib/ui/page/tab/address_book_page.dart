@@ -86,13 +86,13 @@ class _AddressBookPageState extends State<AddressBookPage>
             FriendItemWidget(
               friend: model,
               onItemClick: (model) {
-                if (widget.onItemClick == null) {
-                  Navigator.of(context).pushNamed(
-                    RouteName.friendInfo, arguments: model);
-                } else {
-                  widget.onItemClick(model);
-                  Navigator.maybePop(context);
-                }
+//                if (widget.onItemClick == null) {
+//                  Navigator.of(context).pushNamed(
+//                    RouteName.friendInfo, arguments: model);
+//                } else {
+//                  widget.onItemClick(model);
+//                  Navigator.maybePop(context);
+//                }
               },
               isShowIndex: model.isShowSuspension
             ),

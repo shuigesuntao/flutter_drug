@@ -78,14 +78,11 @@ class AddPatientPage extends StatelessWidget {
                 SizedBox(height: ScreenUtil().setWidth(10)),
                 RichText(
                   text: TextSpan(
-                    text: '微信扫描上方我的二维码，关注',
+                    text: '患者端扫描上方我的二维码',
                     style: TextStyle(color: Colors.black,fontSize: ScreenUtil().setSp(12)),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '「药匣子在线」',
-                        style: TextStyle(fontSize: ScreenUtil().setSp(12),color: Theme.of(context).primaryColor)),
-                      TextSpan(
-                        text: '公众号，即可随时微信与我沟通，在家找我复诊调方',
+                        text: '即可随时与我沟通，在家找我复诊调方',
                         style: TextStyle(fontSize: ScreenUtil().setSp(12),color:  Colors.black),
                       )
                     ]),

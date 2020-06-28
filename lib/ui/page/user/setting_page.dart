@@ -21,8 +21,8 @@ class SettingPage extends StatelessWidget{
           _buildItem(context,'修改登录密码',RouteName.modifyPassword),
           _buildItem(context,'修改绑定手机',RouteName.modifyPhone),
           SizedBox(height: ScreenUtil().setWidth(5)),
-          _buildItem(context,'关于药匣子',RouteName.about),
-          SizedBox(height: ScreenUtil().setWidth(50)),
+//          _buildItem(context,'关于药匣子',RouteName.about),
+          SizedBox(height: ScreenUtil().setWidth(100)),
           GestureDetector(
             onTap: () {
               Provider.of<UserModel>(context,listen: false).clearUser();

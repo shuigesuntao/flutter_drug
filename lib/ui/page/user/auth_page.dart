@@ -239,28 +239,28 @@ class AuthPageState extends State<AuthPage> {
                   ],
                 ),
               ),
-              SafeArea(
-                  child: GestureDetector(
-                    onTap: () {
-                      userModel.user.name = _name;
-                      userModel.user.level = _level;
-                      userModel.saveUser(userModel.user);
-                      Navigator.maybePop(context);
-                    },
-                    child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          '修改资质',
-                          style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
-                        )),
-                  ),
-                  bottom: true),
+//              SafeArea(
+//                  child: GestureDetector(
+//                    onTap: () {
+//                      userModel.user.name = _name;
+//                      userModel.user.level = _level;
+//                      userModel.saveUser(userModel.user);
+//                      Navigator.maybePop(context);
+//                    },
+//                    child: Container(
+//                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
+//                        width: double.infinity,
+//                        alignment: Alignment.center,
+//                        padding: EdgeInsets.all(ScreenUtil().setWidth(10)),
+//                        decoration: BoxDecoration(
+//                            color: Theme.of(context).primaryColor,
+//                            borderRadius: BorderRadius.circular(5)),
+//                        child: Text(
+//                          '修改资质',
+//                          style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(14)),
+//                        )),
+//                  ),
+//                  bottom: true),
             ],
           ),
         ),

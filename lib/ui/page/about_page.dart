@@ -29,7 +29,7 @@ class AboutPageState extends State<AboutPage>{
       body: Column(
         children: <Widget>[
           SizedBox(height: ScreenUtil().setWidth(30)),
-          Image.asset(ImageHelper.wrapAssets('logo.png'),width: ScreenUtil().setWidth(80),height: ScreenUtil().setWidth(80)),
+          Image.asset(ImageHelper.wrapAssets('icon.png'),width: ScreenUtil().setWidth(80),height: ScreenUtil().setWidth(80)),
           Padding(
             padding: EdgeInsets.only(top: ScreenUtil().setWidth(10),bottom: ScreenUtil().setWidth(25)),
             child: Text('药匣子 V$_version',style: TextStyle(fontSize: ScreenUtil().setSp(16),color: Colors.grey))

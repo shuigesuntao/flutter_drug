@@ -63,25 +63,25 @@ class UserListWidget extends StatelessWidget {
                         job: model.user.level),
                     )
                   )),
-          MeCell('我的账户', 'icon_zhanghu.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.myAccount)),
-          SizedBox(height: 5),
-          MeCell('发布公告', 'icon_7.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.publishNotice)),
-          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
+//          MeCell('我的账户', 'icon_zhanghu.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.myAccount)),
+//          SizedBox(height: 5),
+//          MeCell('发布公告', 'icon_7.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.publishNotice)),
+//          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
           MeCell('资质认证', 'icon_zizhi.png', auth:'已认证',onTap:()=>Navigator.of(context).pushNamed(RouteName.auth)),
           Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
-          MeCell('煎法管理', 'icon_jianfa.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.decoct)),
-          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
+//          MeCell('煎法管理', 'icon_jianfa.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.decoct)),
+//          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
           MeCell('常用医嘱', 'icon_yizhu.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.doctorAdvice)),
           SizedBox(height: 5),
-          MeCell('地址管理', 'icon_dizhi.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.addressManage,arguments: false)),
+//          MeCell('地址管理', 'icon_dizhi.png', onTap:()=>Navigator.of(context).pushNamed(RouteName.addressManage,arguments: false)),
+//          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
+          MeCell('商业保险', 'icon_baozhang.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.myOccupation)),
           Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
-          MeCell('我的执业保障', 'icon_baozhang.png',onTap:()=>Navigator.of(context).pushNamed(RouteName.myOccupation)),
-          Divider(indent: 30,height: 0.5,color: Colors.grey[300]),
-          MeCell('联系客服', 'icon_kefu.png',content:'400-052-0120',onTap:()=>showDialog(
+          MeCell('联系客服', 'icon_kefu.png',content:'010-64740078',onTap:()=>showDialog(
             context: context,
             builder: (context) {
               return CupertinoAlertDialog(
-                title: Text('400 052 0120'),
+                title: Text('010-64740078'),
                 actions: <Widget>[
                   CupertinoDialogAction(
                     child: Text("取消"),
@@ -92,7 +92,7 @@ class UserListWidget extends StatelessWidget {
                   ),
                   CupertinoDialogAction(
                     child: Text("呼叫"),
-                    onPressed: () => callPhone('400 052 0120'),
+                    onPressed: () => callPhone('010-64740078'),
                   ),
                 ],
               );

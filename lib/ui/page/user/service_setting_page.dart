@@ -55,7 +55,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                           _buildAskSwitch(),
                           Divider(height: 0.5, color: Colors.grey[400]),
                           _buildAskPrice(
-                            '线上咨询费',
+                            '首诊咨询费',
                             '结束后收益立即到账',
                             model.onlineAskPrice,
                             onPressed: () => showDialog(
@@ -63,7 +63,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                 barrierDismissible: false,
                                 builder: (BuildContext context) {
                                   return CustomInputDialog(
-                                      title: '设置线上咨询费',
+                                      title: '设置首诊咨询费',
                                       hint: '0',
                                       maxValue: 2000,
                                       keyboardType: TextInputType.number,
@@ -82,7 +82,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                           ),
                           Divider(height: 0.5, color: Colors.grey[400]),
                           _buildAskPrice(
-                            '后续咨询费',
+                            '复诊咨询费',
                             '建议为老患者提供优惠',
                             model.afterAskPrice,
                             onPressed: () => showDialog(
@@ -90,7 +90,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
                                 barrierDismissible: false,
                                 builder: (BuildContext context) {
                                   return CustomInputDialog(
-                                      title: '设置后续咨询费',
+                                      title: '设置复诊咨询费',
                                       hint: '0',
                                       maxValue: 2000,
                                       keyboardType: TextInputType.number,

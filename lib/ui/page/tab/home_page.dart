@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage>
                             context: context,
                             builder: (context) {
                               return CupertinoAlertDialog(
-                                title: Text('400 052 0120'),
+                                title: Text('010-64740078'),
                                 actions: <Widget>[
                                   CupertinoDialogAction(
                                     child: Text("取消"),
@@ -104,6 +104,8 @@ class _HomePageState extends State<HomePage>
                       },
                     )
                   ),
+                  _buildBanner(),
+                  SizedBox(height: ScreenUtil().setWidth(5)),
                   Container(
                     color: Colors.white,
                     padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(15)),
@@ -125,69 +127,80 @@ class _HomePageState extends State<HomePage>
                               onClick: () =>
                                 nextPage(RouteName.choosePerson),
                             ),
+
+//                            HomeItemWidget(
+//                              '拍方上传',
+//                              'icon_3.png',
+//                              onClick: () =>
+//                                nextPage(RouteName.takePrescription),
+//                            ),
+//                            Badge(
+//                              padding: EdgeInsets.all(7),
+//                              elevation: 0,
+//                              badgeContent: Text(
+//                                '1',
+//                                style: TextStyle(color: Colors.white),
+//                              ),
+//                              position: BadgePosition.topRight(
+//                                top: -8, right: 5),
+//                              child: HomeItemWidget(
+//                                '审方消息',
+//                                'icon_4.png',
+//                                onClick: () =>
+//                                  nextPage(RouteName.checkMessage),
+//                              ),
+//                            ),
                             HomeItemWidget(
-                              '拍方上传',
-                              'icon_3.png',
-                              onClick: () =>
-                                nextPage(RouteName.takePrescription),
+                              '已开处方',
+                              'icon_8.png',
+//                              onClick: () =>
+//                                nextPage(RouteName.prescriptionAlready),
                             ),
-                            Badge(
-                              padding: EdgeInsets.all(7),
-                              elevation: 0,
-                              badgeContent: Text(
-                                '1',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              position: BadgePosition.topRight(
-                                top: -8, right: 5),
-                              child: HomeItemWidget(
-                                '审方消息',
-                                'icon_4.png',
-                                onClick: () =>
-                                  nextPage(RouteName.checkMessage),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: ScreenUtil().setWidth(20)),
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
                             HomeItemWidget(
                               '服务设置',
                               'icon_6.png',
                               onClick: () =>
                                 nextPage(RouteName.serviceSetting),
                             ),
-                            HomeItemWidget(
-                              '处方模板',
-                              'icon_5.png',
-                              onClick: () =>
-                                Navigator.of(context)
-                                  .pushNamed(
-                                  RouteName.prescriptionFormWork,
-                                  arguments: false),
-                            ),
-                            HomeItemWidget(
-                              '问诊模板',
-                              'icon_wzmb.png',
-                              onClick: () =>
-                                nextPage(RouteName.askFormWork),
-                            ),
-                            HomeItemWidget(
-                              '已开处方',
-                              'icon_8.png',
-                              onClick: () =>
-                                nextPage(RouteName.prescriptionAlready),
-                            ),
                           ],
-                        )
+                        ),
+//                        SizedBox(height: ScreenUtil().setWidth(20)),
+//                        Row(
+//                          mainAxisAlignment:
+//                          MainAxisAlignment.spaceEvenly,
+//                          children: <Widget>[
+//                            HomeItemWidget(
+//                              '服务设置',
+//                              'icon_6.png',
+//                              onClick: () =>
+//                                nextPage(RouteName.serviceSetting),
+//                            ),
+//                            HomeItemWidget(
+//                              '处方模板',
+//                              'icon_5.png',
+//                              onClick: () =>
+//                                Navigator.of(context)
+//                                  .pushNamed(
+//                                  RouteName.prescriptionFormWork,
+//                                  arguments: false),
+//                            ),
+//                            HomeItemWidget(
+//                              '问诊模板',
+//                              'icon_wzmb.png',
+//                              onClick: () =>
+//                                nextPage(RouteName.askFormWork),
+//                            ),
+//                            HomeItemWidget(
+//                              '已开处方',
+//                              'icon_8.png',
+//                              onClick: () =>
+//                                nextPage(RouteName.prescriptionAlready),
+//                            ),
+//                          ],
+//                        )
                       ],
                     ),
                   ),
-                  SizedBox(height: ScreenUtil().setWidth(5)),
-                  _buildBanner(),
                   Container(
                     color: Colors.white,
                     padding: EdgeInsets.fromLTRB(ScreenUtil().setWidth(10), ScreenUtil().setWidth(5), ScreenUtil().setWidth(10), ScreenUtil().setWidth(5)),
@@ -300,13 +313,13 @@ class _HomePageState extends State<HomePage>
     String subTitle, String icon) {
     return GestureDetector(
       onTap: (){
-        if(Provider
-          .of<UserModel>(context,listen: false)
-          .hasUser){
-          onTap();
-        }else{
-          Navigator.of(context).pushNamed(RouteName.login);
-        }
+//        if(Provider
+//          .of<UserModel>(context,listen: false)
+//          .hasUser){
+//          onTap();
+//        }else{
+//          Navigator.of(context).pushNamed(RouteName.login);
+//        }
       },
       child: Container(
         width: ScreenUtil().setWidth(152),
@@ -361,11 +374,12 @@ class _HomePageState extends State<HomePage>
                   activeSize: 6))
                 : null,
               itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () =>
-                    _goToWebPage(context,
-                      model.list[index].title, model.list[index].url, true),
-                  child: BannerImage(model.list[index].image));
+                return BannerImage(model.list[index].image);
+//                return GestureDetector(
+//                  onTap: () =>
+//                    _goToWebPage(context,
+//                      model.list[index].title, model.list[index].url, true),
+//                  child: );
               },
             );
           }

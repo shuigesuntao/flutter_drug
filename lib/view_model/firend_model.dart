@@ -21,8 +21,17 @@ class FriendModel extends ViewStateListModel<Friend>{
   Future<List<Friend>> loadData() async{
     return await Future.delayed(Duration(seconds: 2), () {
       List<Friend> results = List();
-      results.add(Friend("","david","","",0,'15234563456',0,1));
-      results.add(Friend("","eb9552162","","",0,'15234563457',1,0));
+      results.add(Friend("","Tony","","女",68,'15234563456',0,1));
+      results.add(Friend("","张仲景","","男",21,'15234563457',1,0));
+      results.add(Friend("","孙思邈","","男",12,'15234563457',1,0));
+      results.add(Friend("","张飞","","男",33,'15234563457',1,0));
+      results.add(Friend("","李逵","","女",44,'15234563457',1,0));
+      results.add(Friend("","程咬金","","女",55,'15234563457',1,0));
+      results.add(Friend("","樊哙","","女",66,'15234563457',1,0));
+      results.add(Friend("","李时珍","","男",77,'15234563457',1,0));
+      results.add(Friend("","华佗","","男",88,'15234563457',1,0));
+      results.add(Friend("","李刚","","男",99,'15234563457',1,0));
+      results.add(Friend("","宇文成都","","女",3,'15234563457',1,0));
       results.add(Friend("陶喆","陶喆","","女",31,'15334563458',0,0));
       results.add(Friend("杨","杨过","","男",27,'15934563459',1,1));
       results = _sortedList(results);
