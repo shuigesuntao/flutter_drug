@@ -9,7 +9,7 @@ import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/publish_notice_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class PublishNoticePage extends StatefulWidget {
   @override
@@ -103,7 +103,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
   }
 
   Widget _buildSwitch() {
-    return Consumer<PublishNoticeModel>(builder: (context, model, child) {
+    return P.Consumer<PublishNoticeModel>(builder: (context, model, child) {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
         child: Row(
@@ -141,7 +141,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Consumer<PublishNoticeModel>(
+            P.Consumer<PublishNoticeModel>(
               builder: (_, model, __) => GestureDetector(
                 onTap: () => showCupertinoModalPopup(
                     context: context,
@@ -245,7 +245,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
                 ],
               )),
           Divider(height: 1, color: Colors.grey),
-          Consumer<PublishNoticeModel>(builder: (context, model, child) {
+          P.Consumer<PublishNoticeModel>(builder: (context, model, child) {
             return Padding(
                 padding: EdgeInsets.all(ScreenUtil().setWidth(15)),
                 child: Column(

@@ -14,7 +14,7 @@ import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:flutter_drug/view_model/search_drugs_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' hide BuildContext;
 
 class EditDrugPage extends StatefulWidget {
   final List<Drug> drugs;
@@ -86,7 +86,7 @@ class _EditDrugPageState extends State<EditDrugPage> {
                     child: Container(
                       alignment: Alignment.center,
                       color: Colors.white,
-                      width: ScreenUtil.screenWidthDp,
+                      width: ScreenUtil().screenWidth,
                       child: model.isEmpty && model.query.isNotEmpty ? Text('没有找到该药材，请尝试别名或其他制法！',style: TextStyle(fontSize: ScreenUtil().setSp(14)))
                       : ListView.builder(
                         scrollDirection:Axis.horizontal,

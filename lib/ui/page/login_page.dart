@@ -10,7 +10,7 @@ import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class LoginPage extends StatefulWidget{
   @override
@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage>{
                         child: TextField(
                           keyboardType: TextInputType.number,
                           inputFormatters: [
-                            WhitelistingTextInputFormatter.digitsOnly
+                            FilteringTextInputFormatter.allow(RegExp(r'\d+'))
                           ],
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(0),
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage>{
                     });
                     Future.delayed(Duration(seconds: 2), (){
                       Navigator.of(context).pop();
-                      Provider.of<UserModel>(context,listen: false).saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","薛Tony","内科","主任医师"));
+                      P.Provider.of<UserModel>(context,listen: false).saveUser(User(1,"http://img2.woyaogexing.com/2019/08/30/3c02345e50aa4fbbadce736ae72d9313!600x600.jpeg","薛Tony","内科","主任医师"));
                       Navigator.of(context).pushNamed(RouteName.tab);
                     });
                   }

@@ -9,14 +9,15 @@ import 'package:flutter_drug/ui/widget/custom_letter_keyboard.dart';
 import 'package:flutter_drug/ui/widget/custom_number_keyboard.dart';
 import 'package:flutter_drug/ui/widget/refresh_footer.dart';
 import 'package:flutter_drug/ui/widget/refresh_header.dart';
+import 'package:flutter_screenutil/screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'config/router_manager.dart';
 import 'event/event_bus.dart';
 
 void main() async {
-  Provider.debugCheckInvalidValueType = null;
+  P.Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await StorageManager.init();
   CustomNumberKeyBoard.register();
@@ -38,7 +39,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OKToast(
-      child: MultiProvider(
+      child: P.MultiProvider(
         providers: providers,
         child: RefreshConfiguration(
           headerBuilder: ()=> RefreshHeader(),
@@ -53,7 +54,7 @@ class App extends StatelessWidget {
             primaryIconTheme: IconThemeData(color: Colors.white),
             appBarTheme: AppBarTheme(elevation: 0,brightness:Brightness.light)
           ),
-          onGenerateRoute: Router.generateRoute,
+          onGenerateRoute: Routers.generateRoute,
           initialRoute: RouteName.splash,
         )
         ),

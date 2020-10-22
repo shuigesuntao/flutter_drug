@@ -4,13 +4,13 @@ import 'package:flutter_drug/config/resource_mananger.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 import 'package:qr_flutter/qr_flutter.dart';
 
 class AddPatientPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    UserModel userModel = Provider.of<UserModel>(context,listen: false);
+    UserModel userModel = P.Provider.of<UserModel>(context,listen: false);
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(
         context,

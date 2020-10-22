@@ -7,9 +7,8 @@ import 'package:flutter_drug/ui/page/tab/address_book_page.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' hide BuildContext;
 
-import 'p_open_page.dart';
 
 class PrescriptionChoosePersonPage extends StatelessWidget {
 

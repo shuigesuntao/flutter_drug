@@ -9,7 +9,7 @@ import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class AuthPage extends StatefulWidget {
   @override
@@ -30,7 +30,7 @@ class AuthPageState extends State<AuthPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    userModel = Provider.of<UserModel>(context,listen: false);
+    userModel = P.Provider.of<UserModel>(context,listen: false);
     _name = userModel.user?.name ?? '';
     _level = userModel.user?.level ?? '';
   }

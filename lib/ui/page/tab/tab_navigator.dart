@@ -10,7 +10,7 @@ import 'package:flutter_drug/ui/page/tab/my_page.dart';
 import 'package:flutter_drug/ui/widget/dialog_main_tip.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class TabNavigator extends StatefulWidget {
   TabNavigator({Key key}) : super(key: key);
@@ -81,7 +81,7 @@ class _TabNavigatorState extends State<TabNavigator> {
         ],
         currentIndex: _selectedIndex,
         onTap: (index) {
-          if (Provider.of<UserModel>(context,listen: false).hasUser) {
+          if (P.Provider.of<UserModel>(context,listen: false).hasUser) {
             _pageController.jumpToPage(index);
           } else {
             Navigator.of(context).pushNamed(RouteName.login);

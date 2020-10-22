@@ -6,12 +6,12 @@ import 'package:flutter_drug/ui/widget/dialog_share.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class UserInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var userModel = Provider.of<UserModel>(context, listen: false);
+    var userModel = P.Provider.of<UserModel>(context, listen: false);
     return Scaffold(
       appBar: TitleBar.buildCommonAppBar(context,'我的名片', actionText: '分享', onActionPress: () {
         showModalBottomSheet(

@@ -4,7 +4,7 @@ import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/model/category.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class DialogDrugCategory extends StatelessWidget {
   final double price;
@@ -16,7 +16,7 @@ class DialogDrugCategory extends StatelessWidget {
     return Container(
       color: Colors.white,
       height: ScreenUtil().setWidth(580),
-      child: Consumer<CategoryModel>(builder: (context,model,child) => Column(
+      child: P.Consumer<CategoryModel>(builder: (context,model,child) => Column(
         children: <Widget>[
           Container(
             child: Row(

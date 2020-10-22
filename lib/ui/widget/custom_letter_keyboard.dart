@@ -26,7 +26,7 @@ class CustomLetterKeyboard extends StatelessWidget{
       child:  DefaultTextStyle(
         style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black,fontSize: 20),
         child: Container(
-          padding: EdgeInsets.only(top:5,bottom:5+ScreenUtil.bottomBarHeight),
+          padding: EdgeInsets.only(top:5,bottom:5+ScreenUtil().bottomBarHeight),
           height:getHeight(context),
           width: mediaQuery.size.width,
           decoration: BoxDecoration(
@@ -77,8 +77,8 @@ class CustomLetterKeyboard extends StatelessWidget{
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5)
                           ),
-                          width: (ScreenUtil.screenWidthDp - 50 - ((ScreenUtil.screenWidthDp - 55) / 10 * 7))/2,
-                          height: (ScreenUtil.screenWidthDp - 55) / 6.6,
+                          width: (ScreenUtil().screenWidth - 50 - ((ScreenUtil().screenWidth - 55) / 10 * 7))/2,
+                          height: (ScreenUtil().screenWidth - 55) / 6.6,
                           child: Icon(Icons.keyboard_hide,size: 25)
                         ),
                       ),
@@ -106,8 +106,8 @@ class CustomLetterKeyboard extends StatelessWidget{
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(5)
                           ),
-                          width: (ScreenUtil.screenWidthDp - 50 - ((ScreenUtil.screenWidthDp - 55) / 10 * 7))/2,
-                          height: (ScreenUtil.screenWidthDp - 55) / 6.6,
+                          width: (ScreenUtil().screenWidth - 50 - ((ScreenUtil().screenWidth - 55) / 10 * 7))/2,
+                          height: (ScreenUtil().screenWidth - 55) / 6.6,
                           child: Image.asset(ImageHelper.wrapAssets('keyboard_delete.png'))
                         ),
                       ),
@@ -128,8 +128,8 @@ class CustomLetterKeyboard extends StatelessWidget{
     }
     return Container(
       margin: EdgeInsets.only(right: 5),
-      width: (ScreenUtil.screenWidthDp - 55) / 10,
-      height: (ScreenUtil.screenWidthDp - 55) / 6.6,
+      width: (ScreenUtil().screenWidth - 55) / 10,
+      height: (ScreenUtil().screenWidth - 55) / 6.6,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5)

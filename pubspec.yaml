@@ -23,27 +23,27 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   cool_ui:  ^0.4.1
-  device_info: ^0.4.2+2
-  package_info: ^0.4.0+17
+  device_info: ^0.4.2+9
+  package_info: ^0.4.3
   # 屏幕适配
-  flutter_screenutil: ^1.1.0
+  flutter_screenutil: ^3.2.0
   # State
-  provider: ^4.0.5+1
+  provider: ^4.3.2+2
   # UI
   oktoast: ^2.3.2
   # refresh
-  pull_to_refresh: ^1.5.8
+  pull_to_refresh: ^1.6.2
   # banner
   flutter_swiper: ^1.1.6
   cached_network_image: ^2.1.0+1
   # Data
   dio: ^3.0.9
   # 本地存储
-  shared_preferences: ^0.5.7
+  shared_preferences: ^0.5.12+2
   localstorage: ^3.0.2+5
   # event_bus
   event_bus: ^1.1.1
-  url_launcher: ^5.4.5
+  url_launcher: ^5.7.6
   path_provider: ^1.6.5
   # WebView iOS添加键值对 o.flutter.embedded_views_preview = YES
   webview_flutter: ^0.3.20+2

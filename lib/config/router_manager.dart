@@ -121,7 +121,7 @@ class RouteName {
   static const String about = 'about';//关于
 }
 
-class Router {
+class Routers {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.splash:

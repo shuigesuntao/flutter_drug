@@ -7,7 +7,7 @@ class CustomNumberKeyBoard extends StatelessWidget{
   static CKTextInputType inputType = const CKTextInputType(name:'CKCustomNumberKeyBoard');
   static double getHeight(BuildContext ctx){
     MediaQueryData mediaQuery = MediaQuery.of(ctx);
-    return mediaQuery.size.width / 7 * 5 / 3 /1.5 *4 + ScreenUtil.bottomBarHeight;
+    return mediaQuery.size.width / 7 * 5 / 3 /1.5 *4 + ScreenUtil().bottomBarHeight;
   }
   final KeyboardController controller ;
   const CustomNumberKeyBoard({this.controller});
@@ -25,7 +25,7 @@ class CustomNumberKeyBoard extends StatelessWidget{
       child:  DefaultTextStyle(
         style: TextStyle(fontWeight: FontWeight.w500,color: Colors.black,fontSize: 20),
         child: Container(
-          margin: EdgeInsets.only(bottom: ScreenUtil.bottomBarHeight),
+          margin: EdgeInsets.only(bottom: ScreenUtil().bottomBarHeight),
           padding: EdgeInsets.only(bottom: 1),
           height:getHeight(context),
           width: mediaQuery.size.width,

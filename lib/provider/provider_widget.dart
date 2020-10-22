@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 /// Provider封装类
 ///
@@ -42,9 +42,9 @@ class _ProviderWidgetState<T extends ChangeNotifier>
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<T>(
+    return P.ChangeNotifierProvider<T>(
       create: (context) => model,
-      child: Consumer<T>(
+      child: P.Consumer<T>(
         builder: widget.builder,
         child: widget.child,
       ),
@@ -99,12 +99,12 @@ class _ProviderWidgetState2<A extends ChangeNotifier, B extends ChangeNotifier>
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return P.MultiProvider(
         providers: [
-          ChangeNotifierProvider<A>(create: (context) => model1),
-          ChangeNotifierProvider<B>(create: (context) => model2)
+          P.ChangeNotifierProvider<A>(create: (context) => model1),
+          P.ChangeNotifierProvider<B>(create: (context) => model2)
         ],
-        child: Consumer2<A, B>(
+        child: P.Consumer2<A, B>(
           builder: widget.builder,
           child: widget.child,
         ));

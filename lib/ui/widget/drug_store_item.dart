@@ -6,7 +6,7 @@ import 'package:flutter_drug/model/drug.dart';
 import 'package:flutter_drug/view_model/category_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 import 'dialog_drug_category.dart';
 
@@ -17,7 +17,7 @@ class DrugStoreItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CategoryModel>(
+    return P.Consumer<CategoryModel>(
         builder: (context, model, child) => Row(
               children: <Widget>[
                 CachedNetworkImage(
@@ -83,7 +83,7 @@ class DrugStoreItem extends StatelessWidget {
                       isScrollControlled:true,
                       context: context,
                       builder: (context) =>
-                          ChangeNotifierProvider<CategoryModel>.value(
+                          P.ChangeNotifierProvider<CategoryModel>.value(
                               value: model,
                               child: DialogDrugCategory(
                                   price: getSinglePrice(drugs)))),

@@ -6,7 +6,7 @@ import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/service_setting_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class ServiceSettingPage extends StatefulWidget {
   @override
@@ -310,7 +310,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
   }
 
   Widget _buildAskSwitch() {
-    return Consumer<ServiceSettingModel>(builder: (context, model, child) {
+    return P.Consumer<ServiceSettingModel>(builder: (context, model, child) {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 2),
         child: Row(
@@ -339,7 +339,7 @@ class _ServiceSettingPageState extends State<ServiceSettingPage> {
   }
 
   Widget _buildPriceSwitch() {
-    return Consumer<ServiceSettingModel>(builder: (context, model, child) {
+    return P.Consumer<ServiceSettingModel>(builder: (context, model, child) {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 2),
         child: Row(

@@ -6,7 +6,7 @@ import 'package:flutter_drug/provider/provider_widget.dart';
 import 'package:flutter_drug/provider/view_state_widget.dart';
 import 'package:flutter_drug/view_model/prescription_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' hide BuildContext;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PrescriptionFormWorkListPage extends StatefulWidget {

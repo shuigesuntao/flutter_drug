@@ -6,7 +6,7 @@ import 'package:flutter_drug/ui/widget/me_header.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 import 'package:url_launcher/url_launcher.dart';
 
 class MyPage extends StatefulWidget {
@@ -48,7 +48,7 @@ class UserListWidget extends StatelessWidget {
     return ListTileTheme(
       child: ListView(
         children: <Widget>[
-          Consumer<UserModel>(
+          P.Consumer<UserModel>(
               builder: (context, model, child) => InkWell(
                     onTap: () =>
                         Navigator.of(context).pushNamed(RouteName.userInfo),

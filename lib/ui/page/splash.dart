@@ -20,8 +20,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 375, height: 667);
-
+    ScreenUtil.init(context, designSize: Size(375,667),allowFontScaling: false);
     return Scaffold(
       body: WillPopScope(
           onWillPop: () => Future.value(false),

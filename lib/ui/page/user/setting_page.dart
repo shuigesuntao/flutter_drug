@@ -5,7 +5,7 @@ import 'package:flutter_drug/config/router_manager.dart';
 import 'package:flutter_drug/ui/widget/titlebar.dart';
 import 'package:flutter_drug/view_model/user_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as P;
 
 class SettingPage extends StatelessWidget{
   @override
@@ -25,7 +25,7 @@ class SettingPage extends StatelessWidget{
           SizedBox(height: ScreenUtil().setWidth(100)),
           GestureDetector(
             onTap: () {
-              Provider.of<UserModel>(context,listen: false).clearUser();
+              P.Provider.of<UserModel>(context,listen: false).clearUser();
               Navigator.pushNamedAndRemoveUntil(context, "/", (route) => route == null);
             },
             child: Container(
