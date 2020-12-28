@@ -36,7 +36,7 @@ class _AddressBookPageState extends State<AddressBookPage>
           backgroundColor: Colors.white,
           centerTitle: true,
           leading: widget.onItemClick == null ? null : TitleBar.leading(
-            context, () => Navigator.maybePop(context)),
+            context, () => Navigator.pop(context)),
           title: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,7 +60,7 @@ class _AddressBookPageState extends State<AddressBookPage>
                       context) => PrescriptionPersonSearchPage(
                       onItemClick: widget.onItemClick))).then((data) {
                       if (data == 'pop') {
-                        Navigator.maybePop(context);
+                        Navigator.pop(context);
                       }
                     });
                   }
@@ -91,7 +91,7 @@ class _AddressBookPageState extends State<AddressBookPage>
 //                    RouteName.friendInfo, arguments: model);
 //                } else {
 //                  widget.onItemClick(model);
-//                  Navigator.maybePop(context);
+//                  Navigator.pop(context);
 //                }
               },
               isShowIndex: model.isShowSuspension

@@ -21,7 +21,7 @@ class CustomDialogAlert extends Dialog {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          GestureDetector(onTap: () => Navigator.maybePop(context)),
+          GestureDetector(onTap: () => Navigator.pop(context)),
           Center(
             child: Container(
                 margin: EdgeInsets.all(40),

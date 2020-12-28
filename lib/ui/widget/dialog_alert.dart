@@ -23,7 +23,7 @@ class DialogAlert extends StatelessWidget {
             if(onCancelPressed!= null){
               onCancelPressed();
             }
-            Navigator.maybePop(context);
+            Navigator.pop(context);
           },
         ),
         CupertinoDialogAction(

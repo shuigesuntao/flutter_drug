@@ -97,7 +97,7 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
                                 if (widget.onCancelPressed != null) {
                                   widget.onCancelPressed();
                                 }
-                                Navigator.maybePop(context);
+                                Navigator.pop(context);
                               },
                               child: Text(widget.cancelText, textAlign: TextAlign.center,
                                 style: TextStyle(color: Colors.grey))
@@ -115,7 +115,7 @@ class _CustomInputDialogState extends State<CustomInputDialog>{
                                     _controller.text = '${widget.maxValue}';
                                   }else{
                                     widget.onPressed(_controller.text);
-                                    Navigator.maybePop(context);
+                                    Navigator.pop(context);
                                   }
                                 }
                               },

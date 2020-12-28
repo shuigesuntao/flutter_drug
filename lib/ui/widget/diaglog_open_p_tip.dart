@@ -23,7 +23,7 @@ class TipDialog extends StatelessWidget{
                   child: Icon(Icons.close, color: Theme
                     .of(context)
                     .primaryColor, size: ScreenUtil().setWidth(20)),
-                  onTap: () => Navigator.maybePop(context)),
+                  onTap: () => Navigator.pop(context)),
                 right: ScreenUtil().setWidth(10),
                 top: ScreenUtil().setWidth(10),
               ),

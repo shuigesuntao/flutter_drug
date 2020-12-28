@@ -9,6 +9,8 @@ import 'package:flutter_drug/view_model/firend_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart' hide BuildContext;
 
+import 'p_open_page.dart';
+
 
 class PrescriptionChoosePersonPage extends StatelessWidget {
 
@@ -51,7 +53,7 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: GestureDetector(
-//                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:false))),
+                     onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:false))),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -80,7 +82,7 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                   SizedBox(width: ScreenUtil().setWidth(8)),
                   Expanded(
                     child:GestureDetector(
-//                      onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:true))),
+                     onTap: ()=> Navigator.push(context,CupertinoPageRoute(builder: (context)=>PrescriptionOpenPage(friend:null,isWeChat:true))),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -116,10 +118,10 @@ class PrescriptionChoosePersonPage extends StatelessWidget {
                   itemBuilder: (context, model) => FriendItemWidget(
                     friend:model,
                     onItemClick:(model){
-//                      Navigator.of(context).pushNamed(
-//                        RouteName.openPrescription,
-//                        arguments: model
-//                      );
+                     Navigator.of(context).pushNamed(
+                       RouteName.openPrescription,
+                       arguments: model
+                     );
                     },
                     isShowIndex:model.isShowSuspension
                   ),

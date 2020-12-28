@@ -444,7 +444,7 @@ class _ConfirmOrderPageState extends State<ConfirmOrderPage>{
         setState(() {
           _payWay = way == '微信支付' ? 1 : 2;
         });
-        Navigator.maybePop(context);
+        Navigator.pop(context);
       },
       child: Text(way))).toList();
   }

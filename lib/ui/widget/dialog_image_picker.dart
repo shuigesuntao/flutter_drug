@@ -13,7 +13,7 @@ class DialogImagePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoActionSheet(
       cancelButton: CupertinoActionSheetAction(
-        onPressed: ()=> Navigator.maybePop(context),
+        onPressed: ()=> Navigator.pop(context),
         child: Text('取消')
       ),
       actions: <Widget>[
@@ -30,7 +30,7 @@ class DialogImagePicker extends StatelessWidget {
   }
 
   void _selectImage(BuildContext context, bool isCamera) async {
-    Navigator.maybePop(context);
+    Navigator.pop(context);
     if (onImageSelected != null) {
       onImageSelected(await ImagePicker.pickImage(
         source: isCamera ? ImageSource.camera : ImageSource.gallery));

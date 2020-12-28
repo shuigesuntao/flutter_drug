@@ -29,7 +29,7 @@ class DialogDrugCategory extends StatelessWidget {
                   onTap: () {
                     model.selectedCategory = model.currentCategory;
                     model.selectedDrugStore = model.currentDrugStore;
-                    Navigator.maybePop(context);
+                    Navigator.pop(context);
                   })
               ],
             ),

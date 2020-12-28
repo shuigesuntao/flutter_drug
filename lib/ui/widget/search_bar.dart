@@ -95,7 +95,7 @@ class _SearchBarState extends State<SearchBar> {
                   child:  GestureDetector(
                     onTap: (){
                       FocusScope.of(context).unfocus();
-                      Navigator.maybePop(context);
+                      Navigator.pop(context);
                     },
                     child: Center(
                       child: Text('取消',style: TextStyle(color: Colors.grey,fontSize: ScreenUtil().setSp(15))),

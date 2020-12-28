@@ -13,6 +13,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart' as P;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:rongcloud_im_plugin/rongcloud_im_plugin.dart';
 import 'config/router_manager.dart';
 import 'event/event_bus.dart';
 
@@ -24,6 +25,7 @@ void main() async {
   CustomLetterKeyboard.register();
   CustomEditDrugBoard.register();
   runApp(KeyboardRootWidget(child:App()));
+  RongIMClient.init('aaa');
   // Android状态栏透明
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(statusBarColor: Colors.transparent));

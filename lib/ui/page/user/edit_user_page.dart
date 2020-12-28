@@ -98,7 +98,7 @@ class _EditUserPageState extends State<EditUserPage>{
               builder: (context) => CupertinoActionSheet(
                 message: Text('请选择'),
                 cancelButton: CupertinoActionSheetAction(
-                  onPressed: () => Navigator.maybePop(context),
+                  onPressed: () => Navigator.pop(context),
                   child: Text('取消')),
                 actions: _buildLevelActions(),
               )),
@@ -267,7 +267,7 @@ class _EditUserPageState extends State<EditUserPage>{
         setState(() {
           _gender = gender;
         });
-        Navigator.maybePop(context);
+        Navigator.pop(context);
       },
       child: Text(gender))).toList();
   }
@@ -287,7 +287,7 @@ class _EditUserPageState extends State<EditUserPage>{
         setState(() {
           _level = level;
         });
-        Navigator.maybePop(context);
+        Navigator.pop(context);
       },
       child: Text(level)))
       .toList();

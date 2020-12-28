@@ -356,17 +356,17 @@ class _EditDrugAppBarState extends State<EditDrugAppBar> {
                                       return DialogAlert(
                                         content: '是否保存当前处方？',
                                         onPressed: () {
-                                          Navigator.maybePop(context);
+                                          Navigator.pop(context);
                                           Navigator.of(context)
                                               .pop(widget.drugs);
                                         },
                                         onCancelPressed: () {
-                                          Navigator.maybePop(context);
+                                          Navigator.pop(context);
                                         },
                                       );
                                     });
                               } else {
-                                Navigator.maybePop(context);
+                                Navigator.pop(context);
                               }
                             },
                           ),

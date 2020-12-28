@@ -42,7 +42,7 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                   child: FlatButton(
                     child: Text('取消', style: TextStyle(
                       color: Colors.grey[700],fontSize: ScreenUtil().setSp(14))),
-                    onPressed: () => Navigator.maybePop(context)
+                    onPressed: () => Navigator.pop(context)
                   ),
                 ),
                 Text('复诊及随访时间',style: TextStyle(fontSize: ScreenUtil().setSp(15))),
@@ -55,7 +55,7 @@ class _DialogFuzhenTimeState extends State<DialogFuzhenTime>{
                         .primaryColor,fontSize: ScreenUtil().setSp(14))),
                     onPressed: (){
                       widget.onConfirm(fuzhenTime,suifangTime);
-                      Navigator.maybePop(context);
+                      Navigator.pop(context);
                     }
                   ),
                 ),

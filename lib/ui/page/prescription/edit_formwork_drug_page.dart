@@ -40,7 +40,7 @@ class _EditFormWorkDrugPageState extends State<EditFormWorkDrugPage> {
                   content: '是否清空所有已编辑药材',
                   onPressed: () {
                     setState(()=>widget.drugs.clear());
-                    Navigator.maybePop(context);
+                    Navigator.pop(context);
                   },
                 );
               }),

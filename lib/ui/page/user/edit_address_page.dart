@@ -60,13 +60,13 @@ class EditAddressPageState extends State<EditAddressPage> {
                   CupertinoDialogAction(
                     child: Text("确认"),
                     onPressed: () {
-                      Navigator.maybePop(context);
-                      Navigator.maybePop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                     },
                   ),
                   CupertinoDialogAction(
                     child: Text("取消"),
-                    onPressed: () => Navigator.maybePop(context)),
+                    onPressed: () => Navigator.pop(context)),
                 ],
               );
             })
@@ -77,7 +77,7 @@ class EditAddressPageState extends State<EditAddressPage> {
             return;
           }
           widget.address?.area = _area;
-          Navigator.maybePop(context);
+          Navigator.pop(context);
         }),
         resizeToAvoidBottomPadding: false,
         body: Column(

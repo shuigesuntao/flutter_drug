@@ -144,10 +144,10 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                 content: '是否保存为临时处方？',
                 onPressed: () {
                   print('保存临时处方');
-                  Navigator.maybePop(context);
-                  Navigator.maybePop(context);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
                 },
-                onCancelPressed: () => Navigator.maybePop(context),
+                onCancelPressed: () => Navigator.pop(context),
               );
             });
       }),
@@ -376,7 +376,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                       builder: (context) => CupertinoActionSheet(
                             message: Text('请选择'),
                             cancelButton: CupertinoActionSheetAction(
-                                onPressed: () => Navigator.maybePop(context),
+                                onPressed: () => Navigator.pop(context),
                                 child: Text('取消')),
                             actions: _buildGenderActions(),
                           )),
@@ -498,7 +498,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               setState(() {
                 _gender = gender;
               });
-              Navigator.maybePop(context);
+              Navigator.pop(context);
             },
             child: Text(gender)))
         .toList();
@@ -732,7 +732,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
               setState(() {
                 _ml = ml;
               });
-              Navigator.maybePop(context);
+              Navigator.pop(context);
             },
             child: Text(ml)))
         .toList();
@@ -770,7 +770,7 @@ class PrescriptionOpenPageState extends State<PrescriptionOpenPage> {
                         builder: (context) => CupertinoActionSheet(
                           message: Text('请选择'),
                           cancelButton: CupertinoActionSheetAction(
-                            onPressed: () => Navigator.maybePop(context),
+                            onPressed: () => Navigator.pop(context),
                             child: Text('取消')),
                           actions: _buildCountOfBagActions(),
                         )),

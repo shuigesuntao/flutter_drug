@@ -209,7 +209,7 @@ class PickerWidgetState<T> extends State<_PickerWidget> {
             height: 40,
             child: FlatButton(
               child: Text('取消',style: TextStyle(fontSize: 13)),
-              onPressed: () => Navigator.maybePop(context)
+              onPressed: () => Navigator.pop(context)
             ),
           ),
           Text(picker.title??''),

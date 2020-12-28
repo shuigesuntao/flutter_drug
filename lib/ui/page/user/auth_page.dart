@@ -245,7 +245,7 @@ class AuthPageState extends State<AuthPage> {
 //                      userModel.user.name = _name;
 //                      userModel.user.level = _level;
 //                      userModel.saveUser(userModel.user);
-//                      Navigator.maybePop(context);
+//                      Navigator.pop(context);
 //                    },
 //                    child: Container(
 //                        margin: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(15)),
@@ -351,7 +351,7 @@ class AuthPageState extends State<AuthPage> {
           builder: (context) => CupertinoActionSheet(
                 message: Text('请选择'),
                 cancelButton: CupertinoActionSheetAction(
-                    onPressed: () => Navigator.maybePop(context),
+                    onPressed: () => Navigator.pop(context),
                     child: Text('取消')),
                 actions: _buildLevelActions(),
               )),
@@ -433,7 +433,7 @@ class AuthPageState extends State<AuthPage> {
               setState(() {
                 _level = level;
               });
-              Navigator.maybePop(context);
+              Navigator.pop(context);
             },
             child: Text(level)))
         .toList();

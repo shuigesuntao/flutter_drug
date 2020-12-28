@@ -115,7 +115,7 @@ class _ZhenFeiDialogState extends State<ZhenFeiDialog>{
                             child: FlatButton(
                               child: Text('取消', style: TextStyle(
                                 color: Colors.grey[700],fontSize: ScreenUtil().setSp(14))),
-                              onPressed: () => Navigator.maybePop(context)
+                              onPressed: () => Navigator.pop(context)
                             ),
                           ),
                           Text('设置诊费'),
@@ -136,7 +136,7 @@ class _ZhenFeiDialogState extends State<ZhenFeiDialog>{
                                   }
                                 }
                                 widget.onConfirm(selected,isHide);
-                                Navigator.maybePop(context);
+                                Navigator.pop(context);
                               }
                             ),
                           ),

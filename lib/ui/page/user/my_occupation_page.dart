@@ -35,7 +35,7 @@ class MyOccupationPageState extends State<MyOccupationPage> {
                     height: 16,
                   ),
                   onPressed: () {
-                    Navigator.maybePop(context);
+                    Navigator.pop(context);
                   },
                 ),
               ),

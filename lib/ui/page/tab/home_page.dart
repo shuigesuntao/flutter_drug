@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage>
                                   CupertinoDialogAction(
                                     child: Text("取消"),
                                     onPressed: () {
-                                      Navigator.maybePop(context);
+                                      Navigator.pop(context);
                                       print("取消");
                                     },
                                   ),

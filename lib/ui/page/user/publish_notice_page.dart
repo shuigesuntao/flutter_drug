@@ -148,7 +148,7 @@ class _PublishNoticePageState extends State<PublishNoticePage> {
                     builder: (context) => CupertinoActionSheet(
                           message: Text('请选择'),
                           cancelButton: CupertinoActionSheetAction(
-                              onPressed: () => Navigator.maybePop(context),
+                              onPressed: () => Navigator.pop(context),
                               child: Text('取消')),
                           actions: _buildDateActions(model),
                         )),

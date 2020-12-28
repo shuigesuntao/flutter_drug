@@ -45,7 +45,7 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          GestureDetector(onTap: ()=>Navigator.maybePop(context)),
+          GestureDetector(onTap: ()=>Navigator.pop(context)),
           Center(
             child: Container(
               height: 200,
@@ -96,7 +96,7 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
                             ),
                             child: Text('跳过',style: TextStyle(color:Colors.grey[700],fontSize: 16))
                           ),
-                          onTap: () => Navigator.maybePop(context))),
+                          onTap: () => Navigator.pop(context))),
                       Expanded(
                         child: GestureDetector(
                           child: Container(
@@ -113,7 +113,7 @@ class _InputDialogWidgetState extends State<InputDialogWidget>{
                           ),
                           onTap: (){
                             widget.onConfirm(_controller.text);
-                            Navigator.maybePop(context);
+                            Navigator.pop(context);
                           }))
                     ],
                   )

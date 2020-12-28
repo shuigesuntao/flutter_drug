@@ -492,7 +492,7 @@ class GenderChooseDialog extends Dialog {
                 right: ScreenUtil().setWidth(55),
                 top: ScreenUtil().setWidth(50),
                 child: GestureDetector(
-                  onTap: ()=> Navigator.maybePop(context),
+                  onTap: ()=> Navigator.pop(context),
                   child: Image.asset(ImageHelper.wrapAssets('icon_shanchu_gray.png'),width: ScreenUtil().setWidth(12),height: ScreenUtil().setWidth(12)),
                 )
               )

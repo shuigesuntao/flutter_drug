@@ -75,7 +75,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
                   child: FlatButton(
                     child: Text('取消', style: TextStyle(
                       color: Colors.grey[700])),
-                    onPressed: () => Navigator.maybePop(context)
+                    onPressed: () => Navigator.pop(context)
                   ),
                 ),
                 Text('用药医嘱',style: TextStyle(fontSize: 15)),
@@ -91,7 +91,7 @@ class _DialogYiZhuSelectState extends State<DialogYiZhuSelect> {
                         showToast('请选择用药医嘱');
                       }else{
                         widget.onConfirm(selectTimeList.join(','),selectJiKouList.join(','));
-                        Navigator.maybePop(context);
+                        Navigator.pop(context);
                       }
                     }
                   ),

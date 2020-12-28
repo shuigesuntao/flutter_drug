@@ -45,7 +45,7 @@ class AboutPageState extends State<AboutPage>{
                       CupertinoDialogAction(
                         child: Text("取消"),
                         onPressed: () {
-                          Navigator.maybePop(context);
+                          Navigator.pop(context);
                           print("取消");
                         },
                       ),
